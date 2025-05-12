@@ -3,7 +3,7 @@
     <title>从全世界路过</title>
     <link href="https://elvescn.github.io/elvescn/feed.xml" rel="self" />
     <link href="https://elvescn.github.io/elvescn" />
-    <updated>2025-05-12T16:23:25+08:00</updated>
+    <updated>2025-05-12T18:14:58+08:00</updated>
     <author>
         <name>精灵</name>
     </author>
@@ -16,16 +16,18 @@
         </author>
         <link href="https://elvescn.github.io/elvescn/blog/cong-quan-shi-jie-lu-guo/"/>
         <id>https://elvescn.github.io/elvescn/blog/cong-quan-shi-jie-lu-guo/</id>
+            <category term="live"/>
 
-        <updated>2025-05-12T16:23:25+08:00</updated>
+        <updated>2025-05-12T16:23:00+08:00</updated>
             <summary>
                 <![CDATA[
-                    从全世界路过
+                    原本想80元10年弄个域名访问家里的NAS，结果钱都掏了才发现山西移动不给公网IP，V4/V6都不给，然后想着不要浪费了域名，搞个网站啥的，就搜来搜去，最终靠Publii+Cloudflare+Github几个工具一起，弄出这么个网站。
                 ]]>
             </summary>
         <content type="html">
             <![CDATA[
-                <p>从全世界路过</p>
+                <p class="msg msg--success">原本想80元10年弄个域名访问家里的NAS，结果钱都掏了才发现山西移动不给公网IP，V4/V6都不给，然后想着不要浪费了域名，搞个网站啥的，就搜来搜去，最终靠Publii+Cloudflare+Github几个工具一起，弄出这么个网站。</p>
+<figure class="post__image"><img loading="lazy"  src="https://elvescn.github.io/elvescn/media/posts/2/Yu-Men-Tou-Xiang.jpg" alt="" width="233" height="233" sizes="(max-width: 48em) 100vw, 100vw" srcset="https://elvescn.github.io/elvescn/media/posts/2/responsive/Yu-Men-Tou-Xiang-xs.jpg 300w ,https://elvescn.github.io/elvescn/media/posts/2/responsive/Yu-Men-Tou-Xiang-sm.jpg 480w ,https://elvescn.github.io/elvescn/media/posts/2/responsive/Yu-Men-Tou-Xiang-md.jpg 768w"></figure>
             ]]>
         </content>
     </entry>
