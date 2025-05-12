@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
-    <title>elvescn</title>
+    <title>从全世界路过</title>
     <link href="https://elvescn.github.io/elvescn/feed.xml" rel="self" />
     <link href="https://elvescn.github.io/elvescn" />
     <updated>2025-05-12T16:23:25+08:00</updated>
@@ -14,8 +14,8 @@
         <author>
             <name>精灵</name>
         </author>
-        <link href="https://elvescn.github.io/elvescn/cong-quan-shi-jie-lu-guo.html"/>
-        <id>https://elvescn.github.io/elvescn/cong-quan-shi-jie-lu-guo.html</id>
+        <link href="https://elvescn.github.io/elvescn/blog/cong-quan-shi-jie-lu-guo/"/>
+        <id>https://elvescn.github.io/elvescn/blog/cong-quan-shi-jie-lu-guo/</id>
 
         <updated>2025-05-12T16:23:25+08:00</updated>
             <summary>

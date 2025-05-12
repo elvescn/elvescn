@@ -1,6 +1,6 @@
 {
     "version": "https://jsonfeed.org/version/1",
-    "title": "elvescn",
+    "title": "从全世界路过",
     "description": "",
     "home_page_url": "https://elvescn.github.io/elvescn",
     "feed_url": "https://elvescn.github.io/elvescn/feed.json",
@@ -10,8 +10,8 @@
     },
     "items": [
         {
-            "id": "https://elvescn.github.io/elvescn/cong-quan-shi-jie-lu-guo.html",
-            "url": "https://elvescn.github.io/elvescn/cong-quan-shi-jie-lu-guo.html",
+            "id": "https://elvescn.github.io/elvescn/blog/cong-quan-shi-jie-lu-guo/",
+            "url": "https://elvescn.github.io/elvescn/blog/cong-quan-shi-jie-lu-guo/",
             "title": "从全世界路过",
             "summary": "从全世界路过",
             "content_html": "<p>从全世界路过</p>",
