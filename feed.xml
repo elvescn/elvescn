@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
     <title>从全世界路过</title>
-    <link href="https://19830920.xyz/feed.xml" rel="self" />
-    <link href="https://19830920.xyz" />
-    <updated>2025-11-03T01:00:25+08:00</updated>
+    <link href="http://19830920.xyz/feed.xml" rel="self" />
+    <link href="http://19830920.xyz" />
+    <updated>2025-11-03T01:40:23+08:00</updated>
     <author>
         <name>精灵</name>
     </author>
-    <id>https://19830920.xyz</id>
+    <id>http://19830920.xyz</id>
 
     <entry>
         <title>冬雪</title>
         <author>
             <name>ebo</name>
         </author>
-        <link href="https://19830920.xyz/blog/dong-xue/"/>
-        <id>https://19830920.xyz/blog/dong-xue/</id>
+        <link href="http://19830920.xyz/blog/dong-xue/"/>
+        <id>http://19830920.xyz/blog/dong-xue/</id>
             <category term="作文"/>
 
         <updated>2025-10-30T21:08:00+08:00</updated>
@@ -36,21 +36,22 @@
         <author>
             <name>精灵</name>
         </author>
-        <link href="https://19830920.xyz/blog/cong-quan-shi-jie-lu-guo/"/>
-        <id>https://19830920.xyz/blog/cong-quan-shi-jie-lu-guo/</id>
+        <link href="http://19830920.xyz/blog/cong-quan-shi-jie-lu-guo/"/>
+        <id>http://19830920.xyz/blog/cong-quan-shi-jie-lu-guo/</id>
             <category term="live"/>
 
         <updated>2025-05-12T16:23:00+08:00</updated>
             <summary>
                 <![CDATA[
-                    原本想80元10年弄个域名访问家里的NAS，结果钱都掏了才发现山西移动不给公网IP，V4/V6都不给，然后想着不要浪费了域名，搞个网站啥的，就搜来搜去，最终靠Publii+Cloudflare+Github几个工具一起，弄出这么个网站。 2025.5.24 碰到个问题解决不了，用cloudflare解析DNS的话，不知道为什么页面只能加载文字，加载不了css，导致页面没法正常访问；换回腾讯云解析的话，国内又访问不了，只能翻墙。
+                    原本想80元10年弄个域名访问家里的NAS，结果钱都掏了才发现山西移动不给公网IP，V4/V6都不给，然后想着不要浪费了域名，搞个网站啥的，就搜来搜去，最终靠Publii+Cloudflare+Github几个工具一起，弄出这么个网站。 2025.5.24 碰到个问题解决不了，用cloudflare解析DNS的话，不知道为什么页面只能加载文字，加载不了css，导致页面没法正常访问；换回腾讯云解析的话，国内又访问不了，只能翻墙。 2025.11.3通过询问AI，终于发现问题了，和域名解析跳转没关系。是在publii里填写地址的时候，一直填的是Github的地址，导致css链接一直链接的是***.github.io的地址，在用域名跳转的时候因为跨域跳转因此会被浏览器拦截，把地址改成19830920.xyz后解决了。
                 ]]>
             </summary>
         <content type="html">
             <![CDATA[
                 <p class="msg msg--success">原本想80元10年弄个域名访问家里的NAS，结果钱都掏了才发现山西移动不给公网IP，V4/V6都不给，然后想着不要浪费了域名，搞个网站啥的，就搜来搜去，最终靠Publii+Cloudflare+Github几个工具一起，弄出这么个网站。</p>
-<figure class="post__image post__image--center"><img loading="lazy"  src="https://19830920.xyz/media/posts/2/Yu-Men-Tou-Xiang-2-3.jpg" alt="首张图片" width="233" height="233"></figure>
+<figure class="post__image post__image--center"><img loading="lazy"  src="http://19830920.xyz/media/posts/2/Yu-Men-Tou-Xiang-2-3.jpg" alt="首张图片" width="233" height="233"></figure>
 <p class="msg--info msg">2025.5.24 碰到个问题解决不了，用cloudflare解析DNS的话，不知道为什么页面只能加载文字，加载不了css，导致页面没法正常访问；换回腾讯云解析的话，国内又访问不了，只能翻墙。</p>
+<p class="msg msg--highlight  msg--success">2025.11.3通过询问AI，终于发现问题了，和域名解析跳转没关系。是在publii里填写地址的时候，一直填的是Github的地址，导致css链接一直链接的是***.github.io的地址，在用域名跳转的时候因为跨域跳转因此会被浏览器拦截，把地址改成19830920.xyz后解决了。</p>
             ]]>
         </content>
     </entry>
@@ -59,8 +60,8 @@
         <author>
             <name>精灵</name>
         </author>
-        <link href="https://19830920.xyz/blog/2ren-shi-zong-de-tai-yuan-tian-ran-qi-bao-zha/"/>
-        <id>https://19830920.xyz/blog/2ren-shi-zong-de-tai-yuan-tian-ran-qi-bao-zha/</id>
+        <link href="http://19830920.xyz/blog/2ren-shi-zong-de-tai-yuan-tian-ran-qi-bao-zha/"/>
+        <id>http://19830920.xyz/blog/2ren-shi-zong-de-tai-yuan-tian-ran-qi-bao-zha/</id>
 
         <updated>2025-05-06T01:11:00+08:00</updated>
             <summary>
@@ -88,8 +89,8 @@
         <author>
             <name>精灵</name>
         </author>
-        <link href="https://19830920.xyz/blog/yang-guo-de-jing-li/"/>
-        <id>https://19830920.xyz/blog/yang-guo-de-jing-li/</id>
+        <link href="http://19830920.xyz/blog/yang-guo-de-jing-li/"/>
+        <id>http://19830920.xyz/blog/yang-guo-de-jing-li/</id>
 
         <updated>2022-12-25T18:13:00+08:00</updated>
             <summary>
@@ -116,8 +117,8 @@
         <author>
             <name>精灵</name>
         </author>
-        <link href="https://19830920.xyz/blog/ye-xiang-shou-liao-xia-shang-men-he-suan/"/>
-        <id>https://19830920.xyz/blog/ye-xiang-shou-liao-xia-shang-men-he-suan/</id>
+        <link href="http://19830920.xyz/blog/ye-xiang-shou-liao-xia-shang-men-he-suan/"/>
+        <id>http://19830920.xyz/blog/ye-xiang-shou-liao-xia-shang-men-he-suan/</id>
 
         <updated>2022-12-03T01:16:00+08:00</updated>
             <summary>
