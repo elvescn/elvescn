@@ -14,8 +14,8 @@
         <author>
             <name>ebo</name>
         </author>
-        <link href="http://19830920.xyz/blog/dong-xue/"/>
-        <id>http://19830920.xyz/blog/dong-xue/</id>
+        <link href="http://19830920.xyz/dong-xue.html"/>
+        <id>http://19830920.xyz/dong-xue.html</id>
             <category term="作文"/>
 
         <updated>2025-10-30T21:08:00+08:00</updated>
@@ -36,8 +36,8 @@
         <author>
             <name>精灵</name>
         </author>
-        <link href="http://19830920.xyz/blog/cong-quan-shi-jie-lu-guo/"/>
-        <id>http://19830920.xyz/blog/cong-quan-shi-jie-lu-guo/</id>
+        <link href="http://19830920.xyz/cong-quan-shi-jie-lu-guo.html"/>
+        <id>http://19830920.xyz/cong-quan-shi-jie-lu-guo.html</id>
             <category term="live"/>
 
         <updated>2025-05-12T16:23:00+08:00</updated>
@@ -49,7 +49,7 @@
         <content type="html">
             <![CDATA[
                 <p class="msg msg--success">原本想80元10年弄个域名访问家里的NAS，结果钱都掏了才发现山西移动不给公网IP，V4/V6都不给，然后想着不要浪费了域名，搞个网站啥的，就搜来搜去，最终靠Publii+Cloudflare+Github几个工具一起，弄出这么个网站。</p>
-<figure class="post__image post__image--center"><img loading="lazy"  src="http://19830920.xyz/media/posts/2/Yu-Men-Tou-Xiang-2-3.jpg" alt="首张图片" width="233" height="233"></figure>
+<figure class="post__image post__image--center"><img loading="lazy"  src="http://19830920.xyz/media/posts/2/Yu-Men-Tou-Xiang-2-3.jpg" alt="首张图片" width="233" height="233" sizes="(max-width: 48em) 100vw, 100vw" srcset="http://19830920.xyz/media/posts/2/responsive/Yu-Men-Tou-Xiang-2-3-xs.jpg 300w ,http://19830920.xyz/media/posts/2/responsive/Yu-Men-Tou-Xiang-2-3-sm.jpg 480w ,http://19830920.xyz/media/posts/2/responsive/Yu-Men-Tou-Xiang-2-3-md.jpg 768w"></figure>
 <p class="msg--info msg">2025.5.24 碰到个问题解决不了，用cloudflare解析DNS的话，不知道为什么页面只能加载文字，加载不了css，导致页面没法正常访问；换回腾讯云解析的话，国内又访问不了，只能翻墙。</p>
 <p class="msg msg--highlight  msg--success">2025.11.3通过询问AI，终于发现问题了，和域名解析跳转没关系。是在publii里填写地址的时候，一直填的是Github的地址，导致css链接一直链接的是***.github.io的地址，在用域名跳转的时候因为跨域跳转因此会被浏览器拦截，把地址改成19830920.xyz后解决了。</p>
             ]]>
@@ -60,8 +60,8 @@
         <author>
             <name>精灵</name>
         </author>
-        <link href="http://19830920.xyz/blog/2ren-shi-zong-de-tai-yuan-tian-ran-qi-bao-zha/"/>
-        <id>http://19830920.xyz/blog/2ren-shi-zong-de-tai-yuan-tian-ran-qi-bao-zha/</id>
+        <link href="http://19830920.xyz/2ren-shi-zong-de-tai-yuan-tian-ran-qi-bao-zha.html"/>
+        <id>http://19830920.xyz/2ren-shi-zong-de-tai-yuan-tian-ran-qi-bao-zha.html</id>
 
         <updated>2025-05-06T01:11:00+08:00</updated>
             <summary>
@@ -88,8 +88,8 @@
         <author>
             <name>精灵</name>
         </author>
-        <link href="http://19830920.xyz/blog/yang-guo-de-jing-li/"/>
-        <id>http://19830920.xyz/blog/yang-guo-de-jing-li/</id>
+        <link href="http://19830920.xyz/yang-guo-de-jing-li.html"/>
+        <id>http://19830920.xyz/yang-guo-de-jing-li.html</id>
 
         <updated>2022-12-25T18:13:00+08:00</updated>
             <summary>
@@ -107,7 +107,7 @@
 <p class="msg msg--info">周四，第5天：个人感觉不烧了，结果一量还有37.5℃，头疼，嗓子也开始明显疼痛，一直想咳嗽，越咳嗽越疼。鼻涕不停，眼睛感觉有点肿胀，一直喝水还是感觉口干。另外发现这病毒有麻痹膀胱感觉的副作用，因为晚上总是不停喝水，所以每次起来喝水我都会先上厕所后再喝一大杯水，然后就发现每次尿量都不小，照以往的习惯，这尿量膀胱早就会感觉胀，会有明显的尿意了，结果这时候每次都没感觉。</p>
 <p class="msg msg--info">周五，第6天，持续低烧，38℃上下，晚上咳嗽异常厉害，睡都睡不好，也没痰，就是干咳。</p>
 <p class="msg msg--info">周六，第7天，突然不烧了，就剩下了咳嗽。因为眼鼻口感觉肿胀的原因，喝了点金银花颗粒，下下火；因为咳嗽，又吃了点甘草片，但感觉作用不大。本人离杨康不远了，然后：媳妇和孩子开始了。。。</p>
-<p><img loading="lazy" src="https://i0.wp.com/myhjblog.wordpress.com/wp-content/uploads/2022/12/43eefc2ac008746430e600b6b04699d.jpg?resize=816%2C612&amp;ssl=1"></p>
+<p><img loading="lazy" src="https://i0.wp.com/myhjblog.wordpress.com/wp-content/uploads/2022/12/43eefc2ac008746430e600b6b04699d.jpg?resize=816%2C612&amp;ssl=1" data-is-external-image="true"></p>
             ]]>
         </content>
     </entry>
@@ -116,8 +116,8 @@
         <author>
             <name>精灵</name>
         </author>
-        <link href="http://19830920.xyz/blog/ye-xiang-shou-liao-xia-shang-men-he-suan/"/>
-        <id>http://19830920.xyz/blog/ye-xiang-shou-liao-xia-shang-men-he-suan/</id>
+        <link href="http://19830920.xyz/ye-xiang-shou-liao-xia-shang-men-he-suan.html"/>
+        <id>http://19830920.xyz/ye-xiang-shou-liao-xia-shang-men-he-suan.html</id>
 
         <updated>2022-12-03T01:16:00+08:00</updated>
             <summary>
@@ -128,7 +128,7 @@
         <content type="html">
             <![CDATA[
                 <p class="msg--highlight msg msg--success">因为孩子学校的原因，孩子成了密接，我们就成了需要上门核酸的居家人员。</p>
-<p><img loading="lazy" src="https://i0.wp.com/myhjblog.wordpress.com/wp-content/uploads/2022/12/img_20221203_155546.jpg?resize=816%2C1087&amp;ssl=1"></p>
+<p><img loading="lazy" src="https://i0.wp.com/myhjblog.wordpress.com/wp-content/uploads/2022/12/img_20221203_155546.jpg?resize=816%2C1087&amp;ssl=1" data-is-external-image="true"></p>
             ]]>
         </content>
     </entry>
