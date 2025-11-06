@@ -28,8 +28,8 @@
             "id": "http://19830920.xyz/post/cong-quan-shi-jie-lu-guo/index.html",
             "url": "http://19830920.xyz/post/cong-quan-shi-jie-lu-guo/index.html",
             "title": "从全世界路过",
-            "summary": "原本想80元10年弄个域名访问家里的NAS，结果钱都掏了才发现山西移动不给公网IP，V4/V6都不给，然后想着不要浪费了域名，搞个网站啥的，就搜来搜去，最终靠Publii+Cloudflare+Github几个工具一起，弄出这么个网站。 2025.5.24 碰到个问题解决不了，用cloudflare解析DNS的话，不知道为什么页面只能加载文字，加载不了css，导致页面没法正常访问；换回腾讯云解析的话，国内又访问不了，只能翻墙。 2025.11.3通过询问AI，终于发现问题了，和域名解析跳转没关系。是在publii里填写地址的时候，一直填的是Github的地址，导致css链接一直链接的是***.github.io的地址，在用域名跳转的时候因为跨域跳转因此会被浏览器拦截，把地址改成19830920.xyz后解决了。",
-            "content_html": "<p class=\"msg msg--success\">原本想80元10年弄个域名访问家里的NAS，结果钱都掏了才发现山西移动不给公网IP，V4/V6都不给，然后想着不要浪费了域名，搞个网站啥的，就搜来搜去，最终靠Publii+Cloudflare+Github几个工具一起，弄出这么个网站。</p>\n<figure class=\"post__image post__image--center\"><img loading=\"lazy\"  src=\"http://19830920.xyz/media/posts/2/Yu-Men-Tou-Xiang-2-3.jpg\" alt=\"首张图片\" width=\"233\" height=\"233\"></figure>\n<p class=\"msg--info msg\">2025.5.24 碰到个问题解决不了，用cloudflare解析DNS的话，不知道为什么页面只能加载文字，加载不了css，导致页面没法正常访问；换回腾讯云解析的话，国内又访问不了，只能翻墙。</p>\n<p class=\"msg msg--highlight  msg--success\">2025.11.3通过询问AI，终于发现问题了，和域名解析跳转没关系。是在publii里填写地址的时候，一直填的是Github的地址，导致css链接一直链接的是***.github.io的地址，在用域名跳转的时候因为跨域跳转因此会被浏览器拦截，把地址改成19830920.xyz后解决了。</p>",
+            "summary": "2025.5.12原本想80元10年弄个域名访问家里的NAS，结果钱都掏了才发现山西移动不给公网IP，V4/V6都不给，然后想着不要浪费了域名，搞个网站啥的，就搜来搜去，最终靠Publii+Cloudflare+Github几个工具一起，弄出这么个网站。 2025.5.24 碰到个问题解决不了，用cloudflare解析DNS的话，不知道为什么页面只能加载文字，加载不了css，导致页面没法正常访问；换回腾讯云解析的话，国内又访问不了，只能翻墙。 2025.11.3通过询问AI，终于发现问题了，和域名解析跳转没关系。是在publii里填写地址的时候，一直填的是Github的地址，导致css链接一直链接的是***.github.io的地址，在用域名跳转的时候因为跨域跳转因此会被浏览器拦截，把地址改成19830920.xyz后解决了。",
+            "content_html": "<p class=\"msg msg--success\">2025.5.12原本想80元10年弄个域名访问家里的NAS，结果钱都掏了才发现山西移动不给公网IP，V4/V6都不给，然后想着不要浪费了域名，搞个网站啥的，就搜来搜去，最终靠Publii+Cloudflare+Github几个工具一起，弄出这么个网站。</p>\n<p class=\"msg--info msg\">2025.5.24 碰到个问题解决不了，用cloudflare解析DNS的话，不知道为什么页面只能加载文字，加载不了css，导致页面没法正常访问；换回腾讯云解析的话，国内又访问不了，只能翻墙。</p>\n<p class=\"msg msg--highlight  msg--success\">2025.11.3通过询问AI，终于发现问题了，和域名解析跳转没关系。是在publii里填写地址的时候，一直填的是Github的地址，导致css链接一直链接的是***.github.io的地址，在用域名跳转的时候因为跨域跳转因此会被浏览器拦截，把地址改成19830920.xyz后解决了。</p>\n<figure class=\"post__image align-center\"><img loading=\"lazy\"  src=\"http://19830920.xyz/media/posts/2/Yumen.jpg\" alt=\"\" width=\"233\" height=\"233\"></figure>",
             "author": {
                 "name": "Zhibin"
             },
@@ -37,7 +37,7 @@
                    "互联网"
             ],
             "date_published": "2025-05-12T16:23:00+08:00",
-            "date_modified": "2025-11-06T10:20:05+08:00"
+            "date_modified": "2025-11-06T11:17:18+08:00"
         },
         {
             "id": "http://19830920.xyz/post/2ren-shi-zong-de-tai-yuan-tian-ran-qi-bao-zha/index.html",
@@ -119,7 +119,7 @@
             "url": "http://19830920.xyz/post/jie-chu-wei-xin-de-shi-jian/index.html",
             "title": "接触微信的时间",
             "summary": "微信弄了个“2016微信公开课Pro版”，到里面查询了下自己的信息，显示： 2011年1月25日注册的微信，是微信第52121个用户，2012年6月2日发了第一条朋友圈，第一个好友是Ronnie.Deng。",
-            "content_html": "<p>　　微信弄了个“2016微信公开课Pro版”，到里面查询了下自己的信息，显示：</p>\n<p class=\"msg msg--highlight \">2011年1月25日注册的微信，是微信第52121个用户，2012年6月2日发了第一条朋友圈，第一个好友是Ronnie.Deng。</p>\n<figure class=\"post__image align-center\"><img loading=\"lazy\"  src=\"D:\\笔记\\附件\\image2016-01-10 星期日.png\" alt=\"\" width=\"451\" height=\"802\"></figure>",
+            "content_html": "<p>　　微信弄了个“2016微信公开课Pro版”，到里面查询了下自己的信息，显示：</p>\n<p class=\"msg msg--highlight \">2011年1月25日注册的微信，是微信第52121个用户，2012年6月2日发了第一条朋友圈，第一个好友是Ronnie.Deng。</p>\n<figure class=\"post__image\"><img loading=\"lazy\"  src=\"http://19830920.xyz/media/posts/15/image2016-01-10-Xing-Qi-Ri.jpg\" alt=\"\" width=\"442\" height=\"786\"></figure>",
             "author": {
                 "name": "Zhibin"
             },
@@ -127,7 +127,7 @@
                    "互联网"
             ],
             "date_published": "2016-01-10T10:42:00+08:00",
-            "date_modified": "2025-11-06T11:02:16+08:00"
+            "date_modified": "2025-11-06T11:10:01+08:00"
         },
         {
             "id": "http://19830920.xyz/post/da-kuang-quan-yi-miao/index.html",
