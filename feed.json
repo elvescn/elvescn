@@ -6,7 +6,7 @@
     "feed_url": "http://19830920.xyz/feed.json",
     "user_comment": "",
     "author": {
-        "name": "elves"
+        "name": "Zhibin"
     },
     "items": [
         {
@@ -34,10 +34,10 @@
                 "name": "Zhibin"
             },
             "tags": [
-                   "生活"
+                   "互联网"
             ],
             "date_published": "2025-05-12T16:23:00+08:00",
-            "date_modified": "2025-11-05T13:22:36+08:00"
+            "date_modified": "2025-11-06T10:20:05+08:00"
         },
         {
             "id": "http://19830920.xyz/post/2ren-shi-zong-de-tai-yuan-tian-ran-qi-bao-zha/index.html",
@@ -115,6 +115,21 @@
             "date_modified": "2025-11-05T13:22:10+08:00"
         },
         {
+            "id": "http://19830920.xyz/post/jie-chu-wei-xin-de-shi-jian/index.html",
+            "url": "http://19830920.xyz/post/jie-chu-wei-xin-de-shi-jian/index.html",
+            "title": "接触微信的时间",
+            "summary": "微信弄了个“2016微信公开课Pro版”，到里面查询了下自己的信息，显示： 2011年1月25日注册的微信，是微信第52121个用户，2012年6月2日发了第一条朋友圈，第一个好友是Ronnie.Deng。",
+            "content_html": "<p>　　微信弄了个“2016微信公开课Pro版”，到里面查询了下自己的信息，显示：</p>\n<p class=\"msg msg--highlight \">2011年1月25日注册的微信，是微信第52121个用户，2012年6月2日发了第一条朋友圈，第一个好友是Ronnie.Deng。</p>\n<figure class=\"post__image align-center\"><img loading=\"lazy\"  src=\"D:\\笔记\\附件\\image2016-01-10 星期日.png\" alt=\"\" width=\"451\" height=\"802\"></figure>",
+            "author": {
+                "name": "Zhibin"
+            },
+            "tags": [
+                   "互联网"
+            ],
+            "date_published": "2016-01-10T10:42:00+08:00",
+            "date_modified": "2025-11-06T10:51:05+08:00"
+        },
+        {
             "id": "http://19830920.xyz/post/da-kuang-quan-yi-miao/index.html",
             "url": "http://19830920.xyz/post/da-kuang-quan-yi-miao/index.html",
             "title": "打狂犬疫苗",
@@ -127,7 +142,7 @@
                    "生活"
             ],
             "date_published": "2013-04-23T12:01:00+08:00",
-            "date_modified": "2025-11-05T13:21:38+08:00"
+            "date_modified": "2025-11-06T10:14:19+08:00"
         },
         {
             "id": "http://19830920.xyz/post/zhuan-zheng-shen-qing-shu/index.html",
@@ -142,7 +157,7 @@
                    "生活"
             ],
             "date_published": "2005-09-16T17:18:00+08:00",
-            "date_modified": "2025-11-05T13:22:01+08:00"
+            "date_modified": "2025-11-06T10:16:05+08:00"
         }
     ]
 }
