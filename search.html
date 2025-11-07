@@ -9,7 +9,7 @@
 					const searchTermFromURL = params.get("q") || "";
 	
 					// Fetch data
-					const response = await fetch("/feed.json");
+					const response = await fetch("./feed.json");
 					const jsonData = await response.json();
 					const items = jsonData.items;
 	
