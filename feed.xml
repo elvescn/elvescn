@@ -3,7 +3,7 @@
     <title>从全世界路过</title>
     <link href="http://19830920.xyz/feed.xml" rel="self" />
     <link href="http://19830920.xyz" />
-    <updated>2025-11-08T13:51:41+08:00</updated>
+    <updated>2025-11-08T14:01:57+08:00</updated>
     <author>
         <name>Zhibin</name>
     </author>
@@ -31,21 +31,21 @@
 <p>　　操作环境：<a href="https://developer.android.google.cn/studio?hl=zh-cn" target="_blank" rel="noopener noreferrer">Android Studio</a></p>
 <p>　　让AI指导需要达到的效果：</p>
 <ol>
-<li>各种精简：去掉地址栏；去掉多余权限，仅保留网络权限；去掉刷新进度条，去掉边缘提示。</li>
-<li>禁止访问本网站以外的链接。</li>
-<li>上方预留状态栏位置，下放预留功能键位置。</li>
-<li>下放添加工具栏，添加了“主页”、“Zhibin”、“Yibo”三个链接。</li>
 <li>添加APP图标（用豆包先随意做了个）。</li>
+<li>上方预留状态栏位置，下方预留功能键位置。</li>
+<li>禁止访问本网站以外的链接，不跳转并弹出不让访问的提示。</li>
+<li>下放添加工具栏，添加了“主页”、“Zhibin”、“Yibo”三个链接。</li>
+<li>各种精简：去掉地址栏；去掉多余权限，仅保留网络权限；去掉刷新进度条，去掉边缘提示。</li>
 </ol>
 <p>　　在没有添加工具栏时AI首次给的代码，很快就能运行了，后来添加工具栏的时候，一直闪退，不得已从头一步一步调试，这块浪费的时间较多。</p>
 <p>　　还碰到过一个BUG：APP首次打开的时候返回键可以优先返回，到首页后可以退出，但是退出后再次打开APP，这时无论进入哪个页面，按返回键都会直接退出，也让AI给修复了下。</p>
 <p>　　后续考虑的改进：</p>
 <ol>
 <li>因为封装的是网站的原因，目前打开网页过多会导致返回键要按很多次才能退出，后续需要咨询下AI怎么解决这个问题。</li>
-<li>工具栏的调整，添加个图标，亦或者再增加个二级工具栏啥的，再或者直接加个退出按钮。</li>
-<li>APP图标需要再斟酌斟酌。</li>
+<li>工具栏的调整，给各个工具添加个图标，考虑再增加个二级工具栏啥的，或者再直接加个退出按钮。</li>
+<li>APP图标需要再斟酌设计下。</li>
 </ol>
-<p>APK下载：<a href="/media/files/%E4%BB%8E%E5%85%A8%E4%B8%96%E7%95%8C%E8%B7%AF%E8%BF%87.apk" download="从全世界路过.apk" class="post__image"> 从全世界路过.apk </a></p>
+<p>APK下载：<a href="/media/files/从全世界路过2.0.apk" download="从全世界路过.apk" class="post__image"> 从全世界路过.apk </a></p>
             ]]>
         </content>
     </entry>
