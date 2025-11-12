@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
     <title>从全世界路过</title>
-    <link href="http://19830920.xyz/feed.xml" rel="self" />
-    <link href="http://19830920.xyz" />
+    <link href="https://19830920.xyz/feed.xml" rel="self" />
+    <link href="https://19830920.xyz" />
     <updated>2025-11-12T16:06:13+08:00</updated>
     <author>
         <name>Zhibin</name>
     </author>
-    <id>http://19830920.xyz</id>
+    <id>https://19830920.xyz</id>
 
     <entry>
         <title>封装网站成APP</title>
         <author>
             <name>Zhibin</name>
         </author>
-        <link href="http://19830920.xyz/post/feng-zhuang-wang-zhan-cheng-app/index.html"/>
-        <id>http://19830920.xyz/post/feng-zhuang-wang-zhan-cheng-app/index.html</id>
+        <link href="https://19830920.xyz/post/feng-zhuang-wang-zhan-cheng-app/index.html"/>
+        <id>https://19830920.xyz/post/feng-zhuang-wang-zhan-cheng-app/index.html</id>
             <category term="互联网"/>
 
         <updated>2025-11-08T13:38:16+08:00</updated>
@@ -64,8 +64,8 @@
         <author>
             <name>Yibo</name>
         </author>
-        <link href="http://19830920.xyz/post/dong-xue/index.html"/>
-        <id>http://19830920.xyz/post/dong-xue/index.html</id>
+        <link href="https://19830920.xyz/post/dong-xue/index.html"/>
+        <id>https://19830920.xyz/post/dong-xue/index.html</id>
             <category term="作文"/>
 
         <updated>2025-10-30T21:08:00+08:00</updated>
@@ -86,8 +86,8 @@
         <author>
             <name>Zhibin</name>
         </author>
-        <link href="http://19830920.xyz/post/cong-quan-shi-jie-lu-guo/index.html"/>
-        <id>http://19830920.xyz/post/cong-quan-shi-jie-lu-guo/index.html</id>
+        <link href="https://19830920.xyz/post/cong-quan-shi-jie-lu-guo/index.html"/>
+        <id>https://19830920.xyz/post/cong-quan-shi-jie-lu-guo/index.html</id>
             <category term="互联网"/>
 
         <updated>2025-05-12T16:23:00+08:00</updated>
@@ -102,7 +102,7 @@
 <p class="msg--info msg msg--highlight  msg--success">2025.5.24 碰到个问题解决不了，用cloudflare解析DNS的话，不知道为什么页面只能加载文字，加载不了css，导致页面没法正常访问；换回腾讯云解析的话，国内又访问不了，只能翻墙。</p>
 <p class="msg msg--highlight  msg--success">2025.11.3通过询问AI，终于发现问题了，和域名解析跳转没关系。是在publii里填写地址的时候，一直填的是Github的地址，导致css链接一直链接的是***.github.io的地址，在用域名跳转的时候因为跨域跳转因此会被浏览器拦截，把地址改成19830920.xyz后解决了。</p>
 <p class="msg msg--highlight  msg--success msg--info ">2025.11.8突发奇想，<a href="https://19830920.xyz/post/feng-zhuang-wang-zhan-cheng-app/index.html" target="_blank" rel="noopener noreferrer">利用AI把网站封装成了APP</a>。</p>
-<figure class="post__image align-center"><img loading="lazy"  src="http://19830920.xyz/media/posts/2/Yumen.jpg" alt="" width="233" height="233"></figure>
+<figure class="post__image align-center"><img loading="lazy"  src="https://19830920.xyz/media/posts/2/Yumen.jpg" alt="" width="233" height="233"></figure>
             ]]>
         </content>
     </entry>
@@ -111,8 +111,8 @@
         <author>
             <name>Zhibin</name>
         </author>
-        <link href="http://19830920.xyz/post/2ren-shi-zong-de-tai-yuan-tian-ran-qi-bao-zha/index.html"/>
-        <id>http://19830920.xyz/post/2ren-shi-zong-de-tai-yuan-tian-ran-qi-bao-zha/index.html</id>
+        <link href="https://19830920.xyz/post/2ren-shi-zong-de-tai-yuan-tian-ran-qi-bao-zha/index.html"/>
+        <id>https://19830920.xyz/post/2ren-shi-zong-de-tai-yuan-tian-ran-qi-bao-zha/index.html</id>
             <category term="时评"/>
 
         <updated>2025-05-06T01:11:00+08:00</updated>
@@ -140,8 +140,8 @@
         <author>
             <name>Yibo</name>
         </author>
-        <link href="http://19830920.xyz/post/wo-xiang-dui-nin-shuo/index.html"/>
-        <id>http://19830920.xyz/post/wo-xiang-dui-nin-shuo/index.html</id>
+        <link href="https://19830920.xyz/post/wo-xiang-dui-nin-shuo/index.html"/>
+        <id>https://19830920.xyz/post/wo-xiang-dui-nin-shuo/index.html</id>
             <category term="作文"/>
 
         <updated>2024-11-24T20:36:00+08:00</updated>
@@ -162,8 +162,8 @@
         <author>
             <name>Yibo</name>
         </author>
-        <link href="http://19830920.xyz/post/xiao-wu-gui/index.html"/>
-        <id>http://19830920.xyz/post/xiao-wu-gui/index.html</id>
+        <link href="https://19830920.xyz/post/xiao-wu-gui/index.html"/>
+        <id>https://19830920.xyz/post/xiao-wu-gui/index.html</id>
             <category term="作文"/>
 
         <updated>2024-11-12T20:31:00+08:00</updated>
@@ -183,8 +183,8 @@
         <author>
             <name>Zhibin</name>
         </author>
-        <link href="http://19830920.xyz/post/323-tian-tong-guan-gao-gong-shi-lu/index.html"/>
-        <id>http://19830920.xyz/post/323-tian-tong-guan-gao-gong-shi-lu/index.html</id>
+        <link href="https://19830920.xyz/post/323-tian-tong-guan-gao-gong-shi-lu/index.html"/>
+        <id>https://19830920.xyz/post/323-tian-tong-guan-gao-gong-shi-lu/index.html</id>
             <category term="生活"/>
 
         <updated>2023-05-09T11:46:00+08:00</updated>
@@ -217,8 +217,8 @@
         <author>
             <name>Zhibin</name>
         </author>
-        <link href="http://19830920.xyz/post/yang-guo-de-jing-li/index.html"/>
-        <id>http://19830920.xyz/post/yang-guo-de-jing-li/index.html</id>
+        <link href="https://19830920.xyz/post/yang-guo-de-jing-li/index.html"/>
+        <id>https://19830920.xyz/post/yang-guo-de-jing-li/index.html</id>
             <category term="生活"/>
 
         <updated>2022-12-25T18:13:00+08:00</updated>
@@ -237,7 +237,7 @@
 <p class="msg msg--info">周四，第5天：个人感觉不烧了，结果一量还有37.5℃，头疼，嗓子也开始明显疼痛，一直想咳嗽，越咳嗽越疼。鼻涕不停，眼睛感觉有点肿胀，一直喝水还是感觉口干。另外发现这病毒有麻痹膀胱感觉的副作用，因为晚上总是不停喝水，所以每次起来喝水我都会先上厕所后再喝一大杯水，然后就发现每次尿量都不小，照以往的习惯，这尿量膀胱早就会感觉胀，会有明显的尿意了，结果这时候每次都没感觉。</p>
 <p class="msg msg--info">周五，第6天，持续低烧，38℃上下，晚上咳嗽异常厉害，睡都睡不好，也没痰，就是干咳。</p>
 <p class="msg msg--info">周六，第7天，突然不烧了，就剩下了咳嗽。因为眼鼻口感觉肿胀的原因，喝了点金银花颗粒，下下火；因为咳嗽，又吃了点甘草片，但感觉作用不大。本人离杨康不远了，然后：媳妇和孩子开始了。。。</p>
-<figure class="post__image align-center"><img loading="lazy"  src="http://19830920.xyz/media/posts/6/yanguo.jpg" alt="" width="816" height="612"></figure>
+<figure class="post__image align-center"><img loading="lazy"  src="https://19830920.xyz/media/posts/6/yanguo.jpg" alt="" width="816" height="612"></figure>
             ]]>
         </content>
     </entry>
@@ -246,8 +246,8 @@
         <author>
             <name>Zhibin</name>
         </author>
-        <link href="http://19830920.xyz/post/ye-xiang-shou-liao-xia-shang-men-he-suan/index.html"/>
-        <id>http://19830920.xyz/post/ye-xiang-shou-liao-xia-shang-men-he-suan/index.html</id>
+        <link href="https://19830920.xyz/post/ye-xiang-shou-liao-xia-shang-men-he-suan/index.html"/>
+        <id>https://19830920.xyz/post/ye-xiang-shou-liao-xia-shang-men-he-suan/index.html</id>
             <category term="生活"/>
 
         <updated>2022-12-03T01:16:00+08:00</updated>
@@ -259,7 +259,7 @@
         <content type="html">
             <![CDATA[
                 <p class="msg--highlight msg msg--success">因为孩子学校的原因，孩子成了密接，我们就成了需要上门核酸的居家人员。</p>
-<figure class="post__image align-center"><img loading="lazy"  src="http://19830920.xyz/media/posts/7/img_20221203_155546.jpg" alt="" width="816" height="1087"></figure>
+<figure class="post__image align-center"><img loading="lazy"  src="https://19830920.xyz/media/posts/7/img_20221203_155546.jpg" alt="" width="816" height="1087"></figure>
             ]]>
         </content>
     </entry>
@@ -268,8 +268,8 @@
         <author>
             <name>Zhibin</name>
         </author>
-        <link href="http://19830920.xyz/post/jie-chu-wei-xin-de-shi-jian/index.html"/>
-        <id>http://19830920.xyz/post/jie-chu-wei-xin-de-shi-jian/index.html</id>
+        <link href="https://19830920.xyz/post/jie-chu-wei-xin-de-shi-jian/index.html"/>
+        <id>https://19830920.xyz/post/jie-chu-wei-xin-de-shi-jian/index.html</id>
             <category term="互联网"/>
 
         <updated>2016-01-10T10:42:00+08:00</updated>
@@ -282,7 +282,7 @@
             <![CDATA[
                 <p>　　微信弄了个“2016微信公开课Pro版”，到里面查询了下自己的信息，显示：</p>
 <p class="msg msg--highlight ">2011年1月25日注册的微信，是微信第52121个用户，2012年6月2日发了第一条朋友圈，第一个好友是Ronnie.Deng。</p>
-<figure class="post__image align-center"><img loading="lazy"  src="http://19830920.xyz/media/posts/15/image2016-01-10-Xing-Qi-Ri.jpg" alt="" width="442" height="786"></figure>
+<figure class="post__image align-center"><img loading="lazy"  src="https://19830920.xyz/media/posts/15/image2016-01-10-Xing-Qi-Ri.jpg" alt="" width="442" height="786"></figure>
             ]]>
         </content>
     </entry>
@@ -291,8 +291,8 @@
         <author>
             <name>Zhibin</name>
         </author>
-        <link href="http://19830920.xyz/post/da-kuang-quan-yi-miao/index.html"/>
-        <id>http://19830920.xyz/post/da-kuang-quan-yi-miao/index.html</id>
+        <link href="https://19830920.xyz/post/da-kuang-quan-yi-miao/index.html"/>
+        <id>https://19830920.xyz/post/da-kuang-quan-yi-miao/index.html</id>
             <category term="生活"/>
 
         <updated>2013-04-23T12:01:00+08:00</updated>
@@ -304,7 +304,7 @@
         <content type="html">
             <![CDATA[
                 <p class="msg msg--highlight  msg--success">（以下为盐湖区的情况，其他地方仅供参考。）</p>
-<figure class="post__image">　　1. 立即用水冲洗，并用肥皂不停地搓伤口，这个过程要持续15分钟以上。<br>　　2. 到最近的疾控中心注射狂犬疫苗，必须在24小时内注射疫苗。到疾控中心护士MM还是会发块肥皂让你再多洗洗伤口。<br>　　3. 现在药店不让卖疫苗，即使有卖的，一般的医院也不给打，这个是要承担后果的。<br>　　4. 咬破见血后属于三级暴露，需要先注射免疫球蛋白再打狂犬疫苗。免疫球蛋白按体重计算，10kg一剂，一剂375元，我这体重得打3000元（我是不是暴漏体重了），太贵，我没打，只注射了狂犬疫苗。如果确认是疯狗，还是建议注射一下免疫球蛋白，我这是被家里的小狗咬，问题不大，打针是求个心理安慰。<br>　　5. 盐湖区疾控中心有70元一针和98元一针两种狂犬疫苗，一共需要打5针，分别是当天、第3天、第5天、第14天和第28天。建议一次掏5针的钱，这样疾控中心会帮你保存疫苗，发一张狂犬疫苗接种卡，并且会在打针的前一天电话或者短信告知你，非常方便。<br>　　6. 接种狂犬疫苗后忌饮酒、浓茶等刺激性食物及剧烈运动。护士MM会告你包括辣椒、茶、咖啡、海鲜类会发的食物、羊肉等热性食物…等等…没记全~<br>　　7. 盐湖区疾控中心地址：运城市禹都东大街415号，电话：8688375 8688376 8688377。<br><img loading="lazy"  src="http://19830920.xyz/media/posts/14/image2013-04-23-Xing-Qi-Er.jpg" alt="" width="800" height="549"></figure>
+<figure class="post__image">　　1. 立即用水冲洗，并用肥皂不停地搓伤口，这个过程要持续15分钟以上。<br>　　2. 到最近的疾控中心注射狂犬疫苗，必须在24小时内注射疫苗。到疾控中心护士MM还是会发块肥皂让你再多洗洗伤口。<br>　　3. 现在药店不让卖疫苗，即使有卖的，一般的医院也不给打，这个是要承担后果的。<br>　　4. 咬破见血后属于三级暴露，需要先注射免疫球蛋白再打狂犬疫苗。免疫球蛋白按体重计算，10kg一剂，一剂375元，我这体重得打3000元（我是不是暴漏体重了），太贵，我没打，只注射了狂犬疫苗。如果确认是疯狗，还是建议注射一下免疫球蛋白，我这是被家里的小狗咬，问题不大，打针是求个心理安慰。<br>　　5. 盐湖区疾控中心有70元一针和98元一针两种狂犬疫苗，一共需要打5针，分别是当天、第3天、第5天、第14天和第28天。建议一次掏5针的钱，这样疾控中心会帮你保存疫苗，发一张狂犬疫苗接种卡，并且会在打针的前一天电话或者短信告知你，非常方便。<br>　　6. 接种狂犬疫苗后忌饮酒、浓茶等刺激性食物及剧烈运动。护士MM会告你包括辣椒、茶、咖啡、海鲜类会发的食物、羊肉等热性食物…等等…没记全~<br>　　7. 盐湖区疾控中心地址：运城市禹都东大街415号，电话：8688375 8688376 8688377。<br><img loading="lazy"  src="https://19830920.xyz/media/posts/14/image2013-04-23-Xing-Qi-Er.jpg" alt="" width="800" height="549"></figure>
             ]]>
         </content>
     </entry>
@@ -313,8 +313,8 @@
         <author>
             <name>Zhibin</name>
         </author>
-        <link href="http://19830920.xyz/post/ji-yi-zhong-de-tian-xia/index.html"/>
-        <id>http://19830920.xyz/post/ji-yi-zhong-de-tian-xia/index.html</id>
+        <link href="https://19830920.xyz/post/ji-yi-zhong-de-tian-xia/index.html"/>
+        <id>https://19830920.xyz/post/ji-yi-zhong-de-tian-xia/index.html</id>
             <category term="游戏"/>
 
         <updated>2008-08-28T13:01:00+08:00</updated>
@@ -335,8 +335,8 @@
         <author>
             <name>Zhibin</name>
         </author>
-        <link href="http://19830920.xyz/post/zhuan-zheng-shen-qing-shu/index.html"/>
-        <id>http://19830920.xyz/post/zhuan-zheng-shen-qing-shu/index.html</id>
+        <link href="https://19830920.xyz/post/zhuan-zheng-shen-qing-shu/index.html"/>
+        <id>https://19830920.xyz/post/zhuan-zheng-shen-qing-shu/index.html</id>
             <category term="生活"/>
 
         <updated>2005-09-16T17:18:00+08:00</updated>
