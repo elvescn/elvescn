@@ -3,7 +3,7 @@
     <title>从全世界路过</title>
     <link href="https://19830920.xyz/feed.xml" rel="self" />
     <link href="https://19830920.xyz" />
-    <updated>2025-11-16T22:22:43+08:00</updated>
+    <updated>2025-11-17T09:37:09+08:00</updated>
     <author>
         <name>Zhibin</name>
     </author>
@@ -62,7 +62,7 @@
 <li>添加APP图标（用豆包先随意做了个）。</li>
 <li>上方预留状态栏位置，下方预留功能键位置。</li>
 <li>禁止访问本网站以外的链接，不跳转并弹出不让访问的提示。</li>
-<li>下放添加工具栏，添加了“主页”、“Zhibin”、“Yibo”三个链接。</li>
+<li>下方添加工具栏，添加了“主页”、“Zhibin”、“Yibo”三个链接。</li>
 <li>各种精简：去掉地址栏；去掉多余权限，仅保留网络权限；去掉刷新进度条，去掉边缘提示。</li>
 </ol>
 <blockquote>
