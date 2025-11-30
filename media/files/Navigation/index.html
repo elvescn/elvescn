@@ -134,6 +134,28 @@
         </div>
     </div>
 
+    <!-- 编辑分类的模态框 -->
+    <div id="editCategoryModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>编辑分类</h2>
+            <form id="editCategoryForm">
+                <input type="hidden" id="editCategoryId">
+                <div class="form-group">
+                    <label for="editCategoryName">分类名称:</label>
+                    <input type="text" id="editCategoryName" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">保存</button>
+                    <button type="button" id="deleteCategoryBtn" class="btn-danger">删除分类</button>
+                    <button type="button" id="cancelEditCategoryBtn" class="btn-secondary">取消</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 先加载数据文件，再加载功能文件 -->
+    <script src="navigation-data.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

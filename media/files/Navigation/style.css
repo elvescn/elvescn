@@ -1,3 +1,58 @@
+/* 在原有样式基础上添加以下样式 */
+
+.category-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #3498db;
+}
+
+.category-title {
+    color: #2c3e50;
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+.category-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.edit-category-btn {
+    background: rgba(52, 152, 219, 0.1);
+    border: 1px solid #3498db;
+    color: #3498db;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: all 0.3s;
+}
+
+.edit-category-btn:hover {
+    background: #3498db;
+    color: white;
+}
+
+.delete-category-btn {
+    background: rgba(231, 76, 60, 0.1);
+    border: 1px solid #e74c3c;
+    color: #e74c3c;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: all 0.3s;
+}
+
+.delete-category-btn:hover {
+    background: #e74c3c;
+    color: white;
+}
+
+/* 其他原有样式保持不变 */
 * {
     margin: 0;
     padding: 0;
@@ -102,14 +157,6 @@ h1 {
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
-}
-
-.category h2 {
-    color: #2c3e50;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid #3498db;
-    font-size: 1.5rem;
 }
 
 .sites-grid {
@@ -303,6 +350,16 @@ h1 {
         padding-left: 0;
         border-left: none;
         flex-wrap: wrap;
+    }
+    
+    .category-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .category-actions {
+        align-self: flex-end;
     }
 }
 
