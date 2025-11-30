@@ -158,12 +158,6 @@
 
     <!-- 先加载数据文件，再加载功能文件 -->
     <script src="navigation-data.js"></script>
-    <!-- 只在本地环境加载 SortableJS -->
-    <script>
-        if (window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-            document.write('<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"><\/script>');
-        }
-    </script>
     <script src="script.js"></script>
 </body>
 </html>
