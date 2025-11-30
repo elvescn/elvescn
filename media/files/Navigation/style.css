@@ -1,55 +1,9 @@
-/* 在原有样式基础上添加以下样式 */
+/* 在原有样式基础上调整管理按钮样式 */
 
-.category-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid #3498db;
-}
-
-.category-title {
-    color: #2c3e50;
-    font-size: 1.5rem;
-    margin: 0;
-}
-
-.category-actions {
-    display: flex;
+.management-buttons {
+    display: none; /* 默认隐藏 */
     gap: 10px;
-}
-
-.edit-category-btn {
-    background: rgba(52, 152, 219, 0.1);
-    border: 1px solid #3498db;
-    color: #3498db;
-    border-radius: 4px;
-    padding: 5px 10px;
-    cursor: pointer;
-    font-size: 0.8rem;
-    transition: all 0.3s;
-}
-
-.edit-category-btn:hover {
-    background: #3498db;
-    color: white;
-}
-
-.delete-category-btn {
-    background: rgba(231, 76, 60, 0.1);
-    border: 1px solid #e74c3c;
-    color: #e74c3c;
-    border-radius: 4px;
-    padding: 5px 10px;
-    cursor: pointer;
-    font-size: 0.8rem;
-    transition: all 0.3s;
-}
-
-.delete-category-btn:hover {
-    background: #e74c3c;
-    color: white;
+    flex-wrap: wrap;
 }
 
 /* 其他原有样式保持不变 */
@@ -79,20 +33,6 @@ header {
     margin-bottom: 30px;
     padding-bottom: 15px;
     border-bottom: 1px solid #e1e4e8;
-}
-
-.header-buttons {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-}
-
-.management-buttons {
-    display: flex;
-    gap: 10px;
-    margin-left: 20px;
-    padding-left: 20px;
-    border-left: 1px solid #ddd;
 }
 
 h1 {
@@ -143,6 +83,58 @@ h1 {
 
 .btn-danger:hover {
     background-color: #c0392b;
+}
+
+.category-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #3498db;
+}
+
+.category-title {
+    color: #2c3e50;
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+.category-actions {
+    display: none; /* 默认隐藏分类操作按钮 */
+    gap: 10px;
+}
+
+.edit-category-btn {
+    background: rgba(52, 152, 219, 0.1);
+    border: 1px solid #3498db;
+    color: #3498db;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: all 0.3s;
+}
+
+.edit-category-btn:hover {
+    background: #3498db;
+    color: white;
+}
+
+.delete-category-btn {
+    background: rgba(231, 76, 60, 0.1);
+    border: 1px solid #e74c3c;
+    color: #e74c3c;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: all 0.3s;
+}
+
+.delete-category-btn:hover {
+    background: #e74c3c;
+    color: white;
 }
 
 /* 分类横向布局 */
@@ -221,13 +213,9 @@ h1 {
     height: 24px;
     cursor: pointer;
     font-size: 0.7rem;
-    display: none;
+    display: none; /* 默认隐藏编辑按钮 */
     align-items: center;
     justify-content: center;
-}
-
-.site-card:hover .edit-btn {
-    display: flex;
 }
 
 /* 模态框样式 */
@@ -339,17 +327,10 @@ h1 {
         align-items: flex-start;
     }
     
-    .header-buttons {
+    .management-buttons {
         margin-top: 15px;
         width: 100%;
-        justify-content: space-between;
-    }
-    
-    .management-buttons {
-        margin-left: 0;
-        padding-left: 0;
-        border-left: none;
-        flex-wrap: wrap;
+        justify-content: flex-start;
     }
     
     .category-header {
@@ -368,12 +349,8 @@ h1 {
         grid-template-columns: 1fr;
     }
     
-    .header-buttons {
+    .management-buttons {
         flex-direction: column;
         gap: 10px;
-    }
-    
-    .management-buttons {
-        justify-content: flex-start;
     }
 }
