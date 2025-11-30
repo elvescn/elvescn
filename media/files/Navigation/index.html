@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>我的导航页</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -19,12 +20,12 @@
 
         <main>
             <div id="categories" class="categories">
-                <!-- 分类将通过JavaScript动态生成 -->
-            </div>
+                </div>
         </main>
     </div>
 
-    <!-- 添加网址的模态框 -->
+    <div id="toast" class="toast"></div>
+
     <div id="addSiteModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
@@ -35,60 +36,44 @@
                     <input type="text" id="siteName" required>
                 </div>
                 <div class="form-group">
-                    <label for="siteUrl">网站地址:</label>
-                    <input type="url" id="siteUrl" required>
+                    <label for="siteUrl">网站地址 (URL):</label>
+                    <input type="url" id="siteUrl" required placeholder="https://">
                 </div>
+                
                 <div class="form-group">
-                    <label for="siteDescription">网站描述:</label>
-                    <textarea id="siteDescription" rows="2"></textarea>
+                    <label for="siteDescription">网站描述 (可选):</label>
+                    <textarea id="siteDescription" rows="2" placeholder="简短描述，如：最专业的中文技术社区"></textarea>
                 </div>
+
                 <div class="form-group">
-                    <label for="siteCategory">分类:</label>
+                    <label for="siteCategory">所属分类:</label>
                     <select id="siteCategory" required>
-                        <option value="">请选择分类</option>
-                    </select>
+                        </select>
                 </div>
-                <div class="form-group">
-                    <label for="siteIcon">网站信息:</label>
-                    <div class="icon-preview">
-                        <img id="iconPreview" src="" alt="图标预览">
+
+                <div class="form-group icon-upload-area">
+                    <label>图标:</label>
+                    <div class="icon-url-group">
+                         <input type="url" id="siteIconUrl" placeholder="输入图标链接 (可选)" class="icon-url-input">
+                         <button type="button" id="fetchIconUrlBtn" class="btn-secondary fetch-icon-url-btn">从链接获取</button>
                     </div>
-                    <div class="icon-buttons">
-                        <button type="button" id="fetchInfoBtn" class="btn-secondary fetch-info-btn">
-                            <span class="btn-main-text">获取网站信息</span>
-                            <span class="btn-sub-text">包括标题、描述、图标</span>
-                        </button>
-                        <button type="button" id="uploadIconBtn" class="btn-secondary">上传自定义图标</button>
-                        <input type="file" id="siteIcon" accept="image/*" style="display: none;">
+
+                    <div class="icon-actions">
+                        <button type="button" id="fetchInfoBtn" class="btn-secondary">获取信息</button>
+                        <button type="button" id="uploadIconBtn" class="btn-secondary">上传图标</button>
                     </div>
+                    <img id="iconPreview" class="icon-preview" src="" alt="图标预览"> 
+                    <input type="file" id="siteIcon" accept="image/*" style="display: none;">
                 </div>
+
                 <div class="form-actions">
-                    <button type="submit" class="btn-primary">添加</button>
+                    <button type="submit" class="btn-primary">保存</button>
                     <button type="button" id="cancelBtn" class="btn-secondary">取消</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- 添加分类的模态框 -->
-    <div id="addCategoryModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>添加新分类</h2>
-            <form id="addCategoryForm">
-                <div class="form-group">
-                    <label for="categoryName">分类名称:</label>
-                    <input type="text" id="categoryName" required>
-                </div>
-                <div class="form-actions">
-                    <button type="submit" class="btn-primary">添加</button>
-                    <button type="button" id="cancelCategoryBtn" class="btn-secondary">取消</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- 编辑网址的模态框 -->
     <div id="editSiteModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
@@ -100,43 +85,45 @@
                     <input type="text" id="editSiteName" required>
                 </div>
                 <div class="form-group">
-                    <label for="editSiteUrl">网站地址:</label>
-                    <input type="url" id="editSiteUrl" required>
+                    <label for="editSiteUrl">网站地址 (URL):</label>
+                    <input type="url" id="editSiteUrl" required placeholder="https://">
                 </div>
+                
                 <div class="form-group">
-                    <label for="editSiteDescription">网站描述:</label>
-                    <textarea id="editSiteDescription" rows="2"></textarea>
+                    <label for="editSiteDescription">网站描述 (可选):</label>
+                    <textarea id="editSiteDescription" rows="2" placeholder="简短描述，如：最专业的中文技术社区"></textarea>
                 </div>
+
                 <div class="form-group">
-                    <label for="editSiteCategory">分类:</label>
+                    <label for="editSiteCategory">所属分类:</label>
                     <select id="editSiteCategory" required>
-                        <option value="">请选择分类</option>
-                    </select>
+                        </select>
                 </div>
-                <div class="form-group">
-                    <label for="editSiteIcon">网站信息:</label>
-                    <div class="icon-preview">
-                        <img id="editIconPreview" src="" alt="图标预览">
+
+                <div class="form-group icon-upload-area">
+                    <label>图标:</label>
+                    <div class="icon-url-group">
+                         <input type="url" id="editSiteIconUrl" placeholder="输入图标链接 (可选)" class="icon-url-input">
+                         <button type="button" id="editFetchIconUrlBtn" class="btn-secondary fetch-icon-url-btn">从链接获取</button>
                     </div>
-                    <div class="icon-buttons">
-                        <button type="button" id="editFetchInfoBtn" class="btn-secondary fetch-info-btn">
-                            <span class="btn-main-text">获取网站信息</span>
-                            <span class="btn-sub-text">包括标题、描述、图标</span>
-                        </button>
-                        <button type="button" id="editUploadIconBtn" class="btn-secondary">上传自定义图标</button>
-                        <input type="file" id="editSiteIcon" accept="image/*" style="display: none;">
+                    
+                    <div class="icon-actions">
+                        <button type="button" id="editFetchInfoBtn" class="btn-secondary">获取信息</button>
+                        <button type="button" id="editUploadIconBtn" class="btn-secondary">上传图标</button>
                     </div>
+                    <img id="editIconPreview" class="icon-preview" src="" alt="图标预览">
+                    <input type="file" id="editSiteIcon" accept="image/*" style="display: none;">
                 </div>
+
                 <div class="form-actions">
                     <button type="submit" class="btn-primary">保存</button>
-                    <button type="button" id="deleteSiteBtn" class="btn-danger">删除</button>
+                    <button type="button" id="deleteSiteBtn" class="btn-danger">删除网址</button>
                     <button type="button" id="cancelEditBtn" class="btn-secondary">取消</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- 编辑分类的模态框 -->
     <div id="editCategoryModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
@@ -155,15 +142,25 @@
             </form>
         </div>
     </div>
-
-    <!-- 先加载数据文件，再加载功能文件 -->
+    
+    <div id="addCategoryModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>添加新分类</h2>
+            <form id="addCategoryForm">
+                <div class="form-group">
+                    <label for="categoryName">分类名称:</label>
+                    <input type="text" id="categoryName" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">保存</button>
+                    <button type="button" id="cancelCategoryBtn" class="btn-secondary">取消</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
     <script src="navigation-data.js"></script>
-    <!-- 只在本地环境加载 SortableJS -->
-    <script>
-        if (window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-            document.write('<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"><\/script>');
-        }
-    </script>
     <script src="script.js"></script>
 </body>
 </html>

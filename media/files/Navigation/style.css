@@ -1,12 +1,9 @@
-/* 在原有样式基础上调整管理按钮样式 */
+/* 【文件: style.css】 */
 
-.management-buttons {
-    display: none; /* 默认隐藏 */
-    gap: 10px;
-    flex-wrap: wrap;
-}
+/* -------------------------------------- */
+/* 基础样式 */
+/* -------------------------------------- */
 
-/* 其他原有样式保持不变 */
 * {
     margin: 0;
     padding: 0;
@@ -21,7 +18,8 @@ body {
 }
 
 .container {
-    max-width: 1600px;
+    /* 调整最大宽度，以便容纳 6 列 */
+    max-width: 1400px; 
     margin: 0 auto;
     padding: 15px;
 }
@@ -38,6 +36,13 @@ header {
 h1 {
     color: #2c3e50;
     font-size: 2.2rem;
+}
+
+/* 按钮样式 */
+.management-buttons {
+    display: none; /* 默认隐藏 */
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
 .btn-primary {
@@ -85,6 +90,7 @@ h1 {
     background-color: #c0392b;
 }
 
+/* 分类头部样式 */
 .category-header {
     display: flex;
     justify-content: space-between;
@@ -97,180 +103,158 @@ h1 {
 .category-title {
     color: #2c3e50;
     font-size: 1.3rem;
-    margin: 0;
+    margin-left: 8px;
 }
 
 .category-actions {
-    display: none; /* 默认隐藏，通过JavaScript在本地环境显示 */
-    gap: 8px;
-}
-
-.edit-category-btn {
-    background: rgba(52, 152, 219, 0.1);
-    border: 1px solid #3498db;
-    color: #3498db;
-    border-radius: 4px;
-    padding: 4px 8px;
-    cursor: pointer;
-    font-size: 0.75rem;
-    transition: all 0.3s;
-}
-
-.edit-category-btn:hover {
-    background: #3498db;
-    color: white;
-}
-
-.delete-category-btn {
-    background: rgba(231, 76, 60, 0.1);
-    border: 1px solid #e74c3c;
-    color: #e74c3c;
-    border-radius: 4px;
-    padding: 4px 8px;
-    cursor: pointer;
-    font-size: 0.75rem;
-    transition: all 0.3s;
-}
-
-.delete-category-btn:hover {
-    background: #e74c3c;
-    color: white;
-}
-
-/* 分类横向布局 */
-.categories {
     display: flex;
-    flex-direction: column;
-    gap: 20px;
+    gap: 10px;
 }
 
-.category {
-    background-color: white;
-    border-radius: 6px;
-    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
-    padding: 15px;
-}
+/* -------------------------------------- */
+/* 网站卡片布局和溢出调整 【核心修改点】 */
+/* -------------------------------------- */
 
-/* 调整为6列布局 */
 .sites-grid {
+    /* 实现固定的 6 列布局：在 1400px 宽度下， minmax(180px, 1fr) 效果约为 6 列 */
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 12px;
+    /* auto-fill 确保在屏幕变小时自动换行，minmax(180px, 1fr) 确保卡片最小宽度 */
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); 
+    gap: 15px;
+    padding: 10px 0;
 }
 
 .site-card {
-    background: #f8f9fa;
-    border: 1px solid #e9ecef;
-    border-radius: 6px;
-    padding: 12px;
-    text-decoration: none;
-    color: inherit;
-    transition: all 0.3s ease;
-    position: relative;
-    height: 70px;
-    display: flex;
+    display: flex; 
     align-items: center;
-    gap: 12px;
+    text-decoration: none;
+    background-color: white;
+    padding: 12px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+    color: inherit;
+    width: 100%;
+    min-height: 60px; 
+    cursor: pointer;
+    overflow: hidden; 
 }
 
 .site-card:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
-    text-decoration: none;
-    color: inherit;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .site-icon {
-    width: 48px;
-    height: 48px;
-    border-radius: 8px;
-    object-fit: cover;
-    flex-shrink: 0;
-    image-rendering: -webkit-optimize-contrast; /* 提高清晰度 */
-    image-rendering: crisp-edges;
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    border-radius: 4px;
+    object-fit: contain;
+    margin-right: 10px;
 }
 
 .site-info {
-    flex: 1;
+    /* 文本容器：标题和描述垂直堆叠 */
     display: flex;
     flex-direction: column;
     justify-content: center;
-    min-width: 0;
+    flex-grow: 1;
+    min-width: 0; /* 允许 flex item 缩小 */
+    overflow: hidden; /* 确保内部文本溢出时，外部容器能正确处理 */
 }
 
 .site-name {
+    /* 网站名称溢出处理 */
     font-weight: 700;
     color: #2c3e50;
     font-size: 1rem;
     line-height: 1.2;
-    margin-bottom: 4px;
     overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    text-overflow: ellipsis; /* 显示省略号 */
+    white-space: nowrap; /* 不换行 */
 }
 
 .site-description {
+    /* 网站描述显示和溢出处理 */
     font-size: 0.75rem;
     color: #6c757d;
     line-height: 1.3;
+    margin-top: 2px;
+    
+    /* 限制描述最多显示 2 行，超出部分显示省略号 */
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* 限制行数 */
+    -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
 }
 
+/* 编辑按钮的调整 */
 .edit-btn {
     position: absolute;
-    top: 8px;
-    right: 8px;
-    background: rgba(52, 152, 219, 0.9);
+    top: 5px;
+    right: 5px;
+    display: none; 
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    font-size: 0.8rem;
+    background: rgba(52, 152, 219, 0.8);
     color: white;
     border: none;
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
+    border-radius: 4px;
     cursor: pointer;
-    font-size: 0.6rem;
-    display: none;
-    align-items: center;
-    justify-content: center;
+    text-align: center;
+    z-index: 10;
+    opacity: 0.9;
+    padding: 0;
 }
 
-/* 模态框样式 */
+.edit-btn:hover {
+    opacity: 1;
+}
+
+/* -------------------------------------- */
+/* 模态框和表单样式 */
+/* -------------------------------------- */
+
 .modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
+    display: none; 
+    position: fixed; 
+    z-index: 1000; 
     left: 0;
     top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgba(0,0,0,0.4); 
 }
 
 .modal-content {
-    background-color: white;
-    margin: 3% auto;
-    padding: 25px;
+    background-color: #fefefe;
+    margin: 10% auto; 
+    padding: 20px;
     border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     width: 90%;
     max-width: 500px;
     position: relative;
 }
 
 .close {
-    position: absolute;
-    right: 15px;
-    top: 12px;
-    font-size: 24px;
+    color: #aaa;
+    float: right;
+    font-size: 28px;
     font-weight: bold;
-    cursor: pointer;
-    color: #7f8c8d;
 }
 
-.close:hover {
-    color: #2c3e50;
+.close:hover,
+.close:focus {
+    color: #333;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 .form-group {
@@ -279,149 +263,58 @@ h1 {
 
 .form-group label {
     display: block;
-    margin-bottom: 6px;
+    margin-bottom: 5px;
     font-weight: 600;
-    font-size: 0.9rem;
 }
 
-.form-group input,
-.form-group textarea,
-.form-group select {
+.form-group input[type="text"],
+.form-group input[type="url"],
+.form-group select,
+.form-group textarea {
     width: 100%;
-    padding: 8px;
-    border: 1px solid #ddd;
+    padding: 10px;
+    border: 1px solid #ccc;
     border-radius: 4px;
-    font-size: 0.9rem;
+    box-sizing: border-box;
+    font-size: 1rem;
 }
 
 .form-group textarea {
     resize: vertical;
 }
 
-.icon-preview {
-    margin-bottom: 8px;
-    text-align: center;
-}
-
-.icon-preview img {
-    width: 28px;
-    height: 28px;
-    border-radius: 4px;
-    object-fit: cover;
-    border: 1px solid #ddd;
-}
-
-.icon-buttons {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-}
-
 .form-actions {
     display: flex;
     justify-content: flex-end;
-    gap: 8px;
-    margin-top: 15px;
+    gap: 10px;
+    margin-top: 20px;
 }
 
-/* 响应式设计 */
-@media (max-width: 1400px) {
-    .sites-grid {
-        grid-template-columns: repeat(5, 1fr);
-    }
-}
-
-@media (max-width: 1200px) {
-    .sites-grid {
-        grid-template-columns: repeat(4, 1fr);
-    }
-}
-
-@media (max-width: 992px) {
-    .sites-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
-
-@media (max-width: 768px) {
-    .sites-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    
-    header {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    
-    .management-buttons {
-        margin-top: 12px;
-        width: 100%;
-        justify-content: flex-start;
-    }
-    
-    .category-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
-    }
-    
-    .category-actions {
-        align-self: flex-end;
-    }
-}
-
-@media (max-width: 480px) {
-    .sites-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .management-buttons {
-        flex-direction: column;
-        gap: 8px;
-    }
-    
-    .container {
-        padding: 10px;
-    }
-    
-    .category {
-        padding: 12px;
-    }
-}
-/* 在原有样式基础上添加获取信息按钮样式 */
-
-.fetch-info-btn {
+.icon-upload-area {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    padding: 6px 10px;
-    min-height: auto;
 }
 
-.btn-main-text {
-    font-size: 0.85rem;
-    font-weight: 600;
-    line-height: 1.2;
+.icon-actions {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
 }
 
-.btn-sub-text {
-    font-size: 0.7rem;
-    opacity: 0.8;
-    line-height: 1;
-    margin-top: 2px;
+.icon-preview {
+    width: 48px;
+    height: 48px;
+    border-radius: 6px;
+    object-fit: contain;
+    border: 1px solid #e1e4e8;
 }
 
-/* 其他样式保持不变... */
+/* -------------------------------------- */
+/* 拖拽排序样式 */
+/* -------------------------------------- */
 
-/* 在原有样式基础上添加拖动相关样式 */
-
-/* 拖动排序样式 */
 .sortable-ghost {
     opacity: 0.4;
-    background: #c8ebfb;
-}
-
-.sortable-chosen {
     background: #e3f2fd;
     transform: rotate(2deg);
 }
@@ -458,8 +351,7 @@ h1 {
     background: #f8f9fa;
 }
 
-/* 其他样式保持不变... */
-
+/* Toast 提示框样式 */
 .toast {
     position: fixed;
     top: 20px;
@@ -469,49 +361,54 @@ h1 {
     padding: 12px 20px;
     border-radius: 4px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-    z-index: 10000;
     opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
     transform: translateX(100%);
-    transition: all 0.3s ease;
+    z-index: 2000;
 }
 
 .toast.show {
     opacity: 1;
+    visibility: visible;
     transform: translateX(0);
 }
 
 .toast.error {
-    background: #f44336;
+    background: #e74c3c;
 }
 
-.toast.info {
-    background: #2196f3;
+/* 【文件: style.css】*/
+
+/* ... (保持原有内容不变) ... */
+
+/* -------------------------------------- */
+/* 新增：图标 URL 获取区域样式 */
+/* -------------------------------------- */
+
+.icon-url-group {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
 }
 
-.toast {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background: #4caf50;
-    color: white;
-    padding: 12px 20px;
+.icon-url-input {
+    flex-grow: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
     border-radius: 4px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-    z-index: 10000;
-    opacity: 0;
-    transform: translateX(100%);
-    transition: all 0.3s ease;
+    box-sizing: border-box;
 }
 
-.toast.show {
-    opacity: 1;
-    transform: translateX(0);
+.fetch-icon-url-btn {
+    white-space: nowrap; /* 防止按钮文本换行 */
+    padding: 8px 12px !important; /* 覆盖原来的 padding */
+    font-size: 0.9rem !important;
 }
 
-.toast.error {
-    background: #f44336;
-}
-
-.toast.info {
-    background: #2196f3;
+/* 调整原来的 icon-actions 间距 */
+.icon-actions {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
 }
