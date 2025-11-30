@@ -1,414 +1,133 @@
 /* 【文件: style.css】 */
 
-/* -------------------------------------- */
-/* 基础样式 */
-/* -------------------------------------- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f5f7fa; color: #333; line-height: 1.4; }
+.container { max-width: 1400px; margin: 0 auto; padding: 15px; }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid #e1e4e8; }
+h1 { color: #2c3e50; font-size: 2.2rem; }
 
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f5f7fa;
-    color: #333;
-    line-height: 1.4;
-}
+/* 按钮通用 */
+.management-buttons { display: none; gap: 10px; flex-wrap: wrap; }
+button { cursor: pointer; border-radius: 5px; border: none; padding: 6px 12px; font-size: 0.9rem; transition: 0.3s; }
+.btn-primary { background-color: #3498db; color: white; padding: 8px 16px; }
+.btn-primary:hover { background-color: #2980b9; }
+.btn-secondary { background-color: #95a5a6; color: white; }
+.btn-secondary:hover { background-color: #7f8c8d; }
+.btn-danger { background-color: #e74c3c; color: white; }
+.btn-danger:hover { background-color: #c0392b; }
 
-.container {
-    /* 调整最大宽度，以便容纳 6 列 */
-    max-width: 1400px; 
-    margin: 0 auto;
-    padding: 15px;
-}
+/* 分类 */
+.category-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 2px solid #3498db; padding-bottom: 8px; }
+.category-title { color: #2c3e50; font-size: 1.3rem; margin-left: 8px; }
+.category-handle { cursor: move; margin-right: 8px; color: #95a5a6; }
+.category-actions { display: flex; gap: 10px; }
 
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #e1e4e8;
-}
-
-h1 {
-    color: #2c3e50;
-    font-size: 2.2rem;
-}
-
-/* 按钮样式 */
-.management-buttons {
-    display: none; /* 默认隐藏 */
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-.btn-primary {
-    background-color: #3498db;
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    transition: background-color 0.3s;
-}
-
-.btn-primary:hover {
-    background-color: #2980b9;
-}
-
-.btn-secondary {
-    background-color: #95a5a6;
-    color: white;
-    border: none;
-    padding: 6px 12px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 0.85rem;
-    transition: background-color 0.3s;
-}
-
-.btn-secondary:hover {
-    background-color: #7f8c8d;
-}
-
-.btn-danger {
-    background-color: #e74c3c;
-    color: white;
-    border: none;
-    padding: 6px 12px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 0.85rem;
-    transition: background-color 0.3s;
-}
-
-.btn-danger:hover {
-    background-color: #c0392b;
-}
-
-/* 分类头部样式 */
-.category-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
-    padding-bottom: 8px;
-    border-bottom: 2px solid #3498db;
-}
-
-.category-title {
-    color: #2c3e50;
-    font-size: 1.3rem;
-    margin-left: 8px;
-}
-
-.category-actions {
-    display: flex;
-    gap: 10px;
-}
-
-/* -------------------------------------- */
-/* 网站卡片布局和溢出调整 【核心修改点】 */
-/* -------------------------------------- */
-
+/* --- 核心网格布局：强制一行6个 (在足够宽的屏幕上) --- */
 .sites-grid {
-    /* 实现固定的 6 列布局：在 1400px 宽度下， minmax(180px, 1fr) 效果约为 6 列 */
     display: grid;
-    /* auto-fill 确保在屏幕变小时自动换行，minmax(180px, 1fr) 确保卡片最小宽度 */
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); 
+    /* 大屏幕默认显示6列 */
+    grid-template-columns: repeat(6, 1fr); 
     gap: 15px;
     padding: 10px 0;
 }
 
+/* --- 卡片样式：左图右文，长方形 --- */
 .site-card {
-    display: flex; 
-    align-items: center;
-    text-decoration: none;
+    display: flex;
+    flex-direction: row; /* 左侧图标，右侧文字 */
+    align-items: center; /* 垂直居中 */
     background-color: white;
     padding: 12px;
     border-radius: 8px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     transition: transform 0.2s, box-shadow 0.2s;
-    position: relative;
+    text-decoration: none;
     color: inherit;
-    width: 100%;
-    min-height: 60px; 
-    cursor: pointer;
-    overflow: hidden; 
+    height: 80px; /* 固定高度，长方形 */
+    overflow: hidden;
+    position: relative;
 }
+.site-card:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.15); }
 
-.site-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-}
-
+/* 图标固定大小 */
 .site-icon {
-    width: 32px;
-    height: 32px;
-    min-width: 32px;
-    border-radius: 4px;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0; /* 防止压缩 */
     object-fit: contain;
-    margin-right: 10px;
+    margin-right: 12px; /* 图标和文字的间距 */
+    border-radius: 4px;
 }
 
+/* 右侧文字容器 */
 .site-info {
-    /* 文本容器：标题和描述垂直堆叠 */
+    flex: 1; /* 占据剩余宽度 */
     display: flex;
-    flex-direction: column;
+    flex-direction: column; /* 标题在上，描述在下 */
     justify-content: center;
-    flex-grow: 1;
-    min-width: 0; /* 允许 flex item 缩小 */
-    overflow: hidden; /* 确保内部文本溢出时，外部容器能正确处理 */
+    min-width: 0; /* 关键：允许子元素省略号生效 */
 }
 
+/* 标题样式 */
 .site-name {
-    /* 网站名称溢出处理 */
     font-weight: 700;
     color: #2c3e50;
-    font-size: 1rem;
-    line-height: 1.2;
+    font-size: 0.95rem;
+    white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis; /* 显示省略号 */
-    white-space: nowrap; /* 不换行 */
+    text-overflow: ellipsis;
+    margin-bottom: 4px;
 }
 
+/* 描述样式 */
 .site-description {
-    /* 网站描述显示和溢出处理 */
     font-size: 0.75rem;
-    color: #6c757d;
-    line-height: 1.3;
-    margin-top: 2px;
-    
-    /* 限制描述最多显示 2 行，超出部分显示省略号 */
-    display: -webkit-box;
-    -webkit-line-clamp: 2; /* 限制行数 */
-    -webkit-box-orient: vertical;
+    color: #7f8c8d;
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-/* 编辑按钮的调整 */
+/* 编辑按钮 */
 .edit-btn {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    display: none; 
-    width: 24px;
-    height: 24px;
-    line-height: 24px;
-    font-size: 0.8rem;
-    background: rgba(52, 152, 219, 0.8);
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    text-align: center;
-    z-index: 10;
-    opacity: 0.9;
-    padding: 0;
+    position: absolute; top: 5px; right: 5px; display: none;
+    width: 20px; height: 20px; font-size: 0.7rem; padding: 0;
+    background: rgba(52,152,219,0.9); color: white; z-index: 10;
 }
 
-.edit-btn:hover {
-    opacity: 1;
+/* --- 响应式调整 --- */
+@media (max-width: 1400px) { .sites-grid { grid-template-columns: repeat(5, 1fr); } }
+@media (max-width: 1200px) { .sites-grid { grid-template-columns: repeat(4, 1fr); } }
+@media (max-width: 900px) { .sites-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 600px) { .sites-grid { grid-template-columns: repeat(2, 1fr); } }
+
+/* 模态框 */
+.modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.4); overflow: auto; }
+.modal-content { background-color: #fefefe; margin: 10% auto; padding: 20px; border-radius: 8px; width: 90%; max-width: 500px; position: relative; }
+.close { color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer; }
+.form-group { margin-bottom: 15px; }
+.form-group label { display: block; margin-bottom: 5px; font-weight: 600; }
+.form-group input, .form-group textarea, .form-group select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+.form-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
+
+/* 智能获取栏 */
+.fetch-group { display: flex; gap: 10px; margin-top: 5px; }
+
+/* 带清空按钮的输入框 */
+.input-with-clear { position: relative; }
+.input-with-clear input, .input-with-clear textarea { padding-right: 70px; } /* 给按钮留位 */
+.clear-btn {
+    position: absolute; right: 2px; top: 32px; /* 调整位置以对齐输入框 */
+    height: 30px; font-size: 0.75rem; padding: 0 10px;
+    background-color: #e74c3c; color: white; border-radius: 0 4px 4px 0;
 }
+.icon-preview-group { position: relative; margin-top: 10px; }
+.icon-preview-group .clear-btn { top: 30px; right: 2px; }
+.icon-preview { width: 48px; height: 48px; border: 1px solid #ddd; border-radius: 4px; }
 
-/* -------------------------------------- */
-/* 模态框和表单样式 */
-/* -------------------------------------- */
-
-.modal {
-    display: none; 
-    position: fixed; 
-    z-index: 1000; 
-    left: 0;
-    top: 0;
-    width: 100%; 
-    height: 100%; 
-    overflow: auto; 
-    background-color: rgba(0,0,0,0.4); 
-}
-
-.modal-content {
-    background-color: #fefefe;
-    margin: 10% auto; 
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    width: 90%;
-    max-width: 500px;
-    position: relative;
-}
-
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: #333;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.form-group {
-    margin-bottom: 15px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: 600;
-}
-
-.form-group input[type="text"],
-.form-group input[type="url"],
-.form-group select,
-.form-group textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    font-size: 1rem;
-}
-
-.form-group textarea {
-    resize: vertical;
-}
-
-.form-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    margin-top: 20px;
-}
-
-.icon-upload-area {
-    display: flex;
-    flex-direction: column;
-}
-
-.icon-actions {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 10px;
-}
-
-.icon-preview {
-    width: 48px;
-    height: 48px;
-    border-radius: 6px;
-    object-fit: contain;
-    border: 1px solid #e1e4e8;
-}
-
-/* -------------------------------------- */
-/* 拖拽排序样式 */
-/* -------------------------------------- */
-
-.sortable-ghost {
-    opacity: 0.4;
-    background: #e3f2fd;
-    transform: rotate(2deg);
-}
-
-.sortable-drag {
-    opacity: 0.8;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-}
-
-/* 分类拖动手柄 */
-.category-handle {
-    cursor: move;
-    margin-right: 8px;
-    color: #95a5a6;
-    font-size: 1rem;
-}
-
-.category-handle:hover {
-    color: #3498db;
-}
-
-/* 网址拖动样式 */
-.site-card {
-    cursor: grab;
-}
-
-.site-card:active {
-    cursor: grabbing;
-}
-
-/* 拖动占位符 */
-.sortable-ghost.site-card {
-    border: 2px dashed #3498db;
-    background: #f8f9fa;
-}
-
-/* Toast 提示框样式 */
-.toast {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background: #4caf50;
-    color: white;
-    padding: 12px 20px;
-    border-radius: 4px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
-    transform: translateX(100%);
-    z-index: 2000;
-}
-
-.toast.show {
-    opacity: 1;
-    visibility: visible;
-    transform: translateX(0);
-}
-
-.toast.error {
-    background: #e74c3c;
-}
-
-/* 【文件: style.css】*/
-
-/* ... (保持原有内容不变) ... */
-
-/* -------------------------------------- */
-/* 新增：图标 URL 获取区域样式 */
-/* -------------------------------------- */
-
-.icon-url-group {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 10px;
-}
-
-.icon-url-input {
-    flex-grow: 1;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-
-.fetch-icon-url-btn {
-    white-space: nowrap; /* 防止按钮文本换行 */
-    padding: 8px 12px !important; /* 覆盖原来的 padding */
-    font-size: 0.9rem !important;
-}
-
-/* 调整原来的 icon-actions 间距 */
-.icon-actions {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 10px;
-}
+/* Toast */
+.toast { position: fixed; top: 20px; right: 20px; background: #4caf50; color: white; padding: 12px 20px; border-radius: 4px; opacity: 0; visibility: hidden; transition: 0.3s; z-index: 2000; }
+.toast.show { opacity: 1; visibility: visible; }
+.toast.error { background: #e74c3c; }
+.toast.info { background: #3498db; }

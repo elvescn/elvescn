@@ -10,13 +10,12 @@
 <body>
     <div class="container">
         <header>
-            <h1>导航页（调整测试中）</h1>
+            <h1>导航页</h1>
             <div id="managementButtons" class="management-buttons" style="display: none;">
-    <button id="addSiteBtn" class="btn-primary">添加网址</button>
-    <button id="addCategoryBtn" class="btn-secondary">添加分类</button>
-    <button id="localizeIconsBtn" class="btn-secondary">本地化所有图标</button>
- <button id="exportBtn" class="btn-primary">导出数据</button>
-</div>
+                <button id="addSiteBtn" class="btn-primary">添加网址</button>
+                <button id="addCategoryBtn" class="btn-secondary">添加分类</button>
+                <button id="exportBtn" class="btn-primary">导出数据</button>
+            </div>
         </header>
 
         <main>
@@ -32,43 +31,43 @@
             <span class="close">&times;</span>
             <h2>添加新网址</h2>
             <form id="addSiteForm">
-                <div class="form-group">
-                    <label for="siteName">网站名称:</label>
-                    <input type="text" id="siteName" required>
-                </div>
-                <div class="form-group">
-                    <label for="siteUrl">网站地址 (URL):</label>
+                <div class="form-group input-with-clear">
+                    <label for="siteUrl">网址 (URL):</label>
                     <input type="url" id="siteUrl" required placeholder="https://">
+                    <button type="button" id="clearUrlBtn" class="btn-danger clear-btn">清空</button>
                 </div>
                 
-                <div class="form-group">
-                    <label for="siteDescription">网站描述 (可选):</label>
-                    <textarea id="siteDescription" rows="2" placeholder="简短描述，如：最专业的中文技术社区"></textarea>
+                <div class="form-group fetch-group">
+                    <button type="button" id="fetchInfoBtn" class="btn-primary"><span class="btn-main-text">智能获取</span></button>
+                    <button type="button" id="uploadIconBtn" class="btn-secondary">上传图标</button>
+                </div>
+
+                <div class="form-group icon-preview-group">
+                    <label>图标预览:</label>
+                    <img id="iconPreview" class="icon-preview" src="//:0" alt="">
+                    <input type="file" id="siteIcon" style="display: none;" accept="image/*">
+                    <button type="button" id="clearIconBtn" class="btn-danger clear-btn">清空</button>
+                </div>
+
+                <div class="form-group input-with-clear">
+                    <label for="siteName">网站名称:</label>
+                    <input type="text" id="siteName" required>
+                    <button type="button" id="clearNameBtn" class="btn-danger clear-btn">清空</button>
+                </div>
+
+                <div class="form-group input-with-clear">
+                    <label for="siteDescription">描述 (可选):</label>
+                    <textarea id="siteDescription" rows="2"></textarea>
+                    <button type="button" id="clearDescriptionBtn" class="btn-danger clear-btn">清空</button>
                 </div>
 
                 <div class="form-group">
-                    <label for="siteCategory">所属分类:</label>
-                    <select id="siteCategory" required>
-                        </select>
-                </div>
-
-                <div class="form-group icon-upload-area">
-                    <label>图标:</label>
-                    <div class="icon-url-group">
-                         <input type="url" id="siteIconUrl" placeholder="输入图标链接 (可选)" class="icon-url-input">
-                         <button type="button" id="fetchIconUrlBtn" class="btn-secondary fetch-icon-url-btn">从链接获取</button>
-                    </div>
-
-                    <div class="icon-actions">
-                        <button type="button" id="fetchInfoBtn" class="btn-secondary">获取信息</button>
-                        <button type="button" id="uploadIconBtn" class="btn-secondary">上传图标</button>
-                    </div>
-                    <img id="iconPreview" class="icon-preview" src="" alt="图标预览"> 
-                    <input type="file" id="siteIcon" accept="image/*" style="display: none;">
+                    <label for="siteCategory">选择分类:</label>
+                    <select id="siteCategory" required></select>
                 </div>
 
                 <div class="form-actions">
-                    <button type="submit" class="btn-primary">保存</button>
+                    <button type="submit" class="btn-primary">添加</button>
                     <button type="button" id="cancelBtn" class="btn-secondary">取消</button>
                 </div>
             </form>
@@ -81,45 +80,62 @@
             <h2>编辑网址</h2>
             <form id="editSiteForm">
                 <input type="hidden" id="editSiteId">
-                <div class="form-group">
+                <div class="form-group input-with-clear">
+                    <label for="editSiteUrl">网址 (URL):</label>
+                    <input type="url" id="editSiteUrl" required>
+                    <button type="button" id="clearEditUrlBtn" class="btn-danger clear-btn">清空</button>
+                </div>
+
+                <div class="form-group fetch-group">
+                    <button type="button" id="editFetchInfoBtn" class="btn-primary"><span class="btn-main-text">智能获取</span></button>
+                    <button type="button" id="editUploadIconBtn" class="btn-secondary">上传图标</button>
+                </div>
+
+                <div class="form-group icon-preview-group">
+                    <label>图标预览:</label>
+                    <img id="editIconPreview" class="icon-preview" src="//:0" alt="">
+                    <input type="file" id="editSiteIcon" style="display: none;" accept="image/*">
+                    <button type="button" id="clearEditIconBtn" class="btn-danger clear-btn">清空</button>
+                </div>
+
+                <div class="form-group input-with-clear">
                     <label for="editSiteName">网站名称:</label>
                     <input type="text" id="editSiteName" required>
-                </div>
-                <div class="form-group">
-                    <label for="editSiteUrl">网站地址 (URL):</label>
-                    <input type="url" id="editSiteUrl" required placeholder="https://">
+                    <button type="button" id="clearEditNameBtn" class="btn-danger clear-btn">清空</button>
                 </div>
                 
-                <div class="form-group">
-                    <label for="editSiteDescription">网站描述 (可选):</label>
-                    <textarea id="editSiteDescription" rows="2" placeholder="简短描述，如：最专业的中文技术社区"></textarea>
+                <div class="form-group input-with-clear">
+                    <label for="editSiteDescription">描述 (可选):</label>
+                    <textarea id="editSiteDescription" rows="2"></textarea>
+                    <button type="button" id="clearEditDescriptionBtn" class="btn-danger clear-btn">清空</button>
                 </div>
 
                 <div class="form-group">
-                    <label for="editSiteCategory">所属分类:</label>
-                    <select id="editSiteCategory" required>
-                        </select>
-                </div>
-
-                <div class="form-group icon-upload-area">
-                    <label>图标:</label>
-                    <div class="icon-url-group">
-                         <input type="url" id="editSiteIconUrl" placeholder="输入图标链接 (可选)" class="icon-url-input">
-                         <button type="button" id="editFetchIconUrlBtn" class="btn-secondary fetch-icon-url-btn">从链接获取</button>
-                    </div>
-                    
-                    <div class="icon-actions">
-                        <button type="button" id="editFetchInfoBtn" class="btn-secondary">获取信息</button>
-                        <button type="button" id="editUploadIconBtn" class="btn-secondary">上传图标</button>
-                    </div>
-                    <img id="editIconPreview" class="icon-preview" src="" alt="图标预览">
-                    <input type="file" id="editSiteIcon" accept="image/*" style="display: none;">
+                    <label for="editSiteCategory">选择分类:</label>
+                    <select id="editSiteCategory" required></select>
                 </div>
 
                 <div class="form-actions">
                     <button type="submit" class="btn-primary">保存</button>
                     <button type="button" id="deleteSiteBtn" class="btn-danger">删除网址</button>
                     <button type="button" id="cancelEditBtn" class="btn-secondary">取消</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="addCategoryModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>添加新分类</h2>
+            <form id="addCategoryForm">
+                <div class="form-group">
+                    <label for="categoryName">分类名称:</label>
+                    <input type="text" id="categoryName" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">保存</button>
+                    <button type="button" id="cancelCategoryBtn" class="btn-secondary">取消</button>
                 </div>
             </form>
         </div>
@@ -144,23 +160,7 @@
         </div>
     </div>
     
-    <div id="addCategoryModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>添加新分类</h2>
-            <form id="addCategoryForm">
-                <div class="form-group">
-                    <label for="categoryName">分类名称:</label>
-                    <input type="text" id="categoryName" required>
-                </div>
-                <div class="form-actions">
-                    <button type="submit" class="btn-primary">保存</button>
-                    <button type="button" id="cancelCategoryBtn" class="btn-secondary">取消</button>
-                </div>
-            </form>
-        </div>
-    </div>
-    
-     <script src="script.js"></script>
+    <script src="fetch-helpers.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

@@ -1,845 +1,440 @@
 // 【文件: script.js】
-// 功能文件 - 核心修改为异步加载 navigation-data.json 文件，并新增本地化图标功能。
 
-// 使用全局的 navigationData 变量（不再从 navigation-data.js 文件加载）
-let currentNavigationData = { categories: [] }; // 初始设为空对象，等待加载
+// 1. 全局变量初始化 (防止空白页的关键)
+// 默认空数据，后续通过 loadNavigationData 填充
+let currentNavigationData = { categories: [] };
 
-// Toast提示函数
-function showToast(message, type = 'success') {
-    let toast = document.getElementById('toast');
-    if (!toast) {
-        toast = document.createElement('div');
-        toast.id = 'toast';
-        toast.className = 'toast';
-        document.body.appendChild(toast);
-    }
-    
-    toast.textContent = message;
-    toast.className = `toast ${type}`;
-    toast.classList.add('show');
-    
-    setTimeout(() => {
-        toast.classList.remove('show');
-    }, 3000);
-}
-
-// DOM元素
+// DOM 元素
 const categoriesContainer = document.getElementById('categories');
 const managementButtons = document.getElementById('managementButtons');
 const addSiteBtn = document.getElementById('addSiteBtn');
 const addCategoryBtn = document.getElementById('addCategoryBtn');
 const exportBtn = document.getElementById('exportBtn');
 
-// 模态框相关
+// 模态框
 const addSiteModal = document.getElementById('addSiteModal');
 const addCategoryModal = document.getElementById('addCategoryModal');
 const editSiteModal = document.getElementById('editSiteModal');
 const editCategoryModal = document.getElementById('editCategoryModal');
 
-// Sortable实例
-let categorySortable = null;
-let siteSortables = [];
-
-// 检查是否是本地环境
 let isLocalEnvironment = false;
-
-// 模态框关闭逻辑变量
 let mouseDownTarget = null;
 
-// 初始化页面改为异步
+// 2. 初始化
 document.addEventListener('DOMContentLoaded', function() {
     initApp();
 });
 
 async function initApp() {
-    await loadNavigationData(); 
-    
+    await loadNavigationData(); // 加载数据
     checkLocalEnvironment();
-    renderCategories();
+    renderCategories(); // 渲染
     setupEventListeners();
     setupModalCloseLogic();
-    if (isLocalEnvironment) {
+    if (isLocalEnvironment && typeof initDragAndDrop === 'function') {
         initDragAndDrop();
     }
 }
 
-
-function setupModalCloseLogic() {
-    window.addEventListener('mousedown', function(event) {
-        mouseDownTarget = event.target;
-    });
-
-    window.addEventListener('mouseup', function(event) {
-        if (mouseDownTarget && 
-            mouseDownTarget.classList.contains('modal') && 
-            event.target.classList.contains('modal')) {
-            closeAllModals();
-        }
-        mouseDownTarget = null;
-    });
-}
-
-function checkLocalEnvironment() {
-    if (window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-        managementButtons.style.display = 'flex';
-        isLocalEnvironment = true;
-    }
-}
-
-// 初始化拖动排序
-function initDragAndDrop() {
-    if (typeof Sortable === 'undefined') {
-        setTimeout(initDragAndDrop, 100);
-        return;
-    }
-    
-    initCategorySortable();
-    initSiteSortables();
-}
-
-// 初始化分类拖动
-function initCategorySortable() {
-    categorySortable = new Sortable(categoriesContainer, {
-        handle: '.category-handle',
-        animation: 150,
-        ghostClass: 'sortable-ghost',
-        chosenClass: 'sortable-chosen',
-        dragClass: 'sortable-drag',
-        onEnd: function(evt) {
-            const oldIndex = evt.oldIndex;
-            const newIndex = evt.newIndex;
-            
-            if (oldIndex !== newIndex) {
-                const [movedCategory] = currentNavigationData.categories.splice(oldIndex, 1);
-                currentNavigationData.categories.splice(newIndex, 0, movedCategory);
-                
-                saveToLocalStorage();
-            }
-        }
-    });
-}
-
-// 初始化网址拖动
-function initSiteSortables() {
-    siteSortables.forEach(sortable => sortable.destroy());
-    siteSortables = [];
-    
-    document.querySelectorAll('.sites-grid').forEach((grid, categoryIndex) => {
-        const sortable = new Sortable(grid, {
-            animation: 150,
-            ghostClass: 'sortable-ghost',
-            chosenClass: 'sortable-chosen',
-            dragClass: 'sortable-drag',
-            group: {
-                name: 'sites',
-                pull: true,
-                put: true
-            },
-            onEnd: function(evt) {
-                const fromCategoryIndex = parseInt(evt.from.getAttribute('data-category-index'));
-                const toCategoryIndex = parseInt(evt.to.getAttribute('data-category-index'));
-                const oldIndex = evt.oldIndex;
-                const newIndex = evt.newIndex;
-                
-                if (fromCategoryIndex === toCategoryIndex) {
-                    const category = currentNavigationData.categories[fromCategoryIndex];
-                    const [movedSite] = category.sites.splice(oldIndex, 1);
-                    category.sites.splice(newIndex, 0, movedSite);
-                } 
-                else {
-                    const fromCategory = currentNavigationData.categories[fromCategoryIndex];
-                    const toCategory = currentNavigationData.categories[toCategoryIndex];
-                    const [movedSite] = fromCategory.sites.splice(oldIndex, 1);
-                    toCategory.sites.splice(newIndex, 0, movedSite);
-                }
-                
-                saveToLocalStorage();
-                
-                setTimeout(() => {
-                    initSiteSortables();
-                }, 100);
-            }
-        });
-        
-        grid.setAttribute('data-category-index', categoryIndex);
-        siteSortables.push(sortable);
-    });
-}
-
-// 【新增】注册本地化图标按钮事件
+// 3. 事件监听
 function setupEventListeners() {
-    addSiteBtn.addEventListener('click', () => openModal(addSiteModal));
-    addCategoryBtn.addEventListener('click', () => openModal(addCategoryModal));
-    exportBtn.addEventListener('click', exportNavigationData);
-    document.getElementById('localizeIconsBtn').addEventListener('click', localizeAllIcons); // 【新增】
+    // 顶部按钮
+    addSiteBtn?.addEventListener('click', () => openModal(addSiteModal));
+    addCategoryBtn?.addEventListener('click', () => openModal(addCategoryModal));
+    exportBtn?.addEventListener('click', exportNavigationData);
 
-    document.getElementById('addSiteForm').addEventListener('submit', handleAddSite);
-    document.getElementById('addCategoryForm').addEventListener('submit', handleAddCategory);
-    document.getElementById('editSiteForm').addEventListener('submit', handleEditSite);
-    document.getElementById('editCategoryForm').addEventListener('submit', handleEditCategory);
-    document.getElementById('deleteSiteBtn').addEventListener('click', handleDeleteSite);
-    document.getElementById('deleteCategoryBtn').addEventListener('click', handleDeleteCategory);
-
-    // 图标和标题相关事件
-    document.getElementById('fetchInfoBtn').addEventListener('click', () => fetchSiteInfo('add'));
-    document.getElementById('uploadIconBtn').addEventListener('click', () => document.getElementById('siteIcon').click());
-    document.getElementById('siteIcon').addEventListener('change', (e) => handleIconUpload(e, 'add'));
+    // 表单提交
+    document.getElementById('addSiteForm')?.addEventListener('submit', handleAddSite);
+    document.getElementById('addCategoryForm')?.addEventListener('submit', handleAddCategory);
+    document.getElementById('editSiteForm')?.addEventListener('submit', handleEditSite);
+    document.getElementById('editCategoryForm')?.addEventListener('submit', handleEditCategory);
     
-    document.getElementById('editFetchInfoBtn').addEventListener('click', () => fetchSiteInfo('edit'));
-    document.getElementById('editUploadIconBtn').addEventListener('click', () => document.getElementById('editSiteIcon').click());
-    document.getElementById('editSiteIcon').addEventListener('change', (e) => handleIconUpload(e, 'edit'));
+    // 删除按钮
+    document.getElementById('deleteSiteBtn')?.addEventListener('click', handleDeleteSite);
+    document.getElementById('deleteCategoryBtn')?.addEventListener('click', handleDeleteCategory);
 
-    document.querySelectorAll('.close').forEach(closeBtn => {
-        closeBtn.addEventListener('click', closeAllModals);
-    });
-    document.getElementById('cancelBtn').addEventListener('click', closeAllModals);
-    document.getElementById('cancelCategoryBtn').addEventListener('click', closeAllModals);
-    document.getElementById('cancelEditBtn').addEventListener('click', closeAllModals);
-    document.getElementById('cancelEditCategoryBtn').addEventListener('click', closeAllModals);
+    // 智能获取
+    document.getElementById('fetchInfoBtn')?.addEventListener('click', () => fetchSiteInfo('add'));
+    document.getElementById('editFetchInfoBtn')?.addEventListener('click', () => fetchSiteInfo('edit'));
+
+    // 图标上传
+    document.getElementById('uploadIconBtn')?.addEventListener('click', () => document.getElementById('siteIcon').click());
+    document.getElementById('siteIcon')?.addEventListener('change', (e) => handleIconUpload(e, 'add'));
+    document.getElementById('editUploadIconBtn')?.addEventListener('click', () => document.getElementById('editSiteIcon').click());
+    document.getElementById('editSiteIcon')?.addEventListener('change', (e) => handleIconUpload(e, 'edit'));
+
+    // 清空按钮绑定
+    bindClearButton('clearNameBtn', 'siteName');
+    bindClearButton('clearUrlBtn', 'siteUrl');
+    bindClearButton('clearDescriptionBtn', 'siteDescription');
+    bindClearButton('clearEditNameBtn', 'editSiteName');
+    bindClearButton('clearEditUrlBtn', 'editSiteUrl');
+    bindClearButton('clearEditDescriptionBtn', 'editSiteDescription');
+    
+    // 图标清空特殊处理
+    document.getElementById('clearIconBtn')?.addEventListener('click', () => clearField('iconPreview', 'icon'));
+    document.getElementById('clearEditIconBtn')?.addEventListener('click', () => clearField('editIconPreview', 'icon'));
+
+    // 模态框关闭
+    document.querySelectorAll('.close').forEach(btn => btn.addEventListener('click', closeAllModals));
+    document.getElementById('cancelBtn')?.addEventListener('click', closeAllModals);
+    document.getElementById('cancelCategoryBtn')?.addEventListener('click', closeAllModals);
+    document.getElementById('cancelEditBtn')?.addEventListener('click', closeAllModals);
+    document.getElementById('cancelEditCategoryBtn')?.addEventListener('click', closeAllModals);
 }
 
-// 渲染分类和网站
-function renderCategories() {
-    categoriesContainer.innerHTML = '';
-    
-    currentNavigationData.categories.forEach((category, categoryIndex) => {
-        const categoryElement = document.createElement('div');
-        categoryElement.className = 'category';
-        
-        const categoryHeader = document.createElement('div');
-        categoryHeader.className = 'category-header';
-        
-        const categoryTitleContainer = document.createElement('div');
-        categoryTitleContainer.style.display = 'flex';
-        categoryTitleContainer.style.alignItems = 'center';
-        
-        if (isLocalEnvironment) {
-            const categoryHandle = document.createElement('span');
-            categoryHandle.className = 'category-handle';
-            categoryHandle.innerHTML = '⠿';
-            categoryHandle.title = '拖动排序';
-            categoryTitleContainer.appendChild(categoryHandle);
-        }
-        
-        const categoryTitle = document.createElement('h2');
-        categoryTitle.className = 'category-title';
-        categoryTitle.textContent = category.name;
-        categoryTitleContainer.appendChild(categoryTitle);
-        
-        const categoryActions = document.createElement('div');
-        categoryActions.className = 'category-actions';
-        
-        if (isLocalEnvironment) {
-            const editCategoryBtn = document.createElement('button');
-            editCategoryBtn.className = 'edit-category-btn';
-            editCategoryBtn.innerHTML = '编辑分类';
-            editCategoryBtn.addEventListener('click', () => openEditCategoryModal(category));
-            
-            const deleteCategoryBtn = document.createElement('button');
-            deleteCategoryBtn.className = 'delete-category-btn';
-            deleteCategoryBtn.innerHTML = '删除分类';
-            deleteCategoryBtn.addEventListener('click', () => handleDeleteCategory(category.id));
-            
-            categoryActions.appendChild(editCategoryBtn);
-            categoryActions.appendChild(deleteCategoryBtn);
-            categoryActions.style.display = 'flex';
-        }
-        
-        categoryHeader.appendChild(categoryTitleContainer);
-        categoryHeader.appendChild(categoryActions);
-        
-        const sitesGrid = document.createElement('div');
-        sitesGrid.className = 'sites-grid';
-        sitesGrid.setAttribute('data-category-index', categoryIndex);
-        
-        category.sites.forEach(site => {
-            const siteCard = document.createElement('a');
-            siteCard.className = 'site-card';
-            siteCard.href = site.url;
-            siteCard.target = '_blank';
-            
-            const siteIcon = document.createElement('img');
-            siteIcon.className = 'site-icon';
-            siteIcon.src = site.icon;
-            siteIcon.alt = `${site.name}图标`;
-            siteIcon.onerror = function() {
-                // 如果当前图标加载失败，则使用默认图标
-                this.src = getDefaultIcon(site.name);
-            };
-            
-            const siteName = document.createElement('div');
-            siteName.className = 'site-name';
-            siteName.textContent = site.name;
-            
-            siteCard.appendChild(siteIcon);
-            siteCard.appendChild(siteName);
-            
-            const editBtn = document.createElement('button');
-            editBtn.className = 'edit-btn';
-            editBtn.innerHTML = '✎';
-            editBtn.title = '编辑';
-            
-            if (isLocalEnvironment) {
-                editBtn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    openEditSiteModal(site, category.id);
-                });
-                
-                siteCard.addEventListener('mouseenter', () => {
-                    editBtn.style.display = 'flex';
-                });
-                siteCard.addEventListener('mouseleave', () => {
-                    editBtn.style.display = 'none';
-                });
-            }
-            
-            siteCard.appendChild(editBtn);
-            sitesGrid.appendChild(siteCard);
-        });
-        
-        categoryElement.appendChild(categoryHeader);
-        categoryElement.appendChild(sitesGrid);
-        
-        categoriesContainer.appendChild(categoryElement);
-    });
-    
-    if (isLocalEnvironment) {
-        setTimeout(() => {
-            initSiteSortables();
-        }, 100);
-    }
+function bindClearButton(btnId, inputId) {
+    document.getElementById(btnId)?.addEventListener('click', () => clearField(inputId));
 }
 
-// 生成默认图标
-function getDefaultIcon(name) {
-    const colors = ['#3498db', '#2ecc71', '#e74c3c', '#f39c12', '#9b59b6', '#1abc9c', '#34495e', '#e67e22'];
-    const color = colors[name.length % colors.length];
-    const letter = name.charAt(0).toUpperCase();
-    
-    return `data:image/svg+xml;base64,${btoa(`
-        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="48" height="48" rx="6" fill="${color}"/>
-            <text x="50%" y="50%" font-family="Arial, sans-serif" font-size="18" fill="white" text-anchor="middle" dominant-baseline="middle">${letter}</text>
-        </svg>
-    `)}`;
-}
-
-// 打开模态框
-function openModal(modal) {
-    closeAllModals();
-    modal.style.display = 'block';
-    if (modal === addSiteModal) {
-        populateCategorySelect('siteCategory');
-        const defaultCategory = currentNavigationData.categories.find(cat => cat.name === "常用");
-        if (defaultCategory) {
-            document.getElementById('siteCategory').value = defaultCategory.id;
-        }
-    }
-}
-
-function closeAllModals() {
-    addSiteModal.style.display = 'none';
-    addCategoryModal.style.display = 'none';
-    editSiteModal.style.display = 'none';
-    editCategoryModal.style.display = 'none';
-}
-
-// 填充分类选择下拉框
-function populateCategorySelect(selectId) {
-    const select = document.getElementById(selectId);
-    select.innerHTML = '<option value="">请选择分类</option>';
-    
-    currentNavigationData.categories.forEach(category => {
-        const option = document.createElement('option');
-        option.value = category.id;
-        option.textContent = category.name;
-        select.appendChild(option);
-    });
-}
-
-// 添加网址
-function handleAddSite(event) {
-    event.preventDefault();
-    
-    const siteName = document.getElementById('siteName').value;
-    const siteUrl = document.getElementById('siteUrl').value;
-    const categoryId = parseInt(document.getElementById('siteCategory').value);
-    let siteIcon = document.getElementById('iconPreview').src;
-    if (!siteIcon || siteIcon.includes('//:0')) { 
-        siteIcon = getDefaultIcon(siteName);
-    }
-    
-    const category = currentNavigationData.categories.find(cat => cat.id === categoryId);
-    
-    if (category) {
-        const newSite = {
-            id: Date.now(),
-            name: siteName,
-            url: siteUrl,
-            icon: siteIcon
-        };
-        
-        category.sites.push(newSite);
-        renderCategories();
-        closeAllModals();
-        saveToLocalStorage();
-    }
-}
-
-// 添加分类
-function handleAddCategory(event) {
-    event.preventDefault();
-    
-    const categoryName = document.getElementById('categoryName').value;
-    
-    if (categoryName) {
-        const newCategory = {
-            id: Date.now(),
-            name: categoryName,
-            sites: []
-        };
-        
-        currentNavigationData.categories.push(newCategory);
-        renderCategories();
-        closeAllModals();
-        saveToLocalStorage();
-    }
-}
-
-// 打开编辑分类模态框
-function openEditCategoryModal(category) {
-    document.getElementById('editCategoryId').value = category.id;
-    document.getElementById('editCategoryName').value = category.name;
-    openModal(editCategoryModal);
-}
-
-// 编辑分类
-function handleEditCategory(event) {
-    event.preventDefault();
-    
-    const categoryId = parseInt(document.getElementById('editCategoryId').value);
-    const categoryName = document.getElementById('editCategoryName').value;
-    
-    const category = currentNavigationData.categories.find(cat => cat.id === categoryId);
-    
-    if (category) {
-        category.name = categoryName;
-        renderCategories();
-        closeAllModals();
-        saveToLocalStorage();
-    }
-}
-
-// 删除分类
-function handleDeleteCategory(categoryId) {
-    const targetId = typeof categoryId === 'number' ? categoryId : parseInt(document.getElementById('editCategoryId').value);
-    
-    const category = currentNavigationData.categories.find(cat => cat.id === targetId);
-    
-    if (category) {
-        if (category.sites.length > 0) {
-            if (!confirm(`分类 "${category.name}" 中还有 ${category.sites.length} 个网址，确定要删除这个分类吗？所有网址也将被删除！`)) {
-                return;
-            }
-        } else {
-            if (!confirm(`确定要删除分类 "${category.name}" 吗？`)) {
-                return;
-            }
-        }
-        
-        currentNavigationData.categories = currentNavigationData.categories.filter(cat => cat.id !== targetId);
-        renderCategories();
-        saveToLocalStorage();
-        closeAllModals();
-    }
-}
-
-// 打开编辑网址模态框
-function openEditSiteModal(site, categoryId) {
-    document.getElementById('editSiteId').value = site.id;
-    document.getElementById('editSiteName').value = site.name;
-    document.getElementById('editSiteUrl').value = site.url;
-    document.getElementById('editIconPreview').src = site.icon;
-    
-    populateCategorySelect('editSiteCategory');
-    document.getElementById('editSiteCategory').value = categoryId;
-    
-    openModal(editSiteModal);
-}
-
-// 编辑网址
-function handleEditSite(event) {
-    event.preventDefault();
-    
-    const siteId = parseInt(document.getElementById('editSiteId').value);
-    const siteName = document.getElementById('editSiteName').value;
-    const siteUrl = document.getElementById('editSiteUrl').value;
-    const categoryId = parseInt(document.getElementById('editSiteCategory').value);
-    let siteIcon = document.getElementById('editIconPreview').src;
-    if (!siteIcon || siteIcon.includes('//:0')) { 
-        siteIcon = getDefaultIcon(siteName);
-    }
-    
-    let oldCategory, siteIndex;
-    currentNavigationData.categories.forEach(category => {
-        const index = category.sites.findIndex(site => site.id === siteId);
-        if (index !== -1) {
-            oldCategory = category;
-            siteIndex = index;
-        }
-    });
-    
-    if (oldCategory && siteIndex !== undefined) {
-        const updatedSite = {
-            id: siteId,
-            name: siteName,
-            url: siteUrl,
-            icon: siteIcon
-        };
-        
-        if (oldCategory.id !== categoryId) {
-            oldCategory.sites.splice(siteIndex, 1);
-            
-            const newCategory = currentNavigationData.categories.find(cat => cat.id === categoryId);
-            if (newCategory) {
-                newCategory.sites.push(updatedSite);
-            }
-        } else {
-            oldCategory.sites[siteIndex] = updatedSite;
-        }
-        
-        renderCategories();
-        closeAllModals();
-        saveToLocalStorage();
-    }
-}
-
-// 删除网址
-function handleDeleteSite() {
-    const siteId = parseInt(document.getElementById('editSiteId').value);
-    
-    if (confirm('确定要删除这个网址吗？')) {
-        currentNavigationData.categories.forEach(category => {
-            const index = category.sites.findIndex(site => site.id === siteId);
-            if (index !== -1) {
-                category.sites.splice(index, 1);
-            }
-        });
-        
-        renderCategories();
-        closeAllModals();
-        saveToLocalStorage();
-    }
-}
-
-// 获取网站信息（图标和标题）
+// 4. 智能获取逻辑
 async function fetchSiteInfo(type) {
-    const urlInput = type === 'add' ? document.getElementById('siteUrl') : document.getElementById('editSiteUrl');
-    const nameInput = type === 'add' ? document.getElementById('siteName') : document.getElementById('editSiteName');
-    const preview = type === 'add' ? document.getElementById('iconPreview') : document.getElementById('editIconPreview');
-    
-    const siteUrl = urlInput.value;
-    
-    if (!siteUrl) {
-        showToast('请先输入网站地址', 'error');
-        return;
-    }
-    
-    const fetchBtn = type === 'add' ? document.getElementById('fetchInfoBtn') : document.getElementById('editFetchInfoBtn');
-    const originalText = fetchBtn.textContent; 
-    
-    try {
-        const domain = new URL(siteUrl).hostname;
-        
-        fetchBtn.textContent = '获取中...'; 
-        fetchBtn.disabled = true;
+    if (typeof SiteUtils === 'undefined') return alert("fetch-helpers.js 未加载");
 
-        let successResults = [];
-        
-        const GLOBAL_TIMEOUT_MS = 10000;
-        
-        const timeoutPromise = new Promise((_, reject) => {
-            setTimeout(() => {
-                reject(new Error('GLOBAL_TIMEOUT'));
-            }, GLOBAL_TIMEOUT_MS);
+    const isAdd = type === 'add';
+    const urlInput = document.getElementById(isAdd ? 'siteUrl' : 'editSiteUrl');
+    const nameInput = document.getElementById(isAdd ? 'siteName' : 'editSiteName');
+    const descInput = document.getElementById(isAdd ? 'siteDescription' : 'editSiteDescription');
+    const preview = document.getElementById(isAdd ? 'iconPreview' : 'editIconPreview');
+    const fetchBtn = document.getElementById(isAdd ? 'fetchInfoBtn' : 'editFetchInfoBtn');
+
+    const siteUrl = urlInput.value.trim();
+    if (!siteUrl) return showToast('请先输入网站地址', 'error');
+
+    let domain;
+    try { domain = new URL(siteUrl).hostname; } catch { return showToast('网址格式不正确', 'error'); }
+
+    // 检查是否需要获取
+    const isIconEmpty = !preview.src || preview.src.includes('//:0') || preview.src.includes('data:image/svg+xml');
+    const isNameEmpty = !nameInput.value.trim();
+    const isDescEmpty = !descInput.value.trim();
+
+    if (!isIconEmpty && !isNameEmpty && !isDescEmpty) {
+        return showToast('所有字段均有内容，无需获取', 'info');
+    }
+
+    // 设置按钮加载状态 (兼容包含 span 或纯文本的按钮)
+    const btnSpan = fetchBtn.querySelector('.btn-main-text');
+    const originalText = btnSpan ? btnSpan.textContent : fetchBtn.textContent;
+    if (btnSpan) btnSpan.textContent = '获取中...'; else fetchBtn.textContent = '获取中...';
+    fetchBtn.disabled = true;
+
+    try {
+        const tasks = [];
+        if (isIconEmpty) tasks.push(SiteUtils.fetchIcon(domain).then(res => ({ type: 'icon', data: res })));
+        if (isNameEmpty || isDescEmpty) tasks.push(SiteUtils.fetchMeta(siteUrl).then(res => ({ type: 'meta', data: res })));
+
+        // 10秒超时
+        const timeout = new Promise((_, r) => setTimeout(() => r(new Error('TIMEOUT')), 10000));
+        const results = await Promise.race([Promise.all(tasks), timeout]);
+
+        let successCount = 0;
+        results.forEach(res => {
+            if (res.type === 'icon' && res.data) { preview.src = res.data; successCount++; }
+            if (res.type === 'meta') {
+                if (isNameEmpty && res.data.title) { nameInput.value = res.data.title; successCount++; }
+                if (isDescEmpty && res.data.description) { descInput.value = res.data.description; successCount++; }
+            }
         });
 
-        const fetchOperation = Promise.all([
-            fetchSiteIcon(domain, preview),
-            fetchSiteTitle(siteUrl, nameInput)
-        ]);
+        if (successCount > 0) showToast('获取成功', 'success');
+        else showToast('未获取到新信息', 'info');
 
-        const [iconSuccess, titleSuccess] = await Promise.race([
-            fetchOperation,
-            timeoutPromise
-        ]);
-        
-        if (iconSuccess) successResults.push('图标');
-        if (titleSuccess) successResults.push('标题');
-        
-        if (successResults.length > 0) {
-            showToast(`成功获取: ${successResults.join('、')}`, 'success');
-        } else {
-            showToast('获取失败，请手动填写信息', 'error');
-        }
-        
-    } catch (error) {
-        console.error('获取网站信息失败:', error);
-        
-        if (error.message === 'GLOBAL_TIMEOUT') {
-             showToast('获取超时 (10秒限制)，显示失败', 'error');
-        } else {
-            showToast('获取失败，请检查网址和网络', 'error');
+        // 兜底图标
+        if (isIconEmpty && (!preview.src || preview.src.includes('//:0'))) {
+            preview.src = SiteUtils.getDefaultIcon(domain.split('.')[0]);
         }
 
+    } catch (err) {
+        showToast(err.message === 'TIMEOUT' ? '获取超时' : '获取失败', 'error');
     } finally {
-        fetchBtn.textContent = originalText;
+        if (btnSpan) btnSpan.textContent = originalText; else fetchBtn.textContent = originalText;
         fetchBtn.disabled = false;
     }
 }
 
-// 获取网站图标 (保持不变)
-function fetchSiteIcon(domain, preview) {
-    return new Promise((resolve) => {
-        const faviconServices = [
-            `https://api.btstu.cn/favicon.php?url=${domain}`,
-            `https://favicon.cccyun.cc/${domain}`,
-            `https://icons.duckduckgo.com/ip3/${domain}.ico`,
-            `https://www.google.com/s2/favicons?domain=${domain}&sz=32`
-        ];
-        
-        let currentServiceIndex = 0;
-        
-        const tryNextService = () => {
-            if (currentServiceIndex >= faviconServices.length) {
-                const currentName = document.getElementById('siteName')?.value || 
-                                  document.getElementById('editSiteName')?.value || 
-                                  domain.split('.')[0] || 'Web';
-                preview.src = getDefaultIcon(currentName);
-                resolve(false);
-                return;
-            }
-            
-            const faviconUrl = faviconServices[currentServiceIndex];
-            currentServiceIndex++;
-            
-            const img = new Image();
-            
-            img.onload = function() {
-                preview.src = faviconUrl;
-                resolve(true);
-            };
-            
-            img.onerror = function() {
-                tryNextService();
-            };
-            
-            setTimeout(() => {
-                if (!img.complete) {
-                    img.onload = null;
-                    img.onerror = null;
-                    tryNextService();
-                }
-            }, 3000);
-            
-            img.src = faviconUrl;
-        };
-        
-        tryNextService();
-    });
-}
-
-// 获取网站标题
-async function fetchSiteTitle(siteUrl, nameInput) {
-    try {
-        const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(siteUrl)}`;
-        
-        const response = await fetch(proxyUrl);
-        
-        if (response.ok) {
-            const data = await response.json();
-            const html = data.contents;
-            
-            const titleMatch = html.match(/<title[^>]*>([^<]+)<\/title>/i);
-            if (titleMatch && titleMatch[1]) {
-                const title = cleanWebsiteTitle(titleMatch[1]);
-                if (title && title.length > 0) {
-                    nameInput.value = title;
-                    return true;
-                }
-            }
-        }
-    } catch (error) {
-        console.log('标题获取失败:', error);
+// 5. 辅助函数
+function clearField(elementId, type = 'text') {
+    const el = document.getElementById(elementId);
+    if (!el) return;
+    if (type === 'icon') {
+        el.src = '//:0';
+        showToast('图标已清空', 'info');
+    } else {
+        el.value = '';
+        showToast('内容已清空', 'info');
     }
-    
-    return false;
 }
 
-// 清理网站标题
-function cleanWebsiteTitle(title) {
-    if (!title) return '';
-    
-    const suffixes = [
-        ' - 官方网站', ' - 官方首页', ' - 首页', ' - 主页',
-        ' - Official Website', ' - Official Site', ' - Home Page',
-        ' | 官方网站', ' | 官方首页', ' | 首页', ' | 主页',
-        ' | Official Website', ' | Official Site', ' | Home Page'
-    ];
-    
-    let cleanTitle = title.trim();
-    suffixes.forEach(suffix => {
-        if (cleanTitle.endsWith(suffix)) {
-            cleanTitle = cleanTitle.slice(0, -suffix.length);
-        }
-    });
-    
-    return cleanTitle.trim();
-}
-
-// 处理图标上传并转换为Base64
-function handleIconUpload(event, type) {
-    const file = event.target.files[0];
-    const preview = type === 'add' ? document.getElementById('iconPreview') : document.getElementById('editIconPreview');
-    
+function handleIconUpload(e, type) {
+    const file = e.target.files[0];
+    const preview = document.getElementById(type === 'add' ? 'iconPreview' : 'editIconPreview');
     if (file) {
         const reader = new FileReader();
-        reader.onload = function(e) {
-            preview.src = e.target.result;
-        };
+        reader.onload = evt => preview.src = evt.target.result;
         reader.readAsDataURL(file);
     }
 }
 
-// 【新增】将远程URL转换为Base64
-function urlToBase64(url) {
-    return new Promise((resolve, reject) => {
-        if (url.startsWith('data:')) {
-            resolve(url); // 已经是Base64数据
-            return;
-        }
-
-        // 使用 fetch 获取图片数据
-        fetch(url)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                return response.blob();
-            })
-            .then(blob => {
-                // 使用 FileReader 将 Blob 转换为 Base64
-                const reader = new FileReader();
-                reader.onloadend = () => {
-                    resolve(reader.result);
-                };
-                reader.onerror = reject;
-                reader.readAsDataURL(blob);
-            })
-            .catch(reject);
-    });
+function showToast(message, type = 'success') {
+    let toast = document.getElementById('toast');
+    if (!toast) {
+        toast = document.createElement('div'); toast.id = 'toast';
+        toast.className = 'toast'; document.body.appendChild(toast);
+    }
+    toast.textContent = message; toast.className = `toast ${type} show`;
+    setTimeout(() => toast.classList.remove('show'), 3000);
 }
 
-// 【新增】本地化所有图标的主函数
-async function localizeAllIcons() {
-    if (!confirm('确定要尝试本地化所有远程网站图标吗？此操作会尝试从互联网获取图标并转换成Base64格式存储。注意：本地文件（file://）运行时可能会因浏览器安全限制而失败，建议在本地服务器（如 localhost）下运行此操作。')) {
+// 6. 渲染核心
+function renderCategories() {
+    categoriesContainer.innerHTML = '';
+    
+    if (!currentNavigationData.categories || currentNavigationData.categories.length === 0) {
+        categoriesContainer.innerHTML = '<div style="text-align:center; padding:20px; color:#666;">暂无数据，请点击“添加分类”开始。</div>';
         return;
     }
 
-    const localizeBtn = document.getElementById('localizeIconsBtn');
-    const originalText = localizeBtn.textContent;
-    localizeBtn.textContent = '本地化中...';
-    localizeBtn.disabled = true;
-
-    let successfulConversions = 0;
-    let failedConversions = 0;
-
-    for (const category of currentNavigationData.categories) {
-        for (const site of category.sites) {
-            // 仅处理外部URL
-            if (!site.icon.startsWith('data:')) {
-                let conversionSuccessful = false;
-                try {
-                    // 使用Google的稳定Favicon服务作为本地化源
-                    const domain = new URL(site.url).hostname;
-                    const reliableFaviconUrl = `https://www.google.com/s2/favicons?domain=${domain}&sz=32`;
-                    
-                    const base64Icon = await urlToBase64(reliableFaviconUrl);
-                    
-                    if (base64Icon.startsWith('data:')) {
-                        site.icon = base64Icon;
-                        successfulConversions++;
-                        conversionSuccessful = true;
-                    } else {
-                        throw new Error("Conversion failed to produce Base64 data.");
-                    }
-                } catch (e) {
-                    // 失败时，替换为默认生成的 Base64 图标
-                    site.icon = getDefaultIcon(site.name);
-                    failedConversions++;
-                    console.error(`本地化 ${site.name} 失败，使用默认图标:`, e.message);
-                }
-            }
+    currentNavigationData.categories.forEach((category, catIdx) => {
+        const catEl = document.createElement('div');
+        catEl.className = 'category';
+        
+        const header = document.createElement('div');
+        header.className = 'category-header';
+        
+        const titleBox = document.createElement('div');
+        titleBox.style.display = 'flex'; titleBox.style.alignItems = 'center';
+        
+        if (isLocalEnvironment) {
+            const handle = document.createElement('span');
+            handle.className = 'category-handle'; handle.innerHTML = '⠿';
+            titleBox.appendChild(handle);
         }
-    }
+        
+        const h2 = document.createElement('h2');
+        h2.className = 'category-title'; h2.textContent = category.name;
+        titleBox.appendChild(h2);
+        
+        const actions = document.createElement('div');
+        actions.className = 'category-actions';
+        if (isLocalEnvironment) {
+            const editBtn = document.createElement('button');
+            editBtn.className = 'btn-secondary'; editBtn.textContent = '编辑';
+            editBtn.onclick = () => openEditCategoryModal(category);
+            
+            const delBtn = document.createElement('button');
+            delBtn.className = 'btn-danger'; delBtn.textContent = '删除';
+            delBtn.onclick = () => handleDeleteCategory(category.id);
+            
+            actions.append(editBtn, delBtn);
+            actions.style.display = 'flex';
+        }
+        header.append(titleBox, actions);
+        
+        const grid = document.createElement('div');
+        grid.className = 'sites-grid';
+        grid.setAttribute('data-category-index', catIdx);
+        
+        category.sites.forEach(site => {
+            const card = document.createElement('a');
+            card.className = 'site-card';
+            card.href = site.url; card.target = '_blank';
+            if (site.description) card.title = site.description;
 
-    // 保存更改并重新渲染页面
-    saveToLocalStorage();
-    renderCategories();
+            const icon = document.createElement('img');
+            icon.className = 'site-icon';
+            icon.src = site.icon;
+            icon.onerror = function() { if(typeof SiteUtils !== 'undefined') this.src = SiteUtils.getDefaultIcon(site.name); };
 
-    localizeBtn.textContent = originalText;
-    localizeBtn.disabled = false;
+            const info = document.createElement('div');
+            info.className = 'site-info';
+            
+            const name = document.createElement('div');
+            name.className = 'site-name'; name.textContent = site.name;
+            info.appendChild(name);
 
-    showToast(`图标本地化完成。成功转换: ${successfulConversions} 个, 失败/使用默认: ${failedConversions} 个。`, 'success');
+            if (site.description) {
+                const desc = document.createElement('div');
+                desc.className = 'site-description'; desc.textContent = site.description;
+                info.appendChild(desc);
+            }
+
+            card.append(icon, info);
+
+            if (isLocalEnvironment) {
+                const editBtn = document.createElement('button');
+                editBtn.className = 'edit-btn'; editBtn.innerHTML = '✎';
+                editBtn.onclick = (e) => { e.preventDefault(); e.stopPropagation(); openEditSiteModal(site, category.id); };
+                card.appendChild(editBtn);
+                card.onmouseenter = () => editBtn.style.display = 'block';
+                card.onmouseleave = () => editBtn.style.display = 'none';
+            }
+            grid.appendChild(card);
+        });
+        
+        catEl.append(header, grid);
+        categoriesContainer.appendChild(catEl);
+    });
+    
+    if (isLocalEnvironment) setTimeout(initSiteSortables, 100);
 }
 
-
-// 从本地存储或JSON文件加载数据
+// 7. 数据持久化 (LocalStorage & JSON Fetch)
 async function loadNavigationData() {
     const savedData = localStorage.getItem('navigationData');
-    
     if (savedData) {
-        // 1. 优先从本地存储加载
-        try {
-             currentNavigationData = JSON.parse(savedData);
-             return;
-        } catch(e) {
-            console.error("加载本地存储数据失败", e);
-        }
+        try { currentNavigationData = JSON.parse(savedData); return; } catch(e) { console.error(e); }
     }
-    
-    // 2. 如果本地存储没有，则从 navigation-data.json 异步加载
+    // 如果本地没有，尝试读取 json 文件
     try {
         const response = await fetch('navigation-data.json');
-        if (response.ok) {
-            const data = await response.json();
-            currentNavigationData = data;
-        } else {
-            console.warn("未能从 navigation-data.json 加载数据，使用默认空结构。");
-            currentNavigationData = { categories: [] };
-        }
+        if (response.ok) { currentNavigationData = await response.json(); }
     } catch (e) {
-        console.error("加载 navigation-data.json 文件失败", e);
-        currentNavigationData = { categories: [] };
+        console.warn("未找到 navigation-data.json 或网络错误，初始化为空数据。", e);
     }
 }
 
-// 保存到本地存储
 function saveToLocalStorage() {
     localStorage.setItem('navigationData', JSON.stringify(currentNavigationData));
 }
 
-// 导出导航数据文件到 navigation-data.json
 function exportNavigationData() {
     const dataContent = JSON.stringify(currentNavigationData, null, 2);
-
-    const dataBlob = new Blob([dataContent], {type: 'application/json'});
-    
+    const blob = new Blob([dataContent], {type: 'application/json'});
     const link = document.createElement('a');
-    link.href = URL.createObjectURL(dataBlob);
+    link.href = URL.createObjectURL(blob);
     link.download = 'navigation-data.json';
     link.click();
-    
-    showToast('数据已导出为 navigation-data.json 文件。', 'success');
+    showToast('数据导出成功', 'success');
 }
+
+// 8. 模态框与数据操作
+function handleAddSite(e) {
+    e.preventDefault();
+    const name = document.getElementById('siteName').value;
+    const url = document.getElementById('siteUrl').value;
+    const desc = document.getElementById('siteDescription').value.trim();
+    const catId = parseInt(document.getElementById('siteCategory').value);
+    let icon = document.getElementById('iconPreview').src;
+    
+    if ((!icon || icon.includes('//:0')) && typeof SiteUtils !== 'undefined') icon = SiteUtils.getDefaultIcon(name);
+
+    const cat = currentNavigationData.categories.find(c => c.id === catId);
+    if (cat) {
+        cat.sites.push({ id: Date.now(), name, url, description: desc, icon });
+        renderCategories(); closeAllModals(); saveToLocalStorage();
+    }
+}
+
+function handleEditSite(e) {
+    e.preventDefault();
+    const id = parseInt(document.getElementById('editSiteId').value);
+    const name = document.getElementById('editSiteName').value;
+    const url = document.getElementById('editSiteUrl').value;
+    const desc = document.getElementById('editSiteDescription').value.trim();
+    const catId = parseInt(document.getElementById('editSiteCategory').value);
+    let icon = document.getElementById('editIconPreview').src;
+
+    if ((!icon || icon.includes('//:0')) && typeof SiteUtils !== 'undefined') icon = SiteUtils.getDefaultIcon(name);
+
+    let oldCat, idx;
+    currentNavigationData.categories.forEach(c => {
+        const i = c.sites.findIndex(s => s.id === id);
+        if (i !== -1) { oldCat = c; idx = i; }
+    });
+
+    if (oldCat) {
+        const newSite = { id, name, url, description: desc, icon };
+        if (oldCat.id !== catId) {
+            oldCat.sites.splice(idx, 1);
+            const newCat = currentNavigationData.categories.find(c => c.id === catId);
+            if (newCat) newCat.sites.push(newSite);
+        } else { oldCat.sites[idx] = newSite; }
+        renderCategories(); closeAllModals(); saveToLocalStorage();
+    }
+}
+
+function handleDeleteSite() {
+    const id = parseInt(document.getElementById('editSiteId').value);
+    if (confirm('确定删除?')) {
+        currentNavigationData.categories.forEach(c => {
+            const idx = c.sites.findIndex(s => s.id === id);
+            if (idx !== -1) c.sites.splice(idx, 1);
+        });
+        renderCategories(); closeAllModals(); saveToLocalStorage();
+    }
+}
+
+function handleAddCategory(e) {
+    e.preventDefault();
+    const name = document.getElementById('categoryName').value;
+    currentNavigationData.categories.push({ id: Date.now(), name, sites: [] });
+    renderCategories(); closeAllModals(); saveToLocalStorage();
+}
+
+function handleEditCategory(e) {
+    e.preventDefault();
+    const id = parseInt(document.getElementById('editCategoryId').value);
+    const name = document.getElementById('editCategoryName').value;
+    const cat = currentNavigationData.categories.find(c => c.id === id);
+    if (cat) { cat.name = name; renderCategories(); closeAllModals(); saveToLocalStorage(); }
+}
+
+function handleDeleteCategory(id) {
+    const targetId = typeof id === 'number' ? id : parseInt(document.getElementById('editCategoryId').value);
+    const catIdx = currentNavigationData.categories.findIndex(c => c.id === targetId);
+    if (catIdx !== -1) {
+        if (currentNavigationData.categories[catIdx].sites.length > 0 && !confirm('分类不为空，确定删除?')) return;
+        currentNavigationData.categories.splice(catIdx, 1);
+        renderCategories(); closeAllModals(); saveToLocalStorage();
+    }
+}
+
+function openModal(modal) {
+    closeAllModals(); modal.style.display = 'block';
+    if (modal === addSiteModal) {
+        populateCategorySelect('siteCategory');
+        document.getElementById('addSiteForm').reset();
+        document.getElementById('iconPreview').src = '//:0';
+    }
+}
+function openEditSiteModal(site, catId) {
+    document.getElementById('editSiteId').value = site.id;
+    document.getElementById('editSiteName').value = site.name;
+    document.getElementById('editSiteUrl').value = site.url;
+    document.getElementById('editSiteDescription').value = site.description || '';
+    document.getElementById('editIconPreview').src = site.icon;
+    populateCategorySelect('editSiteCategory');
+    document.getElementById('editSiteCategory').value = catId;
+    closeAllModals(); editSiteModal.style.display = 'block';
+}
+function openEditCategoryModal(cat) {
+    document.getElementById('editCategoryId').value = cat.id;
+    document.getElementById('editCategoryName').value = cat.name;
+    closeAllModals(); editCategoryModal.style.display = 'block';
+}
+function closeAllModals() {
+    [addSiteModal, addCategoryModal, editSiteModal, editCategoryModal].forEach(m => m.style.display = 'none');
+}
+function populateCategorySelect(id) {
+    const sel = document.getElementById(id); sel.innerHTML = '';
+    currentNavigationData.categories.forEach(c => {
+        const opt = document.createElement('option'); opt.value = c.id; opt.textContent = c.name; sel.appendChild(opt);
+    });
+}
+function checkLocalEnvironment() {
+    if (window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        managementButtons.style.display = 'flex'; isLocalEnvironment = true;
+    }
+}
+function setupModalCloseLogic() {
+    window.addEventListener('mousedown', e => mouseDownTarget = e.target);
+    window.addEventListener('mouseup', e => {
+        if (mouseDownTarget && mouseDownTarget.classList.contains('modal') && e.target.classList.contains('modal')) closeAllModals();
+        mouseDownTarget = null;
+    });
+}
+// SortableJS Wrapper
+function initDragAndDrop() { if (typeof Sortable === 'undefined') { setTimeout(initDragAndDrop, 100); return; } initCategorySortable(); initSiteSortables(); }
+function initCategorySortable() { new Sortable(categoriesContainer, { handle: '.category-handle', animation: 150, onEnd: function(evt) { if (evt.oldIndex !== evt.newIndex) { const [moved] = currentNavigationData.categories.splice(evt.oldIndex, 1); currentNavigationData.categories.splice(evt.newIndex, 0, moved); saveToLocalStorage(); } } }); }
+function initSiteSortables() { document.querySelectorAll('.sites-grid').forEach((grid, catIdx) => { new Sortable(grid, { group: 'sites', animation: 150, onEnd: function(evt) { const fromIdx = parseInt(evt.from.getAttribute('data-category-index')); const toIdx = parseInt(evt.to.getAttribute('data-category-index')); const [moved] = currentNavigationData.categories[fromIdx].sites.splice(evt.oldIndex, 1); currentNavigationData.categories[toIdx].sites.splice(evt.newIndex, 0, moved); saveToLocalStorage(); setTimeout(initSiteSortables, 50); } }); grid.setAttribute('data-category-index', catIdx); }); }
