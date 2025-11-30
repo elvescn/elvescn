@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的导航页</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>导航页</h1>
+            <div class="header-buttons">
+                <button id="addSiteBtn" class="btn-primary">添加网址</button>
+                <button id="addCategoryBtn" class="btn-secondary">添加分类</button>
+                <div id="managementButtons" class="management-buttons" style="display: none;">
+                    <button id="exportBtn" class="btn-primary">导出数据</button>
+                    <button id="importBtn" class="btn-secondary">导入数据</button>
+                    <button id="resetBtn" class="btn-danger">重置数据</button>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <div id="categories" class="categories">
+                <!-- 分类将通过JavaScript动态生成 -->
+            </div>
+        </main>
+    </div>
+
+    <!-- 添加网址的模态框 -->
+    <div id="addSiteModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>添加新网址</h2>
+            <form id="addSiteForm">
+                <div class="form-group">
+                    <label for="siteName">网站名称:</label>
+                    <input type="text" id="siteName" required>
+                </div>
+                <div class="form-group">
+                    <label for="siteUrl">网站地址:</label>
+                    <input type="url" id="siteUrl" required>
+                </div>
+                <div class="form-group">
+                    <label for="siteDescription">网站描述:</label>
+                    <textarea id="siteDescription" rows="2"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="siteCategory">分类:</label>
+                    <select id="siteCategory" required>
+                        <option value="">请选择分类</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="siteIcon">网站图标:</label>
+                    <div class="icon-preview">
+                        <img id="iconPreview" src="" alt="图标预览">
+                    </div>
+                    <div class="icon-buttons">
+                        <button type="button" id="fetchIconBtn" class="btn-secondary">自动获取图标</button>
+                        <button type="button" id="uploadIconBtn" class="btn-secondary">上传自定义图标</button>
+                        <input type="file" id="siteIcon" accept="image/*" style="display: none;">
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">添加</button>
+                    <button type="button" id="cancelBtn" class="btn-secondary">取消</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 添加分类的模态框 -->
+    <div id="addCategoryModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>添加新分类</h2>
+            <form id="addCategoryForm">
+                <div class="form-group">
+                    <label for="categoryName">分类名称:</label>
+                    <input type="text" id="categoryName" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">添加</button>
+                    <button type="button" id="cancelCategoryBtn" class="btn-secondary">取消</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 编辑网址的模态框 -->
+    <div id="editSiteModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>编辑网址</h2>
+            <form id="editSiteForm">
+                <input type="hidden" id="editSiteId">
+                <div class="form-group">
+                    <label for="editSiteName">网站名称:</label>
+                    <input type="text" id="editSiteName" required>
+                </div>
+                <div class="form-group">
+                    <label for="editSiteUrl">网站地址:</label>
+                    <input type="url" id="editSiteUrl" required>
+                </div>
+                <div class="form-group">
+                    <label for="editSiteDescription">网站描述:</label>
+                    <textarea id="editSiteDescription" rows="2"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="editSiteCategory">分类:</label>
+                    <select id="editSiteCategory" required>
+                        <option value="">请选择分类</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="editSiteIcon">网站图标:</label>
+                    <div class="icon-preview">
+                        <img id="editIconPreview" src="" alt="图标预览">
+                    </div>
+                    <div class="icon-buttons">
+                        <button type="button" id="editFetchIconBtn" class="btn-secondary">自动获取图标</button>
+                        <button type="button" id="editUploadIconBtn" class="btn-secondary">上传自定义图标</button>
+                        <input type="file" id="editSiteIcon" accept="image/*" style="display: none;">
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">保存</button>
+                    <button type="button" id="deleteSiteBtn" class="btn-danger">删除</button>
+                    <button type="button" id="cancelEditBtn" class="btn-secondary">取消</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
