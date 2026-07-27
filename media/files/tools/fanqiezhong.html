@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>番茄钟</title>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        background: #eeeeee;
+        font-family: "Microsoft YaHei", Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    .container {
+        background: #f5f5f5;
+        border-radius: 16px;
+        padding: 40px;
+        text-align: center;
+        box-shadow: 0 6px 30px rgba(0,0,0,0.15);
+        width: 360px;
+    }
+    h1 {
+        font-size: 42px;
+        margin-bottom: 10px;
+    }
+    .mode {
+        font-size: 22px;
+        color: #666;
+        margin-bottom: 20px;
+    }
+    .timer {
+        font-size: 72px;
+        font-weight: bold;
+        margin: 30px 0;
+    }
+    button {
+        font-size: 20px;
+        padding: 12px 30px;
+        border-radius: 30px;
+        border: none;
+        cursor: pointer;
+        background: #333;
+        color: #fff;
+    }
+    button:hover {
+        background: #000;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🍅 番茄钟</h1>
+    <div class="mode" id="mode">工作中</div>
+    <div class="timer" id="timer">25:00</div>
+    <button id="startBtn">开始 / 暂停</button>
+</div>
+
+<script>
+const timerEl = document.getElementById('timer');
+const modeEl = document.getElementById('mode');
+const startBtn = document.getElementById('startBtn');
+
+let workTime = 25 * 60;
+let breakTime = 5 * 60;
+let currentTime = workTime;
+let isRunning = false;
+let isWork = true;
+
+let audioContext;
+function beep() {
+    if (!audioContext) {
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    const osc = audioContext.createOscillator();
+    const gain = audioContext.createGain();
+    osc.connect(gain);
+    gain.connect(audioContext.destination);
+    osc.frequency.value = 880;
+    osc.start();
+    setTimeout(() => osc.stop(), 500);
+}
+
+function formatTime(sec) {
+    const m = String(Math.floor(sec / 60)).padStart(2, '0');
+    const s = String(sec % 60).padStart(2, '0');
+    return m + ':' + s;
+}
+
+function updateTimer() {
+    timerEl.textContent = formatTime(currentTime);
+}
+
+startBtn.onclick = () => {
+    if (isRunning) {
+        clearInterval(timerInterval);
+        isRunning = false;
+        startBtn.textContent = '继续';
+    } else {
+        timerInterval = setInterval(runTimer, 1000);
+        isRunning = true;
+        startBtn.textContent = '暂停';
+    }
+};
+
+function runTimer() {
+    if (currentTime > 0) {
+        currentTime--;
+        updateTimer();
+    } else {
+        beep();
+        isWork = !isWork;
+        currentTime = isWork ? workTime : breakTime;
+        modeEl.textContent = isWork ? '工作中' : '休息时间';
+        updateTimer();
+    }
+}
+
+updateTimer();
+</script>
+
+</body>
+</html>
