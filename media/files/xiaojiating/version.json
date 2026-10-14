@@ -1,17 +1,16 @@
 {
-  "versionCode": 10,
-  "versionName": "0.10",
-  "apkUrl": "https://19830920.xyz/media/files/app/small-family-0.10.apk",
-  "size": 0,
-  "md5": "",
+  "versionCode": 11,
+  "versionName": "0.11",
+  "apkUrl": "https://19830920.xyz/media/files/xiaojiating/small-family-0.11.apk",
+  "size": 4455255,
+  "md5": "4c798ea75ce42b855e6f959c8b2386ec",
   "force": false,
   "minSupport": 10,
   "notes": [
-    "小家庭 首个版本 0.10",
-    "管理员统一管理家庭成员与密码",
-    "板块权限分配：家庭相册 / 初中学习 / 高中学习 / 个人网站 / 家庭公告板 / 天气",
-    "使用时间限制：可用星期、时段与每日时长上限",
-    "深浅色主题与自定义背景",
-    "在线检查更新"
+    "背景图改为整屏铺满，不再只占顶部一块",
+    "首页顶部新增：时间 + 运城市盐湖区实时天气 + 最新公告",
+    "天气与家庭公告板不再作为板块卡片，改为所有成员可见的首页信息区",
+    "家庭相册支持 WebDAV 远程目录（NAS），管理员控制台可填地址 / 账号 / 密码",
+    "在线更新地址迁移到 /media/files/xiaojiating/"
   ]
 }
