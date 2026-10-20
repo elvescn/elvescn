@@ -1,10 +1,33 @@
 {
-  "versionCode": 121,
-  "versionName": "0.12.1",
-  "apkUrl": "https://19830920.xyz/media/files/xiaojiating/small-family-0.12.1.apk",
-  "size": 4489352,
-  "md5": "955eba97aced89629b6c53db688d6a81",
-  "force": false,
-  "minSupport": 10,
-  "notes": []
+  "appName": "从全世界路过",
+  "packageName": "com.shijieluguo.app",
+  "versionCode": 1,
+  "versionName": "1.0",
+  "apkUrl": "https://19830920.xyz/media/files/APP/luguo-v1.0.apk",
+  "size": 5062216,
+  "md5": "c5cb96a01511b0a23953034cd9859eb0",
+  "minSdk": 21,
+  "notes": [
+    "版本号重新开始计算，本次为 1.0",
+    "底部导航新增「更多」菜单：初中学习 / 高中学习 / 关于",
+    "新增在线更新功能与更新历史",
+    "网页缓存：看过的页面离线也能打开",
+    "支持下拉刷新",
+    "「退出」按钮：首次点击回到首页，再次点击退出应用"
+  ],
+  "history": [
+    {
+      "version": "1.0",
+      "versionCode": 1,
+      "date": "2026-10-20",
+      "notes": [
+        "版本号重新开始计算，本次为 1.0",
+        "底部导航新增「更多」菜单：初中学习 / 高中学习 / 关于",
+        "新增在线更新功能与更新历史",
+        "网页缓存：看过的页面离线也能打开",
+        "支持下拉刷新",
+        "「退出」按钮：首次点击回到首页，再次点击退出应用"
+      ]
+    }
+  ]
 }
