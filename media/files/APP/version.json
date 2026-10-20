@@ -1,16 +1,28 @@
 {
   "appName": "从全世界路过",
   "packageName": "com.shijieluguo.app",
-  "versionCode": 2,
-  "versionName": "1.1",
-  "apkUrl": "https://19830920.xyz/media/files/APP/luguo-v1.1.apk",
-  "size": 5061878,
-  "md5": "528fc0f48d5a68091d7cdaea95e03d64",
+  "versionCode": 3,
+  "versionName": "1.2",
+  "apkUrl": "https://19830920.xyz/media/files/APP/luguo-v1.2.apk",
+  "size": 5072086,
+  "md5": "029c0972693e9913d485aafcfe265b41",
   "minSdk": 21,
   "notes": [
-    "「更多」菜单增加「工具」选项"
+    "打开速度优化：有缓存立即显示，不再逐个等网络",
+    "新增 Wi-Fi 下静默缓存全站，没访问过的页面也能离线看",
+    "「关于」页显示离线缓存进度，可手动立即缓存全站"
   ],
   "history": [
+    {
+      "version": "1.2",
+      "versionCode": 3,
+      "date": "2026-10-20",
+      "notes": [
+        "打开速度优化：有缓存立即显示，不再逐个等网络",
+        "新增 Wi-Fi 下静默缓存全站，没访问过的页面也能离线看",
+        "「关于」页显示离线缓存进度，可手动立即缓存全站"
+      ]
+    },
     {
       "version": "1.1",
       "versionCode": 2,
