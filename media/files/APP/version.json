@@ -1,21 +1,24 @@
 {
   "appName": "从全世界路过",
   "packageName": "com.shijieluguo.app",
-  "versionCode": 1,
-  "versionName": "1.0",
-  "apkUrl": "https://19830920.xyz/media/files/APP/luguo-v1.0.apk",
-  "size": 5061860,
-  "md5": "2cfaadc13d2c6a7a8a265d5b5e823871",
+  "versionCode": 2,
+  "versionName": "1.1",
+  "apkUrl": "https://19830920.xyz/media/files/APP/luguo-v1.1.apk",
+  "size": 5061878,
+  "md5": "528fc0f48d5a68091d7cdaea95e03d64",
   "minSdk": 21,
   "notes": [
-    "版本号重新开始计算，本次为 1.0",
-    "底部导航新增「更多」菜单：初中学习 / 高中学习 / 关于",
-    "新增在线更新功能与更新历史",
-    "网页缓存：看过的页面离线也能打开",
-    "支持下拉刷新",
-    "「退出」按钮：首次点击回到首页，再次点击退出应用"
+    "「更多」菜单增加「工具」选项"
   ],
   "history": [
+    {
+      "version": "1.1",
+      "versionCode": 2,
+      "date": "2026-10-20",
+      "notes": [
+        "「更多」菜单增加「工具」选项"
+      ]
+    },
     {
       "version": "1.0",
       "versionCode": 1,
