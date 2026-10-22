@@ -1,18 +1,26 @@
 {
   "appName": "从全世界路过",
   "packageName": "com.shijieluguo.app",
-  "versionCode": 3,
-  "versionName": "1.2",
-  "apkUrl": "https://19830920.xyz/media/files/APP/luguo-v1.2.apk",
-  "size": 5072086,
-  "md5": "029c0972693e9913d485aafcfe265b41",
+  "versionCode": 4,
+  "versionName": "1.3",
+  "apkUrl": "https://19830920.xyz/media/files/APP/luguo-v1.3.apk",
+  "size": 5097920,
+  "md5": "6b8677ccc4e2a479a73ae1d33637d212",
   "minSdk": 21,
   "notes": [
-    "打开速度优化：有缓存立即显示，不再逐个等网络",
-    "新增 Wi-Fi 下静默缓存全站，没访问过的页面也能离线看",
-    "「关于」页显示离线缓存进度，可手动立即缓存全站"
+    "新增「生日提醒」：从网站 Excel 读取家人生日，显示阳历/阴历与倒计时，自动按最近排序",
+    "生日前一周开始特殊标记；数据断网也能看"
   ],
   "history": [
+    {
+      "version": "1.3",
+      "versionCode": 4,
+      "date": "2026-10-22",
+      "notes": [
+        "新增「生日提醒」：从网站 Excel 读取家人生日，显示阳历/阴历与倒计时，自动按最近排序",
+        "生日前一周开始特殊标记；数据断网也能看"
+      ]
+    },
     {
       "version": "1.2",
       "versionCode": 3,
