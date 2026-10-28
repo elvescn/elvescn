@@ -247,8 +247,11 @@ body.light .seg button.on{color:#fff}
   .brand span.t{display:none}
   #btnLayers{display:inline-flex}
   .topbar{gap:5px 6px;padding:8px}
-  .chips{display:none;position:fixed;left:8px;right:8px;top:108px;z-index:12;max-height:30vh;overflow:auto;align-content:flex-start;padding:8px;border:1px solid var(--border);border-radius:12px;background:var(--panel-solid);box-shadow:var(--shadow)}
+  /* top 由脚本按「图层」按钮的实际位置计算（顶栏会换行，固定值会压住按钮）；108px 仅作兜底 */
+  .chips{display:none;position:fixed;left:8px;right:8px;top:108px;z-index:12;max-height:30vh;overflow:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;align-content:flex-start;padding:8px;border:1px solid var(--border);border-radius:12px;background:var(--panel-solid);box-shadow:var(--shadow)}
   .chips.open{display:flex}
+  #btnLayers[aria-expanded="true"]{background:var(--accent);color:#04121f;font-weight:600}
+  body.light #btnLayers[aria-expanded="true"]{color:#fff}
   .chip{white-space:nowrap}
   .rail{right:8px}
   .info{width:calc(100vw - 20px);left:10px;bottom:auto;top:58px}
@@ -2073,10 +2076,54 @@ function esc(s) {
 /* 图层 chips */
 var chipsEl = document.getElementById("chips");
 var btnLayers = document.getElementById("btnLayers");
+var mqNarrow = window.matchMedia("(max-width:820px)");
+
+/* 窄屏下把选项面板定位到「图层」按钮的正下方：顶栏会随屏宽换行，写死的 top 会压住按钮 */
+function layoutChips() {
+  if (!mqNarrow.matches) {                         // 桌面端恢复内联布局，清掉内联定位
+    chipsEl.style.top = ""; chipsEl.style.bottom = "";
+    chipsEl.style.maxHeight = ""; chipsEl.style.left = ""; chipsEl.style.right = "";
+    return;
+  }
+  if (!chipsEl.classList.contains("open")) return;
+  var r = btnLayers.getBoundingClientRect();
+  var gap = 8, edge = 8, vh = window.innerHeight;
+  var down = vh - r.bottom - gap - edge;           // 按钮下方可用高度
+  var up = r.top - gap - edge;                     // 按钮上方可用高度
+  var cap = Math.round(vh * 0.46);
+  if (down >= Math.min(160, up)) {                 // 下方放得下就向下展开
+    chipsEl.style.top = Math.round(r.bottom + gap) + "px";
+    chipsEl.style.bottom = "auto";
+    chipsEl.style.maxHeight = Math.max(96, Math.min(down, cap)) + "px";
+  } else {                                         // 否则向上展开，避免被屏幕底部裁掉
+    chipsEl.style.top = "auto";
+    chipsEl.style.bottom = Math.round(vh - r.top + gap) + "px";
+    chipsEl.style.maxHeight = Math.max(96, Math.min(up, cap)) + "px";
+  }
+}
+function openChips() {
+  chipsEl.classList.add("open");
+  btnLayers.setAttribute("aria-expanded", "true");
+  layoutChips();
+}
+function closeChips() {
+  if (!chipsEl.classList.contains("open")) return;
+  chipsEl.classList.remove("open");
+  btnLayers.setAttribute("aria-expanded", "false");
+  chipsEl.style.top = ""; chipsEl.style.bottom = ""; chipsEl.style.maxHeight = "";
+}
 btnLayers.addEventListener("click", function () {
-  var open = chipsEl.classList.toggle("open");
-  btnLayers.setAttribute("aria-expanded", String(open));
+  if (chipsEl.classList.contains("open")) closeChips(); else openChips();
 });
+
+/* 点「图层」选项以外的任何地方都收起面板（capture 阶段响应，移动端更跟手） */
+function onOutsideDown(e) {
+  if (!chipsEl.classList.contains("open")) return;
+  if (chipsEl.contains(e.target) || btnLayers.contains(e.target)) return;
+  closeChips();
+}
+document.addEventListener(window.PointerEvent ? "pointerdown" : "touchstart", onOutsideDown, true);
+if (!window.PointerEvent) document.addEventListener("mousedown", onOutsideDown, true);
 var legendEl = document.getElementById("legend");
 LAYERS.forEach(function (ly) {
   var b = document.createElement("button");
@@ -2749,7 +2796,7 @@ window.addEventListener("keydown", function (e) {
   else if (k === "r" || k === "R") { document.getElementById("btnReset").click(); }
   else if (k === "f" || k === "F") { document.getElementById("btnFull").click(); }
   else if (k === "Escape") {                       // 键盘出口：先收面板，再解锁信息卡
-    if (chipsEl.classList.contains("open")) { chipsEl.classList.remove("open"); btnLayers.setAttribute("aria-expanded", "false"); }
+    if (chipsEl.classList.contains("open")) closeChips();
     else if (state.mode !== "basic") setMode("basic");
     else if (state.pinned) {
       state.pinned = false; state.hover = null;
@@ -2778,6 +2825,7 @@ function resize() {
   view.cy = h / 2 + (window.innerWidth < 820 ? 0 : 6);
   view.R = Math.min(w * 0.46, h * 0.44) * state.zoom;
   document.body.classList.toggle("narrow", w < 820);
+  layoutChips();                                   // 旋屏/缩放/全屏切换后重新对齐图层面板
   buildBg();
   dirty = true; pickDirty = true;
 }
