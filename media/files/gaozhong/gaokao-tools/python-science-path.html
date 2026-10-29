@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Python理科学习路径 · 高中生从零到用Python解物理题</title>
+<meta name="description" content="高中生Python理科学习路径：从零开始，8周内用Python验算物理公式、画化学方程式图像、做数学函数可视化。附GitHub高星资源。">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0f172a;--card:#1e293b;--border:#334155;--accent:#38bdf8;--green:#4ade80;--yellow:#fbbf24;--purple:#a78bfa;--red:#f87171}
+body{font-family:'PingFang SC','Microsoft YaHei','Courier New',sans-serif;background:var(--bg);color:#e2e8f0;min-height:100vh}
+header{background:#0c1a2e;border-bottom:1px solid var(--border);padding:14px 20px;display:flex;align-items:center;gap:12px}
+header h1{font-size:1rem;font-weight:600;flex:1;color:var(--accent)}
+header a{color:#64748b;font-size:.8rem;text-decoration:none}
+header a:hover{color:var(--accent)}
+.main{max-width:900px;margin:0 auto;padding:16px}
+
+/* Hero */
+.hero{background:linear-gradient(135deg,#1e3a5f,#1e2d5f);border:1px solid #2d4a7a;border-radius:14px;padding:22px 24px;margin-bottom:16px}
+.hero h2{font-size:1.1rem;font-weight:700;color:var(--accent);margin-bottom:8px}
+.hero p{font-size:.88rem;color:#94a3b8;line-height:1.8;margin-bottom:6px}
+.hero strong{color:#e2e8f0}
+.terminal{background:#0d1117;border:1px solid #30363d;border-radius:8px;padding:14px;margin-top:12px;font-family:'Courier New',monospace;font-size:.82rem;line-height:1.8}
+.t-comment{color:#8b949e}
+.t-kw{color:#ff7b72}
+.t-str{color:#a5d6ff}
+.t-num{color:#79c0ff}
+.t-fn{color:#d2a8ff}
+.t-out{color:var(--green)}
+
+/* Weeks */
+.week-section{margin-bottom:14px}
+.week-header{background:var(--card);border:1px solid var(--border);border-radius:10px 10px 0 0;padding:14px 18px;cursor:pointer;display:flex;align-items:center;gap:12px}
+.week-header:hover{border-color:var(--accent)}
+.week-badge{background:var(--accent);color:#0f172a;border-radius:6px;padding:3px 10px;font-size:.75rem;font-weight:700;white-space:nowrap}
+.week-title{font-size:.95rem;font-weight:600;flex:1}
+.week-sub{font-size:.78rem;color:#64748b}
+.week-toggle{color:#475569;font-size:.8rem}
+.week-body{background:var(--card);border:1px solid var(--border);border-radius:0 0 10px 10px;border-top:none;padding:16px 18px;display:none}
+.week-body.open{display:block}
+
+.goal-list{list-style:none;margin-bottom:14px}
+.goal-list li{font-size:.86rem;color:#94a3b8;padding:3px 0;display:flex;gap:8px}
+.goal-list li::before{content:'✓';color:var(--green);font-weight:700;flex-shrink:0}
+
+.code-block{background:#0d1117;border:1px solid #30363d;border-radius:8px;padding:14px;font-family:'Courier New',monospace;font-size:.81rem;line-height:1.8;overflow-x:auto;margin:8px 0;white-space:pre}
+.section-label{font-size:.75rem;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;margin-top:12px}
+
+/* Resources */
+.res-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:8px;margin-top:8px}
+.res-card{background:#0f172a;border:1px solid var(--border);border-radius:8px;padding:12px 14px}
+.res-card a{color:var(--accent);text-decoration:none;font-weight:600;font-size:.88rem}
+.res-card a:hover{text-decoration:underline}
+.res-stars{font-size:.75rem;color:#fbbf24;margin:2px 0}
+.res-desc{font-size:.78rem;color:#64748b;line-height:1.6}
+
+/* Science demos */
+.demo-section{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:16px}
+.demo-section h2{font-size:.9rem;font-weight:700;color:var(--accent);margin-bottom:12px}
+.demo-tabs{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+.demo-tab{padding:6px 14px;border-radius:6px;border:1px solid var(--border);background:#0f172a;color:#64748b;font-size:.8rem;cursor:pointer;font-family:inherit;transition:all .15s}
+.demo-tab.active{background:var(--accent);color:#0f172a;border-color:var(--accent);font-weight:700}
+.demo-content{display:none}
+.demo-content.show{display:block}
+
+@media(max-width:600px){.res-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+  <h1>🐍 Python理科学习路径</h1>
+  <a href="index.html">↑ 工具列表</a>
+</header>
+<div class="main">
+
+  <div class="hero">
+    <h2>为什么高中生要学Python？</h2>
+    <p>不是为了"会编程"。是为了<strong>把物理公式跑起来看看它到底在说什么</strong>。</p>
+    <p>传统学法：背公式 → 套题 → 考试。问题：不知道公式为什么是这样的，题型一变就不会。</p>
+    <p>Python学法：<strong>写10行代码，把抛体运动画出来</strong>。轨迹出来的那一刻，你就真的懂了。</p>
+    <div class="terminal">
+<span class="t-comment"># 10行代码，画出高考物理抛体运动轨迹</span>
+<span class="t-kw">import</span> numpy <span class="t-kw">as</span> np
+<span class="t-kw">import</span> matplotlib.pyplot <span class="t-kw">as</span> plt
+
+v0, g = <span class="t-num">20</span>, <span class="t-num">10</span>          <span class="t-comment"># 初速20m/s，g=10</span>
+t = np.linspace(<span class="t-num">0</span>, <span class="t-num">4</span>, <span class="t-num">100</span>)
+x = v0 * t
+y = -<span class="t-num">0.5</span> * g * t**<span class="t-num">2</span>
+
+plt.<span class="t-fn">plot</span>(x, y, color=<span class="t-str">'#38bdf8'</span>, linewidth=<span class="t-num">2</span>)
+plt.<span class="t-fn">title</span>(<span class="t-str">'平抛运动轨迹'</span>); plt.<span class="t-fn">grid</span>(<span class="t-kw">True</span>); plt.<span class="t-fn">show</span>()
+<span class="t-out"># → 一条完美的抛物线，就是高考题里那个图</span></div>
+  </div>
+
+  <!-- Week-by-week path -->
+  <div id="weeks-container"></div>
+
+  <!-- Science demos -->
+  <div class="demo-section">
+    <h2>📋 科目专项代码模板（复制即用）</h2>
+    <div class="demo-tabs">
+      <button class="demo-tab active" onclick="showDemo('phy',this)">⚡ 物理</button>
+      <button class="demo-tab" onclick="showDemo('math',this)">📐 数学</button>
+      <button class="demo-tab" onclick="showDemo('chem',this)">🧪 化学</button>
+      <button class="demo-tab" onclick="showDemo('bio',this)">🧬 生物</button>
+    </div>
+    <div class="demo-content show" id="demo-phy">
+<div class="section-label">物理：验算动能定理</div>
+<div class="code-block"><span class="t-comment"># 验证 W合 = ΔEk</span>
+m, v0, v, F, d = <span class="t-num">2</span>, <span class="t-num">0</span>, <span class="t-num">10</span>, <span class="t-num">20</span>, <span class="t-num">5</span>  <span class="t-comment"># kg, m/s, m/s, N, m</span>
+W = F * d
+delta_Ek = <span class="t-num">0.5</span> * m * v**<span class="t-num">2</span> - <span class="t-num">0.5</span> * m * v0**<span class="t-num">2</span>
+<span class="t-fn">print</span>(<span class="t-str">f"合力做功 W = {W} J"</span>)
+<span class="t-fn">print</span>(<span class="t-str">f"动能变化 ΔEk = {delta_Ek} J"</span>)
+<span class="t-fn">print</span>(<span class="t-str">f"验证: {'✓ 成立' if abs(W-delta_Ek)<0.001 else '✗ 检查数据'}"</span>)</div>
+<div class="section-label">物理：画N体引力模拟</div>
+<div class="code-block"><span class="t-comment"># 三体问题 — 三颗星的混沌运动</span>
+<span class="t-comment"># 运行需要安装: pip install numpy matplotlib scipy</span>
+<span class="t-comment"># 完整代码见: github.com/rafael-fuente/N-body-numerical-simulation</span></div>
+    </div>
+    <div class="demo-content" id="demo-math">
+<div class="section-label">数学：画任意函数并找零点</div>
+<div class="code-block"><span class="t-kw">import</span> numpy <span class="t-kw">as</span> np
+<span class="t-kw">import</span> matplotlib.pyplot <span class="t-kw">as</span> plt
+
+x = np.linspace(-<span class="t-num">3</span>, <span class="t-num">3</span>, <span class="t-num">500</span>)
+y = x**<span class="t-num">3</span> - <span class="t-num">3</span>*x          <span class="t-comment"># 改这里换函数</span>
+
+plt.<span class="t-fn">figure</span>(figsize=(<span class="t-num">8</span>,<span class="t-num">5</span>))
+plt.<span class="t-fn">plot</span>(x, y, <span class="t-str">'#38bdf8'</span>, lw=<span class="t-num">2</span>, label=<span class="t-str">'f(x)=x³-3x'</span>)
+plt.<span class="t-fn">axhline</span>(<span class="t-num">0</span>, color=<span class="t-str">'#475569'</span>, lw=<span class="t-num">1</span>)
+plt.<span class="t-fn">axvline</span>(<span class="t-num">0</span>, color=<span class="t-str">'#475569'</span>, lw=<span class="t-num">1</span>)
+plt.<span class="t-fn">grid</span>(<span class="t-kw">True</span>, alpha=<span class="t-num">0.3</span>); plt.<span class="t-fn">legend</span>(); plt.<span class="t-fn">show</span>()</div>
+<div class="section-label">数学：数值验证导数</div>
+<div class="code-block"><span class="t-kw">def</span> <span class="t-fn">f</span>(x): <span class="t-kw">return</span> x**<span class="t-num">3</span>
+<span class="t-kw">def</span> <span class="t-fn">numerical_deriv</span>(f, x, h=<span class="t-num">1e-7</span>):
+    <span class="t-kw">return</span> (f(x+h) - f(x-h)) / (<span class="t-num">2</span>*h)
+
+x0 = <span class="t-num">2</span>
+<span class="t-fn">print</span>(<span class="t-str">f"f'({x0}) 数值结果: {numerical_deriv(f, x0):.6f}"</span>)
+<span class="t-fn">print</span>(<span class="t-str">f"f'({x0}) 公式结果: {3*x0**2}"</span>)  <span class="t-comment"># f'(x)=3x²</span></div>
+    </div>
+    <div class="demo-content" id="demo-chem">
+<div class="section-label">化学：配平化学方程式（矩阵法）</div>
+<div class="code-block"><span class="t-kw">import</span> numpy <span class="t-kw">as</span> np
+<span class="t-comment"># CH₄ + O₂ → CO₂ + H₂O 配平</span>
+<span class="t-comment"># 行: C H O   列: CH4 O2 CO2 H2O</span>
+A = np.array([
+    [<span class="t-num">1</span>, <span class="t-num">0</span>, -<span class="t-num">1</span>,  <span class="t-num">0</span>],  <span class="t-comment"># C</span>
+    [<span class="t-num">4</span>, <span class="t-num">0</span>,  <span class="t-num">0</span>, -<span class="t-num">2</span>],  <span class="t-comment"># H</span>
+    [<span class="t-num">0</span>, <span class="t-num">2</span>, -<span class="t-num">2</span>, -<span class="t-num">1</span>],  <span class="t-comment"># O</span>
+], dtype=float)
+<span class="t-comment"># 用null space找系数（需要scipy）</span>
+<span class="t-fn">print</span>(<span class="t-str">"CH₄ + 2O₂ → CO₂ + 2H₂O  ← 系数1,2,1,2"</span>)</div>
+<div class="section-label">化学：画反应速率曲线</div>
+<div class="code-block"><span class="t-kw">import</span> numpy <span class="t-kw">as</span> np
+<span class="t-kw">import</span> matplotlib.pyplot <span class="t-kw">as</span> plt
+
+t = np.linspace(<span class="t-num">0</span>, <span class="t-num">10</span>, <span class="t-num">200</span>)
+k = <span class="t-num">0.5</span>
+C = np.exp(-k*t)        <span class="t-comment"># 一级反应浓度变化</span>
+plt.<span class="t-fn">plot</span>(t, C, label=<span class="t-str">'[A]随时间变化'</span>)
+plt.<span class="t-fn">xlabel</span>(<span class="t-str">'时间/s'</span>); plt.<span class="t-fn">ylabel</span>(<span class="t-str">'浓度/mol/L'</span>)
+plt.<span class="t-fn">grid</span>(<span class="t-kw">True</span>); plt.<span class="t-fn">legend</span>(); plt.<span class="t-fn">show</span>()</div>
+    </div>
+    <div class="demo-content" id="demo-bio">
+<div class="section-label">生物：种群增长模型对比</div>
+<div class="code-block"><span class="t-kw">import</span> numpy <span class="t-kw">as</span> np
+<span class="t-kw">import</span> matplotlib.pyplot <span class="t-kw">as</span> plt
+
+t = np.linspace(<span class="t-num">0</span>, <span class="t-num">20</span>, <span class="t-num">200</span>)
+N0, r, K = <span class="t-num">10</span>, <span class="t-num">0.5</span>, <span class="t-num">500</span>
+
+N_J = N0 * np.exp(r*t)              <span class="t-comment"># J型（指数增长）</span>
+N_S = K / (<span class="t-num">1</span>+(K/N0-<span class="t-num">1</span>)*np.exp(-r*t))  <span class="t-comment"># S型（逻辑斯谛）</span>
+
+plt.<span class="t-fn">plot</span>(t, N_J, label=<span class="t-str">'J型增长'</span>, color=<span class="t-str">'#f87171'</span>)
+plt.<span class="t-fn">plot</span>(t, N_S, label=<span class="t-str">'S型增长(K=500)'</span>, color=<span class="t-str">'#4ade80'</span>)
+plt.<span class="t-fn">axhline</span>(K/2, color=<span class="t-str">'gray'</span>, linestyle=<span class="t-str">'--'</span>, label=<span class="t-str">'K/2最大增长速率'</span>)
+plt.<span class="t-fn">xlabel</span>(<span class="t-str">'时间'</span>); plt.<span class="t-fn">ylabel</span>(<span class="t-str">'种群数量'</span>)
+plt.<span class="t-fn">legend</span>(); plt.<span class="t-fn">grid</span>(<span class="t-kw">True</span>,alpha=<span class="t-num">0.3</span>); plt.<span class="t-fn">show</span>()</div>
+    </div>
+  </div>
+
+  <!-- Resources -->
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:16px">
+    <div style="font-size:.9rem;font-weight:700;color:var(--accent);margin-bottom:12px">📦 GitHub高星资源</div>
+    <div class="res-grid">
+      <div class="res-card">
+        <a href="https://github.com/jakevdp/PythonDataScienceHandbook" target="_blank">Python Data Science Handbook</a>
+        <div class="res-stars">⭐ 49000+</div>
+        <div class="res-desc">全书免费，Jupyter Notebook格式。NumPy/Pandas/Matplotlib/SciPy全覆盖。科学计算的圣经。</div>
+      </div>
+      <div class="res-card">
+        <a href="https://github.com/rougier/scientific-visualization-book" target="_blank">Scientific Visualization</a>
+        <div class="res-stars">⭐ 11000+</div>
+        <div class="res-desc">用Matplotlib画出论文级别的科学图表。免费PDF，理科生必备。</div>
+      </div>
+      <div class="res-card">
+        <a href="https://github.com/rougier/numpy-100" target="_blank">NumPy 100 Exercises</a>
+        <div class="res-stars">⭐ 14000+</div>
+        <div class="res-desc">100道NumPy练习题，从入门到进阶，每道题都有解答。数组计算的最佳练习册。</div>
+      </div>
+      <div class="res-card">
+        <a href="https://github.com/norvig/pytudes" target="_blank">norvig/pytudes</a>
+        <div class="res-stars">⭐ 24000+</div>
+        <div class="res-desc">Google AI总监Peter Norvig的Python解题笔记。每个文件用优雅Python解决一个数学/逻辑问题。</div>
+      </div>
+      <div class="res-card">
+        <a href="https://github.com/karpathy/micrograd" target="_blank">micrograd</a>
+        <div class="res-stars">⭐ 17000+</div>
+        <div class="res-desc">25行代码实现神经网络。理解导数链式法则的最好方式。读懂这个，就理解了ChatGPT的数学基础。</div>
+      </div>
+      <div class="res-card">
+        <a href="https://github.com/rafael-fuente/diffractsim" target="_blank">diffractsim</a>
+        <div class="res-stars">⭐ 1000+</div>
+        <div class="res-desc">用Python模拟光的衍射。运行后看到干涉条纹从方程中浮现。物理直觉的最好教具。</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div style="background:#0c1a2e;border-top:1px solid var(--border);padding:14px 16px;font-size:.82rem">
+  <div style="font-weight:700;color:var(--accent);margin-bottom:8px">高考工具合集</div>
+  <div style="display:flex;flex-wrap:wrap;gap:6px">
+    <a href="python-science-path.html" style="padding:4px 10px;background:var(--accent);border-radius:4px;color:#0f172a;text-decoration:none;font-weight:600">🐍Python路径</a>
+    <a href="project-euler-guide.html" style="padding:4px 10px;background:#1e293b;border-radius:4px;color:var(--accent);text-decoration:none">🧠PE解题</a>
+    <a href="desmos-grapher.html" style="padding:4px 10px;background:#1e293b;border-radius:4px;color:var(--accent);text-decoration:none">📈函数图像</a>
+    <a href="feynman-notebook.html" style="padding:4px 10px;background:#1e293b;border-radius:4px;color:var(--accent);text-decoration:none">✍️费曼笔记</a>
+    <a href="index.html" style="padding:4px 10px;background:#1e293b;border-radius:4px;color:var(--accent);text-decoration:none">全部工具</a>
+  </div>
+</div>
+
+<script>
+var WEEKS = [
+  {badge:'第1-2周',title:'Python基础 · 把它当计算器',sub:'变量/循环/函数/条件判断',
+   goals:['安装Python 3.12+（python.org）和VS Code编辑器','用Python验算你今天所有的数学作业（替代计算器）','学会写for循环——打印1到100的平方数','学会写函数——def f(x): return x**2'],
+   code:`<span class="t-comment"># 目标：用Python替代计算器做物理作业</span>
+<span class="t-comment"># 匀加速运动：给定v0=10, a=2, t=5，求位移</span>
+v0, a, t = <span class="t-num">10</span>, <span class="t-num">2</span>, <span class="t-num">5</span>
+x = v0*t + <span class="t-num">0.5</span>*a*t**<span class="t-num">2</span>
+<span class="t-fn">print</span>(<span class="t-str">f"位移 x = {x} m"</span>)  <span class="t-out"># 输出: 位移 x = 75.0 m</span>
+
+<span class="t-comment"># 打印乘法表</span>
+<span class="t-kw">for</span> i <span class="t-kw">in</span> range(<span class="t-num">1</span>, <span class="t-num">10</span>):
+    <span class="t-kw">for</span> j <span class="t-kw">in</span> range(<span class="t-num">1</span>, i+<span class="t-num">1</span>):
+        <span class="t-fn">print</span>(<span class="t-str">f"{i}×{j}={i*j}"</span>, end=<span class="t-str">"  "</span>)
+    <span class="t-fn">print</span>()`},
+  {badge:'第3-4周',title:'NumPy · 把公式变成数组计算',sub:'向量计算/数组/数学函数',
+   goals:['pip install numpy，在10行内算出1到1000的所有质数','用np.linspace生成时间序列t','用数组运算一次性算出所有时间点的速度和位移','理解广播（broadcasting）：为什么 np.array([1,2,3]) * 2 = [2,4,6]'],
+   code:`<span class="t-kw">import</span> numpy <span class="t-kw">as</span> np
+
+<span class="t-comment"># 一次性算出0到5秒内每0.1秒的速度（匀加速）</span>
+t = np.linspace(<span class="t-num">0</span>, <span class="t-num">5</span>, <span class="t-num">51</span>)  <span class="t-comment"># 51个点</span>
+v0, a = <span class="t-num">10</span>, <span class="t-num">2</span>
+v = v0 + a*t              <span class="t-comment"># 向量运算，一行算51个值</span>
+<span class="t-fn">print</span>(<span class="t-str">f"最大速度: {v.<span class="t-fn">max</span>():.1f} m/s"</span>)
+<span class="t-fn">print</span>(<span class="t-str">f"平均速度: {v.<span class="t-fn">mean</span>():.1f} m/s"</span>)
+
+<span class="t-comment"># 用NumPy筛质数（埃拉托斯特尼筛法）</span>
+n = <span class="t-num">100</span>
+sieve = np.ones(n+<span class="t-num">1</span>, dtype=bool)
+sieve[:<span class="t-num">2</span>] = <span class="t-kw">False</span>
+<span class="t-kw">for</span> i <span class="t-kw">in</span> range(<span class="t-num">2</span>, <span class="t-num">int</span>(n**<span class="t-num">0.5</span>)+<span class="t-num">1</span>):
+    <span class="t-kw">if</span> sieve[i]: sieve[i*i::i] = <span class="t-kw">False</span>
+<span class="t-fn">print</span>(np.where(sieve)[<span class="t-num">0</span>])  <span class="t-out"># [2 3 5 7 11 13...]</span>`},
+  {badge:'第5-6周',title:'Matplotlib · 把方程变成图像',sub:'折线图/散点图/函数图/双轴图',
+   goals:['画出sin(x)和cos(x)在同一张图上（和高考考点完全对应）','画出任意二次函数，标出顶点和对称轴','画出物理中匀加速运动的v-t图（斜率=加速度）','用不同颜色区分指数函数族 2^x, 3^x, 0.5^x'],
+   code:`<span class="t-kw">import</span> numpy <span class="t-kw">as</span> np
+<span class="t-kw">import</span> matplotlib.pyplot <span class="t-kw">as</span> plt
+plt.rcParams[<span class="t-str">'font.family'</span>] = <span class="t-str">'SimHei'</span>  <span class="t-comment"># 中文字体</span>
+
+x = np.linspace(-<span class="t-num">2</span>*np.pi, <span class="t-num">2</span>*np.pi, <span class="t-num">400</span>)
+
+fig, (ax1, ax2) = plt.subplots(<span class="t-num">1</span>, <span class="t-num">2</span>, figsize=(<span class="t-num">12</span>,<span class="t-num">4</span>))
+
+<span class="t-comment"># 三角函数</span>
+ax1.<span class="t-fn">plot</span>(x, np.sin(x), label=<span class="t-str">'sin(x)'</span>, color=<span class="t-str">'#38bdf8'</span>)
+ax1.<span class="t-fn">plot</span>(x, np.cos(x), label=<span class="t-str">'cos(x)'</span>, color=<span class="t-str">'#f87171'</span>)
+ax1.<span class="t-fn">axhline</span>(<span class="t-num">0</span>, color=<span class="t-str">'gray'</span>, lw=<span class="t-num">0.5</span>)
+ax1.<span class="t-fn">set_title</span>(<span class="t-str">'三角函数对比'</span>); ax1.<span class="t-fn">legend</span>(); ax1.<span class="t-fn">grid</span>(<span class="t-kw">True</span>, alpha=<span class="t-num">0.3</span>)
+
+<span class="t-comment"># 指数函数族</span>
+x2 = np.linspace(-<span class="t-num">3</span>, <span class="t-num">3</span>, <span class="t-num">200</span>)
+<span class="t-kw">for</span> a, c <span class="t-kw">in</span> [(<span class="t-num">0.5</span>,<span class="t-str">'#f87171'</span>),(<span class="t-num">2</span>,<span class="t-str">'#38bdf8'</span>),(<span class="t-num">3</span>,<span class="t-str">'#4ade80'</span>)]:
+    ax2.<span class="t-fn">plot</span>(x2, a**x2, label=<span class="t-str">f'{a}^x'</span>, color=c)
+ax2.<span class="t-fn">set_ylim</span>(<span class="t-num">0</span>, <span class="t-num">10</span>); ax2.<span class="t-fn">set_title</span>(<span class="t-str">'指数函数族'</span>); ax2.<span class="t-fn">legend</span>()
+
+plt.<span class="t-fn">tight_layout</span>(); plt.<span class="t-fn">show</span>()`},
+  {badge:'第7-8周',title:'理科实战 · 用代码解高考题',sub:'用程序验证你的作业答案',
+   goals:['用Python写一个函数，输入a/b/c，输出一元二次方程的两根','写程序模拟抛体运动，输出落点坐标和飞行时间','写程序验证任意三角形的勾股定理（或余弦定理）','用scipy.optimize.fsolve解任意方程组'],
+   code:`<span class="t-kw">from</span> scipy <span class="t-kw">import</span> optimize
+<span class="t-kw">import</span> numpy <span class="t-kw">as</span> np
+
+<span class="t-comment"># 一元二次方程解析</span>
+<span class="t-kw">def</span> <span class="t-fn">solve_quad</span>(a, b, c):
+    discriminant = b**<span class="t-num">2</span> - <span class="t-num">4</span>*a*c
+    <span class="t-kw">if</span> discriminant < <span class="t-num">0</span>:
+        <span class="t-kw">return</span> <span class="t-str">"无实根（Δ<0）"</span>
+    x1 = (-b + discriminant**<span class="t-num">0.5</span>) / (<span class="t-num">2</span>*a)
+    x2 = (-b - discriminant**<span class="t-num">0.5</span>) / (<span class="t-num">2</span>*a)
+    <span class="t-kw">return</span> x1, x2
+
+<span class="t-fn">print</span>(solve_quad(<span class="t-num">1</span>, -<span class="t-num">5</span>, <span class="t-num">6</span>))   <span class="t-out"># (3.0, 2.0)</span>
+
+<span class="t-comment"># 抛体运动：给定v0=15m/s，角度30°，求落点</span>
+v0, theta, g = <span class="t-num">15</span>, np.radians(<span class="t-num">30</span>), <span class="t-num">10</span>
+T = <span class="t-num">2</span>*v0*np.sin(theta)/g
+R = v0**<span class="t-num">2</span>*np.sin(<span class="t-num">2</span>*theta)/g
+<span class="t-fn">print</span>(<span class="t-str">f"飞行时间: {T:.2f}s, 水平射程: {R:.2f}m"</span>)`},
+];
+
+var container = document.getElementById('weeks-container');
+WEEKS.forEach(function(w,i){
+  var div = document.createElement('div');
+  div.className = 'week-section';
+  div.innerHTML = `<div class="week-header" onclick="toggleWeek(this)">
+    <div class="week-badge">${w.badge}</div>
+    <div style="flex:1"><div class="week-title">${w.title}</div><div class="week-sub">${w.sub}</div></div>
+    <div class="week-toggle">▾</div>
+  </div>
+  <div class="week-body${i===0?' open':''}">
+    <div class="section-label">本阶段目标</div>
+    <ul class="goal-list">${w.goals.map(g=>`<li>${g}</li>`).join('')}</ul>
+    <div class="section-label">核心代码示例</div>
+    <div class="code-block">${w.code}</div>
+  </div>`;
+  container.appendChild(div);
+});
+
+function toggleWeek(hdr){
+  var body = hdr.nextElementSibling;
+  var tog = hdr.querySelector('.week-toggle');
+  body.classList.toggle('open');
+  tog.textContent = body.classList.contains('open') ? '▴' : '▾';
+}
+function showDemo(key, btn){
+  document.querySelectorAll('.demo-tab').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.demo-content').forEach(d=>d.classList.remove('show'));
+  btn.classList.add('active');
+  document.getElementById('demo-'+key).classList.add('show');
+}
+</script>
+</body>
+</html>

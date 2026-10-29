@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>高考语法填空选择题 · 精讲版</title>
+<style>
+:root{
+  --brand:#574AE2;--bd:#3f34c0;--bs:#ECEAFB;--bl:#CFC9F4;
+  --bg:#EEF1F6;--card:#FFF;--ink:#1E2330;--soft:#556;--faint:#8A93A6;
+  --line:#E6E9F0;--ok:#1E9E6A;--oks:#E6F6EE;--err:#D6455D;--errs:#FCEBEE;
+  --warn:#E8930A;--warns:#FFF3E0;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.hd{background:var(--brand);color:#fff;padding:14px 16px 12px}
+.hd h1{font-size:1.1rem;font-weight:700}
+.hd p{font-size:.74rem;opacity:.75;margin-top:2px}
+.wrap{max-width:720px;margin:0 auto;padding:12px 15px 80px}
+/* Progress */
+.pbar{height:5px;background:var(--bl);border-radius:3px;margin-bottom:13px;overflow:hidden}
+.pfill{height:100%;background:var(--brand);transition:width .35s}
+/* Selector grid */
+.sg{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-bottom:14px}
+@media(max-width:380px){.sg{grid-template-columns:repeat(4,1fr)}}
+.sb{padding:8px 4px;border:1.5px solid var(--line);border-radius:10px;background:var(--card);color:var(--faint);font-family:var(--sans);font-size:.78rem;font-weight:700;cursor:pointer;text-align:center}
+.sb:hover{border-color:var(--brand);color:var(--bd)}
+.sb.act{background:var(--brand);color:#fff;border-color:var(--brand)}
+.sb.dn{border-color:var(--ok);color:var(--ok)}
+.sb.dn.act{background:var(--ok);border-color:var(--ok);color:#fff}
+.sb span{display:block}.sn{font-size:1rem;font-weight:800}.ss{font-size:.63rem;margin-top:1px}
+/* Score strip */
+.strip{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:11px 15px;margin-bottom:13px;box-shadow:0 2px 8px rgba(30,35,48,.07);flex-wrap:wrap}
+.s-big{font-size:1.5rem;font-weight:900;color:var(--bd);min-width:52px}
+.s-lbl{font-size:.75rem;color:var(--faint)}
+.s-dots{display:flex;gap:5px;flex-wrap:wrap;margin-left:auto}
+.dot{width:16px;height:16px;border-radius:50%;background:var(--line)}
+.dot.ok{background:var(--ok)}.dot.err{background:var(--err)}
+/* Passage box */
+.pb{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:17px 16px;font-size:.94rem;line-height:2.1;margin-bottom:14px;box-shadow:0 2px 8px rgba(30,35,48,.07)}
+.pmeta{display:flex;align-items:center;gap:8px;margin-bottom:11px;flex-wrap:wrap}
+.ptit{font-size:.95rem;font-weight:700}
+.ptag{font-size:.7rem;background:var(--bs);color:var(--bd);border-radius:5px;padding:2px 8px;font-weight:600}
+.bt{display:inline-block;background:var(--bs);color:var(--bd);border-radius:5px;padding:0 6px;font-weight:700;font-size:.84rem;margin:0 2px;vertical-align:middle;transition:background .25s,color .25s}
+.bt.ok{background:var(--oks);color:var(--ok)}.bt.err{background:var(--errs);color:var(--err)}
+.hi{font-size:.7rem;color:var(--faint);font-style:italic;margin-left:1px}
+/* Question cards */
+.ql{display:flex;flex-direction:column;gap:10px}
+.qc{background:var(--card);border:1.5px solid var(--line);border-radius:13px;overflow:hidden;box-shadow:0 1px 5px rgba(30,35,48,.06);transition:border-color .2s}
+.qc.aok{border-color:#a8dfc7}.qc.aer{border-color:#f0b8c0}
+.qh{display:flex;align-items:flex-start;gap:10px;padding:11px 14px 9px;border-bottom:1px solid var(--line)}
+.qn{width:26px;height:26px;min-width:26px;border-radius:50%;background:var(--bs);color:var(--bd);font-weight:800;font-size:.8rem;display:flex;align-items:center;justify-content:center;margin-top:2px;transition:background .2s,color .2s}
+.qc.aok .qn{background:var(--ok);color:#fff}.qc.aer .qn{background:var(--err);color:#fff}
+.qctx{font-size:.84rem;color:var(--soft);line-height:1.5}
+.qctx strong{color:var(--ink)}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:7px;padding:10px 13px}
+@media(max-width:380px){.opts{grid-template-columns:1fr}}
+.opt{padding:8px 12px;border:1.5px solid var(--line);border-radius:9px;background:none;font-family:var(--sans);font-size:.87rem;color:var(--ink);cursor:pointer;text-align:left;display:flex;align-items:center;gap:7px;transition:all .12s}
+.opt:hover:not(:disabled){border-color:var(--brand);background:var(--bs)}
+.opt:disabled{cursor:default}
+.ol{width:20px;height:20px;min-width:20px;border-radius:50%;background:var(--line);color:var(--soft);font-size:.7rem;font-weight:700;display:flex;align-items:center;justify-content:center;transition:background .2s,color .2s}
+.opt.cor{border-color:var(--ok);background:var(--oks)}.opt.cor .ol{background:var(--ok);color:#fff}
+.opt.wrg{border-color:var(--err);background:var(--errs)}.opt.wrg .ol{background:var(--err);color:#fff}
+/* Explanation panel */
+.ep{margin:0 12px 12px;border-radius:10px;overflow:hidden;border:1px solid var(--line)}
+.ep-tag{display:flex;align-items:center;gap:7px;padding:8px 12px;font-size:.78rem;font-weight:700}
+.ep-tag.ok{background:var(--oks);color:var(--ok);border-bottom:1px solid #a8dfc7}
+.ep-tag.err{background:var(--errs);color:var(--err);border-bottom:1px solid #f0b8c0}
+.ep-body{padding:10px 12px;background:#FAFBFC;display:flex;flex-direction:column;gap:8px}
+.ep-row{font-size:.82rem;line-height:1.65}
+.ep-row .lbl{font-weight:700;color:var(--bd);font-size:.72rem;letter-spacing:.3px;display:block;margin-bottom:2px}
+.ep-formula{font-family:monospace;background:var(--bs);color:var(--bd);border-radius:5px;padding:3px 8px;font-size:.8rem;display:inline-block;margin-top:2px}
+.ep-trap{background:var(--errs);color:var(--err);border-radius:6px;padding:5px 9px;font-size:.8rem;line-height:1.55}
+.ep-note{background:var(--warns);color:#7A4500;border-radius:6px;padding:5px 9px;font-size:.8rem;line-height:1.55}
+/* Nav */
+.nav{display:flex;gap:8px;justify-content:space-between;margin-top:12px}
+.nav button{padding:9px 16px;border:1.5px solid var(--bl);border-radius:10px;background:var(--card);color:var(--bd);font-family:var(--sans);font-size:.84rem;cursor:pointer;font-weight:600}
+.nav button:hover{border-color:var(--brand)}.nav button:disabled{opacity:.35;cursor:default}
+.btn-r{border-color:var(--line)!important;color:var(--faint)!important}
+</style>
+</head>
+<body>
+<div class="hd">
+  <h1>📝 语法填空选择题 · 精讲版</h1>
+  <p>选完立即出答案 · 完整语法规则+公式+误区分析 · 20套共200题</p>
+</div>
+<div class="wrap">
+  <div class="pbar"><div class="pfill" id="pfill"></div></div>
+  <div class="sg" id="sg"></div>
+  <div id="main"></div>
+</div>
+<script>
+// ============================================================
+// GRAMMAR RULE LIBRARY — 每个考点：考点名、规则、公式、常见误区
+// ============================================================
+const GR={
+  pres_perf:{
+    tag:'现在完成时',
+    rule:'构成：has/have + 动词过去分词（V-pp）。表示过去发生、对现在有影响的动作/状态，或从过去持续到现在的情况。常与 over the past...、for years、already、just、yet、since 连用。',
+    formula:'has / have + V-pp',
+    trap:'✗ V-ed（一般过去时）：仅说明过去发生，不强调对现在的影响。✗ is/are + V-ing（现在进行时）：强调此刻正在进行。✗ V-s（一般现在时）：表习惯/规律，没有"已经"的含义。'
+  },
+  past_perf:{
+    tag:'过去完成时',
+    rule:'构成：had + 动词过去分词。表示"过去的过去"——在某个过去时间点之前已经完成的动作。常与 by the time...、before...、when... 连用。',
+    formula:'had + V-pp',
+    trap:'✗ 一般过去时 V-ed：只说明一个过去动作，没有"更早完成"的层次。✗ 现在完成时 has/have + V-pp：说明的是与"现在"相关，不是与"过去某点"相关。'
+  },
+  passive_present:{
+    tag:'被动语态（一般现在时）',
+    rule:'构成：am/is/are + 过去分词。主语是动作的承受者时用被动。一般现在时被动描述经常发生的被动动作或现状。',
+    formula:'am / is / are + V-pp',
+    trap:'✗ 主动语态：当主语是承受者时，不能用主动形式。✗ was/were（过去时）：与时态矛盾，文中为一般现在时语境。'
+  },
+  passive_past:{
+    tag:'被动语态（一般过去时）',
+    rule:'构成：was/were + 过去分词。描述过去某个时间发生的被动动作，主语是承受者。',
+    formula:'was / were + V-pp',
+    trap:'✗ 主动 V-ed：主语是承受者，不能用主动。✗ is/are + V-pp（现在被动）：时态应为过去，不是现在。'
+  },
+  passive_perf:{
+    tag:'被动语态（完成时）',
+    rule:'构成：has/have been + 过去分词。表示到目前为止已经完成的被动动作，强调对现在的影响。',
+    formula:'has / have been + V-pp',
+    trap:'✗ has + V-pp（完成时主动）：主语是承受者，应用被动。✗ was/were + V-pp（过去被动）：强调"已经"的完成状态，需用完成时。'
+  },
+  inf_purpose:{
+    tag:'不定式作目的状语',
+    rule:'动词不定式（to + 动词原形）放在主句后，表示目的，相当于 in order to。常跟在 come / go / gather / stop / decide 等动词之后，也可单独作目的状语。',
+    formula:'动词 + to do（目的）',
+    trap:'✗ doing（动名词）：不能直接作目的状语，动名词作主语或宾语用。✗ done（过去分词）：表被动或完成，不表目的。'
+  },
+  inf_after_adj:{
+    tag:'不定式作表语/宾语补足语',
+    rule:'某些形容词/名词后接不定式：It is + adj + to do；be able/likely/difficult/important + to do；ability/way/plan + to do。这些固定结构中，空格填 to + 动词原形。',
+    formula:'adj / n. + to do',
+    trap:'✗ doing（动名词）：固定搭配要求不定式，不是动名词。✗ 动词原形：必须加 to，不能省略。'
+  },
+  gerund_subj:{
+    tag:'动名词作主语',
+    rule:'动名词（动词 + -ing）可以作句子主语，此时谓语动词用单数。放在句首的动名词短语是常考点，尤其是独立句子开头时。',
+    formula:'Doing sth + 单数谓语',
+    trap:'✗ To do（不定式）：也可作主语，但动名词在句首更常见、更口语。考题中若给首字母大写提示词，通常要求动名词形式。✗ 动词原形：不能直接作主语。'
+  },
+  gerund_obj:{
+    tag:'介词/特殊动词后接动名词',
+    rule:'介词（of / by / for / without / about / in / after / before / instead of 等）后面必须接动名词（V-ing），不能接不定式。固定搭配：enjoy / finish / mind / suggest / avoid / consider + doing。',
+    formula:'介词 + V-ing',
+    trap:'✗ to + 动词原形：介词后面绝对不能接不定式。口诀：介词后面必 -ing，永不接 to。✗ 动词原形：介词后必须用名词性成分，动词原形不能作名词用。'
+  },
+  participle_adj:{
+    tag:'现在分词 vs 过去分词（作定语/表语）',
+    rule:'-ing（现在分词）描述主动/正在进行的状态，常修饰施动者；-ed（过去分词）描述被动/完成的状态，常修饰受动者。感官动词/使役动词后：make/find sb + V-ing（正在）或 V-ed（被动完成）。',
+    formula:'主动/进行→-ing；被动/完成→-ed',
+    trap:'✗ 混用：exciting（令人兴奋的，描述事物）vs excited（感到兴奋的，描述人）。这类题一定先判断：主语是"人"还是"事物"，以及是主动还是被动。'
+  },
+  part_adj_post:{
+    tag:'过去分词作后置定语',
+    rule:'过去分词（V-ed）放在名词后作后置定语，相当于一个被动意义的定语从句（which is/was + done）。此用法很常见，如：a book written by Lu Xun（=a book which was written by Lu Xun）。',
+    formula:'名词 + V-ed（= which was done）',
+    trap:'✗ V-ing：现在分词表主动/进行，不表被动。✗ to do：不定式表将来/目的，不表已完成的被动动作。'
+  },
+  part_pres_adj:{
+    tag:'现在分词作定语/伴随状语',
+    rule:'现在分词（V-ing）表主动、正在进行的动作，修饰名词（前置/后置）或作伴随状语。感官动词后接 sb doing 表示感知到某人正在做某事（强调进行状态）。',
+    formula:'V-ing + 名词 / 名词 + V-ing',
+    trap:'✗ V-ed：过去分词表被动，主语若是动作的施动者，不用 V-ed。✗ to do：表目的，与伴随/修饰含义不同。'
+  },
+  part_past_adv:{
+    tag:'过去分词作原因/条件状语',
+    rule:'过去分词短语放在句首（或句中），作原因、条件或时间状语，其逻辑主语是主句主语，含被动含义。如：Caused by...（由……引起）；Once formed...（一旦形成）。',
+    formula:'V-pp（状语），主句',
+    trap:'✗ V-ing：现在分词作状语表主动，过去分词才表被动。✗ Having + V-pp：强调动作完成在主句之前，意义略不同。'
+  },
+  rel_who:{
+    tag:'定语从句——关系代词 who',
+    rule:'先行词是人时，用关系代词 who（主格）或 whom（宾格）引导定语从句。主格 who 在从句中作主语；宾格 whom 作宾语（可省略）。非限制性定语从句（逗号隔开）也用 who/whom，不能用 that。',
+    formula:'先行词（人）+ who + 从句谓语',
+    trap:'✗ which：which 修饰物，不修饰人。✗ that：限制性从句中 that 可替代 who，但非限制性从句不能用 that。'
+  },
+  rel_which:{
+    tag:'定语从句——关系代词 which',
+    rule:'先行词是物或整个句子意思时，用 which 引导定语从句。非限制性定语从句（逗号后）用 which 指代上文整个情况，不能用 that。',
+    formula:'先行词（物/句子）+ which + 从句',
+    trap:'✗ that：非限制性定语从句（逗号后）不能用 that。✗ what：what 不是关系代词，不能引导定语从句。'
+  },
+  rel_where:{
+    tag:'定语从句——关系副词 where',
+    rule:'先行词是地点时，用关系副词 where 引导定语从句（where = in/at/on which）。在从句中 where 作状语，后面的从句结构完整（有主语+谓语）。',
+    formula:'先行词（地点）+ where + 完整从句',
+    trap:'✗ which：which 在从句中作主语/宾语，后面从句结构不完整；where 后从句结构完整。✗ when：when 修饰时间先行词，不修饰地点。'
+  },
+  rel_that:{
+    tag:'定语从句——关系代词 that',
+    rule:'that 可修饰人或物，但只用于限制性定语从句（无逗号）。先行词是 all / the only / the first / 最高级 + 名词时，通常用 that 而不用 which/who。',
+    formula:'先行词 + that + 从句',
+    trap:'✗ which/who：先行词是 all/the only 等时优先用 that。✗ what：what 引导名词性从句，不引导定语从句（what 前没有先行词）。'
+  },
+  noun_clause:{
+    tag:'名词性从句（宾语从句）',
+    rule:'宾语从句由从属连词引导，作动词或介词的宾语。引导词选择：陈述事实用 that（可省略）；疑问内容用 what/who/which/how/where/when；是否用 whether/if。从句语序必须是陈述句语序（主+谓）。',
+    formula:'动词/介词 + that/what/whether + 陈述句语序',
+    trap:'✗ 疑问句语序：宾语从句必须用陈述句语序，不能倒装。✗ which vs what：what = the thing(s) which，先行词已包含在 what 中。'
+  },
+  conj_however:{
+    tag:'转折连词 However / Nevertheless',
+    rule:'However（然而）和 Nevertheless（尽管如此）用于句子之间表转折，相当于 but，但用法不同：However/Nevertheless 是副词，放在新句子开头，后加逗号，不能用作连词连接两个独立句子。',
+    formula:'句子。However/Nevertheless, 句子。',
+    trap:'✗ Therefore/As a result：表结果，不表转折。✗ Moreover/Furthermore：表递进/补充，不表转折。判断技巧：前后语义是否"反转"，是则用转折词。'
+  },
+  conj_therefore:{
+    tag:'因果连词 Therefore / As a result',
+    rule:'Therefore（因此）/ As a result（结果）表因果关系，前面是原因，后面是结论/结果。同样是副词用法，放句首后加逗号。',
+    formula:'原因。Therefore/As a result, 结果。',
+    trap:'✗ However：表转折，不表因果。判断技巧：问自己"前后是否是因果关系"——是则用 therefore，是转折则用 however。'
+  },
+  conj_despite:{
+    tag:'让步介词 Despite / In spite of',
+    rule:'Despite + 名词/名词短语/动名词，表让步，相当于 although + 从句，但 despite 是介词，后面不能跟从句（不能加主谓）。',
+    formula:'Despite + 名词/doing，主句',
+    trap:'✗ Although/Though/Even though：后面跟从句（有主谓），不能直接跟名词。✗ However：however 是副词，放新句句首，不能放句子中间连接两部分。'
+  },
+  comparative:{
+    tag:'比较级',
+    rule:'形容词/副词比较级 = 单音节/部分双音节 + -er，或 more + 多音节词。比较级后必须有 than 引出比较对象。强调"更……"用 much/far/even/a lot + 比较级。',
+    formula:'adj/adv + -er + than ... / more + adj + than ...',
+    trap:'✗ 最高级（-est/most）：最高级在三者及以上中用，前加 the，比较级在两者之间用。✗ 原级 as...as：表"和……一样"，不是比较级。'
+  },
+  superlative:{
+    tag:'最高级',
+    rule:'最高级表三者及三者以上中的"最……"，前必须加定冠词 the。句型：one of the + 最高级 + 复数名词；the + 最高级 + 名词 + in/of/that...',
+    formula:'the + adj-est / the most + adj',
+    trap:'✗ 忘加 the：最高级前 the 是必须的，不能省略。✗ 比较级：two things 用比较级，three or more 用最高级。'
+  },
+  article_the:{
+    tag:'定冠词 the 的用法',
+    rule:'the 用于：① 特指（上文提过或情境清晰的名词）；② 独一无二的事物（the sun/the moon）；③ 最高级前（the best）；④ 序数词前（the first）；⑤ 固定短语（the same / by the way / in the end）。',
+    formula:'the + 特指/独一/最高级/序数词',
+    trap:'✗ a/an：不定冠词用于初次提及、泛指。✗ 无冠词：抽象名词泛指时无冠词（life / love / nature），但特指时要加 the。'
+  },
+  article_a:{
+    tag:'不定冠词 a / an 的用法',
+    rule:'a 用于辅音音素开头的词；an 用于元音音素开头的词（注意是读音，不是拼写：an hour / a university）。不定冠词用于初次提及、泛指单数可数名词，或"某一个"含义。',
+    formula:'a + 辅音音素开头 / an + 元音音素开头',
+    trap:'✗ the：不定冠词表泛指/初次提及，定冠词表特指。✗ 省略：可数名词单数前不能省略冠词。'
+  },
+  prep_fixed:{
+    tag:'固定介词搭配',
+    rule:'高考常考固定介词短语：lead to（导致）/ deal with（处理）/ linked to（与……有关）/ contribute to（贡献于）/ recover from（从……恢复）/ prevent from（阻止）/ result in（导致）/ result from（源自）。这类搭配必须死记，不能根据意思猜测。',
+    formula:'动词/形容词 + 固定介词',
+    trap:'✗ 介词混用：例如 result in（导致）vs result from（由……导致），方向相反，意思完全不同。遇到固定搭配题，先回忆固定用法，不要凭感觉。'
+  },
+  phrase_fixed:{
+    tag:'固定短语/句型',
+    rule:'英语有大量固定短语必须整体记忆：such as（例如）/ in advance（提前）/ at least（至少）/ make a difference（有影响）/ second nature（第二天性）/ to one\'s surprise（令某人惊讶）/ as a result（结果）等。遇到此类题，识别出固定短语模式，不要逐词分析。',
+    formula:'（固定短语整体使用）',
+    trap:'✗ 拆开分析：固定短语不能拆开理解，必须整体记忆。✗ 形近词混淆：such as vs such that；in advance vs in advance of。'
+  },
+  word_form_n:{
+    tag:'词形转换——动词/形容词→名词',
+    rule:'根据语法位置判断词性。名词位置：冠词/介词/形容词之后，或作主语/宾语/表语。常见转换：happy→happiness / satisfy→satisfaction / consume→consumption / reduce→reduction / develop→development。',
+    formula:'动词/形容词 + 名词后缀 (-tion/-ness/-ment/-ity)',
+    trap:'✗ 用动词形式：介词后/冠词后不能直接放动词原形。✗ 词缀记忆：-tion/-sion（动作/结果）/ -ness（状态）/ -ment（过程/结果）/ -ity（性质）。'
+  },
+  word_form_adj:{
+    tag:'词形转换——名词/动词→形容词',
+    rule:'形容词位置：放在名词前作定语，或作表语（be / feel / seem / become + adj）。常见转换：value→valuable / use→useful / benefit→beneficial / sustain→sustainable / number→numerous。后缀 -ful / -ous / -ive / -able / -ible 通常构成形容词。',
+    formula:'名词/动词 + 形容词后缀',
+    trap:'✗ 用名词/副词：修饰名词必须用形容词，不能用名词或副词。✗ 注意例外：good→well（副词），bad→badly，不规则变化需单独记忆。'
+  },
+  word_form_adv:{
+    tag:'词形转换——形容词→副词',
+    rule:'副词修饰动词、形容词、其他副词或整个句子，不能修饰名词。构成：adj + -ly。注意特殊形式：good→well / fast→fast / hard→hard / early→early（同形）。',
+    formula:'形容词 + -ly = 副词',
+    trap:'✗ 用形容词：修饰动词必须用副词（例：perform well，不是 perform good）。✗ 同形词：hard（形/副）/ fast（形/副）/ early（形/副）不加 -ly。'
+  },
+  modal:{
+    tag:'情态动词',
+    rule:'情态动词（can/could/may/might/must/should/would/will）后面必须接动词原形。should 表建议/应当；must 表必须/强烈推断；can 表能力/可能；would 表意愿/假设。',
+    formula:'情态动词 + 动词原形',
+    trap:'✗ 情态动词后加 to：情态动词后直接跟原形，不需要 to（除 have to/ought to）。✗ 情态动词含义混淆：should（建议）vs must（必须）vs can（能力）——根据语境选择。'
+  },
+  subject_verb:{
+    tag:'主谓一致（第三人称单数）',
+    rule:'主语是第三人称单数（he/she/it/单数名词/不可数名词）时，一般现在时谓语动词加 -s/-es。主语是 动名词短语/不定式短语/名词性从句 时，也用单数谓语。',
+    formula:'单数主语 + V-s（一般现在时）',
+    trap:'✗ 集体名词：team/class/group 通常用单数动词（British English 有时用复数）。✗ "以及/and"连接：A and B 作主语用复数，但 not only A but also B 谓语与 B 一致。'
+  },
+  sensory_causative:{
+    tag:'感官/使役动词结构',
+    rule:'感官动词（see / hear / watch / notice / feel）+ 宾语 + doing（正在做）或 do（全过程）。使役动词 make/let/have + 宾语 + 动词原形；help + 宾语 + do/to do（两种均可）。',
+    formula:'see/hear + sb + doing / do',
+    trap:'✗ 感官动词后加 to do：see/hear 后不加 to，直接接原形或 doing。✗ make/have/let + sb to do：这三个使役动词后接原形，不加 to。'
+  },
+  formal_it:{
+    tag:'形式主语/宾语 it',
+    rule:'it 作形式主语/宾语，真正的主语/宾语是后面的不定式或 that 从句。句型：It is + adj + to do / that...；It is important for sb to do；make it + adj + to do。',
+    formula:'It + 谓语 + adj + to do / that...',
+    trap:'✗ 省略 it：形式主语/宾语不能省略，必须用 it 占位。✗ 混淆 it 与 this/that：it 用于形式主语，this/that 用于指示代词。'
+  },
+  conj_when:{
+    tag:'时间状语从句引导词',
+    rule:'when（当……时候，时间点/时间段均可）/ while（当……时候，强调两个动作同时进行）/ after（在……之后）/ before（在……之前）/ as soon as（一……就……）。注意时态：主将从现，从句用现在时代替将来时。',
+    formula:'When/While/After + 从句，主句',
+    trap:'✗ when vs while：when 可用于短暂动作或持续动作；while 必须用于持续动作（while sleeping，不是 while arrived）。'
+  },
+};
+
+// ============================================================
+// PASSAGE DATA — 20套，每blank：n, hint, ans, gk(语法key), note(本题解析), opts
+// ============================================================
+const P=[
+ {id:1,title:'Sleep and Teenagers',topic:'健康',
+  parts:[
+   'Most teenagers do not get ',
+   {n:1,hint:'',ans:'the',gk:'article_the',note:'the sleep they need — 特指他们所需要的睡眠量，前文或语境已明确，用定冠词 the',opts:['the','a','an','—（无冠词）']},
+   ' sleep they need. Experts recommend young people sleep ',
+   {n:2,hint:'',ans:'at',gk:'phrase_fixed',note:'at least = 至少，固定短语，at 不可换成其他介词',opts:['at','in','by','of']},
+   ' least eight hours per night. ',
+   {n:3,hint:'',ans:'However',gk:'conj_however',note:'上文：建议睡8小时；下文：实际不足7小时——前后语义反转，用转折词 However',opts:['However','Therefore','Moreover','Furthermore']},
+   ', studies show the average teenager gets less than seven hours.\n\nStudents ',
+   {n:4,hint:'',ans:'who',gk:'rel_who',note:'定语从句修饰 Students（人），从句中 who 作主语，用主格关系代词 who',opts:['who','which','whom','whose']},
+   ' do not sleep enough find it hard to concentrate. Their ability ',
+   {n:5,hint:'learn',ans:'to learn',gk:'inf_after_adj',note:'ability to do sth — 名词 ability 后接不定式作定语，learn→to learn',opts:['to learn','learning','learned','learn']},
+   ' new information is reduced. Sleeping after ',
+   {n:6,hint:'study',ans:'studying',gk:'gerund_obj',note:'after 是介词，介词后必须接动名词 -ing，study→studying',opts:['studying','to study','study','studied']},
+   ' helps the brain store memories more ',
+   {n:7,hint:'effect',ans:'effectively',gk:'word_form_adv',note:'修饰动词 store（储存），需要副词形式，effect→effectively（词根 effect + ive→effective + ly→effectively）',opts:['effectively','effective','effect','effectiveness']},
+   '. Many teenagers stay up late ',
+   {n:8,hint:'look',ans:'looking',gk:'gerund_obj',note:'stay up late doing sth = 熬夜做某事，固定搭配，look→looking',opts:['looking','to look','look','looked']},
+   ' at their phones. Blue light can prevent the brain ',
+   {n:9,hint:'',ans:'from',gk:'prep_fixed',note:'prevent sb/sth from doing = 阻止……做……，固定搭配，from 不可换成其他介词',opts:['from','of','by','about']},
+   ' ',
+   {n:10,hint:'produce',ans:'producing',gk:'gerund_obj',note:'prevent from + doing，produce→producing。注意 from 是介词，后面必须接 -ing',opts:['producing','to produce','produced','produce']},
+   ' melatonin, the sleep chemical.'
+  ]},
+
+ {id:2,title:'The Double-Edged Sword of Social Media',topic:'科技',
+  parts:[
+   'Social media has completely ',
+   {n:1,hint:'change',ans:'changed',gk:'pres_perf',note:'has + 过去分词，现在完成时。副词 completely 和语境"over the past years"印证需用完成时，change→changed',opts:['changed','changes','is changing','change']},
+   ' the way people communicate. Billions use platforms such ',
+   {n:2,hint:'',ans:'as',gk:'phrase_fixed',note:'such as = 例如，固定搭配，不能换成其他词。such like / such for 均不正确',opts:['as','like','for','of']},
+   ' Facebook and WeChat. These tools make it ',
+   {n:3,hint:'easy',ans:'easier',gk:'comparative',note:'与 than ever before 呼应，必须用比较级，easy→easier（单音节词加 -er）',opts:['easier','easy','easily','the easiest']},
+   ' to stay in touch than ever before.\n\n',
+   {n:4,hint:'',ans:'However',gk:'conj_however',note:'上文：社交媒体的好处；下文：缺点——语义反转，用 However',opts:['However','Therefore','Moreover','Otherwise']},
+   ', it also has disadvantages. Many spend too much time scrolling instead of ',
+   {n:5,hint:'focus',ans:'focusing',gk:'gerund_obj',note:'instead of 是介词短语，后面接动名词，focus→focusing（辅音+元音+辅音，结尾辅音双写）',opts:['focusing','to focus','focused','focus']},
+   ' on real-life activities. Heavy use is linked ',
+   {n:6,hint:'',ans:'to',gk:'prep_fixed',note:'be linked to = 与……相关联，固定搭配。注意 link with 也存在但含义略不同，此处 linked to 是固定搭配',opts:['to','with','by','of']},
+   ' loneliness and depression.\n\nPersonal information may be ',
+   {n:7,hint:'collect',ans:'collected',gk:'passive_present',note:'被动语态：信息是被收集的对象，may be + 过去分词，collect→collected',opts:['collected','collecting','collect','to collect']},
+   ' by companies. Think carefully about what you ',
+   {n:8,hint:'post',ans:'post',gk:'subject_verb',note:'what you post — 宾语从句，主语 you 是第二人称，一般现在时动词原形，post 无需变化',opts:['post','posts','posted','posting']},
+   ' online.\n\n',
+   {n:9,hint:'Find',ans:'Finding',gk:'gerund_subj',note:'动名词作主语，Find→Finding（句首大写）。"找到平衡"是这句话的主语',opts:['Finding','Found','To find','Find']},
+   ' the right balance is key. Social media ',
+   {n:10,hint:'',ans:'should',gk:'modal',note:'情态动词表建议/应当：社交媒体"不应该"占据我们的生活，用 should not',opts:['should','must','can','would']},
+   ' not take over our lives.'
+  ]},
+
+ {id:3,title:'Thomas Edison: A Man of Perseverance',topic:'人物传记',
+  parts:[
+   'Thomas Edison is one of the ',
+   {n:1,hint:'great',ans:'greatest',gk:'superlative',note:'one of the + 最高级 + 复数名词。单音节词 great→greatest（加 -est），the 不可省略',opts:['greatest','greater','great','most great']},
+   ' inventors in history. ',
+   {n:2,hint:'',ans:'However',gk:'conj_however',note:'爱迪生好奇心强，却几乎没有正规教育——语义反转，用 However',opts:['However','Therefore','Moreover','Besides']},
+   ', he had very little formal schooling. His mother, ',
+   {n:3,hint:'',ans:'who',gk:'rel_who',note:'非限制性定语从句（逗号隔开），修饰 His mother（人），用 who。非限制性从句不能用 that',opts:['who','which','whom','that']},
+   ' was a teacher, educated him at home.\n\nHis most famous invention is the light bulb, ',
+   {n:4,hint:'develop',ans:'developed',gk:'part_adj_post',note:'过去分词作后置定语，修饰 the light bulb（=which was developed in 1879），develop→developed',opts:['developed','developing','develop','to develop']},
+   ' in 1879. He contributed to the ',
+   {n:5,hint:'develop',ans:'development',gk:'word_form_n',note:'to 是介词，后接名词。develop→development（动词+ment=名词）',opts:['development','developing','develop','developed']},
+   ' of the motion picture camera. He held over 1,000 ',
+   {n:6,hint:'patent',ans:'patents',gk:'word_form_n',note:'over 1,000 表示数量众多，后接复数名词，patent→patents（加 -s）',opts:['patents','patent','patented','patenting']},
+   '.\n\nEdison believed success comes not from ',
+   {n:7,hint:'be',ans:'being',gk:'gerund_obj',note:'not from + 动名词；from 是介词，后接 -ing，be→being',opts:['being','to be','be','been']},
+   ' talented, but from ',
+   {n:8,hint:'work',ans:'working',gk:'gerund_obj',note:'but from + 动名词；与上文 from being 并列，work→working',opts:['working','to work','work','worked']},
+   ' hard. He said genius is one percent inspiration and ninety-nine percent ',
+   {n:9,hint:'perspire',ans:'perspiration',gk:'word_form_n',note:'与 inspiration（名词）并列，填名词。perspire（动词）→perspiration（名词，汗水/努力）',opts:['perspiration','perspiring','perspire','perspired']},
+   '. Today, it is hard to imagine life without ',
+   {n:10,hint:'',ans:'electricity',gk:'phrase_fixed',note:'without electricity = 没有电，与爱迪生发明电灯泡呼应。electricity 是不可数名词',opts:['electricity','electric','electrical','electron']},
+   '.'
+  ]},
+
+ {id:4,title:'The Chinese Spring Festival',topic:'传统文化',
+  parts:[
+   'Chinese New Year, also ',
+   {n:1,hint:'know',ans:'known',gk:'part_adj_post',note:'also known as = 也被称为，固定短语，know→known（过去分词，表被动"被称为"）',opts:['known','knowing','knows','to know']},
+   ' as the Spring Festival, is the most important holiday in China. It falls on the first day of the lunar calendar, ',
+   {n:2,hint:'',ans:'which',gk:'rel_which',note:'非限制性定语从句（逗号后），修饰 the lunar calendar（物），用 which',opts:['which','what','when','where']},
+   ' usually falls between January and February.\n\nPreparations begin weeks in ',
+   {n:3,hint:'',ans:'advance',gk:'phrase_fixed',note:'in advance = 提前，固定短语，in 和 advance 缺一不可',opts:['advance','front','prior','ahead']},
+   '. Windows and doors are ',
+   {n:4,hint:'decorate',ans:'decorated',gk:'passive_present',note:'被动语态：窗户和门是被装饰的对象，are + 过去分词，decorate→decorated',opts:['decorated','decorating','decorate','to decorate']},
+   ' with red paper cutouts ',
+   {n:5,hint:'bear',ans:'bearing',gk:'part_pres_adj',note:'现在分词作后置定语修饰 cutouts（主动关系：剪纸带着文字），bear→bearing',opts:['bearing','borne','to bear','born']},
+   ' phrases such as "福".\n\nFamilies gather ',
+   {n:6,hint:'share',ans:'to share',gk:'inf_purpose',note:'gather to share = 聚在一起（目的是）分享，to do 作目的状语，share→to share',opts:['to share','sharing','shared','share']},
+   ' a special dinner. Foods include fish, ',
+   {n:7,hint:'',ans:'which',gk:'rel_which',note:'非限制性定语从句，修饰 fish（物），which 指代 fish，不能用 that',opts:['which','that','who','what']},
+   ' represents abundance.\n\nThe festival ends ',
+   {n:8,hint:'',ans:'with',gk:'prep_fixed',note:'end with = 以……结束，固定搭配。end at/in/by 含义不同或不固定',opts:['with','at','in','by']},
+   ' the Lantern Festival. People carry lanterns and ',
+   {n:9,hint:'enjoy',ans:'enjoy',gk:'subject_verb',note:'主语 People 是复数，与 carry 并列，一般现在时动词原形，enjoy 无需变化',opts:['enjoy','enjoys','enjoyed','enjoying']},
+   ' fireworks. It is a time for ',
+   {n:10,hint:'',ans:'family',gk:'phrase_fixed',note:'family reunion = 家人团聚，family 是核心词，固定搭配',opts:['family','families','familiar','fame']},
+   ' reunion.'
+  ]},
+
+ {id:5,title:'The Benefits of Reading',topic:'教育',
+  parts:[
+   'Reading is one of the most ',
+   {n:1,hint:'value',ans:'valuable',gk:'word_form_adj',note:'修饰名词 habits，需形容词，value（名词/动词）→valuable（形容词，加 -able 后缀）',opts:['valuable','value','valued','valuing']},
+   ' habits a person can develop. Unlike watching TV, reading requires ',
+   {n:2,hint:'act',ans:'active',gk:'word_form_adj',note:'修饰名词 mental engagement，需形容词，act（动词）→active（形容词，加 -ive 后缀）',opts:['active','act','activity','actively']},
+   ' mental engagement.\n\nPeople ',
+   {n:3,hint:'',ans:'who',gk:'rel_who',note:'定语从句修饰 People（指人），从句中 who 作主语，用主格 who',opts:['who','which','whom','whose']},
+   ' read regularly have better memory. Students who read daily know far more words ',
+   {n:4,hint:'',ans:'than',gk:'comparative',note:'far more...than...比较结构，than 引出比较对象，不能换成 that 或 as',opts:['than','that','as','of']},
+   ' those who do not.\n\nBy ',
+   {n:5,hint:'read',ans:'reading',gk:'gerund_obj',note:'by + 动名词，介词 by 后接 -ing，read→reading',opts:['reading','to read','read','having read']},
+   ' fiction, we develop empathy by ',
+   {n:6,hint:'see',ans:'seeing',gk:'gerund_obj',note:'by + 动名词，see→seeing（单音节，-ee 结尾不双写，直接加 -ing）',opts:['seeing','to see','seen','see']},
+   ' life through different eyes.\n\nExperts argue physical books are ',
+   {n:7,hint:'',ans:'better',gk:'comparative',note:'better than e-books，good 的比较级是 better（不规则），better 后接 than',opts:['better','good','best','well']},
+   ' than e-books for deep reading. ',
+   {n:8,hint:'',ans:'Whether',gk:'noun_clause',note:'Whether...or...= 无论……还是……，引导让步状语从句。If 通常用于条件句，不用于 or 结构',opts:['Whether','If','Although','When']},
+   ' you prefer fiction or non-fiction, making reading a daily ',
+   {n:9,hint:'',ans:'habit',gk:'article_a',note:'a daily habit — habit 是可数名词单数，前有不定冠词 a，填单数 habit（不加 -s）',opts:['habit','habits','hobby','practice']},
+   ' is one of the best investments you can make ',
+   {n:10,hint:'',ans:'in',gk:'prep_fixed',note:'make an investment in = 在……上投资，固定搭配。in yourself = 投资于自己',opts:['in','for','to','of']},
+   ' yourself.'
+  ]},
+
+ {id:6,title:'The Value of Volunteering',topic:'社会',
+  parts:[
+   'Volunteering means giving your time to help others ',
+   {n:1,hint:'',ans:'without',gk:'prep_fixed',note:'without receiving payment = 不领报酬，without + 动名词，介词 without 后接 -ing',opts:['without','with','beyond','despite']},
+   ' receiving payment. Millions volunteer for a wide range of ',
+   {n:2,hint:'cause',ans:'causes',gk:'word_form_n',note:'a wide range of + 复数名词，cause→causes（加 -s）',opts:['causes','cause','causation','causing']},
+   '.\n\n',
+   {n:3,hint:'Volunteer',ans:'Volunteering',gk:'gerund_subj',note:'动名词作主语，Volunteer→Volunteering（句首大写）。"志愿服务"是这句话的主语',opts:['Volunteering','To volunteer','Volunteered','Volunteer']},
+   ' benefits not only the community but also the volunteers. People who volunteer report higher levels of ',
+   {n:4,hint:'happy',ans:'happiness',gk:'word_form_n',note:'levels of + 名词，happy（形容词）→happiness（名词，去 -y 加 -iness）',opts:['happiness','happy','happily','happier']},
+   ' ',
+   {n:5,hint:'',ans:'than',gk:'comparative',note:'higher...than...比较结构，than 引出比较对象（than those who do not volunteer）',opts:['than','that','as','of']},
+   ' non-volunteers.\n\nFor young people, volunteering develops skills ',
+   {n:6,hint:'',ans:'such as',gk:'phrase_fixed',note:'such as = 例如，引出具体技能列举，固定短语，整体使用',opts:['such as','for example','like','including']},
+   ' teamwork. These skills are very ',
+   {n:7,hint:'use',ans:'useful',gk:'word_form_adj',note:'修饰名词 skills，需形容词，use（动词/名词）→useful（形容词，加 -ful 后缀）',opts:['useful','use','used','using']},
+   ' in future careers.\n\nIf you are thinking about ',
+   {n:8,hint:'start',ans:'starting',gk:'gerund_obj',note:'think about + 动名词，about 是介词，start→starting',opts:['starting','to start','start','started']},
+   ' to volunteer, choose a cause you feel ',
+   {n:9,hint:'passion',ans:'passionate',gk:'word_form_adj',note:'feel passionate about = 对……充满热情，passion（名词）→passionate（形容词，加 -ate 后缀）',opts:['passionate','passion','passionately','passioned']},
+   ' about. Even a few hours a week can make a real ',
+   {n:10,hint:'',ans:'difference',gk:'phrase_fixed',note:'make a difference = 产生影响/有所不同，固定搭配，difference 不可换成其他词',opts:['difference','different','differently','differ']},
+   '.'
+  ]},
+
+ {id:7,title:'The Rise of Online Shopping',topic:'科技与消费',
+  parts:[
+   'Online shopping has ',
+   {n:1,hint:'transform',ans:'transformed',gk:'pres_perf',note:'has + 过去分词，现在完成时。over the past two decades 是完成时标志，transform→transformed',opts:['transformed','transforming','transforms','transform']},
+   ' the retail industry. Customers can compare prices and have items ',
+   {n:2,hint:'deliver',ans:'delivered',gk:'passive_past',note:'have sth done = 使役结构（物品被送到），deliver→delivered（过去分词，表被动）',opts:['delivered','deliver','delivering','to deliver']},
+   ' to their doors.\n\n',
+   {n:3,hint:'',ans:'However',gk:'conj_however',note:'上文讲优点（便利），下文讲缺点——语义反转，用 However',opts:['However','Therefore','Moreover','Besides']},
+   ', online shopping also has drawbacks. It is difficult to judge the ',
+   {n:4,hint:'',ans:'quality',gk:'word_form_n',note:'judge the quality of a product = 判断商品质量，quality 是名词，固定搭配',opts:['quality','quantity','qualify','qualified']},
+   ' of a product by looking at pictures. Items may look different ',
+   {n:5,hint:'',ans:'when',gk:'conj_when',note:'when they arrive = 当到货时，时间状语从句，when 引导时间点',opts:['when','where','while','as']},
+   ' they arrive. Returning ',
+   {n:6,hint:'',ans:'an',gk:'article_a',note:'an item — item 以元音音素 /ɪ/ 开头，前用 an；且是初次提及（泛指一件商品）',opts:['an','a','the','—（无冠词）']},
+   ' item can be time-consuming.\n\nOnline stores show targeted ads ',
+   {n:7,hint:'design',ans:'designed',gk:'part_adj_post',note:'过去分词作后置定语，修饰 ads（=which are designed to），design→designed',opts:['designed','designing','design','to design']},
+   ' to tempt shoppers. It is important ',
+   {n:8,hint:'',ans:'for',gk:'formal_it',note:'It is important for sb to do — 固定句型，for 引出动作的主体（consumers），不能换成 to 或 of',opts:['for','to','of','with']},
+   ' consumers to develop self-control. The ',
+   {n:9,hint:'convenient',ans:'convenience',gk:'word_form_n',note:'定冠词 The 后接名词，convenient（形容词）→convenience（名词，去 -nt 加 -nce）',opts:['convenience','convenient','conveniently','convince']},
+   ' is real, but wait 24 hours before ',
+   {n:10,hint:'make',ans:'making',gk:'gerund_obj',note:'before + 动名词，介词 before 后接 -ing，make→making',opts:['making','to make','made','make']},
+   ' any purchase.'
+  ]},
+
+ {id:8,title:'Music and the Brain',topic:'科学',
+  parts:[
+   '',
+   {n:1,hint:'',ans:'When',gk:'conj_when',note:'When we listen...= 当我们听音乐时，时间状语从句，When 引导时间点',opts:['When','While','After','Before']},
+   ' we listen to music, our brains release dopamine, a chemical ',
+   {n:2,hint:'associate',ans:'associated',gk:'part_adj_post',note:'过去分词作后置定语（=which is associated with），表被动，associate→associated',opts:['associated','associating','associate','to associate']},
+   ' with pleasure. This is why music can make us feel happy, sad, or ',
+   {n:3,hint:'excite',ans:'excited',gk:'participle_adj',note:'make us feel + 形容词，表示"人感到"某种情绪用 -ed。excited（人感到兴奋）vs exciting（事物令人兴奋）',opts:['excited','exciting','excitement','excite']},
+   '.\n\nPlaying music requires ',
+   {n:4,hint:'',ans:'both',gk:'phrase_fixed',note:'both...and... = 两者都，固定结构：requires both hands and stimulates both sides',opts:['both','either','neither','all']},
+   ' hands simultaneously, stimulating both sides of the brain. This can improve ',
+   {n:5,hint:'',ans:'concentration',gk:'word_form_n',note:'improve concentration = 提高注意力，concentration 是名词，固定搭配',opts:['concentration','concentrate','concentrated','concentrating']},
+   ' and even mathematical ability.\n\nMusic helps people deal ',
+   {n:6,hint:'',ans:'with',gk:'prep_fixed',note:'deal with = 应对/处理，固定搭配，with 不可换成其他介词',opts:['with','from','against','about']},
+   ' stress. Hospitals use music therapy to help patients recover from ',
+   {n:7,hint:'ill',ans:'illness',gk:'word_form_n',note:'recover from illness = 从病中康复，from 后接名词，ill（形容词）→illness（名词，加 -ness）',opts:['illness','ill','ills','ailing']},
+   ' more quickly. The soothing effect has ',
+   {n:8,hint:'prove',ans:'been proved',gk:'passive_perf',note:'现在完成时被动：has been + 过去分词。"已被证明能降低血压"，prove→been proved',opts:['been proved','proved','being proved','to prove']},
+   ' to lower blood pressure.\n\n',
+   {n:9,hint:'',ans:'However',gk:'conj_however',note:'上文：音乐有益大脑；下文：并非所有人同意哪种音乐最好——转折用 However',opts:['However','Therefore','Moreover','Besides']},
+   ', not everyone agrees on the best type of music. Classical music is particularly ',
+   {n:10,hint:'benefit',ans:'beneficial',gk:'word_form_adj',note:'修饰 music/it，作表语，需形容词，benefit（名词/动词）→beneficial（形容词，加 -ial 后缀）',opts:['beneficial','benefit','beneficially','benefiting']},
+   ' for concentration.'
+  ]},
+
+ {id:9,title:'A Summer to Remember',topic:'记叙文',
+  parts:[
+   'Last summer, Li Ming decided ',
+   {n:1,hint:'join',ans:'to join',gk:'inf_after_adj',note:'decide to do sth = 决定做某事，decide 后接不定式，join→to join',opts:['to join','joining','joined','join']},
+   ' a volunteer program at a hospital. He wanted to do something ',
+   {n:2,hint:'meaning',ans:'meaningful',gk:'word_form_adj',note:'修饰 something，作后置定语，meaning（名词）→meaningful（形容词，加 -ful）',opts:['meaningful','meaning','meaningless','means']},
+   ' during his vacation.\n\nOn his first day, he was ',
+   {n:3,hint:'assign',ans:'assigned',gk:'passive_past',note:'被动语态：他是被分配的对象，was + 过去分词，assign→assigned',opts:['assigned','assigning','assign','to assign']},
+   ' to the children\'s ward, ',
+   {n:4,hint:'',ans:'where',gk:'rel_where',note:'关系副词 where 修饰地点先行词 the children\'s ward，where 后从句结构完整',opts:['where','which','when','who']},
+   ' he spent time reading.\n\n',
+   {n:5,hint:'',ans:'Gradually',gk:'phrase_fixed',note:'表示时间推移后逐渐改变的态度，Gradually（逐渐地）最符合语境，作时间副词',opts:['Gradually','Suddenly','Immediately','Accidentally']},
+   ', Li Ming began to enjoy the work. A smile could make a huge difference to a child ',
+   {n:6,hint:'',ans:'who',gk:'rel_who',note:'定语从句修饰 a child（指人），从句中 who 作主语',opts:['who','which','whom','that']},
+   ' was feeling lonely. ',
+   {n:7,hint:'see',ans:'Seeing',gk:'gerund_subj',note:'动名词短语作主语，see→Seeing（句首大写）。"看见孩子们的脸亮起来"是这句的主语',opts:['Seeing','Seen','To see','Having seen']},
+   ' the children\'s faces light up gave him a sense of ',
+   {n:8,hint:'satisfy',ans:'satisfaction',gk:'word_form_n',note:'a sense of + 名词，satisfy（动词）→satisfaction（名词，-fy→-faction）',opts:['satisfaction','satisfy','satisfied','satisfying']},
+   '.\n\nBy the end of summer, Li Ming had ',
+   {n:9,hint:'spend',ans:'spent',gk:'past_perf',note:'过去完成时：by the end of summer 是过去某时间点，had + 过去分词，spend→spent（不规则）',opts:['spent','spend','has spent','was spending']},
+   ' over 200 hours volunteering. The experience showed that helping others is one of the most ',
+   {n:10,hint:'reward',ans:'rewarding',gk:'participle_adj',note:'修饰 things，描述"事物"令人感到满足，用 -ing 形式：rewarding（令人有收获的）',opts:['rewarding','rewarded','reward','to reward']},
+   ' things a person can do.'
+  ]},
+
+ {id:10,title:'Exploring the Final Frontier',topic:'科学与探索',
+  parts:[
+   'Space exploration has ',
+   {n:1,hint:'fascinate',ans:'fascinated',gk:'pres_perf',note:'has + 过去分词，现在完成时，fascinate→fascinated。"for centuries"是完成时标志',opts:['fascinated','fascinates','fascinating','fascinate']},
+   ' humans for centuries. In 1957, the Soviet Union launched Sputnik, a competition ',
+   {n:2,hint:'know',ans:'known',gk:'part_adj_post',note:'过去分词作后置定语（=which was known as the Space Race），know→known',opts:['known','knowing','knows','to know']},
+   ' as the Space Race.\n\nIn 1969, Armstrong became the first person ',
+   {n:3,hint:'walk',ans:'to walk',gk:'inf_after_adj',note:'the first person to do = 第一个做……的人，不定式作定语，walk→to walk',opts:['to walk','walking','walked','walk']},
+   ' on the Moon. His words were broadcast to people ',
+   {n:4,hint:'',ans:'around',gk:'phrase_fixed',note:'around the world = 全世界，固定短语',opts:['around','across','through','over']},
+   ' the world.\n\nToday, space technology continues ',
+   {n:5,hint:'advance',ans:'to advance',gk:'inf_after_adj',note:'continue to do sth = 继续做某事，advance→to advance（continue 既可接 to do 也可接 doing，此处用 to do）',opts:['to advance','advancing','advanced','advance']},
+   ' rapidly. Private companies developed reusable rockets, ',
+   {n:6,hint:'',ans:'which',gk:'rel_which',note:'非限制性定语从句，逗号后，修饰前句整件事（开发可回收火箭这件事），用 which',opts:['which','that','what','it']},
+   ' has greatly reduced costs. Scientists are planning ',
+   {n:7,hint:'send',ans:'to send',gk:'inf_after_adj',note:'plan to do sth = 计划做某事，send→to send',opts:['to send','sending','sent','send']},
+   ' humans to Mars within ',
+   {n:8,hint:'',ans:'the',gk:'article_the',note:'within the next few decades = 在接下来的几十年内，the 特指"即将到来的那几十年"，不可省略',opts:['the','a','—（无冠词）','this']},
+   ' next few decades. Temperatures can ',
+   {n:9,hint:'',ans:'drop',gk:'modal',note:'can drop = 可以下降，情态动词 can 后接动词原形，自填 drop',opts:['drop','drops','dropping','dropped']},
+   ' as low as -80°C. ',
+   {n:10,hint:'',ans:'Nevertheless',gk:'conj_however',note:'火星环境恶劣（前），但研究者仍乐观（后）——强烈转折/让步，用 Nevertheless（尽管如此）',opts:['Nevertheless','Therefore','Moreover','As a result']},
+   ', researchers believe humans can live there one day.'
+  ]},
+
+ {id:11,title:'Learning a Foreign Language',topic:'教育',
+  parts:[
+   'Learning a foreign language is one of the most ',
+   {n:1,hint:'reward',ans:'rewarding',gk:'participle_adj',note:'修饰 experiences（事物），描述"令人有收获的"，用 -ing 形式：rewarding',opts:['rewarding','rewarded','reward','to reward']},
+   ' experiences a person can have. It opens doors to new ',
+   {n:2,hint:'opportune',ans:'opportunities',gk:'word_form_n',note:'复数名词，opportune（形容词）→opportunity（名词）→opportunities（复数，去 -y 加 -ies）',opts:['opportunities','opportunity','opportune','opportunist']},
+   '.\n\nMany worry they are too old ',
+   {n:3,hint:'learn',ans:'to learn',gk:'inf_after_adj',note:'too...to do = 太……而不能……，固定结构，learn→to learn',opts:['to learn','learning','learned','learn']},
+   ' a new language. ',
+   {n:4,hint:'',ans:'However',gk:'conj_however',note:'上文：担心太老学不了；下文：研究显示成人也能有效学习——转折，用 However',opts:['However','Therefore','Moreover','Besides']},
+   ', research shows adults can learn effectively, using different strategies ',
+   {n:5,hint:'',ans:'from',gk:'prep_fixed',note:'different from = 与……不同，固定搭配。注意：不是 different than（美式口语）或 different to（英式口语），高考标准答案用 from',opts:['from','than','to','with']},
+   ' children.\n\nIt is better to study thirty minutes daily ',
+   {n:6,hint:'',ans:'than',gk:'comparative',note:'It is better to do A than to do B — 比较结构，than 引出被比较的选项',opts:['than','that','as','of']},
+   ' to study for long hours once a week. ',
+   {n:7,hint:'listen',ans:'Listening',gk:'gerund_subj',note:'动名词作主语，listen→Listening（句首大写）。"听音乐"是这句话的主语',opts:['Listening','To listen','Listen','Having listened']},
+   ' to music and watching films can also help.\n\nApps allow people to practice ',
+   {n:8,hint:'',ans:'anywhere',gk:'phrase_fixed',note:'anywhere, at any time = 随时随地，固定表达',opts:['anywhere','somewhere','everywhere','nowhere']},
+   ', at any time. Find a native speaker ',
+   {n:9,hint:'',ans:'with whom',gk:'rel_who',note:'介词+关系代词：a native speaker with whom to have a conversation = 一个可以和他对话的母语者',opts:['with whom','who','whom','with who']},
+   ' to have a conversation. Approach language learning with ',
+   {n:10,hint:'patient',ans:'patience',gk:'word_form_n',note:'with + 名词，patient（形容词）→patience（名词，去 -t 加 -ce）',opts:['patience','patient','patiently','impatient']},
+   ' and you will succeed.'
+  ]},
+
+ {id:12,title:'Eating for a Healthier Life',topic:'健康',
+  parts:[
+   'A ',
+   {n:1,hint:'health',ans:'healthy',gk:'word_form_adj',note:'修饰名词 diet，需形容词，health（名词）→healthy（形容词，去 -h 无需去，加 -y）',opts:['healthy','health','healthily','healthful']},
+   ' diet is essential. Experts recommend eating a variety of foods, ',
+   {n:2,hint:'include',ans:'including',gk:'part_pres_adj',note:'including = such as，现在分词用作介词，引出具体例子，include→including',opts:['including','included','to include','include']},
+   ' fruits and vegetables.\n\nOne mistake is ',
+   {n:3,hint:'skip',ans:'skipping',gk:'gerund_obj',note:'is + 动名词作表语（主语补足语），skip→skipping（双写 p 再加 -ing）',opts:['skipping','to skip','skip','skipped']},
+   ' breakfast. People who eat breakfast are ',
+   {n:4,hint:'like',ans:'less likely',gk:'comparative',note:'less likely to = 较不可能……，like→likely（形容词），less 是比较级标志',opts:['less likely','unlikely','more likely','less like']},
+   ' to overeat later.\n\nAnother issue is the excessive ',
+   {n:5,hint:'consume',ans:'consumption',gk:'word_form_n',note:'the + 名词，consume（动词）→consumption（名词，-sume→-sumption）',opts:['consumption','consume','consuming','consumer']},
+   ' of sugar. Soft drinks can lead ',
+   {n:6,hint:'',ans:'to',gk:'prep_fixed',note:'lead to = 导致，固定搭配，to 后接名词/动名词',opts:['to','in','for','with']},
+   ' weight gain. Healthy habits can be developed ',
+   {n:7,hint:'',ans:'at',gk:'phrase_fixed',note:'at any age = 在任何年龄，固定搭配',opts:['at','in','by','on']},
+   ' any age. Small changes, such ',
+   {n:8,hint:'',ans:'as',gk:'phrase_fixed',note:'such as = 例如，固定短语，as 不可省略',opts:['as','like','for','of']},
+   ' swapping white bread for wholegrain, can help. ',
+   {n:9,hint:'pay',ans:'Paying',gk:'gerund_subj',note:'动名词作主语，pay→Paying（句首大写）。"关注你吃什么"是主语',opts:['Paying','To pay','Paid','Pay']},
+   ' attention to what you eat improves quality of ',
+   {n:10,hint:'',ans:'life',gk:'phrase_fixed',note:'quality of life = 生活质量，固定搭配，life 是不可数名词',opts:['life','lives','living','lifestyle']},
+   '.'
+  ]},
+
+ {id:13,title:'The Challenge of Climate Change',topic:'环境',
+  parts:[
+   'Climate change is one of the greatest ',
+   {n:1,hint:'challenge',ans:'challenges',gk:'superlative',note:'one of the greatest + 复数名词，challenge→challenges（加 -s）',opts:['challenges','challenge','challenging','challenged']},
+   ' facing humanity. ',
+   {n:2,hint:'cause',ans:'Caused',gk:'part_past_adv',note:'过去分词作原因状语（=Because it is caused by...），Caused primarily by...，cause→Caused（句首大写）',opts:['Caused','Causing','Being caused','Having caused']},
+   ' primarily by burning fossil fuels, it leads to rising temperatures.\n\nScientists have ',
+   {n:3,hint:'warn',ans:'warned',gk:'pres_perf',note:'现在完成时 have + 过去分词，for decades 是完成时标志，warn→warned',opts:['warned','have warned','warn','warning']},
+   ' for decades that greenhouse gases trap heat ',
+   {n:4,hint:'',ans:'in',gk:'prep_fixed',note:'trap heat in the atmosphere = 将热量困在大气层内，介词 in 表示在……内部',opts:['in','into','within','inside']},
+   ' the atmosphere. Temperatures have risen by 1.1°C ',
+   {n:5,hint:'',ans:'since',gk:'pres_perf',note:'since the pre-industrial era = 自工业化前时代以来，since 引出完成时的起点（时间点）',opts:['since','from','after','during']},
+   ' the pre-industrial era.\n\nEffects are already being ',
+   {n:6,hint:'feel',ans:'felt',gk:'passive_present',note:'现在进行时被动：are being + 过去分词，feel→felt（不规则过去分词）',opts:['felt','feeling','feel','been felt']},
+   ' around the world. Coral reefs, ',
+   {n:7,hint:'',ans:'which',gk:'rel_which',note:'非限制性定语从句，逗号后，修饰 coral reefs（物），用 which',opts:['which','that','who','what']},
+   ' are home to thousands of species, are dying.\n\n',
+   {n:8,hint:'',ans:'Nevertheless',gk:'conj_however',note:'形势严峻（前），但仍有时间行动（后）——强烈转折/让步，用 Nevertheless',opts:['Nevertheless','Therefore','Moreover','As a result']},
+   ', there is still time to act. By ',
+   {n:9,hint:'switch',ans:'switching',gk:'gerund_obj',note:'by + 动名词，介词 by 后接 -ing，switch→switching',opts:['switching','to switch','switch','switched']},
+   ' to renewable energy and ',
+   {n:10,hint:'protect',ans:'protecting',gk:'gerund_obj',note:'and 后并列动名词（与 switching 并列），protect→protecting',opts:['protecting','to protect','protect','protected']},
+   ' forests, we can slow down climate change.'
+  ]},
+
+ {id:14,title:'Artificial Intelligence: Friend or Foe?',topic:'科技',
+  parts:[
+   'AI has become one of the most talked-about topics. AI systems are now able to recognize speech and ',
+   {n:1,hint:'translate',ans:'translate',gk:'modal',note:'be able to + 动词原形，与 recognize 并列，translate 不需要变形',opts:['translate','translating','translated','to translate']},
+   ' languages.\n\nThe potential benefits are ',
+   {n:2,hint:'number',ans:'numerous',gk:'word_form_adj',note:'作表语，需形容词，number（名词）→numerous（形容词，意为"许多的"，加 -ous 后缀）',opts:['numerous','number','numbered','numbering']},
+   '. In medicine, AI can analyze images more ',
+   {n:3,hint:'accurate',ans:'accurately',gk:'word_form_adv',note:'修饰动词 analyze，需副词，accurate（形容词）→accurately（副词，加 -ly）',opts:['accurately','accurate','accuracy','inaccurate']},
+   ' than human doctors, helping to ',
+   {n:4,hint:'detect',ans:'detect',gk:'sensory_causative',note:'help to do sth / help do sth，两种均可，detect 不变（原形）',opts:['detect','detecting','detected','to detect']},
+   ' diseases earlier.\n\n',
+   {n:5,hint:'',ans:'However',gk:'conj_however',note:'上文：AI 的好处；下文：AI 引发的伦理问题——语义反转，用 However',opts:['However','Therefore','Moreover','Besides']},
+   ', AI raises ethical questions. Many workers fear their jobs may be ',
+   {n:6,hint:'replace',ans:'replaced',gk:'passive_present',note:'被动语态：工作是被替代的对象，may be + 过去分词，replace→replaced',opts:['replaced','replacing','replace','to replace']},
+   ' by intelligent machines.\n\nExperts argue AI will change the ',
+   {n:7,hint:'nature',ans:'nature',gk:'phrase_fixed',note:'the nature of work = 工作的本质，nature 是名词，固定搭配，不需变形',opts:['nature','natural','naturally','natured']},
+   ' of work. New types of jobs will be ',
+   {n:8,hint:'create',ans:'created',gk:'passive_past',note:'被动语态：新工作是被创造的，will be + 过去分词，create→created',opts:['created','creating','create','to create']},
+   ' that we cannot yet imagine. The key is to ',
+   {n:9,hint:'',ans:'ensure',gk:'inf_after_adj',note:'The key is to ensure that... — 不定式作表语，ensure = 确保',opts:['ensure','ensuring','ensured','assured']},
+   ' that workers have the training they need. After all, technology ',
+   {n:10,hint:'',ans:'should',gk:'modal',note:'情态动词：技术"应该"服务于人，而不是取代人，用 should（建议/应当）',opts:['should','must','can','would']},
+   ' serve people, not replace them.'
+  ]},
+
+ {id:15,title:'The History of Tea',topic:'文化历史',
+  parts:[
+   'Tea is the most ',
+   {n:1,hint:'wide',ans:'widely',gk:'word_form_adv',note:'修饰过去分词 consumed，需副词，wide（形容词）→widely（副词，加 -ly）',opts:['widely','wide','width','widen']},
+   ' consumed drink after water. Its history stretches back to ancient China, ',
+   {n:2,hint:'',ans:'where',gk:'rel_where',note:'关系副词 where 修饰地点先行词 ancient China，where 后从句结构完整（有主谓）',opts:['where','which','when','that']},
+   ' it is said to have been discovered by Emperor Shen Nong.\n\nIn 2737 BC, some leaves ',
+   {n:3,hint:'',ans:'accidentally',gk:'word_form_adv',note:'修饰动词 fell，需副词，accidentally（意外地）。这个副词从语境中判断：皇帝不是故意让茶叶落入水中',opts:['accidentally','naturally','carefully','deliberately']},
+   ' fell into boiling water. After ',
+   {n:4,hint:'drink',ans:'drinking',gk:'gerund_obj',note:'after + 动名词，介词 after 后接 -ing，drink→drinking',opts:['drinking','to drink','drink','drank']},
+   ' the liquid, he found it ',
+   {n:5,hint:'',ans:'refreshing',gk:'participle_adj',note:'found it + 形容词（宾语补足语），描述"液体"的特性，用 -ing 形式：refreshing（令人提神的）',opts:['refreshing','refreshed','refresh','refreshment']},
+   ' and medicinal.\n\nTea ',
+   {n:6,hint:'introduce',ans:'was introduced',gk:'passive_past',note:'被动语态一般过去时：茶是被引入的对象，was + 过去分词，introduce→was introduced',opts:['was introduced','introduced','is introduced','has been introduced']},
+   ' to Japan in the 9th century. By the 16th century, it had ',
+   {n:7,hint:'reach',ans:'reached',gk:'past_perf',note:'过去完成时：by the 16th century 是过去时间点，had + 过去分词，reach→reached',opts:['reached','reach','has reached','reaching']},
+   ' Europe. At one point it was ',
+   {n:8,hint:'tax',ans:'taxed',gk:'passive_past',note:'被动语态：茶叶是被征税的对象，was + 过去分词，tax→taxed',opts:['taxed','taxing','tax','to tax']},
+   ' so heavily that smuggling became common.\n\nToday, China and India are the world\'s largest tea ',
+   {n:9,hint:'produce',ans:'producers',gk:'word_form_n',note:'tea producers = 茶叶生产者/产地，produce（动词）→producer（名词）→producers（复数）',opts:['producers','production','product','produce']},
+   '. ',
+   {n:10,hint:'',ans:'Despite',gk:'conj_despite',note:'Despite its ancient origins...= 尽管历史悠久……，Despite 是介词，后接名词短语，不接从句',opts:['Despite','Although','Even though','However']},
+   ' its ancient origins, tea remains one of the world\'s most beloved drinks.'
+  ]},
+
+ {id:16,title:'A Small Act of Kindness',topic:'记叙文',
+  parts:[
+   'Wang Fang noticed an elderly man ',
+   {n:1,hint:'struggle',ans:'struggling',gk:'sensory_causative',note:'notice sb doing = 感知到某人正在做某事，强调进行状态，struggle→struggling',opts:['struggling','struggled','to struggle','struggle']},
+   ' to carry a heavy bag.\n\nAlthough she was ',
+   {n:2,hint:'',ans:'afraid',gk:'phrase_fixed',note:'be afraid of = 害怕/担心……，afraid of being late = 担心迟到，afraid 是固定搭配',opts:['afraid','sure','aware','tired']},
+   ' of being late, Wang Fang stopped to help. She carried the bags all the way ',
+   {n:3,hint:'',ans:'to',gk:'prep_fixed',note:'all the way to = 一路到达……，固定搭配，to 引出目的地',opts:['to','towards','into','at']},
+   ' his home.\n\nThe old man was deeply ',
+   {n:4,hint:'move',ans:'moved',gk:'participle_adj',note:'was deeply moved = 深受感动，描述"人"的感受用 -ed，move→moved',opts:['moved','moving','move','to move']},
+   ' by her kindness. He said very few young people ',
+   {n:5,hint:'',ans:'nowadays',gk:'phrase_fixed',note:'very few young people nowadays = 如今很少有年轻人……，nowadays 作时间副词修饰整句',opts:['nowadays','in the past','at first','as usual']},
+   ' would stop to help a stranger.\n\n',
+   {n:6,hint:'',ans:'To her surprise',gk:'phrase_fixed',note:'To her surprise = 出乎她意料地，固定短语，放句首作状语',opts:['To her surprise','To her disappointment','As she expected','As usual']},
+   ', her teacher praised her. The whole class ',
+   {n:7,hint:'applaud',ans:'applauded',gk:'passive_past',note:'一般过去时（记叙文），applaud→applauded（加 -ed）',opts:['applauded','applaud','was applauding','applauding']},
+   '.\n\nWang Fang realized that ',
+   {n:8,hint:'',ans:'helping',gk:'gerund_subj',note:'realized that + 名词性从句，从句主语是动名词 helping（帮助他人……）',opts:['helping','to help','helped','help']},
+   ' others brings rewards that outweigh the sacrifice. She made a ',
+   {n:9,hint:'',ans:'decision',gk:'phrase_fixed',note:'make a decision to do = 做出决定去……，固定搭配，decision 是名词',opts:['decision','decide','decisive','decided']},
+   ' to help others every day. Her act also ',
+   {n:10,hint:'inspire',ans:'inspired',gk:'passive_past',note:'一般过去时（记叙文），inspire→inspired（加 -d）',opts:['inspired','inspiring','inspire','was inspired']},
+   ' many classmates to do the same.'
+  ]},
+
+ {id:17,title:'The Importance of Urban Green Spaces',topic:'城市规划',
+  parts:[
+   'As cities grow larger, green spaces are ',
+   {n:1,hint:'increase',ans:'increasingly',gk:'word_form_adv',note:'修饰形容词 recognized，需副词，increase（动词）→increasingly（副词，加 -ingly）',opts:['increasingly','increasing','increased','increase']},
+   ' recognized as essential. These natural areas benefit city ',
+   {n:2,hint:'dwell',ans:'dwellers',gk:'word_form_n',note:'city dwellers = 城市居民，dwell（动词）→dweller（名词）→dwellers（复数）',opts:['dwellers','dwellings','dwelling','dwelled']},
+   '.\n\nFirst, green spaces reduce stress. People feel more ',
+   {n:3,hint:'',ans:'relaxed',gk:'participle_adj',note:'feel more relaxed = 感觉更放松，描述"人"的状态用 -ed 形式',opts:['relaxed','relaxing','relax','relaxation']},
+   ' after spending time outdoors. Second, trees reduce ',
+   {n:4,hint:'pollute',ans:'pollution',gk:'word_form_n',note:'reduce pollution = 减少污染，pollute（动词）→pollution（名词，加 -ion）',opts:['pollution','pollute','polluted','polluting']},
+   ' by absorbing carbon dioxide, ',
+   {n:5,hint:'',ans:'which',gk:'rel_which',note:'非限制性定语从句，指代上文整件事（树木吸收CO₂/净化空气），用 which',opts:['which','that','it','what']},
+   ' helps clean the air. Parks also make cities ',
+   {n:6,hint:'',ans:'much',gk:'comparative',note:'much hotter than = 比……热得多，much 用于强调比较级（much + 比较级）',opts:['much','very','quite','more']},
+   ' cooler than heat islands.\n\nThird, parks provide space for ',
+   {n:7,hint:'',ans:'physical',gk:'word_form_adj',note:'physical activity = 体育活动/身体活动，physical 是形容词，固定搭配',opts:['physical','physically','physician','physics']},
+   ' activity. Outdoor exercise is one of the most ',
+   {n:8,hint:'effect',ans:'effective',gk:'word_form_adj',note:'the most + 形容词，修饰 ways，effect（名词）→effective（形容词，加 -ive）',opts:['effective','effect','effectively','effectiveness']},
+   ' ways to maintain health.\n\nDespite these benefits, green spaces are often the first things ',
+   {n:9,hint:'',ans:'to be cut',gk:'inf_after_adj',note:'the first things to be cut = 第一个被削减的东西，不定式被动作定语（to be + 过去分词）',opts:['to be cut','being cut','cut','to cut']},
+   ' when budgets are tight. ',
+   {n:10,hint:'',ans:'Fortunately',gk:'conj_however',note:'转折：尽管经常被削减（前），但幸好越来越多政府认识到其价值（后），用 Fortunately（幸运的是）',opts:['Fortunately','Unfortunately','Surprisingly','Clearly']},
+   ', more city governments are now investing in green spaces.'
+  ]},
+
+ {id:18,title:'The Dark Side of Fast Fashion',topic:'环境与消费',
+  parts:[
+   'Fast fashion refers to cheap clothing ',
+   {n:1,hint:'design',ans:'designed',gk:'part_adj_post',note:'过去分词作后置定语（=which is designed to be worn...），design→designed',opts:['designed','designing','design','to design']},
+   ' to be worn a few times then thrown away. The industry has grown ',
+   {n:2,hint:'drama',ans:'dramatically',gk:'word_form_adv',note:'修饰动词 has grown，需副词，drama（名词）→dramatic（形容词）→dramatically（副词）',opts:['dramatically','dramatic','drama','dramatize']},
+   ' over the past twenty years.\n\n',
+   {n:3,hint:'produce',ans:'Producing',gk:'gerund_subj',note:'动名词作主语，produce→Producing（句首大写）。"生产一件T恤"是这句的主语',opts:['Producing','To produce','Produced','Production']},
+   ' a single T-shirt requires 2,700 liters of water. Synthetic fabrics ',
+   {n:4,hint:'',ans:'such as',gk:'phrase_fixed',note:'such as = 例如，引出具体举例（polyester 涤纶），固定短语',opts:['such as','for instance','for example','like']},
+   ' polyester release plastic particles when ',
+   {n:5,hint:'wash',ans:'washed',gk:'part_past_adv',note:'when washed = 当被清洗时，被动意义的时间状语从句省略形式（when they are washed），wash→washed',opts:['washed','washing','being washed','to wash']},
+   ', polluting rivers.\n\nMany workers are paid very ',
+   {n:6,hint:'',ans:'low',gk:'word_form_adj',note:'paid very low wages = 被支付极低的工资，low 修饰名词 wages，形容词',opts:['low','lower','lowest','little']},
+   ' wages.\n\n',
+   {n:7,hint:'',ans:'What',gk:'noun_clause',note:'What can consumers do? = 消费者能做什么？句首疑问词引出设问，自填 What',opts:['What','How','Why','When']},
+   ' can consumers do? Buying ',
+   {n:8,hint:'',ans:'fewer',gk:'comparative',note:'fewer clothes = 更少的衣服，clothes 是复数名词，用 fewer（few 的比较级），不用 less',opts:['fewer','less','little','more']},
+   ' but better quality clothes is a good start. ',
+   {n:9,hint:'',ans:'Choosing',gk:'gerund_subj',note:'动名词作主语，Choosing second-hand clothing...，句首大写',opts:['Choosing','To choose','Chosen','Choose']},
+   ' second-hand clothes is another option. If fashion is to become truly ',
+   {n:10,hint:'sustain',ans:'sustainable',gk:'word_form_adj',note:'修饰 fashion，作表语，需形容词，sustain（动词）→sustainable（形容词，加 -able）',opts:['sustainable','sustain','sustained','sustainability']},
+   ', both businesses and consumers must change.'
+  ]},
+
+ {id:19,title:'The Intelligence of Dolphins',topic:'科学与自然',
+  parts:[
+   'Dolphins are considered one of the most ',
+   {n:1,hint:'intelligence',ans:'intelligent',gk:'word_form_adj',note:'修饰名词 animals，需形容词，intelligence（名词）→intelligent（形容词，去 -nce 加 -nt）',opts:['intelligent','intelligence','intelligently','unintelligent']},
+   ' animals on Earth. They communicate through a complex system of ',
+   {n:2,hint:'',ans:'clicks',gk:'phrase_fixed',note:'clicks and whistles = 点击声和哨声，海豚特有的交流声音，clicks 是名词复数',opts:['clicks','words','songs','calls']},
+   ' and whistles.\n\nDolphins can recognize themselves in mirrors, an ability ',
+   {n:3,hint:'',ans:'that',gk:'rel_that',note:'定语从句修饰 an ability，先行词是 ability（物），用 that（限制性定语从句）',opts:['that','which','who','when']},
+   ' only a few animals possess. This shows high self-',
+   {n:4,hint:'aware',ans:'awareness',gk:'word_form_n',note:'self-awareness = 自我意识，self- 后接名词，aware（形容词）→awareness（名词，加 -ness）',opts:['awareness','aware','awaken','awakening']},
+   '.\n\nDolphins display remarkable problem-',
+   {n:5,hint:'solve',ans:'solving',gk:'word_form_n',note:'problem-solving = 解决问题的（复合名词/形容词），solve（动词）→solving（动名词，构成复合词）',opts:['solving','solution','solve','solved']},
+   ' abilities. In experiments, they have been shown ',
+   {n:6,hint:'',ans:'to',gk:'inf_after_adj',note:'have been shown to do = 已被证明能……，固定结构 be shown to + 动词原形，to 不可省略',opts:['to','being','have','having']},
+   ' use tools such as sea sponges.\n\nEach dolphin ',
+   {n:7,hint:'develop',ans:'develops',gk:'subject_verb',note:'主语 Each dolphin 是单数（Each + 单数名词），一般现在时谓语加 -s，develop→develops',opts:['develops','develop','developed','is developing']},
+   ' a unique whistle. Other dolphins can use this whistle ',
+   {n:8,hint:'',ans:'to',gk:'inf_purpose',note:'use this to call = 用这个来呼叫……，不定式作目的状语，表"用来做……"',opts:['to','for','of','with']},
+   ' call a specific individual by name.\n\nMany argue that dolphins ',
+   {n:9,hint:'',ans:'should',gk:'modal',note:'情态动词表观点/建议：海豚"应该"不被圈养，用 should not',opts:['should','could','might','would']},
+   ' not be kept in captivity. ',
+   {n:10,hint:'',ans:'Instead',gk:'conj_however',note:'Instead = 相反/取而代之，表转折/对比：上文说不应被圈养，下文说应在自然中被保护',opts:['Instead','However','Therefore','Besides']},
+   ', they should be protected in their natural environment.'
+  ]},
+
+ {id:20,title:'The Power of Habit',topic:'心理学',
+  parts:[
+   'Scientists found that about 40% of our daily actions are not decisions, but ',
+   {n:1,hint:'',ans:'habits',gk:'word_form_n',note:'not decisions but habits — 与 decisions（复数名词）并列对比，填 habits（复数）',opts:['habits','habit','behavior','routine']},
+   '. A habit is a behavior repeated so many times it becomes ',
+   {n:2,hint:'automatic',ans:'automatic',gk:'word_form_adj',note:'becomes automatic = 变得自动，形容词作表语，automatic 无需变形（已是形容词）',opts:['automatic','automatically','automation','automated']},
+   '.\n\nHabits form through the "habit loop": a cue, a routine, and a reward. The cue ',
+   {n:3,hint:'trigger',ans:'triggers',gk:'subject_verb',note:'主语 The cue 是单数名词，一般现在时谓语加 -s，trigger→triggers',opts:['triggers','trigger','triggered','is triggering']},
+   ' the behavior, and the reward is the feeling that ',
+   {n:4,hint:'follow',ans:'follows',gk:'subject_verb',note:'关系从句主语 that 指代单数先行词 the feeling，一般现在时加 -s，follow→follows',opts:['follows','follow','followed','following']},
+   '.\n\nUnderstanding the loop is the key to ',
+   {n:5,hint:'change',ans:'changing',gk:'gerund_obj',note:'the key to + 动名词，to 是介词（不是不定式符号），change→changing',opts:['changing','to change','change','changed']},
+   ' bad habits. Identify ',
+   {n:6,hint:'',ans:'what',gk:'noun_clause',note:'identify what triggers your cravings = 找出是什么触发渴望，what 引导宾语从句（what = the thing that）',opts:['what','which','that','when']},
+   ' triggers your cravings and replace the routine with a healthier one.\n\nGood habits, once ',
+   {n:7,hint:'form',ans:'formed',gk:'part_past_adv',note:'once formed = 一旦养成，过去分词作条件状语（被动含义），form→formed',opts:['formed','forming','form','to form']},
+   ', can be incredibly powerful. Regular exercise builds not just ',
+   {n:8,hint:'physical',ans:'physical',gk:'word_form_adj',note:'physical fitness = 体能/体质，physical 是形容词，无需变形，修饰 fitness',opts:['physical','physically','physician','physics']},
+   ' fitness but also mental strength and ',
+   {n:9,hint:'',ans:'discipline',gk:'word_form_n',note:'mental strength and discipline = 意志力和自律，并列名词，discipline 是名词（自律）',opts:['discipline','patience','happiness','courage']},
+   '.\n\nStart small, be consistent, and good choices will become second ',
+   {n:10,hint:'',ans:'nature',gk:'phrase_fixed',note:'become second nature = 成为第二天性（习惯成自然），固定搭配，不可换词',opts:['nature','natural','naturally','sense']},
+   '.'
+  ]},
+];
+
+// ============================================================
+// APP STATE
+// ============================================================
+const LS='gmcq2_v1';
+let cur=0;
+let ss={answered:[],shuffledOpts:[]};
+
+function loadScores(){try{return JSON.parse(localStorage.getItem(LS))||{}}catch(e){return{}}}
+function saveScore(pid,score){const s=loadScores();s[pid]=score;try{localStorage.setItem(LS,JSON.stringify(s))}catch(e){}}
+function getBlanks(p){return p.parts.filter(x=>typeof x==='object')}
+function shuffle(arr){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+function initSession(idx){
+  const blanks=getBlanks(P[idx]);
+  ss={answered:Array(blanks.length).fill(null),shuffledOpts:blanks.map(b=>shuffle(b.opts))};
+}
+
+// ============================================================
+// RENDER
+// ============================================================
+function render(){renderGrid();renderMain();}
+
+function renderGrid(){
+  const scores=loadScores();
+  const done=Object.keys(scores).length;
+  document.getElementById('pfill').style.width=Math.round(done/P.length*100)+'%';
+  document.getElementById('sg').innerHTML=P.map((p,i)=>{
+    const sc=scores[p.id];const isD=sc!=null;const isA=i===cur;
+    return `<button class="sb${isA?' act':''}${isD&&!isA?' dn':''}" onclick="goTo(${i})">
+      <span class="sn">${p.id}</span><span class="ss">${isD?sc+'/10':'—'}</span>
+    </button>`;
+  }).join('');
+}
+
+function renderMain(){
+  const p=P[cur];const blanks=getBlanks(p);const scores=loadScores();
+  const savedScore=scores[p.id];
+  const done=ss.answered.filter(x=>x!==null).length;
+  const correct=ss.answered.filter(x=>x===true).length;
+
+  // Score strip
+  const dots=ss.answered.map(a=>`<div class="dot${a===null?'':a?' ok':' err'}"></div>`).join('');
+  let html=`<div class="strip">
+    <div><div class="s-big">${done>0?correct+'/'+done:'—'}</div>
+    <div class="s-lbl">已答${done}/10${savedScore!=null?' · 历史'+savedScore+'/10':''}</div></div>
+    <div class="s-dots">${dots}</div>
+  </div>`;
+
+  // Passage
+  let ptxt='';
+  p.parts.forEach(part=>{
+    if(typeof part==='string'){ptxt+=part.replace(/\n/g,'<br>');}
+    else{
+      const ai=blanks.indexOf(part);const a=ss.answered[ai];
+      let cls='bt'+(a===true?' ok':a===false?' err':'');
+      let lbl=a===true?'✓'+part.ans:a===false?`✗(${part.n})`:`(${part.n})`;
+      const hi=part.hint?`<span class="hi">(${part.hint})</span>`:'';
+      ptxt+=`<span class="${cls}" id="bt${part.n}">${lbl}</span>${hi}`;
+    }
+  });
+  html+=`<div class="pb"><div class="pmeta"><span class="ptit">第${p.id}套 · ${p.title}</span><span class="ptag">${p.topic}</span></div>${ptxt}</div>`;
+
+  // Questions
+  const letters=['A','B','C','D'];
+  html+='<div class="ql">';
+  blanks.forEach((b,i)=>{
+    const a=ss.answered[i];const isA=a!==null;
+    const opts=ss.shuffledOpts[i];
+    const pi=p.parts.indexOf(b);
+    const prev=(typeof p.parts[pi-1]==='string'?p.parts[pi-1].replace(/\n/g,' ').split(' ').slice(-5).join(' '):'');
+    const next=(typeof p.parts[pi+1]==='string'?p.parts[pi+1].replace(/\n/g,' ').split(' ').slice(0,4).join(' '):'');
+    const hi=b.hint?` (${b.hint})`:'';
+
+    let optsHtml=opts.map((opt,j)=>{
+      let cls='opt';
+      if(isA){if(opt===b.ans)cls+=' cor';else if(ss.lastPick===i&&ss.lastOpt===opt&&opt!==b.ans)cls+=' wrg';}
+      return `<button class="${cls}" onclick="answer(${i},'${opt.replace(/'/g,"\\'")}',this)" ${isA?'disabled':''}>
+        <span class="ol">${letters[j]}</span>${opt}
+      </button>`;
+    }).join('');
+
+    // Build grammar explanation
+    let expHtml='';
+    if(isA){
+      const gr=GR[b.gk]||{tag:'语法考点',rule:'',formula:'',trap:''};
+      const isOk=a===true;
+      expHtml=`<div class="ep">
+        <div class="ep-tag ${isOk?'ok':'err'}">${isOk?'✅':'❌'} 【${gr.tag}】</div>
+        <div class="ep-body">
+          <div class="ep-row"><span class="lbl">语法规则</span>${gr.rule}</div>
+          ${gr.formula?`<div class="ep-row"><span class="lbl">公式</span><span class="ep-formula">${gr.formula}</span></div>`:''}
+          ${gr.trap?`<div class="ep-trap">${gr.trap}</div>`:''}
+          <div class="ep-note">📌 本题：${b.note}</div>
+        </div>
+      </div>`;
+    }
+
+    html+=`<div class="qc${a===true?' aok':a===false?' aer':''}" id="qc${i}">
+      <div class="qh"><div class="qn" id="qn${i}">${b.n}</div>
+      <div class="qctx">…${prev}<strong> ___ ${hi}</strong> ${next}…</div></div>
+      <div class="opts" id="opts${i}">${optsHtml}</div>
+      ${expHtml}
+    </div>`;
+  });
+  html+='</div>';
+
+  // Nav
+  html+=`<div class="nav">
+    <button onclick="goTo(${cur-1})" ${cur===0?'disabled':''}>← 上一套</button>
+    <button class="btn-r" onclick="retry()">↺ 重做</button>
+    <button onclick="goTo(${cur+1})" ${cur===P.length-1?'disabled':''}>下一套 →</button>
+  </div>`;
+
+  document.getElementById('main').innerHTML=html;
+}
+
+// ============================================================
+// ANSWER — immediate feedback, no page re-render
+// ============================================================
+function answer(blankIdx, chosen, btn){
+  const p=P[cur];const blanks=getBlanks(p);const b=blanks[blankIdx];
+  const isOk=chosen===b.ans;
+  ss.answered[blankIdx]=isOk;ss.lastPick=blankIdx;ss.lastOpt=chosen;
+
+  // Color all opts
+  const optsEl=document.getElementById('opts'+blankIdx);
+  if(optsEl){
+    optsEl.querySelectorAll('.opt').forEach(el=>{
+      el.disabled=true;
+      const txt=el.textContent.trim().substring(1).trim();
+      if(txt===b.ans){el.classList.add('cor');el.querySelector('.ol').style.cssText='background:var(--ok);color:#fff';}
+      else if(el===btn&&!isOk){el.classList.add('wrg');el.querySelector('.ol').style.cssText='background:var(--err);color:#fff';}
+    });
+  }
+  // Card border
+  const card=document.getElementById('qc'+blankIdx);
+  const qn=document.getElementById('qn'+blankIdx);
+  if(card){
+    card.classList.remove('aok','aer');card.classList.add(isOk?'aok':'aer');
+    if(qn){qn.style.cssText=isOk?'background:var(--ok);color:#fff':'background:var(--err);color:#fff';}
+    // Inject explanation
+    const gr=GR[b.gk]||{tag:'语法考点',rule:'',formula:'',trap:''};
+    const ep=document.createElement('div');ep.className='ep';
+    ep.innerHTML=`<div class="ep-tag ${isOk?'ok':'err'}">${isOk?'✅':'❌'} 【${gr.tag}】</div>
+      <div class="ep-body">
+        <div class="ep-row"><span class="lbl">语法规则</span>${gr.rule}</div>
+        ${gr.formula?`<div class="ep-row"><span class="lbl">公式</span><span class="ep-formula">${gr.formula}</span></div>`:''}
+        ${gr.trap?`<div class="ep-trap">${gr.trap}</div>`:''}
+        <div class="ep-note">📌 本题：${b.note}</div>
+      </div>`;
+    card.appendChild(ep);
+    setTimeout(()=>ep.scrollIntoView({behavior:'smooth',block:'nearest'}),60);
+  }
+  // Update passage token
+  const bt=document.getElementById('bt'+b.n);
+  if(bt){bt.className='bt '+(isOk?'ok':'err');bt.textContent=isOk?'✓'+b.ans:`✗(${b.n})`;}
+  // Update score strip
+  const done=ss.answered.filter(x=>x!==null).length;
+  const cor=ss.answered.filter(x=>x===true).length;
+  const sb=document.querySelector('.s-big');const sl=document.querySelector('.s-lbl');
+  if(sb)sb.textContent=cor+'/'+done;
+  if(sl){const sc=loadScores();sl.textContent=`已答${done}/10${sc[p.id]!=null?' · 历史'+sc[p.id]+'/10':''}`;}
+  const dotEls=document.querySelectorAll('.dot');
+  ss.answered.forEach((a,i)=>{if(dotEls[i])dotEls[i].className='dot'+(a===null?'':a?' ok':' err');});
+  // Save if all done
+  if(done===blanks.length){saveScore(p.id,cor);renderGrid();}
+  gtag('event','mcq_answer',{passage:p.id,blank:b.n,correct:isOk});
+}
+
+function retry(){initSession(cur);renderMain();}
+function goTo(i){if(i<0||i>=P.length)return;cur=i;initSession(i);render();window.scrollTo({top:0,behavior:'smooth'});}
+
+// INIT
+initSession(0);render();
+</script>
+
+<style>
+.rtf{background:#f8fafc;border-top:2px solid #e2e8f0;padding:20px 16px 28px;margin-top:32px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.rtf-hd{font-size:.72rem;font-weight:700;color:#64748b;letter-spacing:1.5px;text-transform:uppercase;text-align:center;margin-bottom:14px}
+.rtf-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px;max-width:860px;margin:0 auto 14px}
+.rtf-ch{font-size:.68rem;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px}
+.rtf-links{display:flex;flex-direction:column;gap:3px}
+.rtf-links a{font-size:.8rem;color:#2563eb;text-decoration:none;line-height:1.4}
+.rtf-links a:hover{text-decoration:underline}
+.rtf-links a.rtf-cur{color:#cbd5e0;pointer-events:none;cursor:default;font-weight:600}
+.rtf-home{display:block;text-align:center;font-size:.8rem;color:#64748b;text-decoration:none;margin-top:4px}
+.rtf-home:hover{color:#1e40af}
+</style>
+<div class="rtf">
+  <div class="rtf-hd">🔗 高考工具合集 · 快速跳转</div>
+  <div class="rtf-grid">
+<div><div class="rtf-ch">📖 阅读 · 完形真题</div><div class="rtf-links"><a href="english-reading.html">高考阅读理解真题 (441题)</a>
+<a href="english-cloze.html">高考完形填空真题 (1276题)</a>
+<a href="cloze-practice.html">完形填空专练</a>
+<a href="cloze-logic-tracker.html">逻辑链追踪器</a>
+</div></div>
+<div><div class="rtf-ch">🔠 词汇</div><div class="rtf-links"><a href="vocab-match.html">连连看闯关</a>
+<a href="vocab-3500.html">3500词 · 词根版</a>
+<a href="vocab-3500-stories.html">3500词 · 故事版</a>
+<a href="850-english-practice.html">850核心词表达</a>
+</div></div>
+<div><div class="rtf-ch">📐 语法</div><div class="rtf-links"><a href="grammar-master.html">语法神器 · 闯关版</a>
+<a class="rtf-cur" href="grammar-mcq.html">语法填空选择题 ✦</a>
+<a href="grammar-cloze.html">语法填空手填版</a>
+<a href="grammar-breakdown.html">长难句拆解器</a>
+<a href="gaokao-grammar.html">高考语法通</a>
+</div></div>
+<div><div class="rtf-ch">✍️ 写作</div><div class="rtf-links"><a href="gaokao-writing.html">写作神器</a>
+<a href="gaokao-golden.html">金句闪卡 · 50句</a>
+<a href="gaokao-english-templates.html">万能句背诵库</a>
+</div></div>
+<div><div class="rtf-ch">🔢 数学 · 物理</div><div class="rtf-links"><a href="math-formula-cards.html">数学公式闪卡</a>
+<a href="physics-challenge.html">物理公式闯关 60题</a>
+</div></div>
+<div><div class="rtf-ch">🧬 生物</div><div class="rtf-links">
+<a href="shengwu/index.html">生物选择题真题 (380套)</a>
+<a href="shengwu/duiduipeng.html">生物填空对对碰</a>
+<a href="shengwu/zhishi.html">生物考点速查</a>
+</div></div>
+<div><div class="rtf-ch">📚 语文 · 物理 · 化学</div><div class="rtf-links">
+<a href="yuwen/zhishi.html">语文考点速查</a>
+<a href="wuli/zhishi.html">物理考点速查</a>
+<a href="huaxue/zhishi.html">化学考点速查</a>
+</div></div>
+  </div>
+  <a class="rtf-home" href="index.html">← 高考工具箱 · 全部工具</a>
+</div>
+</body>
+</html>

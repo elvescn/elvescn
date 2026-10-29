@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>费曼笔记本 · 用自己的话讲清楚才是真懂</title>
+<meta name="description" content="费曼学习法工具：用自己的话解释高考数学、物理、化学、生物知识点，系统揭示你真正不懂的地方，提升深度理解。">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#fffbf0;--card:#fff;--border:#e9d5a0;--accent:#92400e;--accent2:#d97706}
+body{font-family:'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:#1c1917;min-height:100vh}
+header{background:var(--accent);color:#fff;padding:14px 20px;display:flex;align-items:center;gap:12px}
+header h1{font-size:1rem;font-weight:600;flex:1}
+header a{color:#fcd34d;font-size:.8rem;text-decoration:none}
+.main{max-width:860px;margin:0 auto;padding:16px}
+
+/* Method banner */
+.method-box{background:#fef3c7;border:1px solid #fcd34d;border-radius:10px;padding:14px 18px;margin-bottom:16px;border-left:5px solid var(--accent2)}
+.method-box h2{font-size:.9rem;font-weight:700;color:var(--accent);margin-bottom:6px}
+.method-box p{font-size:.84rem;color:#78350f;line-height:1.7}
+.steps{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+.step{background:#fff;border:1px solid var(--border);border-radius:6px;padding:5px 11px;font-size:.78rem;color:var(--accent);font-weight:600}
+
+/* Topic selector */
+.selector-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:16px}
+.selector-card h2{font-size:.9rem;font-weight:700;margin-bottom:12px}
+.topic-grid{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.topic-btn{padding:7px 14px;border-radius:20px;border:1px solid var(--border);background:#fef9f0;font-size:.82rem;cursor:pointer;font-family:inherit;color:#78350f;transition:all .15s}
+.topic-btn:hover,.topic-btn.active{background:var(--accent2);color:#fff;border-color:var(--accent2)}
+.random-btn{background:var(--accent);color:#fff;border:none;border-radius:8px;padding:9px 20px;font-size:.85rem;font-weight:600;cursor:pointer;font-family:inherit}
+.random-btn:hover{background:var(--accent2)}
+
+/* Workspace */
+.workspace{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:16px;display:none}
+.workspace.show{display:block}
+.concept-title{font-size:1.1rem;font-weight:700;color:var(--accent);margin-bottom:4px}
+.concept-subject{font-size:.78rem;color:#a16207;margin-bottom:16px}
+.step-label{font-size:.78rem;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+.step-num{display:inline-block;background:var(--accent2);color:#fff;border-radius:50%;width:20px;height:20px;font-size:.72rem;font-weight:700;text-align:center;line-height:20px;margin-right:5px}
+textarea.feynman{width:100%;min-height:120px;padding:12px;border:1px solid var(--border);border-radius:8px;font-family:inherit;font-size:.9rem;color:#1c1917;background:#fffbf0;resize:vertical;outline:none;line-height:1.8}
+textarea.feynman:focus{border-color:var(--accent2);background:#fffef7}
+.reveal-btn{background:var(--accent);color:#fff;border:none;border-radius:8px;padding:10px 22px;font-size:.87rem;font-weight:600;cursor:pointer;font-family:inherit;margin:10px 0}
+.reveal-btn:hover{background:var(--accent2)}
+.reference-box{background:#f0fdf4;border:1px solid #86efac;border-radius:8px;padding:14px 16px;margin-top:4px;display:none;font-size:.88rem;line-height:1.8}
+.reference-box.show{display:block}
+.score-row{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.score-btn{padding:8px 16px;border-radius:8px;border:none;font-size:.84rem;font-weight:600;cursor:pointer;font-family:inherit;flex:1;min-width:80px}
+.s-great{background:#22c55e;color:#fff}
+.s-ok{background:#f59e0b;color:#fff}
+.s-weak{background:#ef4444;color:#fff}
+
+/* History */
+.history-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:16px}
+.history-card h2{font-size:.9rem;font-weight:700;margin-bottom:12px}
+.hist-item{padding:8px 0;border-bottom:1px solid #f5f0e8;display:flex;align-items:center;gap:10px}
+.hist-item:last-child{border-bottom:none}
+.hist-rating{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.r-great{background:#22c55e}
+.r-ok{background:#f59e0b}
+.r-weak{background:#ef4444}
+.hist-concept{flex:1;font-size:.86rem}
+.hist-date{font-size:.72rem;color:#94a3b8}
+</style>
+</head>
+<body>
+<header>
+  <h1>✍️ 费曼笔记本</h1>
+  <a href="index.html">↑ 工具列表</a>
+</header>
+<div class="main">
+
+  <div class="method-box">
+    <h2>什么是费曼学习法？</h2>
+    <p>理查德·费曼（诺贝尔物理奖得主）的学习法则：<strong>如果你不能用简单的话解释一件事，说明你还没真正懂它。</strong></p>
+    <div class="steps">
+      <div class="step">① 选一个概念</div>
+      <div class="step">② 用自己的话解释（当对方完全不懂）</div>
+      <div class="step">③ 找到说不清楚的地方</div>
+      <div class="step">④ 回头补那个漏洞</div>
+    </div>
+  </div>
+
+  <div class="selector-card">
+    <h2>选一个你"应该会但不确定"的概念</h2>
+    <div class="topic-grid" id="topic-grid"></div>
+    <button class="random-btn" onclick="randomTopic()">🎲 随机出一题</button>
+  </div>
+
+  <div class="workspace" id="workspace">
+    <div class="concept-title" id="ws-title">概念名称</div>
+    <div class="concept-subject" id="ws-subject">科目</div>
+
+    <div class="step-label"><span class="step-num">1</span>不看任何资料，用自己的话解释这个概念</div>
+    <div style="font-size:.8rem;color:#a16207;margin-bottom:6px">想象你在给一个完全不懂的同学解释。能举例子更好。</div>
+    <textarea class="feynman" id="my-explanation" placeholder="在这里写你的解释……
+
+不用写标准答案，写你真实理解的版本。
+哪里说不清楚，就在那里打个问号？"></textarea>
+
+    <button class="reveal-btn" onclick="revealRef()">看标准解释 →</button>
+    <div class="reference-box" id="ref-box"></div>
+
+    <div class="step-label" id="score-label" style="display:none;margin-top:14px"><span class="step-num">2</span>对比完后，你的理解怎么样？</div>
+    <div class="score-row" id="score-row" style="display:none">
+      <button class="score-btn s-great" onclick="rate('great')">✓ 基本一致</button>
+      <button class="score-btn s-ok" onclick="rate('ok')">△ 有遗漏，能补</button>
+      <button class="score-btn s-weak" onclick="rate('weak')">✗ 差很多，要重学</button>
+    </div>
+  </div>
+
+  <div class="history-card" id="hist-card" style="display:none">
+    <h2>📊 练习记录</h2>
+    <div id="hist-list"></div>
+  </div>
+
+</div>
+
+<div style="background:#fef9f0;border-top:2px solid var(--border);padding:14px 16px;font-size:.82rem">
+  <div style="font-weight:700;color:var(--accent);margin-bottom:8px">高考工具合集</div>
+  <div style="display:flex;flex-wrap:wrap;gap:6px">
+    <a href="feynman-notebook.html" style="padding:4px 10px;background:var(--accent);border-radius:4px;color:#fff;text-decoration:none">✍️费曼笔记本</a>
+    <a href="error-tracker.html" style="padding:4px 10px;background:var(--border);border-radius:4px;color:var(--accent);text-decoration:none">📋错题本</a>
+    <a href="study-planner.html" style="padding:4px 10px;background:var(--border);border-radius:4px;color:var(--accent);text-decoration:none">📅学习规划</a>
+    <a href="desmos-grapher.html" style="padding:4px 10px;background:var(--border);border-radius:4px;color:var(--accent);text-decoration:none">📈函数图像</a>
+    <a href="index.html" style="padding:4px 10px;background:var(--border);border-radius:4px;color:var(--accent);text-decoration:none">全部工具</a>
+  </div>
+</div>
+
+<script>
+var CONCEPTS = [
+  {s:'数学',t:'导数的几何意义',ref:'导数 f\'(x) 在点 x=a 处的值，等于函数 y=f(x) 在该点处切线的斜率。当 f\'(a)>0，曲线在该点上升；f\'(a)<0，下降；f\'(a)=0，极值点或拐点。直觉：导数就是"此时此刻的速度"。'},
+  {s:'数学',t:'sin和cos的关系',ref:'单位圆上，角度θ对应的点坐标是 (cosθ, sinθ)。cos是水平分量，sin是垂直分量。sin²θ+cos²θ=1 来自勾股定理。cos是sin向左平移π/2：cos(x)=sin(x+π/2)。'},
+  {s:'数学',t:'等差数列求和公式',ref:'等差数列：每相邻两项差相等（公差d）。前n项和 Sn = n(a₁+aₙ)/2 = na₁+n(n-1)d/2。直觉：把数列首尾配对，每对之和相等，共n/2对。高斯9岁就用这个方法算出1+2+…+100=5050。'},
+  {s:'数学',t:'指数函数与对数函数的关系',ref:'对数是指数的反函数：y=aˣ ↔ x=log_a(y)。指数函数和对数函数关于 y=x 对称。log(AB)=logA+logB（乘法变加法），这就是为什么以前用对数表做乘法。'},
+  {s:'数学',t:'概率中的对立事件',ref:'P(A) + P(对立事件A\') = 1，即某事件发生的概率加上它不发生的概率等于1。应用：当"正面"计算复杂时，用1减去"反面"的概率。例：至少有一个事件发生 = 1 - 所有事件都不发生。'},
+  {s:'物理',t:'牛顿第二定律 F=ma',ref:'合外力=质量×加速度。注意：①F是合力，不是某个力；②a与F方向相同，与v无关（运动物体可以有反向的F）；③质量越大，产生同样加速度需要越大的力。直觉：推购物车比推火车容易。'},
+  {s:'物理',t:'动能定理',ref:'合力做的功=动能变化量：W合=ΔEk=½mv²-½mv₀²。注意：W是所有力做功之和，包括摩擦力（通常为负）。直觉：能量守恒的工具版——所有力的"推力效果"都表现在速度变化上。'},
+  {s:'物理',t:'楞次定律',ref:'感应电流的方向总是使其产生的磁场阻碍引起感应的磁通量变化。简记：阻碍！磁通量增加→感应电流产生反向磁场；磁通量减少→感应电流产生同向磁场补充。直觉：自然界"懒"，不愿意变化。'},
+  {s:'物理',t:'带电粒子在匀强磁场中运动',ref:'带电粒子速度方向与磁场垂直时做匀速圆周运动（洛伦兹力=向心力）：qvB=mv²/r，即 r=mv/(qB)。速度越大、质量越大→半径越大；电荷量越大、磁场越强→半径越小。洛伦兹力不做功（始终垂直速度）。'},
+  {s:'物理',t:'光的折射定律（斯涅尔定律）',ref:'n₁sinθ₁=n₂sinθ₂。光从光密介质（折射率大）进入光疏介质（折射率小）时，折射角大于入射角，可能发生全反射。全反射临界角：sinθc=n₂/n₁。光纤就是利用全反射传导光信号。'},
+  {s:'化学',t:'勒夏特列原理',ref:'如果改变平衡体系的条件（浓度、压强、温度），平衡将朝减弱该改变的方向移动。注意：只是"减弱"，不是消除；催化剂不改变平衡位置，只加快达到平衡的速率。直觉：系统总在"抵抗"外界干扰。'},
+  {s:'化学',t:'氧化还原反应',ref:'氧化：失去电子，化合价升高；还原：得到电子，化合价降低。口诀：失升氧（失电子，化合价升高，被氧化）；得降还（得电子，化合价降低，被还原）。氧化剂得电子被还原；还原剂失电子被氧化。'},
+  {s:'化学',t:'影响化学反应速率的因素',ref:'浓度增大→速率增大（单位体积内碰撞频率增加）；温度升高→速率增大（每升10℃约增大2-4倍）；催化剂→速率增大（降低活化能）；增大压强（对气体）→速率增大（相当于增大浓度）。'},
+  {s:'化学',t:'电解池与原电池的区别',ref:'原电池：化学能→电能，自发氧化还原反应，负极氧化失电子，正极还原得电子。电解池：电能→化学能，非自发，阳极（接正极）氧化，阴极（接负极）还原。记忆：原电池"自发"，电解池"被逼"。'},
+  {s:'生物',t:'光合作用光反应与暗反应',ref:'光反应（类囊体薄膜上）：光能→活跃化学能，分解水产生O₂，合成ATP和NADPH。暗反应（叶绿体基质）：CO₂固定（CO₂+C₅→2C₃），C₃还原（消耗ATP和NADPH→C₅和有机物）。光反应为暗反应提供ATP和NADPH；暗反应为光反应提供ADP+Pi和NADP⁺。'},
+  {s:'生物',t:'DNA复制的特点',ref:'半保留复制：每条新链有一条亲代链+一条新合成链。特点：①以脱氧核苷酸为原料；②需要解旋酶、DNA聚合酶等；③以两条链分别为模板；④严格遵循碱基互补配对（A-T，G-C）。复制后两个DNA都是"半新半旧"。'},
+  {s:'生物',t:'减数分裂与有丝分裂的区别',ref:'有丝分裂：体细胞增殖，DNA和染色体数目保持不变，子细胞与母细胞遗传信息相同。减数分裂：产生生殖细胞，DNA量减半，染色体数目减半（n），同源染色体分离/非同源染色体自由组合，产生基因多样性的配子。'},
+  {s:'生物',t:'神经冲动的传导与传递',ref:'在神经纤维上：电信号双向传导（膜内Na⁺内流→局部电流）。在突触处：单向传递（突触小泡→突触间隙→受体），因为神经递质只能由突触前膜释放，突触后膜只有受体。所以：神经纤维上双向，突触处单向。'},
+  {s:'生物',t:'基因的分离定律',ref:'等位基因在形成配子时分离，每个配子只含等位基因中的一个。F₂表现型比3:1，基因型比1:2:1。前提：①一对等位基因；②减数分裂时分离；③随机受精。验证方法：测交（与隐性纯合子交配），若后代1:1则假说成立。'},
+];
+
+var currentConcept = null;
+function buildTopicGrid(){
+  var subjects = [...new Set(CONCEPTS.map(c=>c.s))];
+  var grid = document.getElementById('topic-grid');
+  grid.innerHTML = subjects.map(s=>
+    `<button class="topic-btn" onclick="filterSubject('${s}',this)">${s}</button>`
+  ).join('') + '<button class="topic-btn active" onclick="filterSubject(\'all\',this)">全部</button>';
+}
+buildTopicGrid();
+
+function filterSubject(s, btn){
+  document.querySelectorAll('.topic-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  if(s==='all') return;
+  var picks = CONCEPTS.filter(c=>c.s===s);
+  if(picks.length) loadConcept(picks[Math.floor(Math.random()*picks.length)]);
+}
+function randomTopic(){ loadConcept(CONCEPTS[Math.floor(Math.random()*CONCEPTS.length)]); }
+function loadConcept(c){
+  currentConcept = c;
+  document.getElementById('ws-title').textContent = c.t;
+  document.getElementById('ws-subject').textContent = '【'+c.s+'】';
+  document.getElementById('my-explanation').value = '';
+  document.getElementById('ref-box').classList.remove('show');
+  document.getElementById('ref-box').textContent = '';
+  document.getElementById('score-label').style.display='none';
+  document.getElementById('score-row').style.display='none';
+  document.getElementById('workspace').classList.add('show');
+  document.getElementById('my-explanation').focus();
+}
+function revealRef(){
+  if(!currentConcept) return;
+  var box = document.getElementById('ref-box');
+  box.textContent = currentConcept.ref;
+  box.classList.add('show');
+  document.getElementById('score-label').style.display='';
+  document.getElementById('score-row').style.display='';
+}
+function rate(r){
+  if(!currentConcept) return;
+  var hist = JSON.parse(localStorage.getItem('feynman_hist')||'[]');
+  hist.unshift({t:currentConcept.t,s:currentConcept.s,r,date:new Date().toLocaleDateString('zh-CN')});
+  localStorage.setItem('feynman_hist',JSON.stringify(hist.slice(0,50)));
+  renderHist();
+  if(r==='weak') alert('这个概念标记为"要重学"。建议：\n1. 把它加到今天的Anki错题里\n2. 读教材相关章节\n3. 明天再来费曼一次');
+  else if(r==='great') randomTopic();
+}
+function renderHist(){
+  var hist = JSON.parse(localStorage.getItem('feynman_hist')||'[]');
+  var card = document.getElementById('hist-card');
+  if(hist.length===0){card.style.display='none';return;}
+  card.style.display='';
+  document.getElementById('hist-list').innerHTML = hist.slice(0,15).map(h=>`
+    <div class="hist-item">
+      <div class="hist-rating r-${h.r}"></div>
+      <div class="hist-concept"><strong>${h.t}</strong> <span style="color:#a16207;font-size:.78rem">·${h.s}</span></div>
+      <div class="hist-date">${h.date}</div>
+    </div>`).join('');
+}
+renderHist();
+</script>
+</body>
+</html>

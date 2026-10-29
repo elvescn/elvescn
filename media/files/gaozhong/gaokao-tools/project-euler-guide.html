@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Project Euler 前20题 · 理科思维训练 中文引导</title>
+<meta name="description" content="Project Euler前20道题的中文解题引导，不直接给答案，只给思路框架和关键提示，培养高中生数学编程思维。">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--accent:#1b5e20;--accent2:#2e7d32;--bg:#f1f8e9;--card:#fff;--border:#c8e6c9;--hl:#e8f5e9}
+body{font-family:'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:#222;line-height:1.7}
+header{background:var(--accent);color:#fff;padding:14px 20px}
+header h1{font-size:1.05rem;font-weight:600}
+header p{font-size:.8rem;color:#a5d6a7;margin-top:3px}
+.intro{max-width:860px;margin:20px auto;padding:0 16px}
+.intro-box{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:18px 20px;border-left:5px solid var(--accent2)}
+.intro-box h2{font-size:1rem;color:var(--accent);margin-bottom:8px}
+.intro-box p{font-size:.88rem;color:#444;margin-bottom:6px}
+.intro-box code{background:#e8f5e9;padding:1px 5px;border-radius:3px;font-family:monospace;font-size:.85rem}
+.problems{max-width:860px;margin:0 auto 40px;padding:0 16px}
+.prob{background:var(--card);border:1px solid var(--border);border-radius:10px;margin-bottom:14px;overflow:hidden}
+.prob-head{padding:14px 18px;display:flex;align-items:flex-start;gap:12px;cursor:pointer;user-select:none}
+.prob-num{background:var(--accent2);color:#fff;border-radius:6px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem;flex-shrink:0}
+.prob-info{flex:1}
+.prob-title{font-weight:600;font-size:.95rem;color:var(--accent)}
+.prob-subtitle{font-size:.8rem;color:#888;margin-top:2px}
+.prob-diff{font-size:.72rem;padding:2px 8px;border-radius:10px;background:#e8f5e9;color:var(--accent2);white-space:nowrap;margin-top:4px;display:inline-block}
+.prob-toggle{font-size:.75rem;color:#aaa;margin-top:4px}
+.prob-body{display:none;padding:0 18px 16px;border-top:1px solid var(--border)}
+.prob-body.open{display:block}
+.section{margin-top:12px}
+.section-title{font-size:.78rem;font-weight:700;color:#555;margin-bottom:6px;text-transform:uppercase;letter-spacing:.04em}
+.problem-text{background:#fafffe;border:1px solid var(--border);border-radius:6px;padding:10px 14px;font-size:.88rem;line-height:1.8}
+.hint-box{background:var(--hl);border-left:3px solid var(--accent2);border-radius:4px;padding:8px 12px;font-size:.87rem;margin-top:6px}
+.hint-box p{margin-bottom:4px}
+.code-box{background:#1e2a1e;color:#a5d6a7;border-radius:6px;padding:10px 14px;font-family:'Courier New',monospace;font-size:.82rem;line-height:1.7;overflow-x:auto;margin-top:6px;white-space:pre}
+.why-box{background:#fff9e6;border:1px solid #ffe082;border-radius:6px;padding:8px 12px;font-size:.85rem;color:#555;margin-top:6px}
+.tag{display:inline-block;font-size:.7rem;padding:1px 7px;border-radius:10px;margin-right:4px;font-weight:600}
+.tag-loop{background:#e3f2fd;color:#1565c0}
+.tag-math{background:#fce4ec;color:#880e4f}
+.tag-prime{background:#f3e5f5;color:#4a148c}
+.tag-str{background:#fff3e0;color:#e65100}
+</style>
+</head>
+<body>
+<header>
+  <h1>🧠 Project Euler 前20题 · 理科思维训练</h1>
+  <p>中文题意 + 思路引导 + Python框架 · 不给答案，只给方向</p>
+</header>
+
+<div class="intro">
+  <div class="intro-box">
+    <h2>什么是 Project Euler？</h2>
+    <p><strong>projecteuler.net</strong> 是一个只有数学题的编程挑战网站，全球150万人在做。每道题都需要数学思维+编程来解决。</p>
+    <p>规则：<strong>用任何语言，找到答案，提交数字</strong>。对了就通过，不对继续想。</p>
+    <p>为什么做这个？<strong>高考数学考"会做题"，PE训练"能建模"</strong>——把问题变成代码的能力，是理科思维的核心。</p>
+    <p>运行环境：安装Python → 打开终端/IDLE → 新建 <code>euler1.py</code> → 运行。<a href="https://www.python.org/downloads/" target="_blank" style="color:#2e7d32">下载Python</a></p>
+  </div>
+</div>
+
+<div class="problems" id="problems"></div>
+
+<!-- rtf nav -->
+<div style="background:#e8f5e9;border-top:2px solid #c8e6c9;padding:14px 16px;font-size:.82rem">
+  <div style="font-weight:700;color:#1b5e20;margin-bottom:8px">高考工具合集 · 快速跳转</div>
+  <div style="display:flex;flex-wrap:wrap;gap:6px">
+    <a href="desmos-grapher.html" style="padding:4px 10px;background:#c8e6c9;border-radius:4px;color:#2e7d32;text-decoration:none">📈函数可视化</a>
+    <a href="project-euler-guide.html" style="padding:4px 10px;background:#2e7d32;border-radius:4px;color:#fff;text-decoration:none">🧠PE解题引导</a>
+    <a href="math-formula-cards.html" style="padding:4px 10px;background:#c8e6c9;border-radius:4px;color:#2e7d32;text-decoration:none">数学公式闪卡</a>
+    <a href="physics-challenge.html" style="padding:4px 10px;background:#c8e6c9;border-radius:4px;color:#2e7d32;text-decoration:none">物理闯关</a>
+    <a href="index.html" style="padding:4px 10px;background:#c8e6c9;border-radius:4px;color:#2e7d32;text-decoration:none">全部工具</a>
+  </div>
+</div>
+
+<script>
+var PROBLEMS = [
+{num:1,title:"3和5的倍数",tags:["loop"],diff:"⭐ 入门",
+ subtitle:"循环 · 求和",
+ problem:"找出1000以内所有3或5的倍数，求它们的总和。\n例：1到10中，3,5,6,9的倍数是3、5、6、9，总和23。",
+ think:"关键问题：怎么判断一个数是3或5的倍数？\n提示：余数！ n % 3 == 0 表示n能被3整除。\n"或"用 or 连接两个条件。\n最后用 sum() 或累加变量求和。",
+ code:`total = 0
+for n in range(1, 1000):
+    if n % 3 == 0 or ___:   # 填完条件
+        total += n
+print(total)`,
+ why:"% 是取余运算符，是数论最基本的工具。整除 = 余数为零。这道题建立"循环+条件+累加"三件套，后面19道题全用这个结构。"},
+
+{num:2,title:"偶数斐波那契数",tags:["loop","math"],diff:"⭐ 入门",
+ subtitle:"数列 · 条件过滤",
+ problem:"斐波那契数列：1, 1, 2, 3, 5, 8, 13, 21, 34, 55…\n每个数等于前两个数之和。\n求数列中所有不超过400万的偶数项之和。",
+ think:"先学会生成斐波那契数列：\n  a, b = 1, 1\n  下一项：a, b = b, a+b\n再判断每一项是否为偶数（% 2 == 0）。\n循环条件：while a <= 4000000",
+ code:`a, b = 1, 1
+total = 0
+while a <= 4000000:
+    if a % 2 == 0:
+        total += a
+    a, b = b, ___   # 填下一项
+print(total)`,
+ why:"斐波那契数列在自然界随处可见：花瓣数、贝壳螺旋、树枝分叉都遵循这个规律。偶数斐波那契数每隔3项出现一次——这是数学规律，不是巧合，可以证明。"},
+
+{num:3,title:"最大质因数",tags:["prime","math"],diff:"⭐⭐ 简单",
+ subtitle:"质数分解 · 因数",
+ problem:"600851475143 的最大质因数是什么？\n（质因数 = 既是质数又是因数）",
+ think:"不需要找所有质数！只需要不断除：\n1. 从 d=2 开始试除\n2. 如果 n % d == 0，就一直除，直到不能整除\n3. d 加1，继续\n4. 最后如果 n > 1，n 本身就是最大质因数\n\n关键优化：d 只需要试到 √n",
+ code:`n = 600851475143
+d = 2
+while d * d <= n:
+    while n % d == 0:
+        n = n // d   # 整除
+    d += 1
+# 此时 n 就是答案
+print(n)`,
+ why:"任何正整数都能唯一分解为质数之积（算术基本定理）。这个算法叫"试除法"，虽然简单，却是RSA加密算法的基础。银行卡背后的安全，本质上就是大数质因数分解的困难性。"},
+
+{num:4,title:"最大回文乘积",tags:["loop","str"],diff:"⭐⭐ 简单",
+ subtitle:"回文数 · 双重循环",
+ problem:"回文数：正着读和倒着读一样，如9009。\n找出由两个3位数相乘得到的最大回文数。",
+ think:"判断回文数：把数字转成字符串，看是否等于反转后的字符串。\n  str(n) == str(n)[::-1]\n\n双重循环：i 从 100 到 999，j 从 i 到 999。\n记录最大值。",
+ code:`max_pal = 0
+for i in range(100, 1000):
+    for j in range(i, 1000):
+        p = i * j
+        if str(p) == str(p)[::-1]:
+            if p > max_pal:
+                max_pal = p
+print(max_pal)`,
+ why:"str(n)[::-1] 是Python切片的反转技巧：从末尾到开头每步-1。字符串也是序列，可以像列表一样切片。这是Python最优雅的语法之一。"},
+
+{num:5,title:"最小公倍数",tags:["math"],diff:"⭐⭐ 简单",
+ subtitle:"LCM · GCD",
+ problem:"1到20都能整除的最小正整数是什么？",
+ think:"最小公倍数 LCM(a,b) = a*b / GCD(a,b)\nGCD（最大公约数）用欧几里得算法：\n  gcd(a,b) = gcd(b, a%b)，直到 b=0\n\n从1开始，每次求当前结果和下一个数的LCM。",
+ code:`import math
+result = 1
+for i in range(1, 21):
+    result = result * i // math.gcd(result, i)
+print(result)`,
+ why:"欧几里得算法是人类历史上最古老的算法，公元前300年就有了。math.gcd() 就是在调用这个2300年前发明的方法。"},
+
+{num:6,title:"平方和差",tags:["math"],diff:"⭐ 入门",
+ subtitle:"求和公式",
+ problem:"1到100的平方和 vs 1到100的和的平方，两者之差是多少？\n平方和 = 1²+2²+…+100²\n和的平方 = (1+2+…+100)²",
+ think:"可以暴力计算（循环），也可以用公式：\n1到n的和 = n(n+1)/2\n1到n的平方和 = n(n+1)(2n+1)/6",
+ code:`n = 100
+sum_sq = sum(i**2 for i in range(1, n+1))
+sq_sum = sum(range(1, n+1)) ** 2
+print(sq_sum - sum_sq)`,
+ why:"sum(i**2 for i in range(…)) 是生成器表达式，比先建列表再求和更省内存。高考数列求和公式背后，都有这样的代数恒等式。"},
+
+{num:7,title:"第10001个质数",tags:["prime"],diff:"⭐⭐ 简单",
+ subtitle:"质数判断 · 计数",
+ problem:"质数序列：2, 3, 5, 7, 11, 13…\n第10001个质数是多少？",
+ think:"需要两个函数：\n1. is_prime(n)：判断n是否为质数\n   优化：只需要试到√n，且只试奇数\n2. 主循环：计数直到第10001个",
+ code:`def is_prime(n):
+    if n < 2: return False
+    if n == 2: return True
+    if n % 2 == 0: return False
+    for i in range(3, int(n**0.5)+1, 2):
+        if n % i == 0: return False
+    return True
+
+count, n = 0, 1
+while count < 10001:
+    n += 1
+    if is_prime(n):
+        count += 1
+print(n)`,
+ why:"为什么只试到√n？因为如果n有大于√n的因数，那一定还有一个小于√n的因数配对。这个优化让速度从O(n)变为O(√n)。"},
+
+{num:8,title:"连续数字最大乘积",tags:["str","loop"],diff:"⭐⭐ 简单",
+ subtitle:"滑动窗口 · 字符串",
+ problem:"在下面这个1000位数字中，找出连续13个数字乘积最大的一组。\n（题目页面有完整数字串，自己去projecteuler.net复制）",
+ think:"把数字当成字符串处理：\n1. 用切片取连续13位：digits[i:i+13]\n2. 把每个字符转成整数：int(d)\n3. 求乘积：用 math.prod() 或循环相乘\n4. 记录最大值",
+ code:`from math import prod
+digits = "731671765...复制完整数字..."  # 去网站复制
+max_prod = 0
+for i in range(len(digits) - 12):
+    window = digits[i:i+13]
+    p = prod(int(d) for d in window)
+    if p > max_prod:
+        max_prod = p
+print(max_prod)`,
+ why:"滑动窗口是算法中的经典模式。字符串切片 s[i:i+k] 就是在移动一个长度k的窗口。字符转数字：int('7') == 7。"},
+
+{num:9,title:"特殊勾股数",tags:["math","loop"],diff:"⭐⭐ 简单",
+ subtitle:"勾股定理 · 枚举",
+ problem:"勾股数：a²+b²=c²，且 a<b<c。\n找出满足 a+b+c=1000 的那组，求 a×b×c。",
+ think:"两层循环枚举 a 和 b：\na 从 1 到 333（因为 a<b<c，所以 a 最大约 333）\nb 从 a+1 到某上界\n然后 c = 1000-a-b，验证 a²+b²==c²",
+ code:`for a in range(1, 334):
+    for b in range(a+1, 500):
+        c = 1000 - a - b
+        if c > b and a**2 + b**2 == c**2:
+            print(a * b * c)`,
+ why:"高考解析几何里的圆方程 x²+y²=r² 就是勾股定理的几何表达。最简单的勾股数是(3,4,5)，乘以任何整数都还是勾股数。"},
+
+{num:10,title:"素数之和",tags:["prime"],diff:"⭐⭐ 简单",
+ subtitle:"埃拉托斯特尼筛法",
+ problem:"求200万以内所有质数的总和。",
+ think:"朴素方法太慢（要判断200万次质数）。\n用筛法：\n1. 建一个长度200万的布尔数组，全为True\n2. 从2开始，把每个质数的倍数标记为False\n3. 最后值为True的下标就是质数",
+ code:`limit = 2000000
+sieve = [True] * limit
+sieve[0] = sieve[1] = False
+for i in range(2, int(limit**0.5)+1):
+    if sieve[i]:
+        sieve[i*i::i] = [False] * len(sieve[i*i::i])
+print(sum(i for i, is_p in enumerate(sieve) if is_p))`,
+ why:"埃拉托斯特尼筛法，公元前240年的算法。sieve[i*i::i] 是切片赋值，一行代码划掉所有i的倍数。比逐个判断快100倍以上。"},
+
+{num:11,title:"网格最大乘积",tags:["loop"],diff:"⭐⭐⭐ 中等",
+ subtitle:"二维数组 · 四方向扫描",
+ problem:"20×20数字网格中，找出水平/垂直/斜向连续4个数乘积最大的一组。\n（网格数字在PE网站第11题页面）",
+ think:"把网格存为二维列表 grid[row][col]。\n检查四个方向：\n→ 水平：grid[r][c] * grid[r][c+1] * …\n↓ 垂直：grid[r][c] * grid[r+1][c] * …\n↘ 对角：grid[r][c] * grid[r+1][c+1] * …\n↗ 反对角：grid[r][c] * grid[r-1][c+1] * …\n注意边界条件！",
+ code:`# 把网格数字粘贴后处理：
+data = """08 02 22 ..."""   # 去PE网站复制
+grid = [[int(x) for x in row.split()] for row in data.strip().split('\\n')]
+
+best = 0
+for r in range(20):
+    for c in range(20):
+        if c+3 < 20:  # 水平
+            best = max(best, grid[r][c]*grid[r][c+1]*grid[r][c+2]*grid[r][c+3])
+        # 自己补：垂直、两个斜向
+print(best)`,
+ why:"二维列表是矩阵的代码表示。高考解析几何的坐标系，在代码里就是 grid[row][col]。"},
+
+{num:12,title:"高度整除三角数",tags:["math","prime"],diff:"⭐⭐⭐ 中等",
+ subtitle:"三角数 · 因数个数",
+ problem:"三角数：1,3,6,10,15,21,28…（第n个=1+2+…+n）\n找第一个因数超过500个的三角数。",
+ think:"关键：怎么快速数一个数的因数个数？\n用质因数分解！如果 n = p1^a1 × p2^a2 × …\n则因数个数 = (a1+1)(a2+1)…\n\n三角数 T(n) = n*(n+1)/2，因为 n 和 n+1 互质，\n可以分别计算 n 和 n+1 的因数，再相乘。",
+ code:`def count_factors(n):
+    count = 1
+    d = 2
+    while d * d <= n:
+        exp = 0
+        while n % d == 0:
+            n //= d
+            exp += 1
+        count *= (exp + 1)
+        d += 1
+    if n > 1: count *= 2
+    return count
+
+n = 1
+while True:
+    tri = n * (n+1) // 2
+    if count_factors(tri) > 500:
+        print(tri)
+        break
+    n += 1`,
+ why:"这道题把质因数分解和计数结合起来，是真正考验"建模能力"的第一题——你要把"数因数个数"这个问题，转化为"质因数分解"这个工具。"},
+
+{num:13,title:"大数加法",tags:["math"],diff:"⭐ 入门",
+ subtitle:"大整数 · 字符串处理",
+ problem:"对50个50位数求和，找出结果的前10位数字。\n（50个数在PE网站第13题）",
+ think:"Python的特别之处：整数没有大小限制！\n直接把所有数加起来，转成字符串，取前10位。",
+ code:`numbers = [
+    37107287533902102798797998220837590246510135740250,
+    # ... 去网站复制其余49个数
+]
+total = sum(numbers)
+print(str(total)[:10])`,
+ why:"大多数语言的整数有上限（C语言的int最大约21亿）。Python的int可以是任意大的整数，这在密码学和科学计算中非常重要。"},
+
+{num:14,title:"最长考拉兹序列",tags:["loop"],diff:"⭐⭐ 简单",
+ subtitle:"记忆化 · 缓存",
+ problem:"考拉兹规则：n为偶数→n/2，n为奇数→3n+1，直到变成1。\n100万以内哪个起始数的链最长？",
+ think:"暴力做：对每个n模拟到1，记录步数。\n优化：用字典缓存已经算过的数的步数（记忆化）。\n  如果算到某个数k时，k在缓存里，直接用结果+当前步数。",
+ code:`cache = {1: 1}
+def chain_len(n):
+    if n in cache: return cache[n]
+    if n % 2 == 0:
+        result = 1 + chain_len(n // 2)
+    else:
+        result = 1 + chain_len(3*n+1)
+    cache[n] = result
+    return result
+
+best_n = max(range(1, 1000000), key=chain_len)
+print(best_n)`,
+ why:"考拉兹猜想：所有正整数最终都会到达1。这个猜想至今没有被证明，是数学界著名的未解问题之一。缓存（memoization）是算法优化最常用的技巧。"},
+
+{num:15,title:"格点路径",tags:["math"],diff:"⭐⭐⭐ 中等",
+ subtitle:"组合数学 · 动态规划",
+ problem:"从20×20网格的左上角走到右上角，只能向右或向下，有多少种走法？",
+ think:"直接想：总共走40步（20右+20下），选哪20步向右，就是 C(40,20)。\n\n动态规划想法：grid[i][j] = 走到(i,j)的方法数\ngrid[i][j] = grid[i-1][j] + grid[i][j-1]",
+ code:`from math import comb
+print(comb(40, 20))
+
+# 或者动态规划：
+grid = [[1]*21 for _ in range(21)]
+for i in range(1, 21):
+    for j in range(1, 21):
+        grid[i][j] = grid[i-1][j] + grid[i][j-1]
+print(grid[20][20])`,
+ why:"C(40,20) = 40! / (20! × 20!)，是排列组合公式。高考概率题的计算方法，代码里一行搞定。动态规划（DP）是算法界最重要的思想，高考导数大题的分步分析，本质上就是DP的思维方式。"},
+
+{num:16,title:"2的1000次方的各位数之和",tags:["math"],diff:"⭐ 入门",
+ subtitle:"大整数 · 位数拆分",
+ problem:"2¹⁰⁰⁰ 各个数字之和是多少？",
+ think:"Python大整数直接算，然后按位求和。",
+ code:`n = 2 ** 1000
+print(sum(int(d) for d in str(n)))`,
+ why:"2**1000 是一个302位的数。Python一行算出来。这道题主要展示Python大整数的威力。"},
+
+{num:17,title:"数字字母计数",tags:["str","math"],diff:"⭐⭐ 简单",
+ subtitle:"数字转英文 · 字符串",
+ problem:"把1到1000用英文写出来，总共用了多少个字母？\n如：one(3) + two(3) + three(5)…\n不计空格和连字符，但要计算 'and'（如 three hundred and forty-two）",
+ think:"分别定义 1-19 和 20/30/…/90 的字母数。\n递归地组合：\n- 100以下：直接查\n- 100以上：'hundred'(7) + 'and'(3)（如果有十位）+ 余数\n- 1000单独处理：'onethousand'=11",
+ code:`ones = [0,3,3,5,4,4,3,5,5,4,3,6,6,8,8,7,7,9,8,8]
+tens = [0,0,6,6,5,5,5,7,6,6]  # twenty,thirty,...
+
+def count_letters(n):
+    if n == 1000: return 11
+    if n >= 100:
+        rest = n % 100
+        return ones[n//100] + 7 + (3 + count_letters(rest) if rest else 0)
+    if n >= 20: return tens[n//10] + ones[n%10]
+    return ones[n]
+
+print(sum(count_letters(n) for n in range(1, 1001)))`,
+ why:"这道题训练"把规则翻译成代码"的能力：把英语数字拼写规则，一条一条转化为if-else逻辑。"},
+
+{num:18,title:"三角形路径最大和 I",tags:["math"],diff:"⭐⭐⭐ 中等",
+ subtitle:"动态规划 · 自底向上",
+ problem:"从三角形顶部到底部，每步只能移到下方相邻数，找路径数字之和最大值。\n（三角形在PE网站第18题）",
+ think:"从底部往上推！\n对倒数第二行每个数，选择它下方两个数中较大的那个加上去。\n一直推到顶部，顶部就是答案。",
+ code:`triangle = [
+    [75],
+    [95, 64],
+    [17, 47, 82],
+    # ... 去网站复制完整三角形
+]
+for row in range(len(triangle)-2, -1, -1):
+    for col in range(len(triangle[row])):
+        triangle[row][col] += max(triangle[row+1][col], triangle[row+1][col+1])
+print(triangle[0][0])`,
+ why:"从下往上想比从上往下想简单得多——这就是动态规划的精髓。第67题是这道题的升级版（100行三角形），暴力枚举不可能，只有DP能解。"},
+
+{num:19,title:"星期天计数",tags:["loop","math"],diff:"⭐⭐ 简单",
+ subtitle:"日期计算 · 模拟",
+ problem:"1901年1月1日是星期二。\n20世纪（1901年到2000年）中，每月1日共有多少个星期日？",
+ think:"模拟每个月：\n1. 记录当前星期（0=周一，6=周日）\n2. 如果是1日且是周日，计数+1\n3. 这个月有多少天？（注意闰年2月）\n4. 加上天数后，weekday = (weekday + days) % 7",
+ code:`days_in_month = [31,28,31,30,31,30,31,31,30,31,30,31]
+def is_leap(y): return (y%4==0 and y%100!=0) or y%400==0
+
+weekday = 1  # 1900-1-1是周一，推算到1901-1-1
+# 先推算1900年的weekday到1901年1月1日
+# 1900年非闰年共365天，365%7=1，所以1901-1-1是星期二=weekday 1
+weekday = 1  # 星期二
+count = 0
+for year in range(1901, 2001):
+    for month in range(12):
+        if weekday == 6:  # 星期日
+            count += 1
+        days = days_in_month[month]
+        if month == 1 and is_leap(year): days = 29
+        weekday = (weekday + days) % 7
+print(count)`,
+ why:"模拟类题目：把现实规则翻译成循环。星期计算用 % 7 因为一周7天是"循环群"。闰年规则：能被4整除但不能被100整除，或能被400整除。"},
+
+{num:20,title:"100的阶乘各位数之和",tags:["math"],diff:"⭐ 入门",
+ subtitle:"大整数 · 阶乘",
+ problem:"100! 的各位数字之和是多少？",
+ think:"和第16题一样的思路。Python直接算大整数。",
+ code:`from math import factorial
+print(sum(int(d) for d in str(factorial(100))))`,
+ why:"100! 是一个157位的天文数字。Python一行算出。这道题收尾第一阶段：掌握了前20题，你已经会了循环、条件、函数、递归、动态规划、筛法、质因数分解——高中生能学的算法基本覆盖了。"},
+];
+
+var el = document.getElementById('problems');
+PROBLEMS.forEach(function(p){
+  var tagHtml = p.tags.map(function(t){
+    return '<span class="tag tag-'+t+'">'+{loop:'循环',math:'数学',prime:'质数',str:'字符串'}[t]+'</span>';
+  }).join('');
+  var div = document.createElement('div');
+  div.className = 'prob';
+  div.innerHTML = `
+    <div class="prob-head" onclick="toggle(this)">
+      <div class="prob-num">${p.num}</div>
+      <div class="prob-info">
+        <div class="prob-title">${p.title}</div>
+        <div class="prob-subtitle">${p.subtitle} &nbsp;${tagHtml}</div>
+        <div class="prob-diff">${p.diff}</div>
+      </div>
+      <div class="prob-toggle">点击展开 ▾</div>
+    </div>
+    <div class="prob-body">
+      <div class="section">
+        <div class="section-title">📋 题目</div>
+        <div class="problem-text">${p.problem.replace(/\n/g,'<br>')}</div>
+      </div>
+      <div class="section">
+        <div class="section-title">💡 思路引导（不是答案）</div>
+        <div class="hint-box">${p.think.replace(/\n/g,'<br>')}</div>
+      </div>
+      <div class="section">
+        <div class="section-title">🐍 Python框架（有空白需要你填）</div>
+        <div class="code-box">${p.code.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>
+      </div>
+      <div class="section">
+        <div class="section-title">🔬 为什么这道题重要</div>
+        <div class="why-box">${p.why}</div>
+      </div>
+    </div>`;
+  el.appendChild(div);
+});
+
+function toggle(head){
+  var body = head.nextElementSibling;
+  var tog = head.querySelector('.prob-toggle');
+  if(body.classList.contains('open')){
+    body.classList.remove('open');
+    tog.textContent = '点击展开 ▾';
+  } else {
+    body.classList.add('open');
+    tog.textContent = '点击收起 ▴';
+  }
+}
+// 自动展开第一题
+document.querySelector('.prob-head').click();
+</script>
+</body>
+</html>

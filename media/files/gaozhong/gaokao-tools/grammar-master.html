@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>高考英语语法神器 · 语法+写作+闯关</title>
+<style>
+:root{
+  --brand:#574AE2;--brand-deep:#3f34c0;--brand-soft:#ECEAFB;--brand-line:#CFC9F4;
+  --bg:#EEF1F6;--card:#FFF;--ink:#1E2330;--ink-soft:#556;--faint:#8A93A6;
+  --line:#E6E9F0;--ok:#1E9E6A;--ok-soft:#E6F6EE;--err:#D6455D;--err-soft:#FCEBEE;
+  --warn:#E8930A;--warn-soft:#FFF3E0;
+  --shadow:0 1px 2px rgba(30,35,48,.04),0 4px 14px rgba(30,35,48,.05);
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:780px;margin:0 auto;padding:16px 15px 80px}
+.app-header{background:var(--brand);color:#fff;padding:14px 15px 0;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(87,74,226,.3)}
+.app-header h1{font-size:1.15rem;font-weight:700;letter-spacing:-.01em}
+.app-header .sub{font-size:.74rem;opacity:.72;margin-top:2px;padding-bottom:10px}
+.tab-nav{display:flex;border-bottom:2px solid var(--brand-line)}
+.tab-nav button{flex:1;padding:10px 5px;border:none;background:none;color:rgba(255,255,255,.6);font-family:var(--sans);font-size:.82rem;cursor:pointer;font-weight:600;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .2s}
+.tab-nav button.active{color:#fff;border-bottom-color:#fff}
+.tab-page{display:none}.tab-page.active{display:block}
+.sec-title{font-size:.93rem;font-weight:700;margin:18px 0 10px;color:var(--ink-soft);display:flex;align-items:center;gap:6px}
+/* Grammar */
+.gc{background:var(--card);border:1px solid var(--line);border-radius:14px;margin-bottom:10px;box-shadow:var(--shadow);overflow:hidden}
+.gc-h{padding:13px 15px;cursor:pointer;display:flex;align-items:center;gap:10px;user-select:none;transition:background .15s}
+.gc-h:hover{background:var(--brand-soft)}
+.gc-h .tag{background:var(--brand-soft);color:var(--brand-deep);border-radius:6px;padding:2px 8px;font-size:.7rem;font-weight:700;white-space:nowrap;flex-shrink:0}
+.gc-h .ttl{font-size:.95rem;font-weight:600;flex:1}
+.gc-h .arr{color:var(--faint);font-size:.75rem;transition:transform .2s;flex-shrink:0}
+.gc.open .arr{transform:rotate(180deg)}
+.gc-b{display:none;padding:0 15px 15px;border-top:1px solid var(--line)}
+.gc.open .gc-b{display:block}
+.rb{margin-top:12px}
+.rb h4{font-size:.84rem;font-weight:700;color:var(--brand-deep);margin-bottom:6px;padding-left:9px;border-left:3px solid var(--brand)}
+.rl{font-size:.87rem;list-style:none;padding:0}
+.rl li{padding:2px 0 2px 14px;position:relative}
+.rl li::before{content:'·';position:absolute;left:3px;color:var(--brand);font-weight:800}
+.eg{background:var(--bg);border-radius:8px;padding:8px 11px;margin:5px 0}
+.eg-en{font-size:.91rem;color:var(--ink);font-weight:500}
+.eg-cn{font-size:.77rem;color:var(--faint);margin-top:2px}
+.tip{background:var(--ok-soft);border-radius:8px;padding:8px 11px;margin-top:8px;font-size:.82rem;color:#1a5c3a}
+.warn{background:var(--err-soft);border-radius:8px;padding:8px 11px;margin-top:8px;font-size:.82rem;color:#7a1425}
+hr.div{border:none;border-top:1px solid var(--line);margin:12px 0}
+/* Writing */
+.wt-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:12px}
+@media(max-width:460px){.wt-grid{grid-template-columns:1fr}}
+.wt-btn{padding:10px 13px;border:1.5px solid var(--line);border-radius:12px;background:var(--card);cursor:pointer;text-align:left;font-family:var(--sans);box-shadow:var(--shadow);transition:all .15s}
+.wt-btn.active,.wt-btn:hover{border-color:var(--brand);background:var(--brand-soft)}
+.wt-btn b{display:block;font-size:.91rem}
+.wt-btn span{font-size:.74rem;color:var(--faint)}
+.tc{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:10px;box-shadow:var(--shadow)}
+.tc-h{padding:11px 13px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.tc-h .badge{background:var(--brand-soft);color:var(--brand-deep);border-radius:5px;padding:2px 8px;font-size:.7rem;font-weight:700}
+.tc-h .tn{font-size:.9rem;font-weight:600;flex:1}
+.cpbtn{border:1px solid var(--brand-line);background:none;color:var(--brand-deep);border-radius:7px;padding:4px 11px;font-size:.74rem;cursor:pointer;font-family:var(--sans);white-space:nowrap}
+.cpbtn:hover{background:var(--brand);color:#fff}
+.tc-b{padding:0 13px 13px}
+.tc-cn{font-size:.78rem;color:var(--faint);margin-bottom:5px}
+.tc-en{background:var(--bg);border-radius:8px;padding:9px 11px;font-size:.88rem;color:var(--ink);line-height:1.75;white-space:pre-wrap}
+.blank{color:var(--brand-deep);font-weight:600}
+/* Quiz */
+.quiz-top{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;align-items:center}
+.schip{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:.8rem}
+.schip b{color:var(--brand-deep)}
+.mode-btn{border:1.5px solid var(--brand);background:none;color:var(--brand-deep);border-radius:999px;padding:5px 13px;font-size:.78rem;cursor:pointer;font-family:var(--sans);font-weight:600}
+.mode-btn.on{background:var(--brand);color:#fff}
+.pbar{height:5px;background:var(--line);border-radius:3px;margin-bottom:14px;overflow:hidden}
+.pfill{height:100%;background:var(--brand);border-radius:3px;transition:width .3s}
+.qcard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:12px;box-shadow:var(--shadow)}
+.qnum{font-size:.72rem;color:var(--faint);margin-bottom:5px}
+.qtag{display:inline-block;background:var(--brand-soft);color:var(--brand-deep);border-radius:5px;padding:1px 7px;font-size:.7rem;font-weight:700;margin-bottom:8px}
+.qtext{font-size:.95rem;color:var(--ink);line-height:1.7;margin-bottom:12px}
+.qblank{display:inline-block;min-width:55px;border-bottom:2px solid var(--brand);text-align:center;padding:0 4px;color:var(--brand-deep);font-weight:600}
+.opts{display:flex;flex-direction:column;gap:7px}
+.obtn{text-align:left;padding:10px 13px;border:1.5px solid var(--line);border-radius:10px;background:var(--card);cursor:pointer;font-family:var(--sans);font-size:.88rem;color:var(--ink);transition:all .15s}
+.obtn:hover:not([disabled]){border-color:var(--brand);background:var(--brand-soft)}
+.obtn.correct{background:var(--ok-soft);border-color:var(--ok);color:#1a5c3a}
+.obtn.wrong{background:var(--err-soft);border-color:var(--err);color:#7a1425}
+.exp{margin-top:11px;padding:10px 12px;background:var(--brand-soft);border-radius:9px;font-size:.83rem;color:var(--ink);display:none}
+.exp.show{display:block}
+.exp b{color:var(--brand-deep)}
+.qnav{display:flex;gap:8px;margin-top:12px;justify-content:center}
+.qnav button{padding:9px 20px;border:1.5px solid var(--brand);border-radius:10px;background:none;color:var(--brand-deep);font-family:var(--sans);font-size:.88rem;cursor:pointer;font-weight:600}
+.qnav button.pri{background:var(--brand);color:#fff}
+/* Result */
+.result{background:var(--card);border-radius:16px;border:1px solid var(--line);overflow:hidden}
+.result-top{text-align:center;padding:24px 20px;background:linear-gradient(135deg,var(--brand-soft),#fff)}
+.score-big{font-size:3rem;font-weight:800;color:var(--brand-deep);line-height:1}
+.verdict{font-size:1.05rem;margin:12px 0 4px;font-weight:700}
+.result-tags{padding:16px}
+.rt-title{font-size:.82rem;font-weight:700;color:var(--ink-soft);margin-bottom:10px}
+.tag-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.tag-name{font-size:.82rem;width:70px;flex-shrink:0;color:var(--ink-soft)}
+.tag-bar-wrap{flex:1;height:10px;background:var(--line);border-radius:5px;overflow:hidden}
+.tag-bar{height:100%;border-radius:5px;transition:width .5s}
+.tag-pct{font-size:.78rem;width:36px;text-align:right;font-weight:600;flex-shrink:0}
+.weak-label{font-size:.68rem;background:var(--err-soft);color:var(--err);border-radius:4px;padding:1px 5px}
+/* Stats panel */
+.stats-panel{background:var(--brand-soft);border:1px solid var(--brand-line);border-radius:12px;padding:13px 14px;margin-bottom:14px}
+.stats-panel .sp-title{font-size:.8rem;font-weight:700;color:var(--brand-deep);margin-bottom:8px}
+.sp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+@media(max-width:400px){.sp-grid{grid-template-columns:repeat(2,1fr)}}
+.sp-item{background:#fff;border-radius:8px;padding:7px 9px;font-size:.75rem}
+.sp-item .si-name{color:var(--faint);margin-bottom:2px}
+.sp-item .si-val{font-weight:700;color:var(--ink);font-size:.88rem}
+.sp-item.weak .si-val{color:var(--err)}
+.sp-item.good .si-val{color:var(--ok)}
+</style>
+</head>
+<body>
+<div class="app-header">
+  <h1>🎯 高考英语语法神器</h1>
+  <div class="sub">语法速查 · 写作宝库 · 60题随机闯关+弱点追踪</div>
+  <div class="tab-nav">
+    <button class="active" onclick="switchTab('gram')">📖 语法速查</button>
+    <button onclick="switchTab('write')">✍️ 写作宝库</button>
+    <button onclick="switchTab('quiz')">📝 闯关练习</button>
+  </div>
+</div>
+
+<div class="wrap">
+  <div id="tab-gram" class="tab-page active">
+    <div class="sec-title">📖 高中英语核心语法 · 14大专题（点击展开）</div>
+    <div id="gram-list"></div>
+  </div>
+  <div id="tab-write" class="tab-page">
+    <div class="sec-title">✍️ 写作宝库 · 模板+金句一键复制</div>
+    <div class="wt-grid" id="wt-cats"></div>
+    <div id="tpl-list"></div>
+  </div>
+  <div id="tab-quiz" class="tab-page">
+    <div class="sec-title">📝 闯关练习 · 60题库每局随机25题</div>
+    <div id="stats-area"></div>
+    <div class="quiz-top">
+      <div class="schip">第 <b id="qi">1</b>/<b id="qt">25</b> 题</div>
+      <div class="schip">✅ <b id="qc" style="color:var(--ok)">0</b></div>
+      <div class="schip">❌ <b id="qw" style="color:var(--err)">0</b></div>
+      <button class="mode-btn" id="weak-btn" onclick="toggleWeakMode()" title="只练弱点">🎯 只练弱点</button>
+    </div>
+    <div class="pbar"><div class="pfill" id="qp" style="width:0%"></div></div>
+    <div id="quiz-area"></div>
+  </div>
+</div>
+
+<script>
+// ===== GRAMMAR DATA =====
+const G=[
+  {tag:'时态①',ttl:'一般现在时 & 一般过去时',secs:[
+    {h:'一般现在时',rules:['构成：动词原形；三单加-s/-es','表示习惯性动作、客观真理、主语特征/能力/状态','表示计划安排将要发生的动作','用于新闻标题、体育报道、诚告或劝说'],
+     egs:[{e:'He always takes a walk after supper.',c:'习惯动作'},{e:'The sun rises in the east.',c:'客观真理'},{e:'The meeting begins at 7:00.',c:'按计划安排'},{e:'China Declares Manned Spaceflight Successful.',c:'新闻标题'}],
+     tip:'时间/条件/让步状语从句中用一般现在时表将来动作。'},
+    {h:'一般过去时',rules:['构成：动词过去式','表示过去特定时间发生的动作（通常需要时间状语）','表示过去经常发生的动作（used to do）','虚拟语气中代替现在/将来时（If I were...）','口语委婉请求（Could I...? Might I...?）'],
+     egs:[{e:'I did not sleep well last night.',c:'过去某时的动作'},{e:'He used to study late when in Senior Three.',c:'过去习惯'},{e:'I wish I were twenty years younger.',c:'虚拟，不是真实愿望'}],
+     warn:'❗ 应写 "I visited the Palace Museum last year." 而非省略时间状语。'},
+  ]},
+  {tag:'时态②',ttl:'现在进行时 & 一般将来时',secs:[
+    {h:'一般将来时',rules:['will/shall+动词原形','be going to+动词原形（计划/有迹象）','be going to vs will：be going to=事先计划或有象征；will=临时决定/意愿/推测'],
+     egs:[{e:"I'll go and shut the door.",c:'临时决定→will'},{e:"It's going to rain. Look at those clouds.",c:'有迹象→be going to'},{e:'I am going to buy a coat this winter.',c:'事先计划→be going to'}],
+     tip:'表示意图/意愿→ be going to；临时决定→ will；客观迹象→ be going to'},
+    {h:'现在进行时',rules:['构成：am/is/are+动词-ing','表说话时刻正在进行的动作','与always/constantly/forever连用带情感色彩（不满/批评）','以下动词一般不用进行时：know/believe/want/see/hear/need/continue'],
+     egs:[{e:"I'm reading the newspaper.",c:'正在进行'},{e:'He is forever complaining.',c:'forever+进行时=批评语气'},{e:'Jane and Betty are going on holiday soon.',c:'进行时表将来计划'}],
+     warn:'❗ The bus is stopping.（正在停下）vs The bus stops.（停了/习惯）注意区别！'},
+  ]},
+  {tag:'时态③',ttl:'完成时态（现在/过去）',secs:[
+    {h:'现在完成时',rules:['构成：have/has+过去分词','过去发生、对现在有影响','从过去持续到现在（常与for/since连用）','常配：already/yet/just/ever/never/recently'],
+     egs:[{e:'I have just finished my homework.',c:'对现在有影响'},{e:"I've lived here for ten years.",c:'持续到现在（for+时间段）'},{e:'Have you ever been to Beijing?',c:'人生经历'}],
+     tip:'since+时间点；for+时间段。It is 3 years since he left = He has been away for 3 years.'},
+    {h:'过去完成时',rules:['构成：had+过去分词','过去某时之前已完成（过去的过去）','常与by/before/after/when/until连用'],
+     egs:[{e:'She had left before he arrived.',c:'她离开在他到达之前'},{e:'By the time I got there, the film had already started.',c:'电影开始在我到之前'}]},
+  ]},
+  {tag:'被动语态',ttl:'被动语态的构成与用法',secs:[
+    {h:'构成',rules:['be+过去分词（be随时态/人称/数变化）','含情态动词：情态动词+be+过去分词'],
+     egs:[{e:'The book was written by Lu Xun.',c:'一般过去时被动'},{e:'English is spoken worldwide.',c:'一般现在时被动'},{e:'The problem must be solved immediately.',c:'情态动词+被动'}]},
+    {h:'注意事项',rules:['感官/使役动词宾补省略to，变被动时to还原','双宾语动词变被动保留其中一个宾语','不及物动词无被动语态（happen/occur/take place）'],
+     egs:[{e:'He made me do it. → I was made to do it.',c:'感官/使役变被动，to还原'},{e:'People saw him enter. → He was seen to enter.',c:'同上'}],
+     warn:'❗ happen/occur/take place 无被动！'},
+  ]},
+  {tag:'虚拟语气',ttl:'虚拟语气（高频重点）',secs:[
+    {h:'if条件句虚拟',rules:['与现在/将来相反：if从句过去时（be→were），主句would/could/might+动词原形','与过去相反：if从句had+过去分词，主句would+have+过去分词','混合虚拟：if从句指过去(had done)，主句指现在(would do)'],
+     egs:[{e:'If I were you, I would study harder.',c:'与现在相反'},{e:'If he had studied harder, he would have passed.',c:'与过去相反'},{e:'If I had slept earlier, I would not be so tired now.',c:'混合虚拟'}]},
+    {h:'其他虚拟句型',rules:['wish/would rather/as if+过去时（与现在相反）','wish/as if+过去完成时（与过去相反）','It is high/about time that+过去时','insist/suggest/demand/require/order+that从句：(should)+动词原形'],
+     egs:[{e:'I wish I were taller.',c:'wish+过去时'},{e:"It's high time that we left/should leave.",c:'该走了'},{e:'He insisted that she (should) apologize.',c:'should可省略'},{e:'Obviously, it is high time that we took some measures.',c:'写作高分句！'}],
+     warn:'❗ It is high time that...后接过去时（不是过去完成时）。'},
+  ]},
+  {tag:'情态动词',ttl:'情态动词意义和用法',secs:[
+    {h:'核心用法',rules:['must：必须（主观义务）/一定（肯定推测）；否定mustn\'t=禁止','can/could：能力/可能/请求；could更委婉','may/might：许可/可能；might更不确定','should：应该/应当'],
+     egs:[{e:'You must be tired.',c:'推测（一定）'},{e:"You mustn't smoke here.",c:'禁止'},{e:'Could you do me a favor?',c:'委婉请求'}]},
+    {h:'情态动词+have done',rules:['must have done：对过去的肯定推测','can\'t have done：不可能做了','should have done：本应该做（实际没做，带责备）','needn\'t have done：本不必做（实际做了）','could have done：过去本可以做（实际没做）'],
+     egs:[{e:'She must have forgotten the meeting.',c:'一定是忘了'},{e:'You should have come earlier.',c:'本应早来，但没来'},{e:"You needn't have bought so much food.",c:'本不必买那么多'}]},
+  ]},
+  {tag:'名词性从句',ttl:'名词性从句（主/宾/表/同位语）',secs:[
+    {h:'引导词选择',rules:['that：陈述句变来，无意义（宾语从句可省）','whether/if：一般疑问句变来（if不引导主/表/同位语从句）','疑问词(what/who/when/where/how等)：特殊疑问句变来，有含义'],
+     egs:[{e:'That he failed surprised everyone.',c:'主语从句'},{e:"I don't know whether/if he will come.",c:'宾语从句'},{e:'The question is whether we should accept.',c:'表语从句（只能用whether）'},{e:'The news that he won spread quickly.',c:'同位语从句（解释news内容）'}],
+     warn:'❗ 同位语从句that无意义不做成分；定语从句that代替先行词做成分。'},
+  ]},
+  {tag:'定语从句',ttl:'定语从句（关系词用法）',secs:[
+    {h:'关系代词',rules:['who/whom：指人（who主语，whom宾语）','which：指物（做主语或宾语）','that：指人或物，只用于限制性定语从句','whose：所有格（=of whom/of which）'],
+     egs:[{e:'The man who called is my teacher.',c:'who做主语，指人'},{e:'The book which/that I told you about.',c:'做宾语，指物'},{e:'She has a friend whose father is a doctor.',c:'whose表所有'}]},
+    {h:'关系副词',rules:['when：时间先行词（=at/in/on which）','where：地点先行词（=at/in/on which）','why：原因先行词reason（=for which）'],
+     egs:[{e:"I'll never forget the day when we first met.",c:'时间先行词'},{e:'This is the place where he was born.',c:'地点先行词'}],
+     tip:'只用that不用which：先行词有最高级/序数词修饰；先行词是all/the only/the very修饰；先行词是不定代词(anything/everything)。'},
+  ]},
+  {tag:'状语从句',ttl:'状语从句（8大类型）',secs:[
+    {h:'8种状语从句',rules:['时间：when/while/as/before/after/since/until/as soon as','地点：where/wherever','原因：because/since/as（because表直接原因，语气最强）','条件：if/unless/as long as/provided(that)','让步：although/though/even if/even though/no matter+疑问词','目的：so that/in order that（从句含can/could/may/might）','结果：so...that.../such...that...','比较：as...as/not so...as/than'],
+     egs:[{e:"As soon as I get home, I'll call you.",c:'时间（一...就...）'},{e:'Although he is old, he is healthy.',c:'让步（不与but同用！）'},{e:'Unless you study harder, you will fail.',c:'条件（除非）'},{e:'He walked so fast that I could hardly keep up.',c:'结果'}],
+     warn:'❗ although/though不与but同用；because不与so同用！'},
+  ]},
+  {tag:'非谓语动词',ttl:'不定式/ing形式/过去分词',secs:[
+    {h:'不定式（to do）',rules:['作主语（常用it做形式主语）/宾语/表语/定语/状语/宾补','too...to do（太...而不能）；enough to do（足够...能）','感官/使役动词后宾补省略to；变被动时to还原'],
+     egs:[{e:'It is easy to learn English.',c:'it形式主语'},{e:'He is too young to go to school.',c:'too...to结构'},{e:'I heard him sing. → He was heard to sing.',c:'感官动词变被动to还原'}]},
+    {h:'-ing形式',rules:['作主语/宾语/表语/定语/状语','接ing的常见动词：enjoy/finish/mind/avoid/keep/suggest/consider/admit','作状语时逻辑主语须与句子主语一致（悬垂分词是错误！）'],
+     egs:[{e:'Swimming is good exercise.',c:'作主语'},{e:'Seeing the teacher, he stopped talking.',c:'时间状语'},{e:'The sleeping baby is cute.',c:'定语，表正在/功能'}]},
+    {h:'过去分词（done）',rules:['作定语（被动/完成含义）','have sth done（使役/遭受）','作状语（被动关系/条件/原因）'],
+     egs:[{e:'The broken glass was on the floor.',c:'定语，被动'},{e:'I had my hair cut yesterday.',c:'have sth done'},{e:'Given more time, he could do better.',c:'条件状语'}]},
+  ]},
+  {tag:'间接引语',ttl:'直接引语变间接引语',secs:[
+    {h:'4大变换规则',rules:['①时态后退：一般现在→一般过去；一般过去→过去完成；will→would','②代词转换：I/me→he/she，you→I/he/she','③时间/地点：now→then, today→that day, here→there, this→that','④语序：疑问句→陈述语序（whether/if/疑问词引导）'],
+     egs:[{e:'He said, "I am busy now." → He said he was busy then.',c:'时态+代词+时间词均变'},{e:'She asked, "Are you tired?" → She asked if I was tired.',c:'一般疑问→if/whether从句'},{e:'"Please help me." → He asked me to help him.',c:'祈使句→ask sb to do'}],
+     warn:'❗ 客观真理不变时态！ "Light travels faster than sound." 变引语时travels不变。'},
+  ]},
+  {tag:'特殊句式',ttl:'倒装、强调、省略',secs:[
+    {h:'倒装句',rules:['完全倒装：Here/There comes...；地点状语/表语置于句首','部分倒装：否定副词(never/hardly/seldom)提前；Only+状语提前','Not until提前→主句倒装','So/Such...+that结构，So提前→倒装'],
+     egs:[{e:'Here comes the bus.',c:'完全倒装'},{e:'Never have I seen such a beautiful place.',c:'否定副词提前'},{e:'Only when he explained did I understand.',c:'only+状语提前'},{e:'So hard did he work that he became ill.',c:'so...that倒装'}]},
+    {h:'强调句',rules:['结构：It is/was+强调部分+that/who+其余','可强调主语/宾语/状语，不可强调谓语','去掉 It is/was...that 后句子仍完整→强调句'],
+     egs:[{e:'It was Tom who/that broke the window.',c:'强调主语'},{e:'It was yesterday that I met him.',c:'强调时间状语'}],
+     tip:'区分强调句与形式主语it：去掉"It is/was...that"后，强调句仍完整；形式主语句不完整。'},
+  ]},
+  {tag:'主谓一致',ttl:'主谓一致（5个原则）',secs:[
+    {h:'5大原则',rules:['①语法一致：单数主语→单数谓语；复数主语→复数谓语','②意义一致：集体名词(family/team/class)整体→单数；个体→复数','③就近一致：either...or/neither...nor/not only...but also→谓语随最近主语','④逻辑一致：主语是从句→谓语通常单数','⑤特殊：a number of+复数名词→复数；the number of→单数'],
+     egs:[{e:'Either you or I am wrong.',c:'就近一致（am跟I）'},{e:'A number of students were absent.',c:'a number of→复数'},{e:'The number of students is increasing.',c:'the number of→单数'}],
+     warn:'❗ news/mathematics/physics/economics等以-s结尾的名词是单数！police/people/cattle是复数！'},
+  ]},
+  {tag:'独立主格',ttl:'独立主格结构',secs:[
+    {h:'构成和用法',rules:['名词/代词+分词/形容词/副词/不定式/介词短语','相当于状语从句：时间/原因/条件/让步/伴随','独立主格的逻辑主语与句子主语不同（关键特征）'],
+     egs:[{e:'Weather permitting, we will go on a picnic.',c:'条件（=If weather permits）'},{e:'The work done, they went home.',c:'时间/原因（=After the work was done）'},{e:'With his eyes closed, he sat quietly.',c:'with复合结构，表伴随'}],
+     tip:'with复合结构 = with+宾语+doing/done/to do/adj/adv/介词短语，表伴随情况。'},
+  ]},
+];
+
+// ===== WRITING DATA =====
+const WT={
+  opening:{label:'开头公式',icon:'🚀',desc:'三大开头公式',tpls:[
+    {badge:'名人名言式',name:'借名人/谚语开头',cn:'没有名言就编一个，但必须听起来有道理！',en:'A proverb says, "_______________." It goes without saying that _______________.\n\nAs everyone knows, no one can deny that _______________.'},
+    {badge:'数字统计式',name:'数据引入',cn:'用数字最有说服力（数字可以编，但要合理）',en:'According to a recent survey, about ___% of _______________ wanted to _______________.\n\nA recent statistics shows that _______________.'},
+    {badge:'现象描述式',name:'描述社会现象',cn:'引出主题，适合议论文',en:'_______________ has become a hot topic among people, especially among the young, and heated debates are right on their way.\n\nNowadays, it is common to _______________. Many people like _______________ because _______________.'},
+    {badge:'问题引入式',name:'反问开头',cn:'引发读者思考',en:'What do you think of _______________? As everyone knows, no one can deny that _______________.'},
+  ]},
+  body:{label:'正文金句',icon:'💡',desc:'点睛万能句型',tpls:[
+    {badge:'表两面性',name:'任何事物都有两面性',cn:'',en:'Everything has two sides and _______________ is not an exception. It has both advantages and disadvantages.'},
+    {badge:'表重要性',name:'……起越来越重要的作用',cn:'',en:'_______________ has been playing an increasingly important role in our day-to-day life. It has brought us a lot of benefits but has created some serious problems as well.'},
+    {badge:'表问题严峻',name:'……这个问题越来越严重',cn:'',en:'Man is now facing a big problem — _______________ — which is becoming more and more serious.'},
+    {badge:'引俗语',name:'俗话说……',cn:'',en:'There is an old saying "_______________". It\'s the experience of our forefathers, however, it is correct in many cases even today.'},
+    {badge:'表观点分歧',name:'关于……人们观点不同',cn:'',en:'There are different opinions among people as to _______________. Some people suggest that _______________.'},
+    {badge:'过渡进展',name:'首先……其次……更糟的是',cn:'',en:'First, _______________. Second, _______________. What makes things worse is that _______________.'},
+  ]},
+  closing:{label:'结尾公式',icon:'🎯',desc:'高分结尾两大公式',tpls:[
+    {badge:'总结式',name:'如此结论（最常用）',cn:'过渡语：to sum up / in conclusion / in brief / thus / therefore',en:'From what has been discussed above, we may safely draw the conclusion that _______________.\n\nTaking into account all the factors, we may safely come to the conclusion that _______________.'},
+    {badge:'建议式',name:'如此建议（用虚拟语气加分！）',cn:'用虚拟语气体现语法高级感',en:'Obviously, it is high time that we took some measures to solve the problem.\n\nAccordingly, I recommend that some measures be taken.\n\nConsequently, to solve the problem, some measures should be taken.'},
+    {badge:'引用收尾',name:'因此我们可以发现',cn:'',en:'Therefore, we can find that _______________. Thus, it can be concluded that _______________.'},
+  ]},
+  genre:{label:'文体框架',icon:'📋',desc:'各类文体写作框架',tpls:[
+    {badge:'书信-开头',name:'英语书信开头套句',cn:'',en:"How nice to hear from you again.\nI'm glad to have received your letter of ___.\nI'm pleased to hear that you're coming to China for a visit.\nI'm writing to thank you for your help during my stay in ___."},
+    {badge:'书信-结尾',name:'英语书信结尾套句',cn:'',en:"With best wishes.\nI'm looking forward to your reply.\nI'd appreciate it if you could reply earlier.\nI hope to hear from you soon."},
+    {badge:'口头通知',name:'通知开头/结尾',cn:'',en:"May I have your attention please? I have an announcement to make.\n\n___（主要内容）\n\nThat's all. Thank you!"},
+    {badge:'三段式议论文',name:'议论文段落框架',cn:'',en:"[段落1 - 引题]\n_______________ has become a hot topic. There are different opinions among people as to _______________.\n\n[段落2 - 分析]\nOn one hand, _______________. On the other hand, _______________. What is more, _______________.\n\n[段落3 - 结论]\nFrom what has been discussed above, we may safely draw the conclusion that _______________."},
+  ]},
+};
+
+// ===== QUIZ DATA (60 questions) =====
+const QBANK=[
+  // 时态
+  {q:'The sun _____ in the east.',a:0,opts:['rises','rose','is rising','has risen'],tag:'时态',exp:'客观事实/科学真理用<b>一般现在时</b>。'},
+  {q:'She _____ in this company since 2010.',a:0,opts:['has worked','worked','works','had worked'],tag:'时态',exp:'since+时间点表示从过去持续到现在，用<b>现在完成时have/has done</b>。'},
+  {q:'When I arrived, the train _____ already.',a:2,opts:['has left','left','had left','was leaving'],tag:'时态',exp:'到达时火车已离开，表示<b>过去某时之前已完成</b>，用过去完成时had left。'},
+  {q:'I _____ TV when someone knocked at the door.',a:1,opts:['watched','was watching','have watched','had watched'],tag:'时态',exp:'有knock（短暂动作）打断，正在进行的动作用<b>过去进行时was doing</b>。'},
+  {q:'By the time he arrives, we _____ the dinner already.',a:1,opts:['will finish','will have finished','have finished','finished'],tag:'时态',exp:'by the time...arrives（将来），届时已完成，用<b>将来完成时will have done</b>。'},
+  {q:'The children _____ in the garden when it began to rain.',a:2,opts:['play','played','were playing','had played'],tag:'时态',exp:'rain是瞬间动作，孩子的动作当时正在进行，用<b>过去进行时were doing</b>。'},
+  {q:'It is the first time that he _____ to China.',a:0,opts:['has come','came','comes','had come'],tag:'时态',exp:'<b>It is the first/second time that从句用现在完成时</b>。It was...用过去完成时。'},
+  {q:'I have been waiting here _____ three hours.',a:1,opts:['since','for','during','by'],tag:'时态',exp:'<b>for+时间段</b>（持续多久）；since+时间点（自从何时）。三小时是时间段，用for。'},
+  // 虚拟语气
+  {q:'If I _____ you, I would study harder.',a:0,opts:['were','am','was','be'],tag:'虚拟语气',exp:'与现在事实相反的条件句，if从句用过去时，be动词用<b>were（不论人称）</b>。'},
+  {q:'He insisted that she _____ immediately.',a:1,opts:['leaves','leave','left','has left'],tag:'虚拟语气',exp:'insist/suggest/demand等后接that从句用<b>(should)+动词原形</b>，should可省略。'},
+  {q:"It's high time that we _____ some action.",a:0,opts:['took','take','have taken','will take'],tag:'虚拟语气',exp:'<b>It is high time that从句用过去时</b>，表示"该...了"。'},
+  {q:'I wish I _____ more time to finish the project.',a:1,opts:['have','had','will have','had had'],tag:'虚拟语气',exp:'wish后表与现在相反的愿望，接从句用<b>过去时had</b>。'},
+  {q:'If I _____ the chance, I would have studied abroad.',a:0,opts:['had had','have','had','would have'],tag:'虚拟语气',exp:'与过去事实相反，if从句用<b>过去完成时had had</b>，主句would have+过去分词。'},
+  {q:'It is suggested that the meeting _____ on Friday.',a:1,opts:['holds','be held','was held','is held'],tag:'虚拟语气',exp:'suggest that从句用<b>(should)+动词原形</b>，被动形式为(should) be held。'},
+  {q:'She talked as if she _____ everything about it.',a:1,opts:['knows','knew','has known','would know'],tag:'虚拟语气',exp:'as if后接与现在相反，用<b>过去时knew</b>。as if后接与过去相反则用过去完成时。'},
+  // 被动语态
+  {q:'The book _____ by millions of readers.',a:2,opts:['reads','is reading','is read','has read'],tag:'被动语态',exp:'书是被读的，用<b>被动语态is read</b>。readers是执行者，不是主语。'},
+  {q:'He made me do it. → I _____ to do it.',a:2,opts:['was made','made','am made','make'],tag:'被动语态',exp:'感官/使役动词主动结构变被动，<b>省略的to要还原</b>，was made to do it。'},
+  {q:'A great deal of time _____ in looking for the lost keys.',a:1,opts:['wasted','was wasted','were wasted','has waste'],tag:'被动语态',exp:'主语a great deal of time是单数，被动用<b>单数was wasted</b>。'},
+  // 情态动词
+  {q:'You _____ have told me earlier; I missed the deadline.',a:1,opts:['must','should','could','would'],tag:'情态动词',exp:'<b>should have done</b>=本应该做（实际没做），带责备语气。'},
+  {q:'She must _____ the letter, but she forgot to post it.',a:1,opts:['write','have written','writing','be written'],tag:'情态动词',exp:'<b>must have done</b>=对过去的肯定推测（她一定写了信，但忘记邮寄了）。'},
+  {q:"You _____ have bought so much food; we can't eat it all.",a:2,opts:['must','should','needn\'t','couldn\'t'],tag:'情态动词',exp:'<b>needn\'t have done</b>=本不必做（但实际做了）。你本不必买那么多。'},
+  {q:'The door is locked. Tom _____ have left.',a:0,opts:['must','should','would','need'],tag:'情态动词',exp:'门锁着，推断Tom一定已离开，<b>must have done</b>=对过去的肯定推测。'},
+  {q:'You _____ be right, but I still doubt it.',a:1,opts:['must','may','should','will'],tag:'情态动词',exp:'<b>may</b>表示推测"可能"，语气不确定；must表"一定"。题目说"仍然怀疑"说明不确定，用may。'},
+  // 主谓一致
+  {q:'A number of students _____ absent today.',a:1,opts:['is','are','has','have'],tag:'主谓一致',exp:'<b>a number of=许多</b>，后接复数名词，谓语用复数are。注意：the number of后接单数。'},
+  {q:'Neither Tom nor I _____ responsible for the mistake.',a:0,opts:['am','is','are','be'],tag:'主谓一致',exp:'neither...nor遵循<b>就近原则</b>，谓语随最近主语I用am。'},
+  {q:'The police _____ searching for the missing child.',a:0,opts:['are','is','was','has been'],tag:'主谓一致',exp:'<b>police是复数名词</b>（无单数形式），谓语用复数are。'},
+  {q:'More than one student _____ failed the test.',a:0,opts:['has','have','had','having'],tag:'主谓一致',exp:'<b>more than one+单数名词，谓语用单数</b>（语法一致原则）。'},
+  {q:'Each of the boys _____ brought his own lunch.',a:0,opts:['has','have','is','are'],tag:'主谓一致',exp:'each of/one of+复数名词，谓语用<b>单数</b>（each是核心词，是单数）。'},
+  // 倒装句
+  {q:'Never _____ such a beautiful sunset.',a:1,opts:['I have seen','have I seen','I saw','did I saw'],tag:'倒装句',exp:'否定副词<b>never置于句首，主句部分倒装</b>：助动词提前。故用have I seen。'},
+  {q:'Only when she got home _____ that she had lost her key.',a:1,opts:['she realized','did she realize','she did realize','had she realized'],tag:'倒装句',exp:'<b>only+状语从句置于句首，主句部分倒装</b>。did she realize是正确倒装形式。'},
+  {q:'Not until he arrived _____ we start the meeting.',a:1,opts:['did','did we','that we','we did'],tag:'倒装句',exp:'<b>not until置于句首，主句部分倒装</b>：did we start。'},
+  {q:'Hardly _____ when it began to rain.',a:0,opts:['had we arrived','we had arrived','did we arrive','we arrived'],tag:'倒装句',exp:'<b>hardly...when=刚...就...</b>，hardly置于句首倒装，用过去完成时had we arrived。'},
+  {q:'No sooner _____ than the phone rang.',a:1,opts:['I sat down','had I sat down','I had sat down','did I sit down'],tag:'倒装句',exp:'<b>no sooner...than=刚...就...</b>，置于句首倒装，用had I sat down（过去完成时）。'},
+  // 非谓语动词
+  {q:'She suggested _____ to the cinema that evening.',a:0,opts:['going','to go','go','went'],tag:'非谓语动词',exp:'suggest后接动词用<b>-ing形式</b>。常见接ing：enjoy/finish/mind/avoid/suggest/consider。'},
+  {q:'I heard him _____ a song just now.',a:3,opts:['to sing','sings','sang','singing/sing'],tag:'非谓语动词',exp:'感官动词hear后宾补用<b>不带to的不定式或-ing形式</b>。sing=已完成；singing=正在进行。'},
+  {q:'I had my car _____ yesterday.',a:2,opts:['repair','repairing','repaired','to repair'],tag:'非谓语动词',exp:'<b>have sth done</b>=使役结构。car和repair是被动关系，用过去分词repaired。'},
+  {q:'The boy _____ in the accident was taken to hospital.',a:3,opts:['injuring','was injured','to injure','injured'],tag:'非谓语动词',exp:'boy和injure是<b>被动关系</b>，用过去分词injured作定语（=who was injured）。'},
+  {q:'_____ from a distance, the mountain looks like a lion.',a:0,opts:['Seen','Seeing','To see','See'],tag:'非谓语动词',exp:'mountain是被看的（被动关系），用<b>过去分词Seen</b>作状语=When seen from a distance。'},
+  {q:'The teacher found the students _____ in the classroom.',a:2,opts:['talked','to talk','talking','talk'],tag:'非谓语动词',exp:'find sb doing表示<b>发现某人正在做某事</b>（状态发现）。'},
+  {q:'_____ the letter, Tom went out immediately.',a:0,opts:['Having written','Writing','Written','To write'],tag:'非谓语动词',exp:'<b>having done</b>表示先完成的动作，写完信后再出去。'},
+  {q:'_____ more attention, the experiment would succeed.',a:0,opts:['Given','Giving','To give','Give'],tag:'非谓语动词',exp:'<b>Given more attention</b>=If given more attention，过去分词作条件状语（被动关系）。'},
+  // 定语从句
+  {q:'This is the place _____ he was born.',a:1,opts:['that','where','which','whom'],tag:'定语从句',exp:'先行词the place是地点，用<b>关系副词where</b>（=in which），在从句中作地点状语。'},
+  {q:'Is there anything _____ I can do for you?',a:2,opts:['which','who','that','what'],tag:'定语从句',exp:'先行词是不定代词anything，定语从句引导词<b>只能用that</b>（不用which）。'},
+  {q:'The reason _____ he was late was that he missed the bus.',a:0,opts:['why','which','that','for that'],tag:'定语从句',exp:'先行词是reason，关系词用<b>why（=for which）</b>在从句中作原因状语。'},
+  {q:'_____ is known to all, China has made great achievements.',a:1,opts:['That','As','It','Which'],tag:'定语从句',exp:'<b>As is known to all</b>=众所周知，as引导非限制性定语从句，指代整个主句内容。'},
+  // 名词性从句
+  {q:'The news _____ he passed the exam spread quickly.',a:2,opts:['which','who','that','what'],tag:'名词性从句',exp:'news后的从句解释news内容，是<b>同位语从句</b>，用that引导（that无意义不做成分）。'},
+  {q:"I don't know _____ to deal with the problem.",a:1,opts:['what','how','that','whether'],tag:'名词性从句',exp:'deal with需要方式状语，用<b>how</b>（怎样处理）。what+to do=做什么，语义不同。'},
+  {q:'_____ you said surprised everyone present.',a:1,opts:['That','What','Which','Whether'],tag:'名词性从句',exp:'you said缺少宾语，用<b>what引导名词性从句</b>作主语，what=the thing that。'},
+  {q:'It remains to be seen _____ the new policy will work.',a:2,opts:['that','what','whether','which'],tag:'名词性从句',exp:'"是否...有待观察"，用<b>whether引导宾语从句</b>。'},
+  // 状语从句
+  {q:'_____ he had worked hard, he failed the exam.',a:0,opts:['Although','Because','So','But'],tag:'状语从句',exp:'表<b>让步</b>用although/though。注意：although不与but同用，because不与so同用。'},
+  {q:'He worked so hard _____ he became ill.',a:0,opts:['that','as','which','what'],tag:'状语从句',exp:'<b>so...that...</b>（结果状语从句）=程度如此之...以至于...。'},
+  {q:'Finish the work _____ you can, and then rest.',a:0,opts:['as soon as','as long as','as far as','as well as'],tag:'状语从句',exp:'<b>as soon as</b>=一...就...（时间状语从句）。'},
+  {q:'_____ hard you study, you should also take breaks.',a:0,opts:['However','Whatever','Wherever','Whenever'],tag:'状语从句',exp:'<b>however+形容词/副词</b>=无论多么...（让步状语从句）=No matter how。'},
+  // 强调句
+  {q:'It was _____ that I met my old friend.',a:2,opts:['in the park yesterday','yesterday in the park','yesterday that','at the park'],tag:'强调句',exp:'<b>强调句</b>：It was+被强调部分+that/who+其余。此题强调时间状语yesterday。'},
+  // 间接引语
+  {q:'He said that he _____ to the party the next day.',a:1,opts:['will go','would go','goes','went'],tag:'间接引语',exp:'直接引语变间接引语<b>时态后退一格</b>，will→would；next day替换tomorrow。'},
+  // 独立主格
+  {q:'_____ permitting, we will have the picnic tomorrow.',a:0,opts:['Weather','If weather','As weather','Whether weather'],tag:'独立主格',exp:'<b>独立主格结构</b>：名词+分词。Weather permitting = If weather permits（条件状语）。'},
+  {q:'The problem _____, we continued with the meeting.',a:1,opts:['solving','solved','to solve','having solved'],tag:'独立主格',exp:'problem和solve是被动关系（问题被解决），用<b>过去分词solved</b>构成独立主格结构。'},
+];
+
+// ===== LOCAL STORAGE =====
+const LS_KEY='gaokao_gram_stats_v2';
+function loadStats(){try{return JSON.parse(localStorage.getItem(LS_KEY))||{};}catch(e){return{}}}
+function saveStats(s){try{localStorage.setItem(LS_KEY,JSON.stringify(s))}catch(e){}}
+function updateStats(tag,correct){
+  const s=loadStats();
+  if(!s[tag])s[tag]={r:0,t:0};
+  s[tag].t++;if(correct)s[tag].r++;
+  saveStats(s);
+}
+
+// ===== QUIZ STATE =====
+let session=[],sIdx=0,sRight=0,sWrong=0,sAns=false,sDone=false,weakMode=false;
+const PER_SESSION=25;
+
+function shuffle(arr){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+function buildSession(){
+  const stats=loadStats();
+  let pool=QBANK;
+  if(weakMode){
+    const weakTags=Object.entries(stats).filter(([,v])=>v.t>0&&v.r/v.t<0.7).map(([k])=>k);
+    if(weakTags.length>0) pool=QBANK.filter(q=>weakTags.includes(q.tag));
+    if(pool.length<5) pool=QBANK;
+  }
+  session=shuffle(pool).slice(0,PER_SESSION);
+  sIdx=0;sRight=0;sWrong=0;sAns=false;sDone=false;
+}
+
+function toggleWeakMode(){
+  weakMode=!weakMode;
+  document.getElementById('weak-btn').classList.toggle('on',weakMode);
+  buildSession();renderStats();renderQ();
+}
+
+// ===== STATS PANEL =====
+function renderStats(){
+  const stats=loadStats();
+  const tags=[...new Set(QBANK.map(q=>q.tag))];
+  const area=document.getElementById('stats-area');
+  const hasData=Object.values(stats).some(v=>v.t>0);
+  if(!hasData){area.innerHTML='';return;}
+  const items=tags.map(t=>{
+    const d=stats[t]||{r:0,t:0};
+    const pct=d.t>0?Math.round(d.r/d.t*100):null;
+    const cls=pct===null?'':pct>=70?'good':'weak';
+    return `<div class="sp-item ${cls}">
+      <div class="si-name">${t}</div>
+      <div class="si-val">${pct===null?'未做':`${pct}%`}</div>
+    </div>`;
+  }).join('');
+  area.innerHTML=`<div class="stats-panel">
+    <div class="sp-title">📊 各语法点正确率（累计）· 红色=弱点（低于70%）</div>
+    <div class="sp-grid">${items}</div>
+  </div>`;
+}
+
+// ===== QUIZ RENDER =====
+function renderQ(){
+  document.getElementById('qi').textContent=sIdx+1;
+  document.getElementById('qt').textContent=session.length;
+  document.getElementById('qc').textContent=sRight;
+  document.getElementById('qw').textContent=sWrong;
+  document.getElementById('qp').style.width=(sIdx/session.length*100)+'%';
+  const area=document.getElementById('quiz-area');
+  if(sDone){
+    showResult(area);return;
+  }
+  const q=session[sIdx];
+  area.innerHTML=`<div class="qcard">
+    <div class="qnum">第 ${sIdx+1} 题 / 共 ${session.length} 题</div>
+    <span class="qtag">${q.tag}</span>
+    <div class="qtext">${q.q.replace('_____','<span class="qblank">_____</span>')}</div>
+    <div class="opts">${q.opts.map((o,i)=>`
+      <button class="obtn" id="o${i}" onclick="answer(${i})">${String.fromCharCode(65+i)}. ${o}</button>`).join('')}
+    </div>
+    <div class="exp" id="exp">📖 <b>解析：</b>${q.exp}</div>
+  </div>
+  <div class="qnav"><button class="pri" id="nb" style="display:none" onclick="nextQ()">下一题 →</button></div>`;
+  sAns=false;
+}
+
+function answer(chosen){
+  if(sAns)return;sAns=true;
+  const q=session[sIdx];
+  document.querySelectorAll('.obtn').forEach(b=>b.disabled=true);
+  document.getElementById('o'+q.a).classList.add('correct');
+  const correct=chosen===q.a;
+  if(!correct){document.getElementById('o'+chosen).classList.add('wrong');sWrong++;}
+  else sRight++;
+  updateStats(q.tag,correct);
+  document.getElementById('exp').classList.add('show');
+  document.getElementById('qc').textContent=sRight;
+  document.getElementById('qw').textContent=sWrong;
+  const nb=document.getElementById('nb');if(nb)nb.style.display='inline-block';
+}
+
+function nextQ(){
+  sIdx++;
+  if(sIdx>=session.length)sDone=true;
+  renderQ();
+  if(sDone)renderStats();
+}
+
+function showResult(area){
+  const stats=loadStats();
+  const pct=Math.round(sRight/session.length*100);
+  const v=pct>=90?'🏆 优秀！语法功底扎实':pct>=75?'👍 良好！继续加油':pct>=60?'📚 及格，建议复习错题':'💪 继续努力，多刷几遍';
+  // Per-tag breakdown for this session
+  const tagMap={};
+  session.forEach((q,i)=>{
+    if(!tagMap[q.tag])tagMap[q.tag]={r:0,t:0};
+    tagMap[q.tag].t++;
+  });
+  // We just use cumulative stats for display
+  const tags=[...new Set(session.map(q=>q.tag))];
+  const bars=tags.map(t=>{
+    const d=stats[t]||{r:0,t:0};
+    const p=d.t>0?Math.round(d.r/d.t*100):0;
+    const color=p>=70?'var(--ok)':p>=50?'var(--warn)':'var(--err)';
+    const isWeak=p<70;
+    return `<div class="tag-row">
+      <span class="tag-name">${t}</span>
+      <div class="tag-bar-wrap"><div class="tag-bar" style="width:${p}%;background:${color}"></div></div>
+      <span class="tag-pct" style="color:${color}">${p}%</span>
+      ${isWeak?'<span class="weak-label">弱点</span>':''}
+    </div>`;
+  }).join('');
+  const hasWeak=tags.some(t=>{const d=stats[t]||{r:0,t:1};return d.r/d.t<0.7;});
+  area.innerHTML=`<div class="result">
+    <div class="result-top">
+      <div class="score-big">${sRight}/${session.length}</div>
+      <div style="font-size:.8rem;color:var(--faint);margin-top:4px">本局正确率 ${pct}%</div>
+      <div class="verdict">${v}</div>
+    </div>
+    <div class="result-tags">
+      <div class="rt-title">各语法点表现（累计正确率）</div>
+      ${bars}
+      <div class="qnav" style="margin-top:16px;flex-wrap:wrap">
+        <button class="pri" onclick="startNew(false)">🔀 再刷一局（随机）</button>
+        ${hasWeak?`<button onclick="startNew(true)">🎯 只练弱点</button>`:''}
+      </div>
+    </div>
+  </div>`;
+}
+
+function startNew(weak){
+  weakMode=weak;
+  document.getElementById('weak-btn').classList.toggle('on',weak);
+  buildSession();renderStats();renderQ();
+}
+
+// ===== GRAMMAR RENDER =====
+function renderGram(){
+  document.getElementById('gram-list').innerHTML=G.map((g,i)=>`
+    <div class="gc" id="gc${i}">
+      <div class="gc-h" onclick="toggleG(${i})">
+        <span class="tag">${g.tag}</span><span class="ttl">${g.ttl}</span><span class="arr">▼</span>
+      </div>
+      <div class="gc-b">${g.secs.map((s,si)=>`
+        ${si>0?'<hr class="div">':''}
+        <div class="rb">
+          <h4>${s.h}</h4>
+          <ul class="rl">${s.rules.map(r=>`<li>${r}</li>`).join('')}</ul>
+          ${s.egs?s.egs.map(e=>`<div class="eg"><div class="eg-en">${e.e}</div><div class="eg-cn">${e.c}</div></div>`).join(''):''}
+          ${s.tip?`<div class="tip">💡 ${s.tip}</div>`:''}
+          ${s.warn?`<div class="warn">⚠️ ${s.warn}</div>`:''}
+        </div>`).join('')}
+      </div>
+    </div>`).join('');
+}
+function toggleG(i){document.getElementById('gc'+i).classList.toggle('open')}
+
+// ===== WRITING RENDER =====
+let wtCat='opening';
+function renderWtCats(){
+  document.getElementById('wt-cats').innerHTML=Object.entries(WT).map(([k,v])=>`
+    <button class="wt-btn${wtCat===k?' active':''}" onclick="setWt('${k}')">
+      <b>${v.icon} ${v.label}</b><span>${v.desc}</span>
+    </button>`).join('');
+}
+function setWt(c){wtCat=c;renderWtCats();renderTpls()}
+function renderTpls(){
+  const d=WT[wtCat];
+  document.getElementById('tpl-list').innerHTML=d.tpls.map((t,i)=>`
+    <div class="tc">
+      <div class="tc-h">
+        <span class="badge">${t.badge}</span>
+        <span class="tn">${t.name}</span>
+        <button class="cpbtn" onclick="copyT(${i})">复制</button>
+      </div>
+      <div class="tc-b">
+        ${t.cn?`<div class="tc-cn">${t.cn}</div>`:''}
+        <div class="tc-en">${t.en.replace(/___+/g,'<span class="blank">______</span>')}</div>
+      </div>
+    </div>`).join('');
+}
+function copyT(i){
+  const t=WT[wtCat].tpls[i];
+  navigator.clipboard.writeText(t.en).then(()=>{
+    const b=document.querySelectorAll('.cpbtn')[i];
+    const o=b.textContent;b.textContent='✓已复制';b.style.background='var(--ok)';b.style.color='#fff';
+    setTimeout(()=>{b.textContent=o;b.style.background='';b.style.color=''},1500);
+  }).catch(()=>alert('请长按模板文字复制'));
+}
+
+// ===== TABS =====
+function switchTab(t){
+  document.querySelectorAll('.tab-page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-nav button').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+t).classList.add('active');
+  const idx={gram:0,write:1,quiz:2};
+  document.querySelectorAll('.tab-nav button')[idx[t]].classList.add('active');
+}
+
+// ===== INIT =====
+renderGram();renderWtCats();renderTpls();
+buildSession();renderStats();renderQ();
+</script>
+
+<style>
+.rtf{background:#f8fafc;border-top:2px solid #e2e8f0;padding:20px 16px 28px;margin-top:32px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.rtf-hd{font-size:.72rem;font-weight:700;color:#64748b;letter-spacing:1.5px;text-transform:uppercase;text-align:center;margin-bottom:14px}
+.rtf-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px;max-width:860px;margin:0 auto 14px}
+.rtf-ch{font-size:.68rem;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px}
+.rtf-links{display:flex;flex-direction:column;gap:3px}
+.rtf-links a{font-size:.8rem;color:#2563eb;text-decoration:none;line-height:1.4}
+.rtf-links a:hover{text-decoration:underline}
+.rtf-links a.rtf-cur{color:#cbd5e0;pointer-events:none;cursor:default;font-weight:600}
+.rtf-home{display:block;text-align:center;font-size:.8rem;color:#64748b;text-decoration:none;margin-top:4px}
+.rtf-home:hover{color:#1e40af}
+</style>
+<div class="rtf">
+  <div class="rtf-hd">🔗 高考工具合集 · 快速跳转</div>
+  <div class="rtf-grid">
+<div><div class="rtf-ch">📖 阅读 · 完形真题</div><div class="rtf-links"><a href="english-reading.html">高考阅读理解真题 (441题)</a>
+<a href="english-cloze.html">高考完形填空真题 (1276题)</a>
+<a href="cloze-practice.html">完形填空专练</a>
+<a href="cloze-logic-tracker.html">逻辑链追踪器</a>
+</div></div>
+<div><div class="rtf-ch">🔠 词汇</div><div class="rtf-links"><a href="vocab-match.html">连连看闯关</a>
+<a href="vocab-3500.html">3500词 · 词根版</a>
+<a href="vocab-3500-stories.html">3500词 · 故事版</a>
+<a href="850-english-practice.html">850核心词表达</a>
+</div></div>
+<div><div class="rtf-ch">📐 语法</div><div class="rtf-links"><a class="rtf-cur" href="grammar-master.html">语法神器 · 闯关版 ✦</a>
+<a href="grammar-mcq.html">语法填空选择题</a>
+<a href="grammar-cloze.html">语法填空手填版</a>
+<a href="grammar-breakdown.html">长难句拆解器</a>
+<a href="gaokao-grammar.html">高考语法通</a>
+</div></div>
+<div><div class="rtf-ch">✍️ 写作</div><div class="rtf-links"><a href="gaokao-writing.html">写作神器</a>
+<a href="gaokao-golden.html">金句闪卡 · 50句</a>
+<a href="gaokao-english-templates.html">万能句背诵库</a>
+</div></div>
+<div><div class="rtf-ch">🔢 数学 · 物理</div><div class="rtf-links"><a href="math-formula-cards.html">数学公式闪卡</a>
+<a href="physics-challenge.html">物理公式闯关 60题</a>
+</div></div>
+<div><div class="rtf-ch">🧬 生物</div><div class="rtf-links">
+<a href="shengwu/index.html">生物选择题真题 (380套)</a>
+<a href="shengwu/duiduipeng.html">生物填空对对碰</a>
+<a href="shengwu/zhishi.html">生物考点速查</a>
+</div></div>
+<div><div class="rtf-ch">📚 语文 · 物理 · 化学</div><div class="rtf-links">
+<a href="yuwen/zhishi.html">语文考点速查</a>
+<a href="wuli/zhishi.html">物理考点速查</a>
+<a href="huaxue/zhishi.html">化学考点速查</a>
+</div></div>
+  </div>
+  <a class="rtf-home" href="index.html">← 高考工具箱 · 全部工具</a>
+</div>
+</body>
+</html>

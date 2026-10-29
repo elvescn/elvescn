@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>高中物理公式闯关 · 60题挑战｜免费在线</title>
+<meta name="description" content="高中物理公式闯关练习，力学/电学/光学/热学/近代物理五大模块，60题随机出题，弱点追踪，高考备考神器。">
+<meta name="keywords" content="高中物理公式,物理闯关,牛顿定律,电磁感应,光学公式,物理备考,高考物理">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {"@type":"Question","name":"物理公式太多记不住怎么办？","acceptedAnswer":{"@type":"Answer","text":"先理解含义再记公式，闯关时系统追踪哪个模块正确率最低，优先强化弱点。"}},
+    {"@type":"Question","name":"涵盖哪些物理模块？","acceptedAnswer":{"@type":"Answer","text":"力学、电学、光学、热学、近代物理五大模块，共110道题，随机模式可按模块独立筛选练习。"}},
+    {"@type":"Question","name":"高考物理必背公式有多少？","acceptedAnswer":{"@type":"Answer","text":"核心公式约110条，本工具全部覆盖并配有解析，五大模块均可单独筛选练习。"}},
+    {"@type":"Question","name":"手机能用吗？","acceptedAnswer":{"@type":"Answer","text":"可以，界面手机优化，随时随地刷题。"}},
+    {"@type":"Question","name":"怎么知道自己哪个模块最弱？","acceptedAnswer":{"@type":"Answer","text":"每轮20题后自动显示各模块正确率，一目了然。"}},
+    {"@type":"Question","name":"可以只练某个模块吗？","acceptedAnswer":{"@type":"Answer","text":"可以，选择随机模式后可以按模块筛选。"}}
+  ]
+}
+</script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0f172a;--card:#1e293b;--accent:#7c3aed;--gold:#fbbf24;--wh:#f1f5f9;--green:#22c55e;--red:#ef4444;--muted:#94a3b8;--border:#334155}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",system-ui,sans-serif;background:var(--bg);color:var(--wh);line-height:1.6;min-height:100vh}
+a{color:var(--gold);text-decoration:none}
+.back-link{display:block;padding:14px 18px;font-size:1rem;font-weight:600;color:var(--gold);border-bottom:1px solid var(--border)}
+.back-link:hover{color:#fde68a}
+.hdr{padding:22px 18px 18px;text-align:center;background:linear-gradient(135deg,#0c1445,#1e293b)}
+.hdr h1{font-size:1.4rem;font-weight:800;margin-bottom:6px}
+.hdr p{font-size:.85rem;color:var(--muted)}
+.main{max-width:700px;margin:0 auto;padding:16px 14px 60px}
+
+/* Score bar */
+.score-bar{display:flex;gap:10px;margin-bottom:14px}
+.score-box{flex:1;background:var(--card);border-radius:10px;padding:10px;text-align:center;border:1px solid var(--border)}
+.score-box .num{font-size:1.4rem;font-weight:800;color:var(--gold)}
+.score-box .lbl{font-size:.72rem;color:var(--muted)}
+.streak-box{background:var(--card);border-radius:10px;padding:10px;text-align:center;border:1px solid #fbbf2444;min-width:80px}
+.streak-box .num{font-size:1.4rem;font-weight:800;color:var(--gold)}
+.streak-box .lbl{font-size:.72rem;color:var(--muted)}
+
+/* Mode selector */
+.mode-row{display:flex;gap:8px;margin-bottom:10px}
+.mode-btn{flex:1;border:1px solid var(--border);border-radius:10px;padding:9px;font-size:.88rem;font-weight:600;cursor:pointer;font-family:inherit;background:var(--card);color:var(--muted);transition:all .15s}
+.mode-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.filter-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.filter-btn{border:1px solid var(--border);border-radius:16px;padding:5px 12px;font-size:.78rem;font-weight:600;cursor:pointer;font-family:inherit;background:var(--card);color:var(--muted);transition:all .15s}
+.filter-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+/* Question card */
+.q-card{background:var(--card);border-radius:16px;padding:22px 18px;margin-bottom:14px;border:1px solid var(--border)}
+.q-num{font-size:.75rem;color:var(--muted);margin-bottom:6px}
+.q-text{font-size:1.1rem;font-weight:700;color:var(--wh);line-height:1.5;margin-bottom:18px}
+.q-module{display:inline-block;font-size:.72rem;font-weight:700;padding:2px 10px;border-radius:20px;background:#7c3aed22;color:var(--accent);border:1px solid var(--accent);margin-bottom:14px}
+.opts{display:flex;flex-direction:column;gap:9px}
+.opt-btn{border:1px solid var(--border);border-radius:10px;padding:12px 16px;text-align:left;font-size:.95rem;font-weight:600;cursor:pointer;font-family:inherit;background:#ffffff08;color:var(--wh);transition:all .15s;position:relative}
+.opt-btn:hover:not(:disabled){border-color:var(--accent);background:#7c3aed18}
+.opt-btn.correct{background:#22c55e22;border-color:var(--green);color:var(--green)}
+.opt-btn.wrong{background:#ef444422;border-color:var(--red);color:var(--red)}
+.opt-btn:disabled{cursor:default}
+
+/* Explain */
+.explain-box{background:#1e2d1e;border:1px solid var(--green);border-radius:10px;padding:13px 15px;margin-top:12px;font-size:.85rem;color:#86efac;line-height:1.6;display:none}
+.explain-box.show{display:block}
+
+/* Next btn */
+.next-btn{width:100%;border:none;border-radius:12px;padding:13px;font-size:1rem;font-weight:700;cursor:pointer;font-family:inherit;background:var(--accent);color:#fff;margin-top:12px;display:none;transition:background .15s}
+.next-btn:hover{background:#6d28d9}
+.next-btn.show{display:block}
+
+/* Progress */
+.prog-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;font-size:.8rem;color:var(--muted)}
+.prog-bar-wrap{background:var(--bg);border-radius:6px;height:6px;overflow:hidden;margin-bottom:14px}
+.prog-bar-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--gold));border-radius:6px;transition:width .3s}
+
+/* Result panel */
+.result-panel{background:var(--card);border-radius:16px;padding:28px 20px;text-align:center;border:1px solid var(--accent);margin-bottom:16px;display:none}
+.result-panel h2{font-size:1.3rem;font-weight:800;color:var(--gold);margin-bottom:8px}
+.result-score{font-size:2.5rem;font-weight:900;color:var(--accent);margin:12px 0}
+.module-stats{display:flex;flex-direction:column;gap:7px;margin:16px 0;text-align:left}
+.mod-row{display:flex;justify-content:space-between;align-items:center;font-size:.85rem}
+.mod-name{color:var(--wh);font-weight:600}
+.mod-acc{font-weight:700}
+.mod-acc.high{color:var(--green)}
+.mod-acc.mid{color:var(--gold)}
+.mod-acc.low{color:var(--red)}
+.weak-label{font-size:.8rem;color:var(--muted);margin-bottom:4px;text-align:left}
+.weak-module{background:#ef444422;border:1px solid var(--red);border-radius:8px;padding:10px 14px;font-size:.9rem;font-weight:700;color:var(--red);margin-bottom:16px;text-align:left}
+.restart-btns{display:flex;gap:10px}
+.restart-btn{flex:1;border:none;border-radius:12px;padding:12px;font-size:.9rem;font-weight:700;cursor:pointer;font-family:inherit;transition:background .15s}
+.restart-btn.primary{background:var(--accent);color:#fff}
+.restart-btn.primary:hover{background:#6d28d9}
+.restart-btn.secondary{background:#334155;color:var(--wh)}
+.restart-btn.secondary:hover{background:#475569}
+
+/* FAQ */
+.faq-section{margin-top:32px;border-top:1px solid var(--border);padding-top:24px}
+.sec-title{font-size:.8rem;font-weight:800;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px}
+.faq{display:flex;flex-direction:column;gap:8px}
+.faq details{background:var(--card);border-radius:12px;padding:2px 16px;border:1px solid var(--border)}
+.faq summary{cursor:pointer;padding:12px 0;font-weight:600;font-size:.9rem;list-style:none;position:relative;padding-right:24px;color:var(--wh)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:'+';position:absolute;right:2px;top:10px;color:var(--muted);font-size:1.2rem;font-weight:400}
+.faq details[open] summary::after{content:'\2212'}
+.faq details>div{padding:0 0 12px;font-size:.85rem;color:var(--muted);line-height:1.7}
+.foot{text-align:center;font-size:.8rem;color:var(--muted);margin-top:24px;padding:20px 0}
+.foot a{color:var(--gold);font-size:1rem;font-weight:600}
+</style>
+</head>
+<body>
+<a class="back-link" href="index.html">← 高考英语工具箱</a>
+
+<div class="hdr">
+  <h1>⚡ 高中物理公式闯关</h1>
+  <p>110题 · 五大模块独立筛选 · 弱点追踪 · 手机可用</p>
+</div>
+
+<div class="main">
+  <div class="score-bar">
+    <div class="score-box"><div class="num" id="score-correct">0</div><div class="lbl">答对</div></div>
+    <div class="score-box"><div class="num" id="score-wrong">0</div><div class="lbl">答错</div></div>
+    <div class="streak-box"><div class="num" id="score-streak">0</div><div class="lbl">连击</div></div>
+    <div class="score-box"><div class="num" id="score-total">0</div><div class="lbl">已答</div></div>
+  </div>
+
+  <div class="mode-row">
+    <button class="mode-btn active" id="mode-seq" onclick="setMode('seq')">闯关模式（顺序20题）</button>
+    <button class="mode-btn" id="mode-rand" onclick="setMode('rand')">随机模式</button>
+  </div>
+  <div class="filter-row" id="filter-row" style="display:none">
+    <button class="filter-btn active" onclick="setFilter('全部',this)">全部</button>
+    <button class="filter-btn" onclick="setFilter('力学',this)">力学</button>
+    <button class="filter-btn" onclick="setFilter('电学',this)">电学</button>
+    <button class="filter-btn" onclick="setFilter('光学',this)">光学</button>
+    <button class="filter-btn" onclick="setFilter('热学',this)">热学</button>
+    <button class="filter-btn" onclick="setFilter('近代物理',this)">近代物理</button>
+  </div>
+
+  <div class="prog-row">
+    <span id="prog-label">第 1 / 20 题</span>
+    <span id="prog-pct">0%</span>
+  </div>
+  <div class="prog-bar-wrap"><div class="prog-bar-fill" id="prog-bar" style="width:0%"></div></div>
+
+  <div class="q-card" id="q-card">
+    <div class="q-num" id="q-num"></div>
+    <div class="q-module" id="q-module"></div>
+    <div class="q-text" id="q-text"></div>
+    <div class="opts" id="opts"></div>
+    <div class="explain-box" id="explain-box"></div>
+    <button class="next-btn" id="next-btn" onclick="nextQuestion()">下一题 →</button>
+  </div>
+
+  <div class="result-panel" id="result-panel">
+    <h2>🏆 本轮结束！</h2>
+    <div class="result-score" id="result-score"></div>
+    <div class="weak-label">最弱模块（优先复习）：</div>
+    <div class="weak-module" id="weak-module"></div>
+    <div class="module-stats" id="module-stats"></div>
+    <div class="restart-btns">
+      <button class="restart-btn primary" onclick="startGame()">重新闯关</button>
+      <button class="restart-btn secondary" onclick="reviewWeak()">练弱点模块</button>
+    </div>
+  </div>
+
+  <div class="faq-section">
+    <div class="sec-title">常见问题</div>
+    <div class="faq">
+      <details><summary>物理公式太多记不住怎么办？</summary><div>先理解含义再记公式，闯关时系统追踪哪个模块正确率最低，优先强化弱点。</div></details>
+      <details><summary>涵盖哪些物理模块？</summary><div>力学、电学、光学、热学、近代物理五大模块，共110道题，随机模式可按模块独立筛选练习。</div></details>
+      <details><summary>高考物理必背公式有多少？</summary><div>核心公式约110条，本工具全部覆盖并配有解析，五大模块均可单独筛选练习。</div></details>
+      <details><summary>手机能用吗？</summary><div>可以，界面手机优化，随时随地刷题。</div></details>
+      <details><summary>怎么知道自己哪个模块最弱？</summary><div>每轮20题后自动显示各模块正确率，一目了然，弱点模块标红提醒。</div></details>
+      <details><summary>可以只练某个模块吗？</summary><div>可以，切换到"随机模式"后选择模块筛选，只刷该模块题目。</div></details>
+    </div>
+  </div>
+
+  <div class="foot">
+    <a href="index.html">← 高考英语工具箱</a><br><br>
+    全部工具免费 · 无需登录 · 手机电脑均可
+  </div>
+</div>
+
+<script>
+var QB=[
+// ===== 力学 (20) =====
+{q:"F = ma 表示的是：",opts:["万有引力定律","牛顿第二定律","动量定理","胡克定律"],ans:1,module:"力学",explain:"牛顿第二定律：合外力等于质量乘以加速度，F=ma 是高考力学最核心公式。"},
+{q:"匀变速直线运动速度公式：v = ？",opts:["v₀ + at","v₀t + ½at²","v₀² + 2as","Ft/m"],ans:0,module:"力学",explain:"v = v₀ + at，初速度加速度乘以时间，这是速度时间关系。"},
+{q:"匀变速直线运动位移公式：s = ？",opts:["v₀t","v₀t + ½at²","½at²","(v₀+v)t"],ans:1,module:"力学",explain:"s = v₀t + ½at²，注意有两项。"},
+{q:"速度位移关系公式：v² = ？",opts:["v₀² + at","v₀² + 2as","v₀t + as","2a(s-s₀)"],ans:1,module:"力学",explain:"v² = v₀² + 2as，不含时间t，常用于求最大位移。"},
+{q:"F = Gm₁m₂/r² 表示的是：",opts:["库仑定律","牛顿第二定律","万有引力定律","重力公式"],ans:2,module:"力学",explain:"万有引力定律，G=6.67×10⁻¹¹ N·m²/kg²，r是两质点间距离。"},
+{q:"地表重力加速度公式：g = ？",opts:["GM/R²","GM/R","GM·R²","4πGR"],ans:0,module:"力学",explain:"g = GM/R²，M是地球质量，R是地球半径。"},
+{q:"动量的公式：p = ？",opts:["Fv","mv","Ft","½mv²"],ans:1,module:"力学",explain:"动量 p = mv，方向与速度相同，是矢量。"},
+{q:"冲量的公式：I = ？",opts:["Fv","mv","Ft","Pat"],ans:2,module:"力学",explain:"冲量 I = Ft，等于合外力乘以时间，动量定理：I = Δp。"},
+{q:"动能的公式：Eₖ = ？",opts:["mv","mv²","½mv²","mgh"],ans:2,module:"力学",explain:"动能 Eₖ = ½mv²，恒为正値，与速度平方成正比。"},
+{q:"功的公式：W = ？",opts:["Fs","Fscosθ","Fs/t","Fv"],ans:1,module:"力学",explain:"W = Fs·cosθ，θ是力与位移的夹角。θ=0时 W=Fs；θ=90°时 W=0。"},
+{q:"功率的公式：P = ？",opts:["W/t","Fv","W/t = Fv","以上都对"],ans:3,module:"力学",explain:"P = W/t = Fv，两种形式均正确，高考均有考查。"},
+{q:"重力势能：Eₚ = ？",opts:["mgh","½mv²","Fh","mgR"],ans:0,module:"力学",explain:"Eₚ = mgh，h是相对参考平面的高度，可正可负。"},
+{q:"机械能守恒定律：Eₖ₁ + Eₚ₁ = ？",opts:["Eₖ₂","Eₚ₂","Eₖ₂ + Eₚ₂","Eₖ₂ - Eₚ₂"],ans:2,module:"力学",explain:"在只有重力做功时，机械能守恒：Eₖ₁+Eₚ₁=Eₖ₂+Eₚ₂。"},
+{q:"滑动摩擦力：f = ？",opts:["μmg","μN","kx","Gcosθ"],ans:1,module:"力学",explain:"f = μN，μ是动摩擦因数，N是法向支持力（不一定等于重力）。"},
+{q:"单摆周期：T = ？",opts:["2π√(m/k)","2π√(l/g)","2πl/g","2π√(g/l)"],ans:1,module:"力学",explain:"T = 2π√(l/g)，l是摆长，g是重力加速度，与质量和振幅无关。"},
+{q:"弹簧振子周期：T = ？",opts:["2π√(m/k)","2π√(l/g)","2π√(k/m)","mk/2π"],ans:0,module:"力学",explain:"T = 2π√(m/k)，m是质量，k是弹簧劲度系数。"},
+{q:"圆周运动中最高点临界速度：v = ？",opts:["√(gR)","√(2gR)","gR","√(g/R)"],ans:0,module:"力学",explain:"v = √(gR)，此时重力提供向心力，N=0，是最小速度。"},
+{q:"向心加速度：a = ？",opts:["v²/r","ω²r","v²/r = ω²r","以上都对"],ans:3,module:"力学",explain:"a = v²/r = ω²r，两种形式等价，r是圆周半径。"},
+{q:"动量守恒定律（两体碰撞）：",opts:["m₁v₁ = m₂v₂","m₁v₁ + m₂v₂ = 0","m₁v₁ + m₂v₂ = m₁v₁' + m₂v₂'","m₁v₁ - m₂v₂ = m₁v₁' - m₂v₂'"],ans:2,module:"力学",explain:"系统合外力为零时动量守恒：碰前总动量=碰后总动量。"},
+{q:"胡克定律：F = ？",opts:["kx","μN","mg","Gm/r²"],ans:0,module:"力学",explain:"F = kx，k是劲度系数（N/m），x是形变量，在弹性限度内成立。"},
+
+// ===== 电学 (20) =====
+{q:"F = kq₁q₂/r² 表示的是：",opts:["安培力","万有引力","库仑定律","洛伦兹力"],ans:2,module:"电学",explain:"库仑定律，k=9×10⁹ N·m²/C²，r是两点电荷间距离。"},
+{q:"电场强度定义：E = ？",opts:["kq/r²","F/q","U/d","σ/ε₀"],ans:1,module:"电学",explain:"E = F/q，试探电荷所受的力与电荷量之比，与试探电荷无关。"},
+{q:"点电荷的电场强度：E = ？",opts:["kq/r","kq/r²","F/q","U/q"],ans:1,module:"电学",explain:"E = kq/r²，由点电荷产生，r是到点电荷的距离。"},
+{q:"电压（电势差）定义：U = ？",opts:["q/W","W/q","F/q","Q/t"],ans:1,module:"电学",explain:"U = W/q，电场力做的功与移动电荷量之比，单位伏特（V）。"},
+{q:"电流定义：I = ？",opts:["U/R","q/t","P/U","W/q"],ans:1,module:"电学",explain:"I = q/t，单位时间内通过截面的电荷量，单位安培（A）。"},
+{q:"欧姆定律：R = ？",opts:["UI","U/I","I/U","P/I²"],ans:1,module:"电学",explain:"R = U/I，电阻等于电压除以电流，欧姆定律最基本形式。"},
+{q:"电功率：P = ？",opts:["UI","I²R","U²/R","以上都对"],ans:3,module:"电学",explain:"P = UI = I²R = U²/R，三种形式均正确，根据已知量选用。"},
+{q:"焦耳定律：Q = ？",opts:["UIt","I²Rt","U²t/R","以上都对"],ans:3,module:"电学",explain:"Q = I²Rt，是热功率P=I²R在时间t内做的功（热量），也等UIt=U²t/R。"},
+{q:"电阻串联：R总 = ？",opts:["R₁R₂/(R₁+R₂)","R₁+R₂","1/R₁+1/R₂","R₁×R₂"],ans:1,module:"电学",explain:"串联总阻=各电阻之和。串联电路电流相同，电压分配与电阻成正比。"},
+{q:"电阻并联：1/R总 = ？",opts:["R₁+R₂","1/R₁-1/R₂","1/R₁+1/R₂","R₁R₂/(R₁+R₂)"],ans:2,module:"电学",explain:"并联：1/R总=1/R₁+1/R₂。两电阻并联：R总=R₁R₂/(R₁+R₂)，总阻小于任一电阻。"},
+{q:"电容定义：C = ？",opts:["Q/U","U/Q","QU","Q²/U"],ans:0,module:"电学",explain:"C = Q/U，电容量等于储存的电荷量与两端电压之比，单位法拉（F）。"},
+{q:"安培力：F = ？",opts:["qvB","BIL","qE","nIL"],ans:1,module:"电学",explain:"F = BIL sinα，α是电流方向与磁场方向的夹角，垂直时 F=BIL。"},
+{q:"洛伦兹力：F = ？",opts:["BIL","qvB","qE","mv²/r"],ans:1,module:"电学",explain:"F = qvB sinα，带电粒子在磁场中运动受力。洛伦兹力不做功！"},
+{q:"带电粒子在匀强磁场中圆周半径：r = ？",opts:["qvB/m","mv/(qB)","qB/(mv)","qBv"],ans:1,module:"电学",explain:"r = mv/(qB)，由洛伦兹力提供向心力：qvB = mv²/r 推导得出。"},
+{q:"法拉第电磁感应定律：ε = ？",opts:["BLv","nΔΦ/Δt","BIL","I·R"],ans:1,module:"电学",explain:"ε = nΔΦ/Δt，n匝线圈，ΔΦ是磁通量变化量，Δt是时间。"},
+{q:"路端电压：U = ？",opts:["ε+Ir","ε-Ir","εr","I(R+r)"],ans:1,module:"电学",explain:"U = ε - Ir，电源电动势减去内阻上的压降，是外部电路的电压。"},
+{q:"变压器电压与匝数比：U₁/U₂ = ？",opts:["n₂/n₁","n₁/n₂","I₁/I₂","I₂/I₁"],ans:1,module:"电学",explain:"U₁/U₂ = n₁/n₂，输入电压与匝数成正比，同时 I₁/I₂ = n₂/n₁（能量守恒）。"},
+{q:"电源总功率：P总 = ？",opts:["UI","εI","I²r","U²/R"],ans:1,module:"电学",explain:"P总 = εI，电源电动势乘以电流，等于内阻功率加外电路功率。"},
+{q:"匀强电场（平行板电容器）：E = ？",opts:["U/d","kq/r²","F/q","σ/2ε₀"],ans:0,module:"电学",explain:"E = U/d，U是两板电压，d是板间距，只适用于匀强电场。"},
+{q:"电场力做功：W = ？",opts:["qEd","qU","Fd","qEd = qU"],ans:3,module:"电学",explain:"W = qEd = qU，电荷量乘以电压即为电场力做的功。"},
+
+// ===== 光学/热学/近代物理 (20) =====
+{q:"折射定律（斯涅尔定律）折射率 n = ？",opts:["sinθ₂/sinθ₁","sinθ₁/sinθ₂","v₁/v₂","cosθ₁/cosθ₂"],ans:1,module:"光学",explain:"n = sinθ₁/sinθ₂，θ₁是入射角，θ₂是折射角（光从真空入射）。"},
+{q:"折射率与光速关系：n = ？",opts:["v/c","c/v","λf/c","nv"],ans:1,module:"光学",explain:"n = c/v，c是真空光速（3×10⁸ m/s），v是光在介质中的速度，n>1。"},
+{q:"发生全反射的条件",opts:["sinC = n","sinC = 1/n","sinC = n²","cosC = 1/n"],ans:1,module:"光学",explain:"sinC = 1/n，C是全反射临界角。光从光密到光疏，入射角大于C时发生全反射。"},
+{q:"波速、波长、频率的关系：λ = ？",opts:["vf","v/f","f/v","v+f"],ans:1,module:"光学",explain:"λ = v/f，波长=波速/频率。光的频率由光源决定，进入介质后频率不变，波长变短。"},
+{q:"光子能量（普朗克公式）：E = ？",opts:["hf","hλ","h/f","mc²"],ans:0,module:"近代物理",explain:"E = hf，h=6.63×10⁻³⁴ J·s（普朗克常量），f是光的频率。"},
+{q:"光电效应方程（爱因斯坦）：Eₖ = ？",opts:["hf","hf + W","hf - W","W - hf"],ans:2,module:"近代物理",explain:"Eₖ = hf - W，W是逸出功。光电子的最大初动能等于光子能量减逸出功。"},
+{q:"质能方程：E = ？",opts:["mv²","mc","mc²","½mc²"],ans:2,module:"近代物理",explain:"E = mc²，爱因斯坦质能方程，m是质量，c是光速，核反应质量亏损能量释放由此计算。"},
+{q:"理想气体状态方程：pV/T = ？",opts:["0","1","常量","nR"],ans:2,module:"热学",explain:"pV/T = 常量（即 p₁V₁/T₁ = p₂V₂/T₂），T必须用开尔文温度（K=273+℃）。"},
+{q:"等温变化（玻意耳定律）：p₁V₁ = ？",opts:["p₂V₂","p₂/V₂","p₁V₂","p₂V₁"],ans:0,module:"热学",explain:"T不变时 p₁V₁=p₂V₂，压强与体积成反比。"},
+{q:"等压变化（查理定律）：V₁/T₁ = ？",opts:["T₂/V₂","V₂/T₂","V₂T₂","T₁/T₂"],ans:1,module:"热学",explain:"p不变时 V₁/T₁=V₂/T₂，体积与热力学温度成正比。"},
+{q:"热力学第一定律：ΔU = ？",opts:["W+Q","W-Q","Q/W","QW"],ans:0,module:"热学",explain:"ΔU = W + Q，内能变化等于外界对物体做的功加吸收的热量（注意符号约定）。"},
+{q:"放射性衰变半衰期公式：N = ？",opts:["N₀e^(-t/T)","N₀(½)^(t/T)","N₀/2t","N₀·2^(-T/t)"],ans:1,module:"近代物理",explain:"N = N₀·(½)^(t/T)，T是半衰期，经过t时间后剩余粒子数。"},
+{q:"核反应守恒定律指的是：",opts:["质量守恒","质量数守恒+电荷数守恒","能量守恒","动量守恒"],ans:1,module:"近代物理",explain:"核反应：质量数（核子数）守恒，电荷数（质子数）守恒。注意质量不守恒（有质量亏损）。"},
+{q:"α衰变后：质量数变化 ？/ 质子数变化 ？",opts:["−2 / −4","−4 / −2","−2 / 0","−4 / 0"],ans:1,module:"近代物理",explain:"α粒子是⁴₂He，α衰变：质量数减4，质子数（核电荷数）减2。"},
+{q:"β衰变后：质量数变化 ？/ 质子数变化 ？",opts:["0 / +1","−1 / +1","0 / −1","+1 / +1"],ans:0,module:"近代物理",explain:"β粒子是电子，β衰变：质量数不变，质子数加1（中子转化为质子+电子）。"},
+{q:"双缝干涉条纹间距：Δy = ？",opts:["λL/d","λd/L","dL/λ","λ/d"],ans:0,module:"光学",explain:"Δy = λL/d，λ是波长，L是缝到屏的距离，d是双缝间距。"},
+{q:"康普顿效应说明光具有：",opts:["波动性","粒子性（动量）","衍射性","折射性"],ans:1,module:"近代物理",explain:"康普顿效应（光子与电子碰撞散射）证明光具有粒子性，光子有动量 p=h/λ。"},
+{q:"氢原子基态能量：E₁ = ？",opts:["-3.4 eV","-13.6 eV","-1.51 eV","+13.6 eV"],ans:1,module:"近代物理",explain:"E₁ = -13.6 eV，氢原子基态能量，第n能级 Eₙ=E₁/n²。"},
+{q:"德布罗意物质波波长：λ = ？",opts:["h/p","hp","h/E","p/h"],ans:0,module:"近代物理",explain:"λ = h/p，h是普朗克常量，p=mv是粒子动量。证明实物粒子也具有波动性。"},
+{q:"核反应质量亏损释放能量：ΔE = ？",opts:["Δmc","Δmc²","½Δmc²","Δm/c²"],ans:1,module:"近代物理",explain:"ΔE = Δmc²，质量亏损Δm乘以光速平方，核能巨大的根源。"},
+
+// ===== 力学补充 (10) =====
+{q:"平抛运动水平位移：x = ？",opts:["v₀t","½gt²","v₀²/2g","v₀t+½gt²"],ans:0,module:"力学",explain:"水平方向匀速直线运动：x = v₀t，v₀是抛出初速度，与竖直运动无关。"},
+{q:"平抛运动竖直位移：y = ？",opts:["v₀t","½gt²","gt","v₀t+½gt²"],ans:1,module:"力学",explain:"竖直方向自由落体：y = ½gt²，与初速度无关，初始竖直速度为零。"},
+{q:"平抛运动落地合速度：v = ？",opts:["v₀+gt","√(v₀²+g²t²)","v₀²+gt","√(v₀+gt)"],ans:1,module:"力学",explain:"水平分速度 vₓ=v₀，竖直分速度 vᵧ=gt，合速度 v=√(vₓ²+vᵧ²)=√(v₀²+g²t²)。"},
+{q:"浮力公式：F浮 = ？",opts:["ρ物gV","ρ液gV排","ρ液gV物","mg"],ans:1,module:"力学",explain:"F浮 = ρ液gV排，ρ液是液体密度，V排是排开液体的体积，与物体密度无关。"},
+{q:"液体内部压强：p = ？",opts:["ρgh","ρgV","mg/S","F/S"],ans:0,module:"力学",explain:"p = ρgh，h是从液面到该点的深度，同一深度各方向压强相等。"},
+{q:"开普勒第三定律：T²/a³ = ？",opts:["与行星质量有关","4π²/(GM)","GM/4π²","各行星不同"],ans:1,module:"力学",explain:"T²/a³ = 4π²/(GM)，M是中心天体质量，a是椭圆半长轴，对同一中心天体的所有卫星相同。"},
+{q:"第一宇宙速度约为：",opts:["7.9 km/s","11.2 km/s","16.7 km/s","3×10⁸ m/s"],ans:0,module:"力学",explain:"v₁=√(gR)≈7.9 km/s，贴近地面绕地球做圆周运动的最小速度，也是所有卫星绕地最大速度。"},
+{q:"弹性势能（弹簧）：Eₚ = ？",opts:["kx","½kx","½kx²","kx²"],ans:2,module:"力学",explain:"Eₚ = ½kx²，k是劲度系数，x是形变量。形变量加倍，弹性势能变为4倍。"},
+{q:"线速度与角速度的关系：v = ？",opts:["ω/r","ωr","ω²r","r/ω"],ans:1,module:"力学",explain:"v = ωr，ω是角速度（rad/s），r是轨道半径。由此得向心加速度 a=ω²r=v²/r。"},
+{q:"卫星轨道半径越大，其绕行速度如何变化？",opts:["越大","越小","不变","不确定"],ans:1,module:"力学",explain:"v=√(GM/r)，r越大速度越小。地球同步卫星轨道高约36 000 km，速度约3.07 km/s，远小于第一宇宙速度。"},
+
+// ===== 电学补充 (10) =====
+{q:"交流电有效值与峰值的关系：U = ？",opts:["U₀/2","U₀/√2","√2·U₀","2U₀"],ans:1,module:"电学",explain:"U = U₀/√2 ≈ 0.707U₀，电流同理 I=I₀/√2。电表、铭牌上标的均是有效值。"},
+{q:"交流电的瞬时电压：u = ？（ω为角频率，φ为初相）",opts:["Usinωt","U₀sin(ωt+φ)","U₀cosωt","Usin(ft)"],ans:1,module:"电学",explain:"u = U₀sin(ωt+φ)，ω=2πf，φ是初相位，U₀是峰值。电流类似：i=I₀sin(ωt+φ)。"},
+{q:"磁通量：Φ = ？",opts:["BS","BScosθ","BSsinθ","B/S"],ans:1,module:"电学",explain:"Φ = BScosθ，θ是磁感应强度B与面法线的夹角。B垂直穿面时Φ最大，B平行于面时Φ=0。"},
+{q:"导体切割磁力线的感应电动势（B⊥L⊥v时）：ε = ？",opts:["BLv","BL/v","B/Lv","BLv sinθ"],ans:0,module:"电学",explain:"ε = BLv（B、L、v互相垂直时），L是切割磁力线的有效长度，v是切割速度。"},
+{q:"电感的感抗：X_L = ？",opts:["ωL","1/(ωL)","ωC","1/(ωC)"],ans:0,module:"电学",explain:"X_L = ωL = 2πfL，频率越高感抗越大。电感：通低频阻高频，通直流阻交流。"},
+{q:"电容的容抗：X_C = ？",opts:["ωC","ωL","1/(ωC)","1/(ωL)"],ans:2,module:"电学",explain:"X_C = 1/(ωC) = 1/(2πfC)，频率越高容抗越小。电容：通高频阻低频，通交流阻直流。"},
+{q:"交流电路有功功率：P = ？",opts:["UI","UIcosφ","UIsinφ","I²Z"],ans:1,module:"电学",explain:"P = UIcosφ，cosφ是功率因数，φ是电压与电流的相位差。纯电阻时φ=0，P=UI。"},
+{q:"LC谐振频率：f₀ = ？",opts:["2π√(LC)","1/(2π√(LC))","√(LC)/2π","LC/2π"],ans:1,module:"电学",explain:"f₀=1/(2π√(LC))，谐振时感抗=容抗，阻抗最小（纯阻性），电流最大，用于调谐电路。"},
+{q:"线圈在匀强磁场中匀速旋转的最大感应电动势：ε₀ = ？",opts:["NBA","NBAω","NBAω²","NBA/ω"],ans:1,module:"电学",explain:"ε₀ = NBAω，线圈平面平行于磁场时电动势最大。N匝，B磁感应强度，A线圈面积，ω角速度。"},
+{q:"变压器电流比（忽略损耗）：I₁/I₂ = ？",opts:["n₁/n₂","n₂/n₁","U₁/U₂","P₁/P₂"],ans:1,module:"电学",explain:"I₁/I₂=n₂/n₁，电流之比与匝数比反比。由能量守恒U₁I₁=U₂I₂推出，升压变压器降电流。"},
+
+// ===== 光学补充 (10) =====
+{q:"凸透镜成像公式（薄透镜）：",opts:["1/f=1/u-1/v","1/f=1/u+1/v","f=u+v","1/u=1/f+1/v"],ans:1,module:"光学",explain:"1/f=1/u+1/v，f是焦距，u是物距，v是像距（实距为正，虚距为负）。"},
+{q:"凸透镜：物距 u>2f 时成什么像？",opts:["正立放大虚像","倒立放大实像","倒立缩小实像","正立缩小虚像"],ans:2,module:"光学",explain:"u>2f：倒立缩小实像（照相机）；f<u<2f：倒立放大实像（投影仪）；u<f：正立放大虚像（放大镜）。"},
+{q:"光程差为 nλ（整数倍波长）时，发生：",opts:["相消干涉（暗纹）","相长干涉（亮纹）","衍射","折射"],ans:1,module:"光学",explain:"路程差=nλ时两列波相位相同（同相叠加），相长干涉，光强增强，出现亮纹。"},
+{q:"光程差为 (2n-1)λ/2 时，发生：",opts:["相长干涉（亮纹）","相消干涉（暗纹）","全反射","折射"],ans:1,module:"光学",explain:"路程差为半波长奇数倍时，两列波反相叠加，相消干涉，光强减弱，出现暗纹。"},
+{q:"光发生明显衍射的条件",opts:["缝宽远大于波长","缝宽与波长相当或更小","缝宽等于振幅","波速等于波长"],ans:1,module:"光学",explain:"障碍物或缝隙尺寸≤波长时衍射明显；缝宽远大于波长时，光近似沿直线传播，衍射可忽略。"},
+{q:"光的偏振现象说明光是：",opts:["纵波","横波","机械波","声波"],ans:1,module:"光学",explain:"只有横波才能偏振。光的偏振（只在某个方向振动）证明光是横波（电磁横波）。"},
+{q:"光从光密介质射入光疏介质，速度和折射角如何变化？",opts:["速度变小，折射角变小","速度变大，折射角大于入射角","速度不变，方向改变","速度变大，折射角小于入射角"],ans:1,module:"光学",explain:"光密→光疏：折射率减小，光速增大（v=c/n），且偏离法线方向（折射角>入射角），超过临界角发生全反射。"},
+{q:"白光通过三棱镜，偏折角最大的颜色是：",opts:["红光","黄光","蓝光","紫光"],ans:3,module:"光学",explain:"折射率越大偏折越大。紫光频率最高，在玻璃中折射率最大，偏折最大；红光折射率最小，偏折最小。"},
+{q:"光的干涉需要的两列光是：",opts:["任意两列光","任意同色光","相干光（频率相同、相位差固定）","强度相同的光"],ans:2,module:"光学",explain:"相干光条件：频率相同、振动方向相同、相位差恒定。普通光源需用双缝/薄膜等方法分光。"},
+{q:"水的折射率约为 4/3，水中光速约为：",opts:["3×10⁸ m/s","2.25×10⁸ m/s","1.5×10⁸ m/s","4×10⁸ m/s"],ans:1,module:"光学",explain:"v=c/n=3×10⁸÷(4/3)=2.25×10⁸ m/s。光在任何介质中速度均小于真空光速 c=3×10⁸ m/s。"},
+
+// ===== 热学补充 (10) =====
+{q:"等容变化（盖-吕萨克定律）：p₁/T₁ = ？",opts:["p₂T₂","p₂/T₂","T₂/p₂","p₁/T₂"],ans:1,module:"热学",explain:"V不变时 p₁/T₁=p₂/T₂，压强与热力学温度成正比。温度必须用K（开尔文）。"},
+{q:"热力学温度 T 与摄氏温度 t 的关系",opts:["T=t-273","T=t+273","T=273t","T=t/273"],ans:1,module:"热学",explain:"T(K)=t(℃)+273（精确值273.15 K）。热力学温度是国际基本单位，气体定律必须用K计算。"},
+{q:"热力学第二定律说明：",opts:["能量守恒","热量不能自发从低温传向高温体","做功不消耗能量","气体可自发压缩"],ans:1,module:"热学",explain:"热力学第二定律：热量自发地从高温传向低温（不可逆）。制冷机需外界做功才能将热量从低温传向高温。"},
+{q:"温度是什么的量度？",opts:["分子势能","分子平均动能","物体总内能","分子数目"],ans:1,module:"热学",explain:"温度是分子热运动平均动能的量度，温度越高，分子热运动越剧烈，平均动能越大。对固液气均成立。"},
+{q:"布朗运动证明了什么？",opts:["分子在做无规则运动","花粉颗粒是活的","液体分子在做无规则热运动","气体压强的存在"],ans:2,module:"热学",explain:"花粉颗粒的布朗运动是液体分子撞击造成的，间接证明了液体分子的无规则热运动（不是花粉本身在运动）。"},
+{q:"气体压强的微观本质是：",opts:["气体分子的重力","分子间的排斥力","大量分子撞击器壁的冲击力统计平均","气体自重"],ans:2,module:"热学",explain:"气体压强是大量分子不断撞击容器壁产生的，是统计规律。温度越高、密度越大，压强越大。"},
+{q:"绝热过程（Q=0）中，热力学第一定律简化为：ΔU = ？",opts:["Q","W","0","-W"],ans:1,module:"热学",explain:"ΔU=W+Q，Q=0时 ΔU=W。绝热压缩（外界做功W>0）→内能增大→温度升高；绝热膨胀→温度降低。"},
+{q:"物体的内能包含：",opts:["分子动能","分子势能","分子动能和分子势能之和","宏观动能"],ans:2,module:"热学",explain:"内能=所有分子动能之和+分子势能之和。理想气体分子势能≈0，内能仅与温度有关。"},
+{q:"晶体与非晶体的根本区别是：",opts:["晶体导电，非晶体不导电","晶体有固定熔点，非晶体无固定熔点","晶体密度更大","晶体是固体，非晶体是液体"],ans:1,module:"热学",explain:"晶体（冰、金属）有固定熔点；非晶体（玻璃、沥青、蜡）在一定温度范围内逐渐软化，无固定熔点。"},
+{q:"阿伏加德罗常数 Nₐ ≈ ？",opts:["6.02×10²³ mol⁻¹","6.02×10²⁶ mol⁻¹","3.01×10²³ mol⁻¹","6.02×10²⁰ mol⁻¹"],ans:0,module:"热学",explain:"Nₐ≈6.02×10²³ mol⁻¹，是1 mol物质中的粒子数。用于连接摩尔质量（宏观）和单个分子质量（微观）。"},
+
+// ===== 近代物理补充 (10) =====
+{q:"γ衰变后：质量数和质子数如何变化？",opts:["质量数-4，质子数-2","质量数不变，质子数不变","质量数不变，质子数+1","质量数+1，质子数不变"],ans:1,module:"近代物理",explain:"γ射线是高频电磁波（光子），γ衰变只释放能量，不改变质量数也不改变质子数（核电荷数）。"},
+{q:"光电效应截止频率 f₀ = ？",opts:["W/h","h/W","hW","W·c"],ans:0,module:"近代物理",explain:"f₀=W/h，W是逸出功，h是普朗克常量。只有 f≥f₀ 才能发生光电效应，与光强无关。"},
+{q:"氢原子第 n 能级能量：Eₙ = ？",opts:["nE₁","E₁/n","E₁/n²","n²E₁"],ans:2,module:"近代物理",explain:"Eₙ=E₁/n²，E₁=-13.6 eV。n越大能级越高越接近0，电子从高能级跃迁到低能级释放光子。"},
+{q:"氢原子电子从第 m 级跃迁到第 n 级（m>n）释放的光子能量：",opts:["Eₘ+Eₙ","Eₘ-Eₙ","Eₙ-Eₘ","h/f"],ans:1,module:"近代物理",explain:"hf=Eₘ-Eₙ（m>n，Eₘ>Eₙ），从高能级→低能级释放光子。反之吸收光子从低能级→高能级。"},
+{q:"三种射线穿透力从弱到强：",opts:["α<β<γ","γ<β<α","β<α<γ","α<γ<β"],ans:0,module:"近代物理",explain:"穿透力：α最弱（纸挡），β次之（铝板挡），γ最强（需厚铅板）。电离能力正好相反：α最强。"},
+{q:"原子核的中子数 N = ？",opts:["质量数×质子数","质量数+质子数","质量数-质子数","质子数-电子数"],ans:2,module:"近代物理",explain:"中子数=质量数(A)-质子数(Z)。如²³⁸₉₂U：质量数238，质子数92，中子数=238-92=146。"},
+{q:"核裂变和核聚变的区别",opts:["裂变是重核分裂释放能量，聚变是轻核合并释放能量","裂变吸收能量，聚变释放能量","裂变是轻核分裂，聚变是重核合并","两者均不释放能量"],ans:0,module:"近代物理",explain:"裂变：重核（如²³⁵U）分裂→中等核（核电站、原子弹）；聚变：轻核（氘氚）合并（太阳、氢弹）。两者均释放巨大能量。"},
+{q:"光子的动量：p = ？",opts:["hf","h/λ","hλ","E/c²"],ans:1,module:"近代物理",explain:"p=h/λ，也可写成 p=E/c（由 E=hf=hc/λ 推导）。康普顿效应证明光子具有动量。"},
+{q:"放射性物质的半衰期与外部条件（温度、压强、化学状态）的关系：",opts:["温度越高半衰期越短","压强越大半衰期越短","与外部条件无关，只由核本身决定","化学反应可改变半衰期"],ans:2,module:"近代物理",explain:"半衰期是放射性元素的固有属性，不受任何外部物理或化学条件影响，是核物理的重要特征。"},
+{q:"核力（强相互作用）的特点",opts:["长程力，无限范围","短程力，约在10⁻¹⁵m内有效","与库仑力同种类","与质子数平方成反比"],ans:1,module:"近代物理",explain:"核力是短程力（约1 fm=10⁻¹⁵m），在此范围内远大于库仑斥力，能将核子束缚在原子核内。"}
+];
+
+var mode='seq';
+var filterModule='全部';
+var deck=[];
+var qIdx=0;
+var correct=0;
+var wrong=0;
+var streak=0;
+var answered=false;
+var modStats={};
+
+function setMode(m){
+  mode=m;
+  document.getElementById('mode-seq').classList.toggle('active',m==='seq');
+  document.getElementById('mode-rand').classList.toggle('active',m==='rand');
+  document.getElementById('filter-row').style.display=(m==='rand'?'flex':'none');
+  startGame();
+}
+
+function setFilter(f,btn){
+  filterModule=f;
+  document.querySelectorAll('.filter-btn').forEach(function(b){b.classList.remove('active');});
+  btn.classList.add('active');
+  startGame();
+}
+
+function buildDeck(){
+  var pool=QB.slice();
+  if(mode==='rand' && filterModule!=='全部'){
+    pool=pool.filter(function(q){return q.module===filterModule;});
+  }
+  // shuffle
+  for(var i=pool.length-1;i>0;i--){
+    var j=Math.floor(Math.random()*(i+1));
+    var tmp=pool[i];pool[i]=pool[j];pool[j]=tmp;
+  }
+  deck=mode==='seq'?pool.slice(0,20):pool;
+}
+
+function startGame(){
+  correct=0;wrong=0;streak=0;qIdx=0;answered=false;
+  modStats={};
+  buildDeck();
+  document.getElementById('result-panel').style.display='none';
+  document.getElementById('q-card').style.display='block';
+  updateScore();
+  showQuestion();
+}
+
+function updateScore(){
+  document.getElementById('score-correct').textContent=correct;
+  document.getElementById('score-wrong').textContent=wrong;
+  document.getElementById('score-streak').textContent=streak;
+  document.getElementById('score-total').textContent=qIdx;
+  var total=deck.length;
+  var pct=total>0?Math.round(qIdx/total*100):0;
+  document.getElementById('prog-label').textContent='第 '+(qIdx+1)+' / '+total+' 题';
+  document.getElementById('prog-pct').textContent=pct+'%';
+  document.getElementById('prog-bar').style.width=pct+'%';
+}
+
+function showQuestion(){
+  if(qIdx>=deck.length){showResult();return;}
+  answered=false;
+  var q=deck[qIdx];
+  document.getElementById('q-num').textContent='第 '+(qIdx+1)+' 题';
+  document.getElementById('q-module').textContent=q.module;
+  document.getElementById('q-text').textContent=q.q;
+  document.getElementById('explain-box').textContent='';
+  document.getElementById('explain-box').className='explain-box';
+  document.getElementById('next-btn').className='next-btn';
+
+  var optsEl=document.getElementById('opts');
+  optsEl.innerHTML='';
+  q.opts.forEach(function(opt,i){
+    var btn=document.createElement('button');
+    btn.className='opt-btn';
+    btn.textContent=String.fromCharCode(65+i)+'. '+opt;
+    btn.onclick=function(){checkAnswer(i,btn,q);};
+    optsEl.appendChild(btn);
+  });
+  updateScore();
+}
+
+function checkAnswer(i,btn,q){
+  if(answered) return;
+  answered=true;
+  var all=document.querySelectorAll('.opt-btn');
+  all.forEach(function(b){b.disabled=true;});
+
+  if(!modStats[q.module]) modStats[q.module]={c:0,t:0};
+  modStats[q.module].t++;
+
+  if(i===q.ans){
+    btn.classList.add('correct');
+    correct++;streak++;
+    modStats[q.module].c++;
+  } else {
+    btn.classList.add('wrong');
+    all[q.ans].classList.add('correct');
+    wrong++;streak=0;
+  }
+  document.getElementById('score-correct').textContent=correct;
+  document.getElementById('score-wrong').textContent=wrong;
+  document.getElementById('score-streak').textContent=streak;
+
+  var exp=document.getElementById('explain-box');
+  exp.textContent='解析：'+q.explain;
+  exp.className='explain-box show';
+
+  document.getElementById('next-btn').className='next-btn show';
+}
+
+function nextQuestion(){
+  qIdx++;
+  showQuestion();
+}
+
+function showResult(){
+  document.getElementById('q-card').style.display='none';
+  var panel=document.getElementById('result-panel');
+  panel.style.display='block';
+  var total=correct+wrong;
+  var pct=total>0?Math.round(correct/total*100):0;
+  document.getElementById('result-score').textContent=correct+' / '+total+' = '+pct+'%';
+
+  var weakMod='';var weakRate=101;
+  var statsHtml='';
+  Object.keys(modStats).forEach(function(mod){
+    var s=modStats[mod];
+    var rate=s.t>0?Math.round(s.c/s.t*100):0;
+    var cls=rate>=80?'high':rate>=60?'mid':'low';
+    if(rate<weakRate){weakRate=rate;weakMod=mod;}
+    statsHtml+='<div class="mod-row"><span class="mod-name">'+mod+'</span><span class="mod-acc '+cls+'">'+s.c+'/'+s.t+' ('+rate+'%)</span></div>';
+  });
+  document.getElementById('module-stats').innerHTML=statsHtml;
+  document.getElementById('weak-module').textContent=weakMod?' ⚠ '+weakMod+'（正确率 '+weakRate+'%）':'暂无数据';
+}
+
+function reviewWeak(){
+  var weakMod='';var weakRate=101;
+  Object.keys(modStats).forEach(function(mod){
+    var s=modStats[mod];
+    var rate=s.t>0?Math.round(s.c/s.t*100):0;
+    if(rate<weakRate){weakRate=rate;weakMod=mod;}
+  });
+  if(weakMod){
+    mode='rand';
+    filterModule=weakMod;
+    document.getElementById('mode-seq').classList.remove('active');
+    document.getElementById('mode-rand').classList.add('active');
+    document.getElementById('filter-row').style.display='flex';
+    document.querySelectorAll('.filter-btn').forEach(function(b){
+      b.classList.toggle('active',b.textContent===weakMod||b.textContent.indexOf(weakMod)>=0);
+    });
+  }
+  startGame();
+}
+
+startGame();
+</script>
+
+<style>
+.rtf{background:#f8fafc;border-top:2px solid #e2e8f0;padding:20px 16px 28px;margin-top:32px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.rtf-hd{font-size:.72rem;font-weight:700;color:#64748b;letter-spacing:1.5px;text-transform:uppercase;text-align:center;margin-bottom:14px}
+.rtf-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px;max-width:860px;margin:0 auto 14px}
+.rtf-ch{font-size:.68rem;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px}
+.rtf-links{display:flex;flex-direction:column;gap:3px}
+.rtf-links a{font-size:.8rem;color:#2563eb;text-decoration:none;line-height:1.4}
+.rtf-links a:hover{text-decoration:underline}
+.rtf-links a.rtf-cur{color:#cbd5e0;pointer-events:none;cursor:default;font-weight:600}
+.rtf-home{display:block;text-align:center;font-size:.8rem;color:#64748b;text-decoration:none;margin-top:4px}
+.rtf-home:hover{color:#1e40af}
+</style>
+<div class="rtf">
+  <div class="rtf-hd">🔗 高考工具合集 · 快速跳转</div>
+  <div class="rtf-grid">
+<div><div class="rtf-ch">📖 阅读 · 完形真题</div><div class="rtf-links"><a href="english-reading.html">高考阅读理解真题 (441题)</a>
+<a href="english-cloze.html">高考完形填空真题 (1276题)</a>
+<a href="cloze-practice.html">完形填空专练</a>
+<a href="cloze-logic-tracker.html">逻辑链追踪器</a>
+</div></div>
+<div><div class="rtf-ch">🔠 词汇</div><div class="rtf-links"><a href="vocab-match.html">连连看闯关</a>
+<a href="vocab-3500.html">3500词 · 词根版</a>
+<a href="vocab-3500-stories.html">3500词 · 故事版</a>
+<a href="850-english-practice.html">850核心词表达</a>
+</div></div>
+<div><div class="rtf-ch">📐 语法</div><div class="rtf-links"><a href="grammar-master.html">语法神器 · 闯关版</a>
+<a href="grammar-mcq.html">语法填空选择题</a>
+<a href="grammar-cloze.html">语法填空手填版</a>
+<a href="grammar-breakdown.html">长难句拆解器</a>
+<a href="gaokao-grammar.html">高考语法通</a>
+</div></div>
+<div><div class="rtf-ch">✍️ 写作</div><div class="rtf-links"><a href="gaokao-writing.html">写作神器</a>
+<a href="gaokao-golden.html">金句闪卡 · 50句</a>
+<a href="gaokao-english-templates.html">万能句背诵库</a>
+</div></div>
+<div><div class="rtf-ch">🔢 数学 · 物理</div><div class="rtf-links"><a href="math-formula-cards.html">数学公式闪卡</a>
+<a class="rtf-cur" href="physics-challenge.html">物理公式闯关 60题 ✦</a>
+</div></div>
+<div><div class="rtf-ch">🧬 生物</div><div class="rtf-links">
+<a href="shengwu/index.html">生物选择题真题 (380套)</a>
+<a href="shengwu/duiduipeng.html">生物填空对对碰</a>
+<a href="shengwu/zhishi.html">生物考点速查</a>
+</div></div>
+<div><div class="rtf-ch">📚 语文 · 物理 · 化学</div><div class="rtf-links">
+<a href="yuwen/zhishi.html">语文考点速查</a>
+<a href="wuli/zhishi.html">物理考点速查</a>
+<a href="huaxue/zhishi.html">化学考点速查</a>
+</div></div>
+  </div>
+  <a class="rtf-home" href="index.html">← 高考工具箱 · 全部工具</a>
+</div>
+</body>
+</html>

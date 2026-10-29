@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>高考生物大题填空·对对碰 | 2007-2023全国+各省</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#f5f5f0;--paper:#fff;--ink:#1a1a1a;--muted:#666;--border:#ccc;--accent:#c00;--green:#28a745;--red:#dc3545}
+body{font-family:"SimSun","宋体",serif;background:var(--bg);color:var(--ink);min-height:100vh}
+.top-bar{background:#1a1a1a;color:#fff;padding:10px 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.top-bar h1{font-size:1rem;font-weight:normal;flex:1}
+.top-bar a{color:#ffd;text-decoration:none;font-size:.85rem}
+.controls{background:#fff;border-bottom:2px solid var(--border);padding:10px 16px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+select,button{font-family:inherit;font-size:.9rem;padding:5px 10px;border:1px solid var(--border);border-radius:3px;cursor:pointer}
+button.primary{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:bold}
+button.primary:hover{background:#900}
+.score-bar{font-size:.9rem;color:var(--muted);margin-left:auto;font-family:sans-serif}
+
+.game-wrap{max-width:980px;margin:0 auto;padding:20px 12px 80px}
+.q-header{font-size:.85rem;color:#888;font-family:sans-serif;margin-bottom:10px;border-left:3px solid var(--accent);padding-left:8px}
+.q-imgs{margin:10px 0 14px;display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.q-imgs img{max-width:100%;max-height:320px;border:1px solid #ddd;border-radius:4px;background:#fff}
+.game-area{display:grid;grid-template-columns:1fr 220px;gap:20px;align-items:start}
+@media(max-width:640px){.game-area{grid-template-columns:1fr}}
+
+/* Question panel */
+.question-panel{background:var(--paper);border:1px solid var(--border);border-radius:4px;padding:16px 18px}
+.subq-row{margin-bottom:14px;font-size:.97rem;line-height:2.1}
+.subq-row:last-child{margin-bottom:0}
+
+.slot{display:inline-block;min-width:52px;padding:1px 8px;border:2px dashed var(--border);border-radius:3px;
+  text-align:center;cursor:pointer;color:var(--accent);font-weight:bold;font-family:sans-serif;
+  font-size:.88rem;line-height:1.6;vertical-align:middle;margin:0 2px;transition:border-color .15s,background .15s}
+.slot:hover:not(.filled):not(.active){border-color:#f0a500;background:#fffbe8}
+.slot.active{border-color:#f0a500;background:#fff3cd;border-style:solid}
+.slot.correct{border-color:var(--green);background:#d4edda;color:var(--green);border-style:solid;cursor:default}
+.slot.wrong{animation:shake .3s ease;border-color:var(--red)}
+.slot.filled{cursor:default}
+
+/* Answer tiles */
+.answer-panel{display:flex;flex-direction:column;gap:8px}
+.ans-tile{background:var(--paper);border:2px solid var(--border);border-radius:4px;padding:10px 12px;
+  cursor:pointer;text-align:center;font-size:.95rem;word-break:break-all;transition:border-color .15s,background .15s}
+.ans-tile:hover:not(.used){border-color:var(--accent);background:#fff5f5}
+.ans-tile.selected{background:#fff3cd;border-color:#f0a500}
+.ans-tile.correct{background:#d4edda;border-color:var(--green);color:var(--green);font-weight:bold;cursor:default;opacity:.6}
+.ans-tile.wrong{animation:shake .3s ease}
+.ans-tile.used{opacity:.35;cursor:default}
+
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+
+/* Result & reveal */
+.reveal-box{margin-top:20px;background:var(--paper);border:2px solid var(--green);border-radius:4px;padding:16px 18px;display:none}
+.reveal-box.show{display:block}
+.reveal-box h3{font-size:1rem;color:var(--green);margin-bottom:12px;font-family:sans-serif}
+.reveal-subq{margin-bottom:10px;font-size:.93rem;line-height:2;color:#333}
+.filled-ans{color:var(--green);font-weight:bold;border-bottom:2px solid var(--green);padding:0 3px}
+.reveal-actions{margin-top:16px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.reveal-actions .primary{font-size:.9rem}
+
+.progress-hint{font-size:.85rem;color:var(--muted);font-family:sans-serif;text-align:center;margin-top:14px}
+.empty-msg{text-align:center;padding:60px 20px;color:var(--muted);font-size:1rem}
+.hint-tip{margin-top:14px;font-size:.82rem;color:#aaa;text-align:center;font-family:sans-serif}
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <h1>高考生物 · 大题填空对对碰</h1>
+  <a href="index.html">选择题刷题</a>
+  <a href="zhishi.html">知识点手册</a>
+  <a href="../index.html">↑ 工具列表</a>
+</div>
+
+<div class="controls">
+  <select id="srcSel" onchange="loadSource()">
+    <option value="national">全国卷 + 新高考</option>
+    <option value="provinces">各省卷</option>
+  </select>
+  <select id="yearSel" onchange="filterAndNext()">
+    <option value="">全部年份</option>
+  </select>
+  <button class="primary" onclick="nextQuestion()">🔀 换一题</button>
+  <div class="score-bar" id="scoreBar">加载中…</div>
+</div>
+
+<div class="game-wrap" id="gameWrap">
+  <div class="empty-msg">正在加载…</div>
+</div>
+
+<script>
+let allData = [], pool = [], currentQ = null;
+let allBlanks = [];   // [{globalIdx, answer, filled}]
+let activeSlot = null;  // globalIdx of selected slot, or null
+let activeAns  = null;  // globalIdx of selected tile, or null
+let matched = 0;
+let totalRight = 0, totalWrong = 0, totalDone = 0;
+
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+// ─── Data loading ─────────────────────────────────────────────────────────────
+function loadSource(){
+  const src = document.getElementById('srcSel').value;
+  const old = document.getElementById('dataScript');
+  if(old) old.remove();
+  const s = document.createElement('script');
+  s.id = 'dataScript';
+  s.src = src === 'national' ? 'data_ddc_national.js' : 'data_ddc_provinces.js';
+  s.onload = () => {
+    allData = src === 'national' ? DDC_NATIONAL : DDC_PROVINCES;
+    buildYearFilter();
+    filterAndNext();
+  };
+  document.head.appendChild(s);
+}
+
+function buildYearFilter(){
+  const years = [...new Set(allData.map(q=>q.year))].filter(Boolean).sort((a,b)=>b-a);
+  const sel = document.getElementById('yearSel');
+  sel.innerHTML = '<option value="">全部年份</option>' +
+    years.map(y=>`<option value="${y}">${y}年</option>`).join('');
+}
+
+function filterAndNext(){
+  const year = document.getElementById('yearSel').value;
+  pool = allData.filter(q => !year || String(q.year) === year);
+  nextQuestion();
+}
+
+// ─── Game logic ───────────────────────────────────────────────────────────────
+function nextQuestion(){
+  if(!pool.length){
+    document.getElementById('gameWrap').innerHTML =
+      '<div class="empty-msg">没有符合条件的题目</div>';
+    return;
+  }
+  currentQ = pool[Math.floor(Math.random() * pool.length)];
+  allBlanks = [];
+  activeSlot = null;
+  activeAns  = null;
+  matched = 0;
+  totalDone++;
+
+  // Build flat blank list with global indices
+  let gi = 0;
+  currentQ.subqs.forEach((sq, si) => {
+    sq.blanks.forEach((ans, bi) => {
+      allBlanks.push({globalIdx: gi, si, bi, answer: ans, filled: false});
+      gi++;
+    });
+  });
+
+  render();
+}
+
+function render(){
+  const q = currentQ;
+  updateScore();
+
+  // Build question HTML
+  let gi = 0;
+  let qHTML = '';
+  q.subqs.forEach(sq => {
+    let text = esc(sq.text);
+    // Replace each ___ with a numbered clickable slot
+    text = text.replace(/___/g, () => {
+      const idx = gi++;
+      return `<span class="slot" id="slot_${idx}" data-idx="${idx}" onclick="clickSlot(${idx})">[${idx+1}]</span>`;
+    });
+    qHTML += `<div class="subq-row">${text}</div>`;
+  });
+
+  // Shuffle answer tiles
+  const shuffled = [...allBlanks].sort(() => Math.random() - 0.5);
+  const tilesHTML = shuffled.map(b =>
+    `<div class="ans-tile" id="tile_${b.globalIdx}" data-idx="${b.globalIdx}" onclick="clickTile(${b.globalIdx})">
+      ${esc(b.answer)}
+    </div>`
+  ).join('');
+
+  const imgsHTML = (q.imgs && q.imgs.length)
+    ? `<div class="q-imgs">${q.imgs.map(fn=>`<img src="bio_imgs/${fn}" alt="题目图" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('span'),{textContent:'🖼 图示未随开源包提供',style:'font-size:12px;color:#888'}))">`).join('')}</div>`
+    : '';
+
+  document.getElementById('gameWrap').innerHTML = `
+    <div class="q-header">📌 ${esc(q.source)} · 共 ${allBlanks.length} 个填空</div>
+    ${imgsHTML}
+    <div class="game-area">
+      <div class="question-panel" id="questionPanel">${qHTML}</div>
+      <div class="answer-panel" id="answerPanel">${tilesHTML}</div>
+    </div>
+    <div class="reveal-box" id="revealBox">
+      <h3>✅ 全部填对！完整答案如下：</h3>
+      <div id="fullAnswer"></div>
+      <div class="reveal-actions">
+        <button class="primary" onclick="nextQuestion()">下一题 →</button>
+        <span style="font-size:.85rem;color:#888;font-family:sans-serif">正确 ${totalRight} / 错误 ${totalWrong}</span>
+      </div>
+    </div>
+    <div class="hint-tip">提示：点击题干中的 [1][2]… 选中位置，再点右侧答案配对；或先点答案再点位置</div>
+  `;
+}
+
+function clickSlot(idx){
+  const el = document.getElementById('slot_'+idx);
+  if(!el || allBlanks[idx].filled) return;
+
+  if(activeAns !== null){
+    // Answer already selected — try to match
+    tryMatch(idx, activeAns);
+    return;
+  }
+
+  // Toggle slot selection
+  if(activeSlot === idx){
+    el.classList.remove('active');
+    activeSlot = null;
+    return;
+  }
+  if(activeSlot !== null) document.getElementById('slot_'+activeSlot)?.classList.remove('active');
+  activeSlot = idx;
+  el.classList.add('active');
+}
+
+function clickTile(idx){
+  const el = document.getElementById('tile_'+idx);
+  if(!el || el.classList.contains('correct') || el.classList.contains('used')) return;
+
+  if(activeSlot !== null){
+    // Slot already selected — try to match
+    tryMatch(activeSlot, idx);
+    return;
+  }
+
+  // Toggle tile selection
+  document.querySelectorAll('.ans-tile.selected').forEach(t => t.classList.remove('selected'));
+  if(activeAns === idx){ activeAns = null; return; }
+  activeAns = idx;
+  el.classList.add('selected');
+}
+
+function tryMatch(slotIdx, tileIdx){
+  const slot = document.getElementById('slot_'+slotIdx);
+  const tile = document.getElementById('tile_'+tileIdx);
+
+  // Correct answer for this slot is allBlanks[slotIdx].answer
+  // Correct tile for this slot has globalIdx === slotIdx
+  const correct = (tileIdx === slotIdx);
+
+  if(correct){
+    matched++;
+    totalRight++;
+    allBlanks[slotIdx].filled = true;
+    const ans = allBlanks[slotIdx].answer;
+
+    slot.textContent = ans;
+    slot.className = 'slot correct filled';
+    tile.className = 'ans-tile correct used';
+  } else {
+    totalWrong++;
+    slot.classList.add('wrong');
+    tile.classList.add('wrong');
+    setTimeout(() => {
+      slot.classList.remove('wrong','active');
+      tile.classList.remove('wrong','selected');
+    }, 400);
+  }
+
+  activeSlot = null;
+  activeAns  = null;
+  updateScore();
+
+  if(matched === allBlanks.length) setTimeout(showReveal, 500);
+}
+
+function showReveal(){
+  const q = currentQ;
+  let html = '';
+  let gi = 0;
+  q.subqs.forEach(sq => {
+    let text = esc(sq.text);
+    sq.blanks.forEach(ans => {
+      text = text.replace('___', `<span class="filled-ans">${esc(ans)}</span>`);
+    });
+    html += `<div class="reveal-subq">${text}</div>`;
+  });
+  document.getElementById('fullAnswer').innerHTML = html;
+  document.getElementById('revealBox').classList.add('show');
+}
+
+function updateScore(){
+  document.getElementById('scoreBar').innerHTML =
+    `第 ${totalDone} 题 &nbsp;·&nbsp; ✅ ${totalRight} 正确 ❌ ${totalWrong} 错误`;
+  if(currentQ && allBlanks.length){
+    const pct = Math.round(matched / allBlanks.length * 100);
+    document.title = `[${matched}/${allBlanks.length}] 对对碰 · 高考生物大题`;
+  }
+}
+
+// Init
+loadSource();
+</script>
+<style>
+.rtf{background:#f8fafc;border-top:2px solid #e2e8f0;padding:20px 16px 28px;margin-top:32px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.rtf-hd{font-size:.72rem;font-weight:700;color:#64748b;letter-spacing:1.5px;text-transform:uppercase;text-align:center;margin-bottom:14px}
+.rtf-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px;max-width:860px;margin:0 auto 14px}
+.rtf-ch{font-size:.68rem;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px}
+.rtf-links{display:flex;flex-direction:column;gap:3px}
+.rtf-links a{font-size:.8rem;color:#2563eb;text-decoration:none;line-height:1.4}
+.rtf-links a:hover{text-decoration:underline}
+.rtf-links a.rtf-cur{color:#cbd5e0;pointer-events:none;cursor:default;font-weight:600}
+.rtf-home{display:block;text-align:center;font-size:.8rem;color:#64748b;text-decoration:none;margin-top:4px}
+.rtf-home:hover{color:#1e40af}
+</style>
+<div class="rtf">
+  <div class="rtf-hd">🔗 高考工具合集 · 快速跳转</div>
+  <div class="rtf-grid">
+<div><div class="rtf-ch">📖 英语阅读 · 完形</div><div class="rtf-links">
+<a href="../english-reading.html">阅读理解真题 (444题)</a>
+<a href="../english-cloze.html">完形填空真题 (1276题)</a>
+<a href="../cloze-practice.html">完形填空专练</a>
+<a href="../cloze-logic-tracker.html">逻辑链追踪器</a>
+</div></div>
+<div><div class="rtf-ch">🔠 词汇</div><div class="rtf-links">
+<a href="../vocab-match.html">连连看闯关</a>
+<a href="../vocab-3500.html">3500词 · 词根版</a>
+<a href="../vocab-3500-stories.html">3500词 · 故事版</a>
+<a href="../850-english-practice.html">850核心词表达</a>
+</div></div>
+<div><div class="rtf-ch">📐 语法</div><div class="rtf-links">
+<a href="../grammar-master.html">语法神器 · 闯关版</a>
+<a href="../grammar-mcq.html">语法填空选择题</a>
+<a href="../grammar-cloze.html">语法填空手填版</a>
+<a href="../grammar-breakdown.html">长难句拆解器</a>
+<a href="../gaokao-grammar.html">高考语法通</a>
+</div></div>
+<div><div class="rtf-ch">✍️ 写作</div><div class="rtf-links">
+<a href="../gaokao-writing.html">写作神器</a>
+<a href="../gaokao-golden.html">金句闪卡 · 50句</a>
+<a href="../gaokao-english-templates.html">万能句背诵库</a>
+</div></div>
+<div><div class="rtf-ch">🔢 数学 · 物理公式</div><div class="rtf-links">
+<a href="../math-formula-cards.html">数学公式闪卡 (78张)</a>
+<a href="../physics-challenge.html">物理公式闯关 (60题)</a>
+</div></div>
+<div><div class="rtf-ch">🧬 生物</div><div class="rtf-links">
+<a href="../shengwu/index.html">生物选择题真题 (380套)</a>
+<a class="rtf-cur" href="../shengwu/duiduipeng.html">生物填空对对碰</a>
+<a href="../shengwu/zhishi.html">生物考点速查</a>
+</div></div>
+<div><div class="rtf-ch">📚 语文 · 物理 · 化学</div><div class="rtf-links">
+<a href="../yuwen/zhishi.html">语文考点速查</a>
+<a href="../wuli/zhishi.html">物理考点速查</a>
+<a href="../huaxue/zhishi.html">化学考点速查</a>
+</div></div>
+  </div>
+  <a class="rtf-home" href="../index.html">← 高考工具箱 · 全部工具</a>
+</div>
+</body>
+</html>

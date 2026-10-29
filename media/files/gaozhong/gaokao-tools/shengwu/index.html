@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>高考生物真题选择题刷题 · 全国卷+各省 2001-2023</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#f5f5f0;--paper:#fff;--ink:#1a1a1a;--muted:#666;--border:#ccc;--accent:#c00;--opt-bg:#f9f9f9;--opt-hover:#fff3f3;--correct:#d4edda;--wrong:#f8d7da;--tag:#e8e8e8}
+body{font-family:"SimSun","宋体",serif;background:var(--bg);color:var(--ink);font-size:16px;line-height:1.8}
+.top-bar{background:#1a1a1a;color:#fff;padding:10px 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.top-bar h1{font-size:1rem;font-weight:normal;flex:1}
+.top-bar a{color:#ffd;text-decoration:none;font-size:.85rem}
+.controls{background:#fff;border-bottom:2px solid var(--border);padding:12px 16px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+select,button{font-family:inherit;font-size:.9rem;padding:5px 10px;border:1px solid var(--border);border-radius:3px;cursor:pointer}
+button.primary{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:bold}
+button.primary:hover{background:#900}
+.stats{font-size:.85rem;color:var(--muted);margin-left:auto}
+.progress-bar{height:4px;background:#eee;border-bottom:1px solid var(--border)}
+.progress-fill{height:4px;background:var(--accent);transition:width .3s}
+.paper{max-width:860px;margin:0 auto;padding:20px 16px 80px}
+.exam-header{text-align:center;margin-bottom:20px;border-bottom:2px solid var(--ink);padding-bottom:12px}
+.exam-header h2{font-size:1.2rem;font-weight:bold;margin-bottom:4px}
+.exam-header p{font-size:.9rem;color:var(--muted)}
+.section-title{font-weight:bold;margin:20px 0 16px;font-size:1rem;border-left:4px solid var(--accent);padding-left:10px}
+.question{margin-bottom:28px;padding:16px;background:var(--paper);border:1px solid var(--border);border-radius:2px}
+.question.answered{border-color:#aaa}
+.q-stem{margin-bottom:12px;font-size:1rem;line-height:1.9}
+.q-stem img{max-width:100%;display:block;margin:8px auto;border:1px solid #ddd}
+.q-opts{display:grid;grid-template-columns:1fr 1fr;gap:6px 16px}
+@media(max-width:500px){.q-opts{grid-template-columns:1fr}}
+.opt{display:flex;align-items:flex-start;gap:6px;padding:6px 8px;border:1px solid transparent;border-radius:2px;cursor:pointer;background:var(--opt-bg);transition:background .15s;font-size:.95rem;line-height:1.7}
+.opt:hover{background:var(--opt-hover);border-color:#f99}
+.opt.correct{background:var(--correct);border-color:#28a745}
+.opt.wrong{background:var(--wrong);border-color:#dc3545}
+.opt.revealed-correct{background:var(--correct);border-color:#28a745}
+.opt-key{font-weight:bold;min-width:20px}
+.opt img{max-width:100%;display:block;margin:4px 0}
+.q-answer{margin-top:10px;display:none;font-size:.9rem;border-top:1px dashed #ccc;padding-top:8px}
+.q-answer.show{display:block}
+.source-line{font-size:.82rem;color:#888;margin-bottom:5px;font-family:sans-serif}
+.ans-line{font-weight:bold;color:var(--accent);margin-bottom:6px}
+.explanation{color:#444;font-size:.88rem;line-height:1.7;max-height:200px;overflow-y:auto}
+.reveal-btn{margin-top:8px;font-size:.85rem;padding:4px 10px;background:#fff;border:1px solid #ccc;border-radius:2px;cursor:pointer;color:#555}
+.reveal-btn:hover{background:#f5f5f5}
+.tag{display:inline-block;background:var(--tag);font-size:.75rem;padding:1px 6px;border-radius:2px;margin-left:6px;color:#555;font-family:sans-serif;vertical-align:middle}
+.empty{text-align:center;padding:60px 20px;color:var(--muted);font-size:1rem}
+.pagination{display:flex;gap:8px;justify-content:center;margin-top:20px;flex-wrap:wrap}
+.pagination button{min-width:36px}
+.pagination button.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+button.wrong-btn{background:#fff3cd;border-color:#f0a500;color:#7d5900;font-weight:bold}
+button.wrong-btn:hover{background:#ffe082}
+button.wrong-btn.active{background:#f0a500;color:#fff;border-color:#c87800}
+.mastered-btn{margin-top:8px;font-size:.82rem;padding:3px 10px;background:#e8f5e9;border:1px solid #a5d6a7;border-radius:2px;cursor:pointer;color:#2e7d32}
+.mastered-btn:hover{background:#c8e6c9}
+.wrong-banner{background:#fff3cd;border-bottom:2px solid #f0a500;padding:8px 16px;font-size:.88rem;color:#7d5900;font-family:sans-serif;display:flex;align-items:center;gap:12px}
+.wrong-banner button{font-size:.82rem;padding:3px 10px}
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <h1>高考生物真题选择题</h1>
+  <a href="duiduipeng.html">填空对对碰</a>
+  <a href="zhishi.html">知识点手册</a>
+  <a href="../index.html">↑ 工具列表</a>
+</div>
+
+<div class="controls">
+  <select id="srcSel" onchange="loadSource()">
+    <option value="national">全国卷 + 新高考</option>
+    <option value="provinces">各省卷</option>
+  </select>
+  <select id="topicSel" onchange="applyFilter()">
+    <option value="">全部知识点</option>
+    <option value="细胞">细胞生物学</option>
+    <option value="分子生物">分子生物学</option>
+    <option value="代谢">新陈代谢</option>
+    <option value="遗传">遗传与变异</option>
+    <option value="稳态调节">稳态与调节</option>
+    <option value="生态">生态学</option>
+    <option value="进化">进化论</option>
+    <option value="生命活动">植物生命活动</option>
+  </select>
+  <select id="yearSel" onchange="applyFilter()">
+    <option value="">全部年份</option>
+  </select>
+  <select id="imgSel" onchange="applyFilter()">
+    <option value="">全部题目</option>
+    <option value="1">含图题</option>
+    <option value="0">纯文字题</option>
+  </select>
+  <button class="primary" onclick="shuffleAndReset()">🔀 随机刷题</button>
+  <button class="wrong-btn" id="wrongBtn" onclick="toggleWrongMode()">📕 错题本</button>
+  <div class="stats" id="stats">加载中…</div>
+</div>
+<div class="wrong-banner" id="wrongBanner" style="display:none">
+  📕 错题本模式 — 共 <span id="wrongCount">0</span> 题做错过
+  <button onclick="clearWrongs()">清空错题本</button>
+  <button onclick="toggleWrongMode()">退出错题本</button>
+</div>
+
+<div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+
+<div class="paper" id="paper">
+  <div class="empty">正在加载题目数据…</div>
+</div>
+
+<script>
+const PER_PAGE = 20;
+let allQ = [], filtered = [], current = [], page = 0;
+let answered = {}, score = {right:0,wrong:0};
+let wrongMode = false;
+
+// ─── Wrong-question localStorage ─────────────────────────────────────────────
+function loadWrongs(){
+  try{ return JSON.parse(localStorage.getItem('bio_wrongs')||'[]'); }catch{ return []; }
+}
+function saveWrong(q){
+  const wrongs = loadWrongs();
+  if(!wrongs.find(x=>x.id===q.id)){
+    wrongs.push(q);
+    localStorage.setItem('bio_wrongs', JSON.stringify(wrongs));
+  }
+  updateWrongBtn();
+}
+function removeWrong(qid){
+  const wrongs = loadWrongs().filter(x=>x.id!==qid);
+  localStorage.setItem('bio_wrongs', JSON.stringify(wrongs));
+  if(wrongMode){ filtered=wrongs; allQ=[...wrongs]; render(); }
+  updateWrongBtn();
+}
+function clearWrongs(){
+  if(!confirm('清空全部错题本记录？')) return;
+  localStorage.removeItem('bio_wrongs');
+  if(wrongMode) exitWrongMode();
+  updateWrongBtn();
+}
+function updateWrongBtn(){
+  const n = loadWrongs().length;
+  const btn = document.getElementById('wrongBtn');
+  if(btn) btn.textContent = `📕 错题本${n?' ('+n+')':''}`;
+  document.getElementById('wrongCount').textContent = n;
+}
+function toggleWrongMode(){
+  if(wrongMode){ exitWrongMode(); return; }
+  const wrongs = loadWrongs();
+  if(!wrongs.length){ alert('还没有错题！做错题目会自动收录。'); return; }
+  wrongMode = true;
+  allQ = [...wrongs];
+  filtered = [...wrongs];
+  page = 0; answered = {}; score = {right:0,wrong:0};
+  document.getElementById('wrongBanner').style.display='flex';
+  document.getElementById('wrongBtn').classList.add('active');
+  render();
+}
+function exitWrongMode(){
+  wrongMode = false;
+  document.getElementById('wrongBanner').style.display='none';
+  document.getElementById('wrongBtn').classList.remove('active');
+  loadSource();
+}
+
+function imgTag(filename){
+  return `<span style="display:inline-flex;flex-direction:column;align-items:center;justify-content:center;width:100%;min-height:80px;border:1px dashed #bbb;border-radius:6px;color:#888;font-size:12px;padding:10px;margin:6px 0;background:#fafafa"><img src="bio_imgs/${filename}" alt="题目图示" loading="lazy" style="max-width:100%" onerror="this.remove();this.parentNode.innerHTML='<span>🖼 本题图示未随开源包提供，请对照原卷</span>'"></span>`;
+}
+
+function renderText(txt){
+  if(!txt) return '';
+  return txt.replace(/\[IMG:([^\]]+)\]/g, (_,f)=>imgTag(f))
+            .replace(/\[IMG\]/g,'<span style="color:#c00">[图片]</span>');
+}
+
+function renderQ(q, idx){
+  const aid = `ans_${q.id}`;
+  const opts = Object.entries(q.opts).map(([k,v])=>`
+    <div class="opt" id="opt_${q.id}_${k}" onclick="pick('${q.id}','${k}','${q.answer}')">
+      <span class="opt-key">${k}.</span>
+      <span>${renderText(v)}</span>
+    </div>`).join('');
+
+  const srcLabel = q.source || `${q.year}年·${q.paper||q.province}·第${q.qnum}题`;
+  return `<div class="question" id="q_${q.id}">
+    <div class="q-stem">
+      <strong>${idx+1}.</strong>
+      ${renderText(q.stem)}
+      <span class="tag">${q.topic}</span>
+    </div>
+    <div class="q-opts">${opts}</div>
+    <div class="q-answer" id="${aid}">
+      <div class="source-line">📌 出处：${srcLabel}</div>
+      <div class="ans-line">答案：${q.answer}</div>
+      <div class="explanation">${renderText(q.explanation)||'（暂无解析）'}</div>
+    </div>
+    <button class="reveal-btn" onclick="revealAns('${q.id}','${q.answer}')">查看答案/解析</button>
+    ${loadWrongs().find(x=>x.id===q.id) ? `<button class="mastered-btn" onclick="removeWrong('${q.id}')">✓ 已掌握（移出错题本）</button>` : ''}
+  </div>`;
+}
+
+function pick(qid, chosen, correct){
+  const q = allQ.find(x=>x.id===qid);
+  if(!q || answered[qid]) return;
+  answered[qid] = chosen;
+  const isRight = chosen === correct;
+  if(isRight) score.right++;
+  else { score.wrong++; saveWrong(q); }
+
+  Object.keys(q.opts).forEach(k=>{
+    const el = document.getElementById(`opt_${qid}_${k}`);
+    if(!el) return;
+    if(k===correct) el.classList.add('correct');
+    else if(k===chosen) el.classList.add('wrong');
+    el.style.cursor='default';
+    el.onclick=null;
+  });
+  revealAns(qid, correct);
+  updateProgress();
+}
+
+function revealAns(qid, correct){
+  const el = document.getElementById(`ans_${qid}`);
+  if(el) el.classList.add('show');
+  // Also highlight correct if not yet answered
+  const q = allQ.find(x=>x.id===qid);
+  if(q && !answered[qid]){
+    const cel = document.getElementById(`opt_${qid}_${correct}`);
+    if(cel) cel.classList.add('revealed-correct');
+  }
+}
+
+function updateProgress(){
+  const total = current.length;
+  const done = Object.keys(answered).filter(id=>current.some(q=>q.id===id)).length;
+  document.getElementById('progressFill').style.width = total ? (done/total*100)+'%' : '0%';
+  document.getElementById('stats').textContent =
+    `共${filtered.length}题 | 已答${done}题 | 正确${score.right} 错误${score.wrong}`;
+}
+
+function render(){
+  const start = page * PER_PAGE;
+  current = filtered.slice(start, start + PER_PAGE);
+  if(!current.length){
+    document.getElementById('paper').innerHTML = '<div class="empty">没有找到符合条件的题目</div>';
+    updateProgress();
+    return;
+  }
+
+  const years = [...new Set(filtered.map(q=>q.year))].filter(Boolean).sort((a,b)=>b-a);
+  const header = `<div class="exam-header">
+    <h2>高考生物真题选择题</h2>
+    <p>一、选择题（每题4分，共${current.length}题）</p>
+  </div>
+  <div class="section-title">一、选择题</div>`;
+
+  const questions = current.map((q,i)=>renderQ(q, start+i)).join('');
+
+  const totalPages = Math.ceil(filtered.length / PER_PAGE);
+  let pageNav = '';
+  if(totalPages > 1){
+    const btns = Array.from({length:totalPages},(_,i)=>
+      `<button onclick="goPage(${i})" class="${i===page?'active':''}">${i+1}</button>`).join('');
+    pageNav = `<div class="pagination">${btns}</div>`;
+  }
+
+  document.getElementById('paper').innerHTML = header + questions + pageNav;
+  window.scrollTo(0,0);
+  updateProgress();
+}
+
+function goPage(p){
+  page = p;
+  render();
+}
+
+function applyFilter(){
+  const topic = document.getElementById('topicSel').value;
+  const year = document.getElementById('yearSel').value;
+  const img = document.getElementById('imgSel').value;
+  filtered = allQ.filter(q=>
+    (!topic || q.topic===topic) &&
+    (!year || String(q.year)===year) &&
+    (img==='' || String(+q.has_img)===img)
+  );
+  page = 0;
+  score = {right:0, wrong:0};
+  answered = {};
+  render();
+}
+
+function shuffleAndReset(){
+  const topic = document.getElementById('topicSel').value;
+  const img = document.getElementById('imgSel').value;
+  filtered = allQ.filter(q=>
+    (!topic || q.topic===topic) &&
+    (img==='' || String(+q.has_img)===img)
+  ).sort(()=>Math.random()-.5);
+  page = 0;
+  score = {right:0, wrong:0};
+  answered = {};
+  document.getElementById('yearSel').value = '';
+  render();
+}
+
+function populateYears(){
+  const years = [...new Set(allQ.map(q=>q.year))].filter(Boolean).sort((a,b)=>b-a);
+  const sel = document.getElementById('yearSel');
+  sel.innerHTML = '<option value="">全部年份</option>' +
+    years.map(y=>`<option value="${y}">${y}年</option>`).join('');
+}
+
+function loadSource(){
+  const src = document.getElementById('srcSel').value;
+  const script = document.getElementById('dataScript');
+  if(script) script.remove();
+
+  allQ = []; filtered = []; page = 0;
+  answered = {}; score = {right:0,wrong:0};
+  document.getElementById('paper').innerHTML = '<div class="empty">正在加载…</div>';
+
+  const s = document.createElement('script');
+  s.id = 'dataScript';
+  s.src = src==='national' ? 'data_national.js' : 'data_provinces.js';
+  s.onload = () => {
+    allQ = src==='national' ? BIO_NATIONAL : BIO_PROVINCES;
+    populateYears();
+    applyFilter();
+  };
+  document.head.appendChild(s);
+}
+
+// Init
+updateWrongBtn();
+loadSource();
+</script>
+<style>
+.rtf{background:#f8fafc;border-top:2px solid #e2e8f0;padding:20px 16px 28px;margin-top:32px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.rtf-hd{font-size:.72rem;font-weight:700;color:#64748b;letter-spacing:1.5px;text-transform:uppercase;text-align:center;margin-bottom:14px}
+.rtf-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px;max-width:860px;margin:0 auto 14px}
+.rtf-ch{font-size:.68rem;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px}
+.rtf-links{display:flex;flex-direction:column;gap:3px}
+.rtf-links a{font-size:.8rem;color:#2563eb;text-decoration:none;line-height:1.4}
+.rtf-links a:hover{text-decoration:underline}
+.rtf-links a.rtf-cur{color:#cbd5e0;pointer-events:none;cursor:default;font-weight:600}
+.rtf-home{display:block;text-align:center;font-size:.8rem;color:#64748b;text-decoration:none;margin-top:4px}
+.rtf-home:hover{color:#1e40af}
+</style>
+<div class="rtf">
+  <div class="rtf-hd">🔗 高考工具合集 · 快速跳转</div>
+  <div class="rtf-grid">
+<div><div class="rtf-ch">📖 英语阅读 · 完形</div><div class="rtf-links">
+<a href="../english-reading.html">阅读理解真题 (444题)</a>
+<a href="../english-cloze.html">完形填空真题 (1276题)</a>
+<a href="../cloze-practice.html">完形填空专练</a>
+<a href="../cloze-logic-tracker.html">逻辑链追踪器</a>
+</div></div>
+<div><div class="rtf-ch">🔠 词汇</div><div class="rtf-links">
+<a href="../vocab-match.html">连连看闯关</a>
+<a href="../vocab-3500.html">3500词 · 词根版</a>
+<a href="../vocab-3500-stories.html">3500词 · 故事版</a>
+<a href="../850-english-practice.html">850核心词表达</a>
+</div></div>
+<div><div class="rtf-ch">📐 语法</div><div class="rtf-links">
+<a href="../grammar-master.html">语法神器 · 闯关版</a>
+<a href="../grammar-mcq.html">语法填空选择题</a>
+<a href="../grammar-cloze.html">语法填空手填版</a>
+<a href="../grammar-breakdown.html">长难句拆解器</a>
+<a href="../gaokao-grammar.html">高考语法通</a>
+</div></div>
+<div><div class="rtf-ch">✍️ 写作</div><div class="rtf-links">
+<a href="../gaokao-writing.html">写作神器</a>
+<a href="../gaokao-golden.html">金句闪卡 · 50句</a>
+<a href="../gaokao-english-templates.html">万能句背诵库</a>
+</div></div>
+<div><div class="rtf-ch">🔢 数学 · 物理公式</div><div class="rtf-links">
+<a href="../math-formula-cards.html">数学公式闪卡 (78张)</a>
+<a href="../physics-challenge.html">物理公式闯关 (60题)</a>
+</div></div>
+<div><div class="rtf-ch">🧬 生物</div><div class="rtf-links">
+<a class="rtf-cur" href="../shengwu/index.html">生物选择题真题 (380套)</a>
+<a href="../shengwu/duiduipeng.html">生物填空对对碰</a>
+<a href="../shengwu/zhishi.html">生物考点速查</a>
+</div></div>
+<div><div class="rtf-ch">📚 语文 · 物理 · 化学</div><div class="rtf-links">
+<a href="../yuwen/zhishi.html">语文考点速查</a>
+<a href="../wuli/zhishi.html">物理考点速查</a>
+<a href="../huaxue/zhishi.html">化学考点速查</a>
+</div></div>
+  </div>
+  <a class="rtf-home" href="../index.html">← 高考工具箱 · 全部工具</a>
+</div>
+</body>
+</html>

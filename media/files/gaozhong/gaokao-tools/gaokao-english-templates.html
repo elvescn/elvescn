@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>高考英语作文 · 万能句背诵练习库</title>
+<style>
+  :root{
+    --ink:#1f2a44;          /* 主墨色，标题正文 */
+    --ink-soft:#475068;     /* 次级文字 */
+    --muted:#8a93a6;        /* 弱化文字 */
+    --paper:#faf7f1;        /* 暖白背景 */
+    --card:#ffffff;
+    --line:#ece7dd;         /* 分隔线 */
+    --gold:#d99a2b;         /* 主强调·金 */
+    --gold-soft:#f4e3c0;    /* 金的浅底 */
+    --gold-bar:#f0d49a;     /* 遮挡条 */
+    --jade:#2f9e8f;         /* 已掌握·青 */
+    --jade-soft:#dcefe9;
+    --shadow:0 1px 2px rgba(31,42,68,.06),0 6px 20px rgba(31,42,68,.06);
+    --shadow-lift:0 4px 10px rgba(31,42,68,.08),0 14px 36px rgba(31,42,68,.10);
+    --en-font:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+    --ui-font:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    font-family:var(--ui-font);
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    padding-bottom:48px;
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+  /* ---------- Header ---------- */
+  header{
+    position:sticky;top:0;z-index:30;
+    background:rgba(250,247,241,.86);
+    backdrop-filter:saturate(140%) blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .head-inner{max-width:860px;margin:0 auto;padding:14px 18px 0}
+  .brand{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+  .brand h1{
+    font-size:20px;font-weight:800;letter-spacing:.5px;
+    color:var(--ink);
+  }
+  .brand .seal{
+    font-family:var(--en-font);font-style:italic;
+    color:var(--gold);font-size:15px;font-weight:600;letter-spacing:.3px;
+  }
+  .sub{font-size:12.5px;color:var(--muted);margin-top:2px}
+
+  /* progress strip */
+  .progress{
+    display:flex;align-items:center;gap:12px;margin-top:12px;
+    font-size:12.5px;color:var(--ink-soft);
+  }
+  .bar{
+    flex:1;height:7px;border-radius:99px;background:var(--line);overflow:hidden;
+  }
+  .bar > i{
+    display:block;height:100%;width:0%;border-radius:99px;
+    background:linear-gradient(90deg,var(--gold),#e8b85a);
+    transition:width .5s cubic-bezier(.4,0,.2,1);
+  }
+  .pct{font-variant-numeric:tabular-nums;font-weight:700;color:var(--gold);min-width:38px;text-align:right}
+
+  /* tabs */
+  nav{max-width:860px;margin:0 auto;padding:0 8px}
+  .tabs{display:flex;gap:4px;overflow-x:auto;padding:12px 10px 12px;scrollbar-width:none}
+  .tabs::-webkit-scrollbar{display:none}
+  .tab{
+    flex:0 0 auto;border:none;background:transparent;cursor:pointer;
+    font-family:var(--ui-font);font-size:14px;font-weight:600;color:var(--ink-soft);
+    padding:8px 14px;border-radius:99px;white-space:nowrap;transition:.18s;
+  }
+  .tab:hover{color:var(--ink);background:#f1ece2}
+  .tab.active{background:var(--ink);color:#fff}
+  .tab .em{margin-right:5px}
+
+  /* ---------- Layout ---------- */
+  main{max-width:860px;margin:0 auto;padding:20px 18px 0}
+
+  /* controls */
+  .controls{
+    display:flex;gap:10px;flex-wrap:wrap;align-items:center;
+    margin-bottom:18px;
+  }
+  .search{
+    flex:1;min-width:180px;position:relative;
+  }
+  .search input{
+    width:100%;font-family:var(--ui-font);font-size:14px;color:var(--ink);
+    padding:10px 14px 10px 36px;border:1px solid var(--line);border-radius:12px;
+    background:var(--card);outline:none;transition:.18s;
+  }
+  .search input:focus{border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-soft)}
+  .search svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--muted)}
+  .seg{display:inline-flex;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:3px;gap:2px}
+  .seg button{
+    border:none;background:transparent;cursor:pointer;font-family:var(--ui-font);
+    font-size:12.5px;font-weight:600;color:var(--ink-soft);padding:7px 11px;border-radius:9px;transition:.15s;white-space:nowrap;
+  }
+  .seg button.on{background:var(--ink);color:#fff}
+  .seg button:not(.on):hover{background:#f1ece2}
+
+  /* intro / tips */
+  .intro{
+    font-size:13.5px;color:var(--ink-soft);
+    background:linear-gradient(180deg,#fff,#fffdf8);
+    border:1px solid var(--line);border-left:3px solid var(--gold);
+    border-radius:12px;padding:13px 16px;margin-bottom:20px;
+  }
+  .tips{
+    border:1px solid var(--line);border-radius:14px;background:var(--card);
+    margin-bottom:22px;overflow:hidden;box-shadow:var(--shadow);
+  }
+  .tips summary{
+    cursor:pointer;list-style:none;padding:13px 16px;font-size:14px;font-weight:700;
+    color:var(--ink);display:flex;align-items:center;gap:8px;
+  }
+  .tips summary::-webkit-details-marker{display:none}
+  .tips summary .chev{margin-left:auto;color:var(--muted);transition:.2s}
+  .tips[open] summary .chev{transform:rotate(180deg)}
+  .tips .body{padding:0 16px 16px;font-size:13.5px;color:var(--ink-soft)}
+  .tips .body p{margin-bottom:9px}
+  .tips .body b{color:var(--ink)}
+
+  /* group */
+  .group{margin-bottom:30px}
+  .group-head{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+  .group-head h2{font-size:17px;font-weight:800;color:var(--ink)}
+  .group-head .count{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+  .group-note{font-size:13px;color:var(--muted);margin-bottom:14px}
+
+  /* card */
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:15px 16px;margin-bottom:11px;box-shadow:var(--shadow);
+    transition:transform .15s,box-shadow .15s,border-color .15s;position:relative;
+  }
+  .card:hover{box-shadow:var(--shadow-lift)}
+  .card.done{border-color:var(--jade-soft);background:linear-gradient(180deg,#fff,#fafdfc)}
+  .card-top{display:flex;align-items:flex-start;gap:10px}
+  .tag{
+    flex:0 0 auto;font-size:11px;font-weight:700;letter-spacing:.3px;
+    padding:3px 9px;border-radius:7px;background:var(--gold-soft);color:#9a6b14;margin-top:3px;
+  }
+  .tag.fn{background:#eef0f5;color:#5a647a}
+  .lines{flex:1;min-width:0}
+
+  /* english + chinese text */
+  .en{
+    font-family:var(--en-font);font-size:16.5px;line-height:1.5;color:var(--ink);
+    word-break:break-word;
+  }
+  .en .blank{color:var(--gold);font-style:italic;font-weight:600}
+  .zh{font-size:13.5px;color:var(--ink-soft);margin-top:5px}
+  .formula{font-size:12px;color:var(--muted);margin-top:6px;font-family:var(--en-font);font-style:italic}
+
+  /* cover (memorisation mask) */
+  .cover{
+    display:none;cursor:pointer;border-radius:8px;user-select:none;
+    align-items:center;gap:8px;font-size:13px;font-weight:600;color:#9a6b14;
+    background:repeating-linear-gradient(45deg,var(--gold-bar),var(--gold-bar) 10px,#f6dca6 10px,#f6dca6 20px);
+    padding:9px 12px;transition:.2s;
+  }
+  .cover.zh-cover{color:#5a647a;background:repeating-linear-gradient(45deg,#e7e9ef,#e7e9ef 10px,#eef0f5 10px,#eef0f5 20px)}
+  .cover:hover{filter:brightness(.98)}
+  /* state: hide english */
+  .card.mask-en:not(.rev-en) .en{display:none}
+  .card.mask-en:not(.rev-en) .en-cover{display:flex}
+  /* state: hide chinese */
+  .card.mask-zh:not(.rev-zh) .zh{display:none}
+  .card.mask-zh:not(.rev-zh) .zh-cover{display:flex}
+
+  /* mastered toggle */
+  .mark{
+    flex:0 0 auto;width:30px;height:30px;border-radius:50%;border:1.5px solid var(--line);
+    background:var(--card);cursor:pointer;display:flex;align-items:center;justify-content:center;
+    color:var(--muted);transition:.18s;margin-top:1px;
+  }
+  .mark:hover{border-color:var(--jade);color:var(--jade)}
+  .card.done .mark{background:var(--jade);border-color:var(--jade);color:#fff}
+
+  .empty{text-align:center;color:var(--muted);font-size:14px;padding:50px 0}
+
+  /* ---------- Practice ---------- */
+  .practice{max-width:560px;margin:0 auto}
+  .pr-top{display:flex;gap:10px;align-items:center;margin-bottom:18px;flex-wrap:wrap}
+  .pr-top label{font-size:13px;color:var(--ink-soft);font-weight:600}
+  select{
+    font-family:var(--ui-font);font-size:13.5px;color:var(--ink);padding:9px 12px;
+    border:1px solid var(--line);border-radius:11px;background:var(--card);cursor:pointer;outline:none;
+  }
+  select:focus{border-color:var(--gold)}
+  .pr-progress{margin-left:auto;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;font-weight:700}
+
+  .flash{
+    background:var(--card);border:1px solid var(--line);border-radius:18px;
+    box-shadow:var(--shadow-lift);padding:30px 26px;min-height:240px;
+    display:flex;flex-direction:column;
+  }
+  .flash .label{font-size:11.5px;font-weight:700;letter-spacing:1px;color:var(--gold);text-transform:uppercase}
+  .flash .prompt{font-size:21px;line-height:1.5;color:var(--ink);margin-top:14px;flex:0 0 auto}
+  .flash .answer{
+    font-family:var(--en-font);font-size:21px;line-height:1.5;color:var(--ink);
+    margin-top:20px;padding-top:18px;border-top:1px dashed var(--line);
+    opacity:0;transform:translateY(6px);transition:.3s;
+  }
+  .flash .answer.show{opacity:1;transform:none}
+  .flash .answer .blank{color:var(--gold);font-style:italic;font-weight:600}
+  .flash .answer .gloss{display:block;font-family:var(--ui-font);font-size:13px;color:var(--muted);margin-top:8px;font-style:normal}
+  .flash .spacer{flex:1}
+
+  .btn{
+    font-family:var(--ui-font);font-size:15px;font-weight:700;cursor:pointer;
+    border:none;border-radius:12px;padding:13px 18px;transition:.16s;width:100%;
+  }
+  .btn-gold{background:var(--gold);color:#fff}
+  .btn-gold:hover{background:#c98a1f}
+  .pr-actions{display:flex;gap:10px;margin-top:20px}
+  .pr-actions .btn{flex:1}
+  .btn-jade{background:var(--jade);color:#fff}
+  .btn-jade:hover{background:#268475}
+  .btn-ghost{background:#f1ece2;color:var(--ink-soft)}
+  .btn-ghost:hover{background:#e8e1d3}
+
+  .pr-done{text-align:center;padding:36px 20px}
+  .pr-done .big{font-size:40px}
+  .pr-done h3{font-size:20px;margin:10px 0 6px;color:var(--ink)}
+  .pr-done p{font-size:14px;color:var(--ink-soft);margin-bottom:20px}
+
+  footer{max-width:860px;margin:34px auto 0;padding:0 18px;font-size:12px;color:var(--muted);text-align:center;line-height:1.7}
+
+  @media (max-width:560px){
+    .brand h1{font-size:18px}
+    .en{font-size:15.5px}
+    .flash .prompt,.flash .answer{font-size:19px}
+    main{padding-top:16px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="head-inner">
+    <div class="brand">
+      <h1>高考英语作文 · 万能句库</h1>
+      <span class="seal">Recite &amp; Master</span>
+    </div>
+    <div class="sub">按题材分类 · 点句子遮挡背诵 · 抽认卡自测 · 覆盖高考高频作文与日常表达</div>
+    <div class="progress">
+      <span>已掌握</span>
+      <div class="bar"><i id="barFill"></i></div>
+      <span class="pct" id="pctText">0%</span>
+      <span id="countText" style="color:var(--muted)">0 / 0</span>
+    </div>
+  </div>
+  <nav><div class="tabs" id="tabs"></div></nav>
+</header>
+
+<main id="main"></main>
+
+<footer>
+  每道作文题都要把句型里的 <b style="color:var(--gold)">______</b> 替换成具体内容,套框架、不套全文。<br>
+  本工具为家庭学习自制 · 句型与译文供参考练习
+</footer>
+
+<script>
+/* ============================================================
+   数据：所有句型按板块 → 分组 → 句子组织
+   每个句子 {en, zh, tag, formula?}；en 中用 ______ 表示需要替换的空
+   ============================================================ */
+const DATA = [
+  {
+    id:"applied", title:"应用文模板", em:"📮",
+    intro:"新高考小作文(约80–100词)几乎都是书信/邮件/通知。记住「开头点明目的 → 主体说清细节 → 结尾礼貌收束」三步,每类信背 2–3 句即可拼出整篇。",
+    groups:[
+      { name:"邀请信", note:"邀请对方参加活动 · 开头说邀请,主体说时间地点,结尾盼回复",
+        items:[
+          {en:"I am writing to invite you to take part in ______.", zh:"我写信邀请你参加______。", tag:"开头"},
+          {en:"On behalf of the Student Union, I'm delighted to invite you to ______.", zh:"我谨代表学生会,很高兴邀请你参加______。", tag:"开头"},
+          {en:"The activity will be held in ______ on ______.", zh:"活动将于______(时间)在______(地点)举行。", tag:"主体"},
+          {en:"It would be a great honour if you could join us.", zh:"如果你能加入,将是我们莫大的荣幸。", tag:"主体"},
+          {en:"I do hope you can come, and I'm looking forward to your reply.", zh:"我真心希望你能来,并期待你的回复。", tag:"结尾"},
+        ]},
+      { name:"感谢信", note:"为对方的帮助致谢 · 开头点明谢什么,主体讲帮助有多重要,结尾再谢",
+        items:[
+          {en:"I am writing to express my sincere gratitude for your help with ______.", zh:"我写信对你在______方面的帮助致以诚挚的谢意。", tag:"开头"},
+          {en:"But for your help, I could not have ______.", zh:"要不是你的帮助,我不可能______。", tag:"主体"},
+          {en:"Your kindness meant a lot to me.", zh:"你的善意对我意义重大。", tag:"主体"},
+          {en:"Once again, thank you for everything. I hope I can return the favour someday.", zh:"再次感谢你所做的一切,希望有一天我能报答你。", tag:"结尾"},
+        ]},
+      { name:"道歉信", note:"为某事致歉 · 开头道歉,主体说原因,结尾求谅解并保证",
+        items:[
+          {en:"I am writing to apologize for ______.", zh:"我写信为______道歉。", tag:"开头"},
+          {en:"I'm terribly sorry that I ______.", zh:"非常抱歉我______。", tag:"开头"},
+          {en:"The reason for this is that ______.", zh:"造成这件事的原因是______。", tag:"主体"},
+          {en:"I really didn't mean to ______.", zh:"我真的不是有意______。", tag:"主体"},
+          {en:"I sincerely hope you can accept my apology, and it won't happen again.", zh:"我真诚地希望你能接受我的道歉,并保证不会再发生。", tag:"结尾"},
+        ]},
+      { name:"建议信", note:"给对方出主意 · 开头表态乐意建议,主体分点提议,结尾盼有帮助",
+        items:[
+          {en:"I'm writing in reply to your letter asking for advice on ______.", zh:"我写信回复你寻求关于______建议的来信。", tag:"开头"},
+          {en:"I'm more than glad to offer you some suggestions.", zh:"我非常乐意给你一些建议。", tag:"开头"},
+          {en:"First of all, I'd suggest that you should ______.", zh:"首先,我建议你应该______。", tag:"主体"},
+          {en:"What's more, it would be a good idea to ______.", zh:"此外,______会是个好主意。", tag:"主体"},
+          {en:"I hope you'll find these suggestions helpful.", zh:"希望这些建议对你有帮助。", tag:"结尾"},
+        ]},
+      { name:"申请信", note:"申请职位/名额/机会 · 开头说申请什么,主体讲自身优势,结尾盼录用",
+        items:[
+          {en:"I am writing to apply for the position of ______ advertised in ______.", zh:"我写信申请______上刊登的______职位。", tag:"开头"},
+          {en:"Not only do I have ______, but I am also ______.", zh:"我不仅具备______,而且还很______。", tag:"主体"},
+          {en:"I would appreciate it if you could give me this opportunity.", zh:"如蒙惠予此机会,我将不胜感激。", tag:"结尾"},
+          {en:"I'm looking forward to your favourable reply.", zh:"期待您的佳音。", tag:"结尾"},
+        ]},
+      { name:"介绍信 / 通知", note:"介绍人事物或发布通知 · 通知用第三人称、更正式",
+        items:[
+          {en:"I'm more than happy to tell you about ______.", zh:"我非常高兴地向你介绍______。", tag:"开头"},
+          {en:"I'm sure you will have a wonderful time.", zh:"我相信你一定会玩得很开心。", tag:"结尾"},
+          {en:"A(n) ______ will be held in ______ on ______. All students are welcome to take part.", zh:"一场______将于______(时间)在______(地点)举行,欢迎全体同学参加。", tag:"通知"},
+          {en:"For more information, please contact ______.", zh:"欲知详情,请联系______。", tag:"通知"},
+        ]},
+    ]
+  },
+  {
+    id:"frame", title:"万能句型", em:"🔑",
+    intro:"这些是「不挑题材」的骨架句,任何作文都能用来开头、过渡、表态和收尾。先把它们背熟,写作时就不会卡壳。",
+    groups:[
+      { name:"开头万能句", note:"自我介绍 + 点明写作目的",
+        items:[
+          {en:"I am writing to ______.", zh:"我写信是为了______。(告诉你/邀请你/申请/投诉)", tag:"开头"},
+          {en:"How is it going? It's been a long time since we last met.", zh:"最近怎么样?我们好久没见了。", tag:"开头"},
+          {en:"I'm Li Hua, ______.", zh:"我是李华,______。(一名……的学生/……班班长)", tag:"开头"},
+        ]},
+      { name:"过渡承接句", note:"分点、补充、转折、结果",
+        items:[
+          {en:"To begin with, ______ / First of all, ______", zh:"首先,______", tag:"分点"},
+          {en:"What's more, ______ / In addition, ______", zh:"此外,______ / 另外,______", tag:"补充"},
+          {en:"Last but not least, ______", zh:"最后但同样重要的是,______", tag:"分点"},
+          {en:"On the one hand, ______; on the other hand, ______", zh:"一方面______;另一方面______", tag:"对比"},
+          {en:"However, ______ / Nevertheless, ______", zh:"然而,______", tag:"转折"},
+          {en:"As a result, ______ / Therefore, ______", zh:"因此,______ / 所以,______", tag:"结果"},
+        ]},
+      { name:"观点表达句", note:"亮出自己的看法",
+        items:[
+          {en:"As far as I am concerned, ______.", zh:"就我而言,______。", tag:"观点"},
+          {en:"From my point of view, ______.", zh:"在我看来,______。", tag:"观点"},
+          {en:"There is no doubt that ______.", zh:"毫无疑问,______。", tag:"观点"},
+          {en:"It is widely accepted that ______.", zh:"人们普遍认为______。", tag:"观点"},
+        ]},
+      { name:"结尾万能句", note:"礼貌收束 + 期待回应",
+        items:[
+          {en:"I'm looking forward to your early reply.", zh:"期待你尽早回复。", tag:"结尾"},
+          {en:"Thank you for your time and consideration.", zh:"感谢你的时间与考虑。", tag:"结尾"},
+          {en:"I would appreciate it if you could ______.", zh:"如果你能______,我将不胜感激。", tag:"结尾"},
+          {en:"It is my great honour to ______.", zh:"能够______是我莫大的荣幸。", tag:"结尾"},
+        ]},
+    ]
+  },
+  {
+    id:"advanced", title:"高级亮点句", em:"⭐",
+    intro:"阅卷想给高分,看的就是这些「加分句型」。每篇作文用上 2–3 个,档次立刻不一样。括号里是结构公式,照着仿写即可。",
+    groups:[
+      { name:"强调与倒装", note:"句子更有气势,最显水平",
+        items:[
+          {en:"It is your support that gives me the courage to go on.", zh:"正是你的支持给了我继续下去的勇气。", tag:"强调句", formula:"It is + 强调部分 + that ..."},
+          {en:"Only in this way can we make a difference.", zh:"只有这样,我们才能有所作为。", tag:"倒装", formula:"Only + 状语 + 部分倒装"},
+          {en:"Not only did he finish the task, but he also helped others.", zh:"他不仅完成了任务,还帮助了别人。", tag:"倒装", formula:"Not only + 倒装, but also ..."},
+          {en:"Never have I seen such a moving scene.", zh:"我从未见过如此感人的场面。", tag:"倒装", formula:"Never + 助动词 + 主语 ..."},
+        ]},
+      { name:"从句与复合结构", note:"让句子更长、更有层次",
+        items:[
+          {en:"I passed the exam, which made my parents proud.", zh:"我通过了考试,这让我父母感到骄傲。", tag:"定语从句", formula:"..., which + 评价整句"},
+          {en:"With the exam approaching, we are all working hard.", zh:"随着考试临近,我们都在努力。", tag:"with结构", formula:"With + 宾语 + doing/done/介词短语"},
+          {en:"He worked day and night, finally achieving his dream.", zh:"他日夜努力,最终实现了梦想。", tag:"分词作状语", formula:"主句, 现在分词 ...(表结果)"},
+          {en:"No matter how hard it is, I will never give up.", zh:"无论多难,我都绝不放弃。", tag:"让步状语", formula:"No matter + 疑问词 ..."},
+        ]},
+      { name:"高分万能模板句", note:"几乎能套进任何议论话题",
+        items:[
+          {en:"It is necessary for us to ______.", zh:"我们有必要______。", tag:"形式主语", formula:"It is + adj. + for sb. to do"},
+          {en:"If I were you, I would seize the chance.", zh:"如果我是你,我会抓住这个机会。", tag:"虚拟语气", formula:"If + 过去式, would do"},
+          {en:"The more we practise, the better we become.", zh:"我们练得越多,就变得越好。", tag:"比较结构", formula:"The + 比较级, the + 比较级"},
+          {en:"It is high time that we took action to ______.", zh:"我们该采取行动去______了。", tag:"虚拟语气", formula:"It is high time that + 过去式"},
+          {en:"The book is so interesting that I can't put it down.", zh:"这本书太有趣了,我爱不释手。", tag:"结果状语", formula:"so + adj. + that ..."},
+        ]},
+    ]
+  },
+  {
+    id:"topics", title:"话题素材句", em:"💭",
+    intro:"高考作文话题就那么几个。每个话题记 2–3 句「金句」,遇到相关题目直接调用。空格处换成题目里的具体内容即可。",
+    groups:[
+      { name:"环境保护", note:"低碳、节约、绿色出行",
+        items:[
+          {en:"Protecting the environment is everyone's responsibility.", zh:"保护环境,人人有责。", tag:"金句"},
+          {en:"We should take measures to reduce pollution and save energy.", zh:"我们应采取措施减少污染、节约能源。", tag:"金句"},
+          {en:"Only by living a low-carbon life can we build a greener world.", zh:"只有过低碳生活,我们才能建设更绿色的世界。", tag:"亮点句"},
+        ]},
+      { name:"传统文化", note:"传承、弘扬、文化自信",
+        items:[
+          {en:"As one of the treasures of Chinese culture, ______ deserves to be passed on.", zh:"作为中华文化瑰宝之一,______值得传承。", tag:"金句"},
+          {en:"It's our duty to carry forward our traditional culture.", zh:"弘扬传统文化是我们的责任。", tag:"金句"},
+        ]},
+      { name:"健康生活", note:"饮食、运动、作息",
+        items:[
+          {en:"Health is the foundation of everything.", zh:"健康是一切的基础。", tag:"金句"},
+          {en:"We should keep a balanced diet and take regular exercise.", zh:"我们应保持均衡饮食、定期锻炼。", tag:"金句"},
+          {en:"Staying up late does great harm to our health.", zh:"熬夜对我们的健康危害极大。", tag:"金句"},
+        ]},
+      { name:"科技与网络", note:"两面性、善用、信息时代",
+        items:[
+          {en:"Modern technology has greatly changed the way we live.", zh:"现代科技极大地改变了我们的生活方式。", tag:"金句"},
+          {en:"Every coin has two sides, and so does the Internet.", zh:"凡事都有两面性,网络也不例外。", tag:"亮点句"},
+          {en:"We should make good use of the Internet rather than be controlled by it.", zh:"我们应善用网络,而不是被它控制。", tag:"金句"},
+        ]},
+      { name:"学习与成长", note:"努力、阅读、坚持",
+        items:[
+          {en:"Where there is a will, there is a way.", zh:"有志者,事竟成。", tag:"谚语"},
+          {en:"Practice makes perfect.", zh:"熟能生巧。", tag:"谚语"},
+          {en:"Reading broadens our horizons and enriches our minds.", zh:"阅读开阔我们的视野、丰富我们的心灵。", tag:"金句"},
+        ]},
+      { name:"品德与社会", note:"助人、志愿、责任",
+        items:[
+          {en:"Helping others is a source of happiness.", zh:"助人是快乐之源。", tag:"金句"},
+          {en:"Taking part in volunteer work allows us to give back to society.", zh:"参加志愿活动让我们得以回馈社会。", tag:"金句"},
+          {en:"Rome wasn't built in a day; success calls for persistence.", zh:"罗马不是一天建成的,成功需要坚持。", tag:"谚语"},
+        ]},
+    ]
+  },
+  {
+    id:"continue", title:"读后续写", em:"✍️",
+    intro:"⚠️ 续写靠的是情节合理 + 情感细腻,模板只是「调料」。背这些动作/心理/过渡短语来描写画面,但每段要顺着原文的人物和情绪走,不能生搬。",
+    groups:[
+      { name:"开心 · 兴奋", note:"描写喜悦的瞬间",
+        items:[
+          {en:"A big smile spread across her face.", zh:"她脸上绽开灿烂的笑容。", tag:"神态"},
+          {en:"His eyes lit up with excitement.", zh:"他的眼睛因兴奋而发亮。", tag:"神态"},
+          {en:"Tears of joy welled up in her eyes.", zh:"喜悦的泪水在她眼中涌动。", tag:"细节"},
+        ]},
+      { name:"害怕 · 紧张", note:"制造紧张气氛",
+        items:[
+          {en:"Her heart was pounding wildly.", zh:"她的心狂跳不止。", tag:"心理"},
+          {en:"A chill ran down his spine.", zh:"一股寒意顺着他的脊背窜下。", tag:"细节"},
+          {en:"He held his breath, not daring to move.", zh:"他屏住呼吸,不敢动弹。", tag:"动作"},
+        ]},
+      { name:"难过 · 决心", note:"情绪转折与振作",
+        items:[
+          {en:"Her heart sank.", zh:"她的心一沉。", tag:"心理"},
+          {en:"Tears streamed down his cheeks.", zh:"泪水顺着他的脸颊流下。", tag:"细节"},
+          {en:"He made up his mind to try again.", zh:"他下定决心再试一次。", tag:"决心"},
+          {en:"Gritting his teeth, he pushed on.", zh:"他咬紧牙关,继续前行。", tag:"动作"},
+        ]},
+      { name:"段落过渡句", note:"两段开头最好用,推动情节",
+        items:[
+          {en:"To his surprise, ______.", zh:"令他惊讶的是,______。", tag:"过渡"},
+          {en:"The moment he opened the door, ______.", zh:"他打开门的那一刻,______。", tag:"过渡"},
+          {en:"Hardly had they arrived when ______.", zh:"他们刚一到达,______(就……)。", tag:"过渡"},
+          {en:"At that very moment, ______.", zh:"就在那一刻,______。", tag:"过渡"},
+        ]},
+      { name:"结尾升华句", note:"点出感悟,呼应主题",
+        items:[
+          {en:"From that day on, he understood that ______.", zh:"从那天起,他明白了______。", tag:"升华"},
+          {en:"That experience taught him a valuable lesson.", zh:"那次经历给他上了宝贵的一课。", tag:"升华"},
+        ]},
+    ]
+  },
+];
+
+/* ============================================================
+   状态
+   ============================================================ */
+const state = {
+  tab: "applied",          // 当前板块 id；"practice" 为练习模式
+  mode: "all",             // all | hideEn | hideZh
+  query: "",
+  done: new Set(),         // 已掌握的句子 id（仅本次会话）
+  revealed: new Set(),     // 临时显示的卡片 id
+};
+
+// 给每个句子生成稳定 id，并算总数
+let TOTAL = 0;
+DATA.forEach((sec,si)=>sec.groups.forEach((g,gi)=>g.items.forEach((it,ii)=>{
+  it._id = sec.id+"-"+gi+"-"+ii; TOTAL++;
+})));
+
+const $ = sel => document.querySelector(sel);
+const main = $("#main");
+
+/* ---------- 顶部进度 ---------- */
+function updateProgress(){
+  const n = state.done.size;
+  const pct = TOTAL ? Math.round(n/TOTAL*100) : 0;
+  $("#barFill").style.width = pct+"%";
+  $("#pctText").textContent = pct+"%";
+  $("#countText").textContent = n+" / "+TOTAL;
+}
+
+/* ---------- Tabs ---------- */
+function renderTabs(){
+  const tabs = $("#tabs");
+  tabs.innerHTML = "";
+  DATA.forEach(sec=>{
+    const b=document.createElement("button");
+    b.className="tab"+(state.tab===sec.id?" active":"");
+    b.innerHTML='<span class="em">'+sec.em+'</span>'+sec.title;
+    b.onclick=()=>{ state.tab=sec.id; state.revealed.clear(); render(); };
+    tabs.appendChild(b);
+  });
+  const p=document.createElement("button");
+  p.className="tab"+(state.tab==="practice"?" active":"");
+  p.innerHTML='<span class="em">🎯</span>抽认卡自测';
+  p.onclick=()=>{ state.tab="practice"; render(); };
+  tabs.appendChild(p);
+}
+
+/* ---------- helpers ---------- */
+function fmtEn(s){ return s.replace(/_{2,}/g,'<span class="blank">______</span>'); }
+function matches(it){
+  if(!state.query) return true;
+  const q=state.query.toLowerCase();
+  return it.en.toLowerCase().includes(q) || it.zh.includes(state.query) || (it.tag||"").includes(state.query);
+}
+
+/* ---------- 句子卡 ---------- */
+function cardHTML(it){
+  const done = state.done.has(it._id);
+  const rev = state.revealed.has(it._id);
+  let cls="card";
+  if(done) cls+=" done";
+  if(state.mode==="hideEn") cls+=" mask-en"+(rev?" rev-en":"");
+  if(state.mode==="hideZh") cls+=" mask-zh"+(rev?" rev-zh":"");
+  const fnTag = ["观点","分点","补充","转折","结果","对比","过渡"].includes(it.tag);
+  return ''+
+  '<div class="'+cls+'" data-id="'+it._id+'">'+
+    '<div class="card-top">'+
+      (it.tag?'<span class="tag'+(fnTag?' fn':'')+'">'+it.tag+'</span>':'')+
+      '<div class="lines">'+
+        '<div class="en">'+fmtEn(it.en)+'</div>'+
+        '<div class="cover en-cover" data-reveal="'+it._id+'">👆 点击显示英文</div>'+
+        '<div class="zh">'+it.zh+'</div>'+
+        '<div class="cover zh-cover" data-reveal="'+it._id+'">👆 点击显示中文</div>'+
+        (it.formula?'<div class="formula">公式：'+it.formula+'</div>':'')+
+      '</div>'+
+      '<button class="mark" data-mark="'+it._id+'" title="标记已掌握" aria-label="标记已掌握">'+
+        '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>'+
+      '</button>'+
+    '</div>'+
+  '</div>';
+}
+
+/* ---------- 板块视图 ---------- */
+function renderSection(){
+  const sec = DATA.find(s=>s.id===state.tab);
+  let html = '';
+
+  // 控制条
+  html += '<div class="controls">'+
+    '<div class="search">'+
+      '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>'+
+      '<input id="searchBox" type="text" placeholder="搜索中文 / 英文 / 标签…" value="'+state.query.replace(/"/g,'&quot;')+'">'+
+    '</div>'+
+    '<div class="seg" role="group" aria-label="显示模式">'+
+      '<button data-mode="all" class="'+(state.mode==="all"?"on":"")+'">全部显示</button>'+
+      '<button data-mode="hideEn" class="'+(state.mode==="hideEn"?"on":"")+'">遮英文</button>'+
+      '<button data-mode="hideZh" class="'+(state.mode==="hideZh"?"on":"")+'">遮中文</button>'+
+    '</div>'+
+  '</div>';
+
+  // 板块介绍
+  html += '<div class="intro">'+sec.intro+'</div>';
+
+  // 第一个板块加「使用建议」
+  if(sec.id==="applied"){
+    html += '<details class="tips">'+
+      '<summary>📌 给家长和同学的使用建议（点开）<svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></summary>'+
+      '<div class="body">'+
+        '<p><b>1. 背框架,不背全文。</b>把每类信的「开头—主体—结尾」三句记牢,考试时把空格 ______ 换成题目给的具体信息,就能拼出整篇,既快又不跑题。</p>'+
+        '<p><b>2. 一篇作文用 2–3 个亮点句就够。</b>「高级亮点句」别堆太满,自然用上两三个最能体现水平的句型即可,通篇都是模板反而会被看出来、不易得高分。</p>'+
+        '<p><b>3. 先用「遮英文」练输出。</b>切到右上角「遮英文」,看着中文努力回想英文,再点开核对——这比单纯读一遍记得牢得多。「抽认卡自测」可以随机检验。</p>'+
+        '<p><b>4. 读后续写要特别注意:</b>它不能靠套模板,得顺着原文的人物、情节和情绪去写。那些短语是用来把画面写细的,先读懂故事再下笔。</p>'+
+        '<p><b>5. 一定要配合真题练笔。</b>背熟后,拿历年高考真题动手写、请老师批改,把这些句子真正用进自己的文章里,才算掌握。</p>'+
+      '</div>'+
+    '</details>';
+  }
+
+  // 分组
+  let any=false;
+  sec.groups.forEach(g=>{
+    const items=g.items.filter(matches);
+    if(items.length===0) return;
+    any=true;
+    const doneInG=items.filter(it=>state.done.has(it._id)).length;
+    html += '<div class="group">'+
+      '<div class="group-head"><h2>'+g.name+'</h2><span class="count">'+doneInG+'/'+items.length+' 已掌握</span></div>'+
+      (g.note?'<div class="group-note">'+g.note+'</div>':'')+
+      items.map(cardHTML).join("")+
+    '</div>';
+  });
+  if(!any) html += '<div class="empty">没有匹配「'+state.query+'」的句子,换个词试试 🔍</div>';
+
+  main.innerHTML = html;
+
+  // 事件绑定
+  const sb=$("#searchBox");
+  sb.addEventListener("input",e=>{
+    state.query=e.target.value;
+    const pos=sb.selectionStart;
+    renderSection();
+    const nb=$("#searchBox"); nb.focus(); nb.setSelectionRange(pos,pos);
+  });
+  main.querySelectorAll("[data-mode]").forEach(b=>b.onclick=()=>{
+    state.mode=b.dataset.mode; state.revealed.clear(); renderSection();
+  });
+  main.querySelectorAll("[data-mark]").forEach(b=>b.onclick=()=>{
+    const id=b.dataset.mark;
+    if(state.done.has(id)) state.done.delete(id); else state.done.add(id);
+    updateProgress(); renderSection();
+  });
+  main.querySelectorAll("[data-reveal]").forEach(c=>c.onclick=()=>{
+    const card=c.closest(".card");
+    if(state.mode==="hideEn") card.classList.add("rev-en");
+    if(state.mode==="hideZh") card.classList.add("rev-zh");
+    state.revealed.add(c.dataset.reveal);
+  });
+}
+
+/* ============================================================
+   抽认卡自测
+   ============================================================ */
+const practice = { pool:"all", deck:[], idx:0, shown:false };
+
+function buildDeck(){
+  let items=[];
+  DATA.forEach(sec=>{
+    if(practice.pool==="all"||practice.pool===sec.id)
+      sec.groups.forEach(g=>g.items.forEach(it=>items.push({...it, _sec:sec.title})));
+  });
+  for(let i=items.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[items[i],items[j]]=[items[j],items[i]];}
+  practice.deck=items; practice.idx=0; practice.shown=false;
+}
+
+function renderPractice(){
+  if(practice.deck.length===0) buildDeck();
+  let html='<div class="practice">';
+
+  // 顶部：选择范围
+  html+='<div class="pr-top">'+
+    '<label>练习范围</label>'+
+    '<select id="poolSel">'+
+      '<option value="all"'+(practice.pool==="all"?" selected":"")+'>全部板块</option>'+
+      DATA.map(s=>'<option value="'+s.id+'"'+(practice.pool===s.id?" selected":"")+'>'+s.em+' '+s.title+'</option>').join("")+
+    '</select>'+
+    '<span class="pr-progress">'+Math.min(practice.idx+1,practice.deck.length)+' / '+practice.deck.length+'</span>'+
+  '</div>';
+
+  if(practice.idx>=practice.deck.length){
+    // 完成
+    html+='<div class="flash pr-done">'+
+      '<div class="big">🎉</div>'+
+      '<h3>这一组练完啦!</h3>'+
+      '<p>共复习了 '+practice.deck.length+' 句。再来一轮会记得更牢。</p>'+
+      '<button class="btn btn-gold" id="againBtn">🔁 再练一组(重新打乱)</button>'+
+    '</div>';
+  } else {
+    const card=practice.deck[practice.idx];
+    html+='<div class="flash">'+
+      '<div class="label">看中文 · 回想英文 · '+card._sec+'</div>'+
+      '<div class="prompt">'+card.zh+'</div>'+
+      '<div class="answer'+(practice.shown?' show':'')+'" id="ansBox">'+fmtEn(card.en)+
+        (card.formula?'<span class="gloss">公式：'+card.formula+'</span>':'')+
+      '</div>'+
+      '<div class="spacer"></div>';
+    if(!practice.shown){
+      html+='<button class="btn btn-gold" id="showBtn" style="margin-top:20px">显示英文答案</button>';
+    } else {
+      html+='<div class="pr-actions">'+
+        '<button class="btn btn-ghost" id="nextNo">还没记住</button>'+
+        '<button class="btn btn-jade" id="nextYes">✓ 记住了</button>'+
+      '</div>';
+    }
+    html+='</div>';
+  }
+  html+='</div>';
+  main.innerHTML=html;
+
+  // 事件
+  const sel=$("#poolSel");
+  if(sel) sel.onchange=()=>{ practice.pool=sel.value; buildDeck(); renderPractice(); };
+  const sb=$("#showBtn"); if(sb) sb.onclick=()=>{ practice.shown=true; renderPractice(); };
+  const ny=$("#nextYes"); if(ny) ny.onclick=()=>{ state.done.add(practice.deck[practice.idx]._id); updateProgress(); practice.idx++; practice.shown=false; renderPractice(); };
+  const nn=$("#nextNo"); if(nn) nn.onclick=()=>{ practice.idx++; practice.shown=false; renderPractice(); };
+  const ag=$("#againBtn"); if(ag) ag.onclick=()=>{ buildDeck(); renderPractice(); };
+}
+
+/* ============================================================
+   主渲染
+   ============================================================ */
+function render(){
+  renderTabs();
+  if(state.tab==="practice") renderPractice();
+  else renderSection();
+  updateProgress();
+}
+render();
+</script>
+
+<style>
+.rtf{background:#f8fafc;border-top:2px solid #e2e8f0;padding:20px 16px 28px;margin-top:32px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.rtf-hd{font-size:.72rem;font-weight:700;color:#64748b;letter-spacing:1.5px;text-transform:uppercase;text-align:center;margin-bottom:14px}
+.rtf-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px;max-width:860px;margin:0 auto 14px}
+.rtf-ch{font-size:.68rem;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px}
+.rtf-links{display:flex;flex-direction:column;gap:3px}
+.rtf-links a{font-size:.8rem;color:#2563eb;text-decoration:none;line-height:1.4}
+.rtf-links a:hover{text-decoration:underline}
+.rtf-links a.rtf-cur{color:#cbd5e0;pointer-events:none;cursor:default;font-weight:600}
+.rtf-home{display:block;text-align:center;font-size:.8rem;color:#64748b;text-decoration:none;margin-top:4px}
+.rtf-home:hover{color:#1e40af}
+</style>
+<div class="rtf">
+  <div class="rtf-hd">🔗 高考工具合集 · 快速跳转</div>
+  <div class="rtf-grid">
+<div><div class="rtf-ch">📖 阅读 · 完形真题</div><div class="rtf-links"><a href="english-reading.html">高考阅读理解真题 (441题)</a>
+<a href="english-cloze.html">高考完形填空真题 (1276题)</a>
+<a href="cloze-practice.html">完形填空专练</a>
+<a href="cloze-logic-tracker.html">逻辑链追踪器</a>
+</div></div>
+<div><div class="rtf-ch">🔠 词汇</div><div class="rtf-links"><a href="vocab-match.html">连连看闯关</a>
+<a href="vocab-3500.html">3500词 · 词根版</a>
+<a href="vocab-3500-stories.html">3500词 · 故事版</a>
+<a href="850-english-practice.html">850核心词表达</a>
+</div></div>
+<div><div class="rtf-ch">📐 语法</div><div class="rtf-links"><a href="grammar-master.html">语法神器 · 闯关版</a>
+<a href="grammar-mcq.html">语法填空选择题</a>
+<a href="grammar-cloze.html">语法填空手填版</a>
+<a href="grammar-breakdown.html">长难句拆解器</a>
+<a href="gaokao-grammar.html">高考语法通</a>
+</div></div>
+<div><div class="rtf-ch">✍️ 写作</div><div class="rtf-links"><a href="gaokao-writing.html">写作神器</a>
+<a href="gaokao-golden.html">金句闪卡 · 50句</a>
+<a class="rtf-cur" href="gaokao-english-templates.html">万能句背诵库 ✦</a>
+</div></div>
+<div><div class="rtf-ch">🔢 数学 · 物理</div><div class="rtf-links"><a href="math-formula-cards.html">数学公式闪卡</a>
+<a href="physics-challenge.html">物理公式闯关 60题</a>
+</div></div>
+<div><div class="rtf-ch">🧬 生物</div><div class="rtf-links">
+<a href="shengwu/index.html">生物选择题真题 (380套)</a>
+<a href="shengwu/duiduipeng.html">生物填空对对碰</a>
+<a href="shengwu/zhishi.html">生物考点速查</a>
+</div></div>
+<div><div class="rtf-ch">📚 语文 · 物理 · 化学</div><div class="rtf-links">
+<a href="yuwen/zhishi.html">语文考点速查</a>
+<a href="wuli/zhishi.html">物理考点速查</a>
+<a href="huaxue/zhishi.html">化学考点速查</a>
+</div></div>
+  </div>
+  <a class="rtf-home" href="index.html">← 高考工具箱 · 全部工具</a>
+</div>
+</body>
+</html>

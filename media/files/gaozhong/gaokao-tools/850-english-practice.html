@@ -1,0 +1,728 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>850 词 · 英语表达练习</title>
+<style>
+  :root{
+    --paper:#FAF7F1; --card:#FFFFFF;
+    --ink:#1F2940; --ink-soft:#5A6377; --ink-faint:#8A92A3;
+    --primary:#2A4A7F; --primary-deep:#1C3461;
+    --accent:#D99A07; --accent-soft:#FBEFCF;
+    --good:#2E7D5B; --good-bg:#E6F2EB;
+    --warn:#BD5A35; --warn-bg:#FAEAE1;
+    --line:#ECE5D8; --line-2:#E3DBCB;
+    --serif:Georgia,"Iowan Old Style","Times New Roman","Songti SC",serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;
+    --shadow:0 1px 2px rgba(31,41,64,.05),0 8px 24px rgba(31,41,64,.06);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--paper); color:var(--ink); font-family:var(--sans);
+    font-size:16px; line-height:1.5; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:720px;margin:0 auto;padding:0 16px 64px}
+
+  /* ---- top bar ---- */
+  .topbar{position:sticky;top:0;z-index:20;background:rgba(250,247,241,.92);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);margin-bottom:18px}
+  .topbar-in{max-width:720px;margin:0 auto;padding:12px 16px}
+  .brand{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+  .brand h1{font-family:var(--serif);font-size:1.35rem;font-weight:700;margin:0;letter-spacing:.2px}
+  .brand .sub{color:var(--ink-soft);font-size:.82rem}
+  .stats{display:flex;gap:14px;flex-wrap:wrap;margin-top:8px;font-size:.82rem;color:var(--ink-soft);align-items:center}
+  .stats b{color:var(--primary-deep);font-variant-numeric:tabular-nums}
+  .stats .dot{width:4px;height:4px;border-radius:50%;background:var(--line-2)}
+  .btn-progress{margin-left:auto;border:1px solid var(--line-2);background:var(--card);color:var(--primary-deep);
+    border-radius:999px;padding:5px 13px;font-size:.82rem;cursor:pointer;font-family:var(--sans)}
+  .btn-progress:hover{border-color:var(--primary)}
+
+  /* ---- tabs ---- */
+  .tabs{display:flex;gap:8px;margin-bottom:6px;flex-wrap:wrap}
+  .tab{flex:1 1 0;min-width:96px;border:1px solid var(--line-2);background:var(--card);color:var(--ink-soft);
+    border-radius:12px;padding:11px 8px;font-size:.95rem;cursor:pointer;font-family:var(--sans);transition:.15s}
+  .tab:hover{border-color:var(--primary)}
+  .tab.active{background:var(--primary);border-color:var(--primary);color:#fff;font-weight:600;box-shadow:var(--shadow)}
+  .mode-hint{color:var(--ink-soft);font-size:.85rem;margin:10px 2px 14px;line-height:1.45}
+
+  .filter-row{display:flex;align-items:center;gap:8px;margin:0 2px 14px;font-size:.85rem;color:var(--ink-soft)}
+  .filter-row select{font-family:var(--sans);font-size:.85rem;color:var(--ink);background:var(--card);
+    border:1px solid var(--line-2);border-radius:9px;padding:6px 9px}
+  .filter-row.hidden{display:none}
+
+  /* ---- the dictionary-entry card (signature) ---- */
+  .card{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);
+    border-radius:14px;padding:22px 22px 24px;box-shadow:var(--shadow);animation:rise .28s ease both}
+  @keyframes rise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .eyebrow{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:10px;font-weight:600}
+  .eyebrow .tag{color:var(--accent)}
+  .headword-row{display:flex;align-items:flex-start;gap:12px;justify-content:space-between}
+  .headword{font-family:var(--serif);font-size:clamp(2.3rem,9vw,3.2rem);line-height:1.05;font-weight:700;color:var(--ink);word-break:break-word}
+  .speak{flex:none;border:1px solid var(--line-2);background:var(--paper);border-radius:50%;width:40px;height:40px;
+    font-size:1.05rem;cursor:pointer;color:var(--primary);margin-top:6px}
+  .speak:hover{border-color:var(--primary)}
+  .gloss{display:flex;gap:8px;align-items:baseline;margin-top:6px;color:var(--ink-soft);font-size:1.05rem}
+  .gloss .dia{color:var(--accent);font-size:.7rem;transform:translateY(-2px)}
+  .example{margin-top:14px;padding-top:14px;border-top:1px dashed var(--line-2);font-style:italic;color:var(--ink-soft);font-size:.98rem}
+  .example .lbl{font-style:normal;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-faint);display:block;margin-bottom:4px}
+  .example .hz{font-style:normal;color:var(--ink-faint);font-size:.86rem;margin-top:4px}
+
+  /* topic / multi card variants */
+  .topic-title{font-family:var(--serif);font-size:clamp(1.4rem,5.5vw,1.9rem);line-height:1.2;font-weight:700;margin:2px 0 4px}
+  .topic-en{color:var(--ink-soft);font-size:.92rem;margin-bottom:14px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+  .chip{display:inline-flex;flex-direction:column;border:1px solid var(--line-2);background:var(--paper);border-radius:10px;padding:7px 11px;min-width:64px}
+  .chip .w{font-family:var(--serif);font-size:1.12rem;font-weight:700;color:var(--ink)}
+  .chip .g{font-size:.76rem;color:var(--ink-soft);margin-top:1px}
+  .req-label{font-size:.78rem;color:var(--ink-faint);text-transform:uppercase;letter-spacing:.08em;margin:14px 0 2px;font-weight:600}
+
+  /* ---- writing area ---- */
+  .write{margin-top:18px}
+  .write .prompt{font-size:.98rem;color:var(--ink);margin-bottom:8px}
+  .write .prompt b{color:var(--primary-deep)}
+  textarea{width:100%;min-height:92px;resize:vertical;border:1px solid var(--line-2);border-radius:12px;
+    padding:13px 14px;font-family:var(--sans);font-size:1.02rem;line-height:1.5;color:var(--ink);background:var(--card)}
+  textarea:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(42,74,127,.12)}
+  .actions{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
+  .btn{border-radius:12px;padding:12px 20px;font-size:1rem;cursor:pointer;font-family:var(--sans);border:1px solid transparent;transition:.15s}
+  .btn-primary{background:var(--primary);color:#fff;font-weight:600;flex:1 1 auto;min-height:48px}
+  .btn-primary:hover{background:var(--primary-deep)}
+  .btn-primary:disabled{opacity:.6;cursor:default}
+  .btn-ghost{background:var(--card);color:var(--primary-deep);border-color:var(--line-2)}
+  .btn-ghost:hover{border-color:var(--primary)}
+  .inline-msg{color:var(--warn);font-size:.88rem;margin-top:10px;min-height:1px}
+
+  /* ---- feedback ---- */
+  .feedback{margin-top:18px;border:1px solid var(--line);border-radius:14px;background:var(--card);
+    padding:18px;box-shadow:var(--shadow);animation:rise .28s ease both}
+  .fb-head{font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);font-weight:600;margin-bottom:12px}
+  .fb-chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+  .fchip{font-size:.85rem;border-radius:999px;padding:5px 12px;font-weight:600}
+  .fchip.good{background:var(--good-bg);color:var(--good)}
+  .fchip.warn{background:var(--warn-bg);color:var(--warn)}
+  .fb-block{margin-top:14px}
+  .fb-block .lbl{font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-faint);font-weight:600;margin-bottom:5px;display:flex;align-items:center;gap:7px}
+  .fb-block .en{font-size:1.04rem;color:var(--ink);line-height:1.5}
+  .fix-list{margin:0;padding:0;list-style:none}
+  .fix-list li{padding:9px 0;border-top:1px dashed var(--line-2)}
+  .fix-list li:first-child{border-top:none}
+  .fix-old{color:var(--warn);text-decoration:line-through;text-decoration-color:rgba(189,90,53,.5)}
+  .fix-new{color:var(--good);font-weight:600}
+  .fix-note{display:block;color:var(--ink-soft);font-size:.85rem;margin-top:3px}
+  .upgrade{background:var(--accent-soft);border:1px solid #F0DFAE;border-radius:12px;padding:14px}
+  .upgrade .en{color:var(--primary-deep)}
+  .upgrade-note{color:#7a5e10;font-size:.88rem;margin-top:8px;line-height:1.5}
+  .encourage{margin-top:16px;color:var(--good);font-size:.95rem;display:flex;gap:8px;align-items:flex-start}
+  .fb-mini-speak{border:none;background:transparent;cursor:pointer;color:var(--primary);font-size:.95rem;padding:0}
+
+  .spinner{display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,.45);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;vertical-align:-3px;margin-right:8px}
+  .btn-ghost .spinner{border-color:rgba(42,74,127,.3);border-top-color:var(--primary)}
+  @keyframes spin{to{transform:rotate(360deg)}}
+
+  /* ---- progress panel ---- */
+  .overlay{position:fixed;inset:0;background:rgba(31,41,64,.4);z-index:40;display:none;align-items:flex-start;justify-content:center;padding:24px 16px;overflow:auto}
+  .overlay.show{display:flex}
+  .panel{background:var(--card);border-radius:16px;max-width:520px;width:100%;padding:22px;box-shadow:0 20px 60px rgba(31,41,64,.25);animation:rise .28s ease both}
+  .panel h2{font-family:var(--serif);font-size:1.3rem;margin:0 0 4px}
+  .panel .psub{color:var(--ink-soft);font-size:.85rem;margin-bottom:16px}
+  .big-stats{display:flex;gap:10px;margin-bottom:18px}
+  .big-stat{flex:1;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:12px;text-align:center}
+  .big-stat .n{font-family:var(--serif);font-size:1.7rem;font-weight:700;color:var(--primary-deep);font-variant-numeric:tabular-nums}
+  .big-stat .l{font-size:.76rem;color:var(--ink-soft);margin-top:2px}
+  .cat-row{margin-bottom:12px}
+  .cat-row .top{display:flex;justify-content:space-between;font-size:.86rem;margin-bottom:4px}
+  .cat-row .top .c{color:var(--ink)}
+  .cat-row .top .n{color:var(--ink-soft);font-variant-numeric:tabular-nums}
+  .bar{height:8px;background:var(--line);border-radius:99px;overflow:hidden}
+  .bar > span{display:block;height:100%;background:linear-gradient(90deg,var(--primary),var(--accent));border-radius:99px;transition:width .4s ease}
+  .panel-actions{display:flex;gap:10px;margin-top:18px}
+  .btn-reset{background:transparent;border:1px solid var(--line-2);color:var(--warn);border-radius:10px;padding:9px 14px;font-size:.85rem;cursor:pointer}
+  .btn-close{margin-left:auto;background:var(--primary);color:#fff;border:none;border-radius:10px;padding:9px 18px;font-size:.9rem;cursor:pointer;font-weight:600}
+
+  .foot{margin-top:22px;text-align:center;color:var(--ink-faint);font-size:.78rem;line-height:1.5}
+
+  @media (max-width:480px){
+    .btn-progress{margin-left:0}
+    .stats{width:100%}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+  }
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="topbar-in">
+    <div class="brand">
+      <h1>850 词 · 表达练习</h1>
+      <span class="sub">用基础词写句子，老师帮你改 &amp; 升级</span>
+    </div>
+    <div class="stats">
+      <span>今日已练 <b id="st-today">0</b></span><span class="dot"></span>
+      <span>连续 <b id="st-streak">0</b> 天</span><span class="dot"></span>
+      <span>已掌握 <b id="st-mastered">0</b>/850</span>
+      <button class="btn-progress" id="btn-progress">查看进度</button>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="tabs">
+    <button class="tab active" data-mode="single">看词造句</button>
+    <button class="tab" data-mode="multi">多词造句</button>
+    <button class="tab" data-mode="topic">主题写作</button>
+  </div>
+  <div class="mode-hint" id="mode-hint"></div>
+
+  <div class="filter-row" id="filter-row">
+    <span>词类范围：</span>
+    <select id="cat-filter">
+      <option value="all">全部 850 词</option>
+      <option value="ops">动作 / 功能词（100）</option>
+      <option value="genN">抽象名词（400）</option>
+      <option value="picN">具体名词（200）</option>
+      <option value="genQ">形容词（100）</option>
+      <option value="oppQ">反义形容词（50）</option>
+    </select>
+  </div>
+
+  <div id="card"></div>
+
+  <div class="write">
+    <div class="prompt" id="write-prompt"></div>
+    <textarea id="answer" placeholder="在这里用英文写…"></textarea>
+    <div class="actions">
+      <button class="btn btn-primary" id="btn-check">检查这句</button>
+      <button class="btn btn-ghost" id="btn-hint">需要提示</button>
+      <button class="btn btn-ghost" id="btn-next">下一题 →</button>
+    </div>
+    <div class="inline-msg" id="inline-msg"></div>
+  </div>
+
+  <div id="feedback"></div>
+
+  <div class="foot">
+    用基础词打好地基后，记得再逐步扩展到 3500 考纲词和更高级的句式。<br>
+    练习记录会自动保存在本设备。
+  </div>
+</div>
+
+<div class="overlay" id="overlay">
+  <div class="panel">
+    <h2>练习进度</h2>
+    <div class="psub">「掌握」= 这个词你已经正确用过、并稳定通过了几次练习。</div>
+    <div class="big-stats">
+      <div class="big-stat"><div class="n" id="p-mastered">0</div><div class="l">已掌握</div></div>
+      <div class="big-stat"><div class="n" id="p-seen">0</div><div class="l">练过的词</div></div>
+      <div class="big-stat"><div class="n" id="p-streak">0</div><div class="l">连续天数</div></div>
+    </div>
+    <div id="cat-bars"></div>
+    <div class="panel-actions">
+      <button class="btn-reset" id="btn-reset">清空进度</button>
+      <button class="btn-close" id="btn-close">继续练习</button>
+    </div>
+  </div>
+</div>
+
+<script>
+"use strict";
+
+/* ============ 850-word data (word + 简明中文释义) ============ */
+const DATA = {
+  ops:{ label:"动作 / 功能词", tag:"OPERATIONS", words:[
+    ["come","来；到来"],["get","得到；变得"],["give","给"],["go","去"],["keep","保持；保留"],["let","让；允许"],["make","做；制造"],["put","放"],["seem","似乎"],["take","拿；取；花费"],
+    ["be","是；存在"],["do","做"],["have","有"],["say","说"],["see","看见；明白"],["send","寄；发送"],["may","可以；可能"],["will","将要；意愿"],
+    ["about","关于；大约"],["across","穿过；横过"],["after","在…之后"],["against","反对；靠着"],["among","在…之中"],["at","在；于"],["before","在…之前"],["between","在…之间"],["by","通过；被；在…旁"],["down","向下"],["from","从；来自"],["in","在…里"],["off","离开；脱离"],["on","在…上"],["over","在…上方；超过"],["through","穿过；通过"],["to","到；向"],["under","在…下面"],["up","向上"],["with","和…一起；用"],
+    ["as","作为；当…时"],["for","为了；因为"],["of","…的"],["till","直到"],["than","比"],
+    ["a","一（个）"],["the","这；那（特指）"],["all","全部"],["any","任何"],["every","每一"],["little","少的；小的"],["much","许多（不可数）"],["no","没有；不"],["other","其他的"],["some","一些"],["such","这样的"],["that","那（个）"],["this","这（个）"],
+    ["I","我"],["he","他"],["you","你；你们"],["who","谁"],
+    ["and","和；并且"],["because","因为"],["but","但是"],["or","或者"],["if","如果"],["though","虽然"],["while","当…时；然而"],
+    ["how","怎样"],["when","什么时候"],["where","在哪里"],["why","为什么"],
+    ["again","再次"],["ever","曾经；究竟"],["far","远"],["forward","向前"],["here","这里"],["near","近"],["now","现在"],["out","向外"],["still","仍然"],["then","然后；那时"],["there","那里"],["together","一起"],["well","好；嗯"],
+    ["almost","几乎"],["enough","足够"],["even","甚至"],["not","不"],["only","只；仅"],["quite","相当；十分"],["so","所以；如此"],["very","非常"],
+    ["tomorrow","明天"],["yesterday","昨天"],["north","北"],["south","南"],["east","东"],["west","西"],["please","请"],["yes","是的"]
+  ]},
+  genN:{ label:"抽象名词", tag:"THINGS · general", words:[
+    ["account","账户；说明"],["act","行为；表演"],["addition","增加；加法"],["adjustment","调整"],["advertisement","广告"],["agreement","协议；同意"],["air","空气"],["amount","数量"],["amusement","娱乐"],["animal","动物"],["answer","回答"],["apparatus","器械；设备"],["approval","批准；赞成"],["argument","争论；论点"],["art","艺术"],["attack","攻击"],["attempt","尝试"],["attention","注意"],["attraction","吸引（力）"],["authority","权威；当局"],
+    ["back","背；后面"],["balance","平衡"],["base","基础；基地"],["behavior","行为"],["belief","信念；相信"],["birth","出生"],["bit","一点；小块"],["bite","咬"],["blood","血"],["blow","吹；打击"],["body","身体"],["brass","黄铜"],["bread","面包"],["breath","呼吸"],["brother","兄弟"],["building","建筑物"],["burn","燃烧；烧伤"],["burst","爆裂"],["business","生意；事务"],["butter","黄油"],
+    ["canvas","帆布"],["care","关心；照料"],["cause","原因；导致"],["chalk","粉笔"],["chance","机会；可能"],["change","改变"],["cloth","布"],["coal","煤"],["color","颜色"],["comfort","舒适；安慰"],["committee","委员会"],["company","公司；陪伴"],["comparison","比较"],["competition","竞争；比赛"],["condition","条件；状况"],["connection","连接；联系"],["control","控制"],["cook","烹饪；厨师"],["copper","铜"],["copy","复制；副本"],
+    ["cork","软木塞"],["cotton","棉"],["cough","咳嗽"],["country","国家；乡村"],["cover","覆盖；封面"],["crack","裂缝；破裂"],["credit","信用；赊账"],["crime","犯罪"],["crush","压碎"],["cry","哭；喊"],["current","水流；电流；当前的"],["curve","曲线"],["damage","损害"],["danger","危险"],["daughter","女儿"],["day","白天；日子"],["death","死亡"],["debt","债务"],["decision","决定"],["degree","程度；度；学位"],
+    ["design","设计"],["desire","渴望"],["destruction","破坏"],["detail","细节"],["development","发展"],["digestion","消化"],["direction","方向"],["discovery","发现"],["discussion","讨论"],["disease","疾病"],["disgust","厌恶"],["distance","距离"],["distribution","分配；分布"],["division","分开；除法"],["doubt","怀疑"],["drink","喝；饮料"],["driving","驾驶"],["dust","灰尘"],["earth","地球；泥土"],["edge","边缘"],
+    ["education","教育"],["effect","效果；影响"],["end","结束；末端"],["error","错误"],["event","事件"],["example","例子"],["exchange","交换"],["existence","存在"],["expansion","扩张"],["experience","经历；经验"],["expert","专家"],["fact","事实"],["fall","落下；秋天"],["family","家庭"],["father","父亲"],["fear","害怕"],["feeling","感觉"],["fiction","小说；虚构"],["field","田野；领域"],["fight","打架；战斗"],
+    ["fire","火"],["flame","火焰"],["flight","飞行；航班"],["flower","花"],["fold","折叠"],["food","食物"],["force","力量；强迫"],["form","形状；表格"],["friend","朋友"],["front","前面"],["fruit","水果"],["glass","玻璃；玻璃杯"],["gold","黄金"],["government","政府"],["grain","谷物；颗粒"],["grass","草"],["grip","紧握"],["group","群；组"],["growth","生长；增长"],["guide","向导；指南"],
+    ["harbor","港口"],["harmony","和谐"],["hate","憎恨"],["hearing","听觉；听证"],["heat","热"],["help","帮助"],["history","历史"],["hole","洞"],["hope","希望"],["hour","小时"],["humor","幽默"],["ice","冰"],["idea","主意；想法"],["impulse","冲动；脉冲"],["increase","增加"],["industry","工业；行业"],["ink","墨水"],["insect","昆虫"],["instrument","仪器；乐器"],["insurance","保险"],
+    ["interest","兴趣；利息"],["invention","发明"],["iron","铁；熨斗"],["jelly","果冻"],["join","连接；加入"],["journey","旅程"],["judge","法官；判断"],["jump","跳"],["kick","踢"],["kiss","吻"],["knowledge","知识"],["land","陆地；土地"],["language","语言"],["laugh","笑"],["law","法律"],["lead","铅；领导"],["learning","学习；学问"],["leather","皮革"],["letter","信；字母"],["level","水平；层"],
+    ["lift","举起；电梯"],["light","光；轻的"],["limit","限制"],["linen","亚麻布"],["liquid","液体"],["list","清单"],["look","看；样子"],["loss","损失"],["love","爱"],["machine","机器"],["man","男人；人"],["manager","经理"],["mark","标记；分数"],["market","市场"],["mass","大量；质量"],["meal","一餐"],["measure","测量；措施"],["meat","肉"],["meeting","会议"],["memory","记忆"],
+    ["metal","金属"],["middle","中间"],["milk","牛奶"],["mind","头脑；介意"],["mine","我的；矿"],["minute","分钟"],["mist","薄雾"],["money","钱"],["month","月"],["morning","早晨"],["mother","母亲"],["motion","运动；动作"],["mountain","山"],["move","移动"],["music","音乐"],["name","名字"],["nation","国家；民族"],["need","需要"],["news","新闻"],["night","夜晚"],
+    ["noise","噪音"],["note","笔记；便条"],["number","数字"],["observation","观察"],["offer","提供；提议"],["oil","油"],["operation","操作；手术"],["opinion","意见"],["order","命令；顺序；点（餐）"],["organization","组织"],["ornament","装饰品"],["owner","主人"],["page","页"],["pain","疼痛"],["paint","油漆；绘画"],["paper","纸；报纸"],["part","部分"],["paste","浆糊；粘贴"],["payment","支付"],["peace","和平；平静"],
+    ["person","人"],["place","地方"],["plant","植物；工厂"],["play","玩；戏剧"],["pleasure","愉快"],["point","点；要点；指"],["poison","毒药"],["polish","擦亮；抛光"],["porter","搬运工；门房"],["position","位置；职位"],["powder","粉末"],["power","力量；权力；电力"],["price","价格"],["print","印刷；打印"],["process","过程"],["produce","生产"],["profit","利润"],["property","财产；性质"],["prose","散文"],["protest","抗议"],
+    ["pull","拉"],["punishment","惩罚"],["purpose","目的"],["push","推"],["quality","质量"],["question","问题"],["rain","雨"],["range","范围"],["rate","比率；速度"],["ray","光线"],["reaction","反应"],["reading","阅读"],["reason","原因；理性"],["record","记录"],["regret","后悔"],["relation","关系"],["religion","宗教"],["representative","代表"],["request","请求"],["respect","尊敬"],
+    ["rest","休息；其余"],["reward","奖励"],["rhythm","节奏"],["rice","米；米饭"],["river","河"],["road","路"],["roll","滚动；卷"],["room","房间；空间"],["rub","摩擦"],["rule","规则；统治"],["run","跑；经营"],["salt","盐"],["sand","沙"],["scale","刻度；规模；天平"],["science","科学"],["sea","海"],["seat","座位"],["secretary","秘书"],["selection","选择"],["self","自己"],
+    ["sense","感觉；意义"],["servant","仆人"],["sex","性别"],["shade","阴影；色调"],["shake","摇动"],["shame","羞愧"],["shock","震惊；电击"],["side","边；侧"],["sign","标志；签名"],["silk","丝绸"],["silver","银"],["sister","姐妹"],["size","尺寸"],["sky","天空"],["sleep","睡觉"],["slip","滑；纸条"],["slope","斜坡"],["smash","猛击；打碎"],["smell","气味；闻"],["smile","微笑"],
+    ["smoke","烟；吸烟"],["sneeze","打喷嚏"],["snow","雪"],["soap","肥皂"],["society","社会"],["son","儿子"],["song","歌曲"],["sort","种类；分类"],["sound","声音"],["soup","汤"],["space","空间；太空"],["stage","舞台；阶段"],["start","开始"],["statement","陈述；声明"],["steam","蒸汽"],["steel","钢"],["step","步；台阶"],["stitch","一针"],["stone","石头"],["stop","停止"],
+    ["story","故事；楼层"],["stretch","伸展"],["structure","结构"],["substance","物质"],["sugar","糖"],["suggestion","建议"],["summer","夏天"],["support","支持"],["surprise","惊讶"],["swim","游泳"],["system","系统"],["talk","谈话"],["taste","味道；品尝"],["tax","税"],["teaching","教学"],["tendency","趋势；倾向"],["test","测试"],["theory","理论"],["thing","东西；事情"],["thought","想法"],
+    ["thunder","雷"],["time","时间"],["tin","锡；罐头"],["top","顶部"],["touch","触摸"],["trade","贸易；行业"],["transport","运输"],["trick","把戏；诡计"],["trouble","麻烦"],["turn","转动；轮到"],["twist","扭转"],["unit","单位；单元"],["use","使用"],["value","价值"],["verse","诗句"],["vessel","容器；船"],["view","看法；景色"],["voice","声音；嗓音"],["walk","走；散步"],["war","战争"],
+    ["wash","洗"],["waste","浪费；废物"],["water","水"],["wave","波浪；挥手"],["wax","蜡"],["way","方法；路"],["weather","天气"],["week","星期"],["weight","重量"],["wind","风"],["wine","葡萄酒"],["winter","冬天"],["woman","女人"],["wood","木头；树林"],["wool","羊毛"],["word","词；话"],["work","工作"],["wound","伤口"],["writing","写作；字迹"],["year","年"]
+  ]},
+  picN:{ label:"具体名词", tag:"THINGS · picturable", words:[
+    ["angle","角；角度"],["ant","蚂蚁"],["apple","苹果"],["arch","拱"],["arm","手臂"],["army","军队"],["baby","婴儿"],["bag","包；袋"],["ball","球"],["band","带子；乐队"],["basin","盆"],["basket","篮子"],["bath","洗澡；浴缸"],["bed","床"],["bee","蜜蜂"],["bell","铃；钟"],["berry","浆果"],["bird","鸟"],["blade","刀刃"],["board","木板；委员会"],
+    ["boat","船"],["bone","骨头"],["book","书"],["boot","靴子"],["bottle","瓶子"],["box","盒子"],["boy","男孩"],["brain","大脑"],["brake","刹车"],["branch","树枝；分支"],["brick","砖"],["bridge","桥"],["brush","刷子"],["bucket","桶"],["bulb","灯泡；球茎"],["button","纽扣；按钮"],["cake","蛋糕"],["camera","相机"],["card","卡片"],["cart","手推车"],
+    ["carriage","马车；车厢"],["cat","猫"],["chain","链条"],["cheese","奶酪"],["chest","胸；箱子"],["chin","下巴"],["church","教堂"],["circle","圆"],["clock","时钟"],["cloud","云"],["coat","外套"],["collar","衣领"],["comb","梳子"],["cord","绳；线"],["cow","母牛"],["cup","杯子"],["curtain","窗帘"],["cushion","垫子"],["dog","狗"],["door","门"],
+    ["drain","排水管"],["drawer","抽屉"],["dress","连衣裙；穿衣"],["drop","滴；落下"],["ear","耳朵"],["egg","蛋"],["engine","发动机；引擎"],["eye","眼睛"],["face","脸"],["farm","农场"],["feather","羽毛"],["finger","手指"],["fish","鱼"],["flag","旗"],["floor","地板；楼层"],["fly","苍蝇；飞"],["foot","脚"],["fork","叉子"],["fowl","家禽"],["frame","框架"],
+    ["garden","花园"],["girl","女孩"],["glove","手套"],["goat","山羊"],["gun","枪"],["hair","头发"],["hammer","锤子"],["hand","手"],["hat","帽子"],["head","头"],["heart","心"],["hook","钩"],["horn","角；喇叭"],["horse","马"],["hospital","医院"],["house","房子"],["island","岛"],["jewel","珠宝"],["kettle","水壶"],["key","钥匙；关键"],
+    ["knee","膝盖"],["knife","刀"],["knot","结"],["leaf","叶子"],["leg","腿"],["library","图书馆"],["line","线；排"],["lip","嘴唇"],["lock","锁"],["map","地图"],["match","火柴；比赛；匹配"],["monkey","猴子"],["moon","月亮"],["mouth","嘴"],["muscle","肌肉"],["nail","钉子；指甲"],["neck","脖子"],["needle","针"],["nerve","神经"],["net","网"],
+    ["nose","鼻子"],["nut","坚果；螺母"],["office","办公室"],["orange","橙子；橙色"],["oven","烤箱"],["parcel","包裹"],["pen","钢笔"],["pencil","铅笔"],["picture","图画；照片"],["pig","猪"],["pin","别针"],["pipe","管子；烟斗"],["plane","飞机；平面"],["plate","盘子"],["plough/plow","犁"],["pocket","口袋"],["pot","锅；罐"],["potato","土豆"],["prison","监狱"],["pump","泵"],
+    ["rail","栏杆；铁轨"],["rat","老鼠"],["receipt","收据"],["ring","戒指；环；铃响"],["rod","杆"],["roof","屋顶"],["root","根"],["sail","帆；航行"],["school","学校"],["scissors","剪刀"],["screw","螺丝"],["seed","种子"],["sheep","绵羊"],["shelf","架子"],["ship","船"],["shirt","衬衫"],["shoe","鞋"],["skin","皮肤"],["skirt","裙子"],["snake","蛇"],
+    ["sock","袜子"],["spade","铲；黑桃"],["sponge","海绵"],["spoon","勺子"],["spring","春天；弹簧"],["square","正方形；广场"],["stamp","邮票；图章"],["star","星星；明星"],["station","车站"],["stem","茎"],["stick","棍；粘"],["stocking","长袜"],["stomach","胃；肚子"],["store","商店；储存"],["street","街道"],["sun","太阳"],["table","桌子；表格"],["tail","尾巴"],["thread","线"],["throat","喉咙"],
+    ["thumb","拇指"],["ticket","票"],["toe","脚趾"],["tongue","舌头；语言"],["tooth","牙齿"],["town","城镇"],["train","火车；训练"],["tray","托盘"],["tree","树"],["trousers","裤子"],["umbrella","雨伞"],["wall","墙"],["watch","手表；观看"],["wheel","轮子"],["whip","鞭子"],["whistle","哨子；吹哨"],["window","窗户"],["wing","翅膀"],["wire","电线；金属丝"],["worm","虫子"]
+  ]},
+  genQ:{ label:"形容词", tag:"QUALITIES", words:[
+    ["able","能够的"],["acid","酸的"],["angry","生气的"],["automatic","自动的"],["beautiful","美丽的"],["black","黑色的"],["boiling","沸腾的"],["bright","明亮的；聪明的"],["broken","破碎的"],["brown","棕色的"],["cheap","便宜的"],["chemical","化学的"],["chief","主要的；首领"],["clean","干净的"],["clear","清楚的；晴朗的"],["common","常见的；共同的"],["complex","复杂的"],["conscious","有意识的"],["cut","切的；被切"],["deep","深的"],
+    ["dependent","依赖的"],["early","早的"],["elastic","有弹性的"],["electric","电的"],["equal","相等的"],["fat","胖的；脂肪"],["fertile","肥沃的"],["first","第一的"],["fixed","固定的"],["flat","平的；公寓"],["free","自由的；免费的"],["frequent","频繁的"],["full","满的"],["general","普遍的；总的"],["good","好的"],["great","伟大的；很好的"],["grey/gray","灰色的"],["hanging","悬挂的"],["happy","高兴的"],["hard","硬的；难的"],
+    ["healthy","健康的"],["high","高的"],["hollow","空心的"],["important","重要的"],["kind","善良的；种类"],["like","像；喜欢"],["living","活的；生活的"],["long","长的"],["male","男性的"],["married","已婚的"],["material","材料；物质的"],["medical","医学的"],["military","军事的"],["natural","自然的"],["necessary","必要的"],["new","新的"],["normal","正常的"],["open","开着的；打开"],["parallel","平行的"],["past","过去的"],
+    ["physical","身体的；物理的"],["political","政治的"],["poor","贫穷的；差的"],["possible","可能的"],["present","现在的；出席的"],["private","私人的"],["probable","很可能的"],["quick","快的"],["quiet","安静的"],["ready","准备好的"],["red","红色的"],["regular","规律的；常规的"],["responsible","负责的"],["right","对的；右"],["round","圆的"],["same","相同的"],["second","第二的；秒"],["separate","分开的"],["serious","严肃的；严重的"],["sharp","锋利的；尖锐的"],
+    ["smooth","光滑的"],["sticky","黏的"],["stiff","僵硬的"],["straight","直的"],["strong","强壮的"],["sudden","突然的"],["sweet","甜的"],["tall","高的（个子）"],["thick","厚的；粗的"],["tight","紧的"],["tired","累的"],["true","真的"],["violent","暴力的；剧烈的"],["waiting","等待的"],["warm","温暖的"],["wet","湿的"],["wide","宽的"],["wise","明智的"],["yellow","黄色的"],["young","年轻的"]
+  ]},
+  oppQ:{ label:"反义形容词", tag:"QUALITIES · opposites", words:[
+    ["awake","醒着的"],["bad","坏的"],["bent","弯曲的"],["bitter","苦的"],["blue","蓝色的；忧郁的"],["certain","确定的；某个"],["cold","冷的"],["complete","完整的；完成"],["cruel","残忍的"],["dark","黑暗的；深色的"],["dead","死的"],["dear","亲爱的；昂贵的"],["delicate","精致的；娇弱的"],["different","不同的"],["dirty","脏的"],["dry","干的"],["false","错误的；假的"],["feeble","虚弱的"],["female","女性的"],["foolish","愚蠢的"],
+    ["future","未来的"],["green","绿色的"],["ill","生病的"],["last","最后的；上一个"],["late","迟的；晚的"],["left","左；剩下"],["loose","松的"],["loud","大声的"],["low","低的"],["mixed","混合的"],["narrow","窄的"],["old","老的；旧的"],["opposite","相反的"],["public","公共的"],["rough","粗糙的；粗略的"],["sad","悲伤的"],["safe","安全的"],["secret","秘密的"],["short","短的；矮的"],["shut","关闭的；关"],
+    ["simple","简单的"],["slow","慢的"],["small","小的"],["soft","软的；柔和的"],["solid","固体的；结实的"],["special","特别的"],["strange","奇怪的；陌生的"],["thin","薄的；瘦的"],["white","白色的"],["wrong","错的"]
+  ]}
+};
+
+const CAT_ORDER = ["ops","genN","picN","genQ","oppQ"];
+
+// build master list
+const MASTER = [];
+CAT_ORDER.forEach(k=>{
+  DATA[k].words.forEach(pair=>{
+    MASTER.push({ w:pair[0], g:pair[1], cat:k, catLabel:DATA[k].label, tag:DATA[k].tag });
+  });
+});
+const BY_WORD = {}; MASTER.forEach(o=>BY_WORD[o.w]=o);
+
+/* ============ 高考风格主题 ============ */
+const TOPICS = [
+  {zh:"介绍你的校园生活", en:"Describe your school life", words:["school","friend","learning","hard","happy"]},
+  {zh:"谈谈运动与健康", en:"Exercise and staying healthy", words:["healthy","run","food","strong","every"]},
+  {zh:"我们能为环境做什么", en:"What we can do for the environment", words:["earth","waste","water","clean","care"]},
+  {zh:"读书的好习惯", en:"Good reading habits", words:["book","reading","knowledge","every","learning"]},
+  {zh:"一个中国传统节日", en:"A traditional Chinese festival", words:["family","food","happy","year","together"]},
+  {zh:"一次难忘的经历", en:"An unforgettable experience", words:["experience","happy","friend","day","memory"]},
+  {zh:"我的未来计划", en:"My plans for the future", words:["future","work","learning","hope","hard"]},
+  {zh:"写信向外国朋友介绍中国", en:"Tell a foreign friend about China", words:["country","food","friend","music","like"]},
+  {zh:"帮助他人 / 做志愿者", en:"Helping others", words:["help","kind","give","person","happy"]},
+  {zh:"介绍你的一个爱好", en:"Introduce a hobby of yours", words:["music","play","time","happy","learning"]}
+];
+
+/* ============ 持久化（window.storage，含内存兜底） ============ */
+const STATE_KEY="be850:state:v1";
+const EX_KEY="be850:examples:v1";
+const MEM={};
+async function sGet(key){
+  try{ const r=await window.storage.get(key,false); return r&&typeof r.value!=="undefined"?r.value:(MEM[key]??null); }
+  catch(e){ return MEM[key]??null; }
+}
+async function sSet(key,val){
+  MEM[key]=val;
+  try{ await window.storage.set(key,val,false); }catch(e){/* ignore */}
+}
+
+let state={ progress:{}, stats:{ lastDay:null, streak:0, todayCount:0 } };
+let exCache={};
+
+async function loadAll(){
+  const raw=await sGet(STATE_KEY);
+  if(raw){ try{ const o=JSON.parse(raw); if(o.progress) state.progress=o.progress; if(o.stats) state.stats=Object.assign(state.stats,o.stats);}catch(e){} }
+  const rex=await sGet(EX_KEY);
+  if(rex){ try{ exCache=JSON.parse(rex)||{}; }catch(e){ exCache={}; } }
+}
+async function saveState(){ await sSet(STATE_KEY, JSON.stringify({progress:state.progress, stats:state.stats})); }
+async function saveEx(){ await sSet(EX_KEY, JSON.stringify(exCache)); }
+
+/* ============ 间隔重复（Leitner 简化版） ============ */
+const INTERVAL_DAYS={1:0,2:1,3:2,4:4,5:7}; // box -> 多少天后再复习
+const DAY=86400000;
+function pdata(w){ return state.progress[w] || {box:0,c:0,wr:0,seen:0}; }
+function isDue(w){ const p=state.progress[w]; if(!p||p.box===0) return true; return (Date.now()-(p.seen||0))>= (INTERVAL_DAYS[p.box]||0)*DAY; }
+function score(w){ const p=pdata(w); return (p.box*1e12) + (p.seen||0); } // 越小越优先（未学/低盒/久未练 优先）
+
+function pickN(pool, n, exclude){
+  const ex=new Set(exclude||[]);
+  let cand=pool.filter(o=>!ex.has(o.w));
+  if(cand.length===0) cand=pool.slice();
+  // 优先未学
+  let unseen=cand.filter(o=>pdata(o.w).box===0);
+  let chosen=[];
+  const takeRandom=(arr,k)=>{ const a=arr.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a.slice(0,k); };
+  if(unseen.length>=n){ return takeRandom(unseen,n); }
+  chosen=chosen.concat(takeRandom(unseen,unseen.length));
+  let rest=cand.filter(o=>chosen.indexOf(o)<0);
+  // 其余按 score 排序，取靠前的一窗口随机
+  rest.sort((a,b)=>score(a.w)-score(b.w));
+  const windowSize=Math.min(rest.length, Math.max(n*4,12));
+  const pickFrom=rest.slice(0,windowSize);
+  chosen=chosen.concat(takeRandom(pickFrom, n-chosen.length));
+  return chosen.slice(0,n);
+}
+
+function gradeWord(w, good){
+  const p=pdata(w);
+  if(good){ p.box=Math.min(5,(p.box||0)+1); p.c=(p.c||0)+1; }
+  else{ p.box=1; p.wr=(p.wr||0)+1; }
+  p.seen=Date.now();
+  state.progress[w]=p;
+}
+function ymd(d){ const x=new Date(d); return x.getFullYear()+"-"+(x.getMonth()+1)+"-"+x.getDate(); }
+function notePractice(){
+  const today=ymd(Date.now());
+  if(state.stats.lastDay===today){ state.stats.todayCount=(state.stats.todayCount||0)+1; return; }
+  const yest=ymd(Date.now()-DAY);
+  if(state.stats.lastDay===yest){ state.stats.streak=(state.stats.streak||0)+1; }
+  else{ state.stats.streak=1; }
+  state.stats.lastDay=today; state.stats.todayCount=1;
+}
+function masteredCount(){ let n=0; for(const w in state.progress){ if(state.progress[w].box>=4) n++; } return n; }
+function seenCount(){ let n=0; for(const w in state.progress){ if(state.progress[w].box>0) n++; } return n; }
+
+/* ============ Claude API（在 Artifact 内调用，无需密钥） ============ */
+async function callClaude(system, userContent){
+  const res=await fetch("https://api.anthropic.com/v1/messages",{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({ model:"claude-sonnet-4-6", max_tokens:1000, system, messages:[{role:"user",content:userContent}] })
+  });
+  if(!res.ok) throw new Error("HTTP "+res.status);
+  const data=await res.json();
+  return (data.content||[]).map(b=>b&&b.type==="text"?b.text:"").join("\n");
+}
+function parseJSON(text){
+  let t=(text||"").trim();
+  t=t.replace(/^```(?:json)?/i,"").replace(/```$/,"").trim();
+  const a=t.indexOf("{"), b=t.lastIndexOf("}");
+  if(a>=0 && b>a) t=t.slice(a,b+1);
+  return JSON.parse(t);
+}
+const FEEDBACK_SYSTEM =
+"你是一位耐心、鼓励的高中英语写作老师。学生是中国广州的一名高一学生，英语基础比较薄弱，正在用基础词汇练习表达、为高考打基础。\n"+
+"请只输出一个 JSON 对象，不要输出任何解释、前言、问候或 Markdown 代码块标记，不要使用反引号。\n"+
+"JSON 字段：\n"+
+"{\n"+
+'  "used_correctly": 布尔值，指定单词是否都被正确地用进了句子,\n'+
+'  "missing_words": 字符串数组，没有用上或用错的目标单词（都用对了就给空数组）,\n'+
+'  "overall_ok": 布尔值，句子/短文整体语法是否基本正确通顺,\n'+
+'  "errors": 数组，每项 {"original":"原文里有问题的片段","fix":"改正后的写法","note_zh":"简短中文说明"}（最多4项；没有明显问题就给空数组）,\n'+
+'  "corrected": 字符串，在尽量保留学生原意和原词的前提下改正后的版本（保持高中基础水平、简洁）,\n'+
+'  "upgraded": 字符串，一个更地道、更接近高考高分作文的版本（可用更丰富的词汇、连接词、从句或较高级句型，但仍适合高中生）,\n'+
+'  "upgrade_note_zh": 字符串，用中文简短说明升级版好在哪（点出用了什么高级词/连接词/句型，1到2句）,\n'+
+'  "encourage_zh": 字符串，一句具体、真诚的中文鼓励\n'+
+"}\n"+
+"要求：语气友好鼓励；指出错误时温和、具体；学生写得好也要如实肯定；所有中文都简短易懂。";
+
+/* ============ 状态与界面 ============ */
+let mode="single";
+let current={ word:null, gloss:null, item:null, words:[], topic:null };
+let lastSingle=[]; let lastMulti=[]; let lastTopicIdx=-1;
+let busy=false;
+
+const $=id=>document.getElementById(id);
+function esc(s){ return String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+function speak(text){ try{ if(!window.speechSynthesis) return; const u=new SpeechSynthesisUtterance(text); u.lang="en-US"; u.rate=.92; window.speechSynthesis.cancel(); window.speechSynthesis.speak(u);}catch(e){} }
+
+const MODE_HINTS={
+  single:"看着这个词，自己写一个英文句子。写完点「检查这句」，老师会帮你改，并给出更高级（更接近高考高分）的写法。卡住了就点「需要提示」。",
+  multi:"用下面三个词写一句话（写两句也行），尽量把三个词都自然地用上。",
+  topic:"这是一道高考风格的小作文。写 3–5 句完成话题，并把下面要求的词都用进去。老师会就内容、语法、用词给反馈，并改写出一段高分范例。"
+};
+
+function filteredPool(){
+  const v=$("cat-filter").value;
+  if(v==="all") return MASTER;
+  return MASTER.filter(o=>o.cat===v);
+}
+
+function newItem(){
+  $("answer").value="";
+  $("inline-msg").textContent="";
+  $("feedback").innerHTML="";
+  const pool=filteredPool();
+  if(mode==="single"){
+    const arr=pickN(pool,1,lastSingle);
+    const o=arr[0]||pool[0];
+    current={word:o.w, gloss:o.g, item:o, words:[o.w], topic:null};
+    lastSingle=[o.w];
+  } else if(mode==="multi"){
+    const arr=pickN(pool,3,lastMulti);
+    current={word:null, gloss:null, item:null, words:arr.map(o=>o.w), topic:null, items:arr};
+    lastMulti=arr.map(o=>o.w);
+  } else {
+    let idx=Math.floor(Math.random()*TOPICS.length);
+    if(TOPICS.length>1){ let guard=0; while(idx===lastTopicIdx && guard++<5) idx=Math.floor(Math.random()*TOPICS.length); }
+    lastTopicIdx=idx;
+    const t=TOPICS[idx];
+    current={word:null, gloss:null, item:null, words:t.words.slice(), topic:t};
+  }
+  renderCard();
+}
+
+function renderCard(){
+  const card=$("card");
+  if(mode==="single"){
+    const o=current.item;
+    const cached=exCache[o.w];
+    card.innerHTML=
+      '<div class="card">'+
+        '<div class="eyebrow">'+esc(o.catLabel)+' · <span class="tag">'+esc(o.tag)+'</span></div>'+
+        '<div class="headword-row"><div class="headword">'+esc(o.w)+'</div>'+
+          '<button class="speak" title="朗读" id="speak-word">🔊</button></div>'+
+        '<div class="gloss"><span class="dia">◆</span><span>'+esc(o.g)+'</span></div>'+
+        '<div id="example-slot">'+(cached?exampleHTML(cached):'')+'</div>'+
+      '</div>';
+    $("write-prompt").innerHTML='用 <b>'+esc(o.w)+'</b> 写一个你自己的英文句子：';
+    const sw=$("speak-word"); if(sw) sw.onclick=()=>speak(o.w);
+    $("btn-hint").style.display="";
+  } else if(mode==="multi"){
+    card.innerHTML=
+      '<div class="card">'+
+        '<div class="eyebrow">多词造句 · <span class="tag">用上全部 3 个词</span></div>'+
+        '<div class="chips">'+current.items.map(o=>
+          '<span class="chip"><span class="w">'+esc(o.w)+'</span><span class="g">'+esc(o.g)+'</span></span>').join('')+
+        '</div>'+
+      '</div>';
+    $("write-prompt").innerHTML='用上面三个词写一句话（或两句）：';
+    $("btn-hint").style.display="none";
+  } else {
+    const t=current.topic;
+    card.innerHTML=
+      '<div class="card">'+
+        '<div class="eyebrow">主题写作 · <span class="tag">高考书面表达</span></div>'+
+        '<div class="topic-title">'+esc(t.zh)+'</div>'+
+        '<div class="topic-en">'+esc(t.en)+'</div>'+
+        '<div class="req-label">要用上这些词</div>'+
+        '<div class="chips">'+t.words.map(w=>{const o=BY_WORD[w]||{w:w,g:""};
+          return '<span class="chip"><span class="w">'+esc(o.w)+'</span><span class="g">'+esc(o.g)+'</span></span>';}).join('')+
+        '</div>'+
+      '</div>';
+    $("write-prompt").innerHTML='写 3–5 句话完成这个话题，并用上上面要求的词：';
+    $("btn-hint").style.display="none";
+  }
+}
+function exampleHTML(o){
+  if(!o||!o.example) return '';
+  return '<div class="example"><span class="lbl">例句 example</span>'+esc(o.example)+
+    (o.hint_zh?'<span class="hz">提示：'+esc(o.hint_zh)+'</span>':'')+'</div>';
+}
+
+async function getHint(){
+  if(mode!=="single"||busy) return;
+  const o=current.item; const slot=$("example-slot");
+  if(exCache[o.w]){ slot.innerHTML=exampleHTML(exCache[o.w]); return; }
+  const btn=$("btn-hint"); btn.disabled=true; btn.innerHTML='<span class="spinner"></span>加载中';
+  try{
+    const sys="你是高中英语老师。只输出一个 JSON 对象，不要任何解释或代码块标记，不要用反引号。字段："+
+      '{"example":"一个简单、地道、适合高一学生的英文例句（要用到该词）","hint_zh":"一句中文使用提示或常见搭配"}';
+    const raw=await callClaude(sys, "单词："+o.w+"（"+o.g+"）");
+    const j=parseJSON(raw);
+    exCache[o.w]={example:j.example||"", hint_zh:j.hint_zh||""};
+    await saveEx();
+    slot.innerHTML=exampleHTML(exCache[o.w]);
+  }catch(e){
+    slot.innerHTML='<div class="example"><span class="lbl">提示</span>提示暂时拿不到，先自己试着写写看吧。</div>';
+  }finally{ btn.disabled=false; btn.textContent="需要提示"; }
+}
+
+function buildUserContent(text){
+  if(mode==="single"){
+    return "目标单词："+current.word+"（"+current.gloss+"）\n学生写的句子："+text+
+      "\n任务：检查学生是否正确地把目标单词用进了这句话，并按要求给出 JSON 反馈。";
+  } else if(mode==="multi"){
+    return "目标单词（要全部用上）："+current.words.join("、")+"\n学生写的句子/短文："+text+
+      "\n任务：检查学生是否把所有目标单词都正确用上，并按要求给出 JSON 反馈。";
+  } else {
+    const t=current.topic;
+    return "作文话题："+t.zh+"（"+t.en+"）\n要求用上的单词："+t.words.join("、")+"\n学生写的内容："+text+
+      "\n任务：这是高考风格的书面表达练习。检查内容是否切题、是否用上指定单词、语法与表达，并按要求给出 JSON 反馈。upgraded 字段请给出更地道、更接近高考高分作文的整段改写。";
+  }
+}
+
+async function checkAnswer(){
+  if(busy) return;
+  const text=$("answer").value.trim();
+  if(!text){ $("inline-msg").textContent="先写一句再检查吧。"; return; }
+  $("inline-msg").textContent="";
+  busy=true;
+  const btn=$("btn-check"); btn.disabled=true; btn.innerHTML='<span class="spinner"></span>老师正在看…';
+  try{
+    const raw=await callClaude(FEEDBACK_SYSTEM, buildUserContent(text));
+    const fb=parseJSON(raw);
+    renderFeedback(fb);
+    // 评分并保存
+    const good = !!fb.used_correctly && !!fb.overall_ok && (!Array.isArray(fb.missing_words)||fb.missing_words.length===0);
+    current.words.forEach(w=> gradeWord(w, good));
+    notePractice();
+    await saveState();
+    refreshTopbar();
+  }catch(e){
+    $("feedback").innerHTML='<div class="feedback"><div class="fb-head">出错了</div>'+
+      '<div style="color:var(--warn)">网络好像没连上，或服务暂时繁忙。请检查网络后点下面重试。</div>'+
+      '<div class="actions"><button class="btn btn-primary" id="btn-retry">重试</button></div></div>';
+    const r=$("btn-retry"); if(r) r.onclick=checkAnswer;
+  }finally{
+    busy=false; btn.disabled=false; btn.textContent="检查这句";
+  }
+}
+
+function renderFeedback(fb){
+  const missing=Array.isArray(fb.missing_words)?fb.missing_words:[];
+  const errors=Array.isArray(fb.errors)?fb.errors:[];
+  let html='<div class="feedback"><div class="fb-head">老师的反馈</div><div class="fb-chips">';
+  if(fb.used_correctly && missing.length===0){
+    html+='<span class="fchip good">✓ 目标词用对了</span>';
+  } else {
+    html+='<span class="fchip warn">⚠ 还没用对：'+esc(missing.join("、")||"目标词")+'</span>';
+  }
+  html+= fb.overall_ok ? '<span class="fchip good">✓ 句子基本正确</span>'
+                       : '<span class="fchip warn">⚠ 有需要修改的地方</span>';
+  html+='</div>';
+
+  if(errors.length){
+    html+='<div class="fb-block"><div class="lbl">需要修改</div><ul class="fix-list">';
+    errors.forEach(e=>{
+      html+='<li><span class="fix-old">'+esc(e.original||"")+'</span> → <span class="fix-new">'+esc(e.fix||"")+'</span>'+
+        (e.note_zh?'<span class="fix-note">'+esc(e.note_zh)+'</span>':'')+'</li>';
+    });
+    html+='</ul></div>';
+  }
+  if(fb.corrected){
+    html+='<div class="fb-block"><div class="lbl">修正后</div><div class="en">'+esc(fb.corrected)+'</div></div>';
+  }
+  if(fb.upgraded){
+    html+='<div class="fb-block upgrade"><div class="lbl">✨ 升级版（更接近高考高分）'+
+      '<button class="fb-mini-speak" id="speak-up" title="朗读">🔊</button></div>'+
+      '<div class="en">'+esc(fb.upgraded)+'</div>'+
+      (fb.upgrade_note_zh?'<div class="upgrade-note">'+esc(fb.upgrade_note_zh)+'</div>':'')+'</div>';
+  }
+  if(fb.encourage_zh){
+    html+='<div class="encourage"><span>👏</span><span>'+esc(fb.encourage_zh)+'</span></div>';
+  }
+  html+='<div class="actions"><button class="btn btn-primary" id="btn-next2">下一题 →</button></div>';
+  html+='</div>';
+  $("feedback").innerHTML=html;
+  const up=$("speak-up"); if(up&&fb.upgraded) up.onclick=()=>speak(fb.upgraded);
+  const n2=$("btn-next2"); if(n2) n2.onclick=newItem;
+  $("feedback").scrollIntoView({behavior:"smooth",block:"nearest"});
+}
+
+/* ============ 进度面板 ============ */
+function openProgress(){
+  $("p-mastered").textContent=masteredCount();
+  $("p-seen").textContent=seenCount();
+  $("p-streak").textContent=state.stats.streak||0;
+  const bars=$("cat-bars"); bars.innerHTML="";
+  CAT_ORDER.forEach(k=>{
+    const total=DATA[k].words.length;
+    let m=0; DATA[k].words.forEach(p=>{ if((state.progress[p[0]]||{}).box>=4) m++; });
+    const pct=Math.round(m/total*100);
+    const row=document.createElement("div"); row.className="cat-row";
+    row.innerHTML='<div class="top"><span class="c">'+esc(DATA[k].label)+'</span><span class="n">'+m+' / '+total+'</span></div>'+
+      '<div class="bar"><span style="width:'+pct+'%"></span></div>';
+    bars.appendChild(row);
+  });
+  $("overlay").classList.add("show");
+}
+function closeProgress(){ $("overlay").classList.remove("show"); }
+async function resetProgress(){
+  if(!confirm("确定清空所有练习进度吗？此操作无法撤销。")) return;
+  state.progress={}; state.stats={lastDay:null,streak:0,todayCount:0};
+  await saveState(); refreshTopbar(); openProgress();
+}
+
+function refreshTopbar(){
+  $("st-today").textContent=state.stats.todayCount||0;
+  $("st-streak").textContent=state.stats.streak||0;
+  $("st-mastered").textContent=masteredCount();
+}
+
+/* ============ 事件绑定 ============ */
+function setMode(m){
+  mode=m;
+  document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("active", t.dataset.mode===m));
+  $("mode-hint").textContent=MODE_HINTS[m];
+  $("filter-row").classList.toggle("hidden", m==="topic");
+  newItem();
+}
+
+function init(){
+  document.querySelectorAll(".tab").forEach(t=>{ t.onclick=()=>setMode(t.dataset.mode); });
+  $("cat-filter").onchange=()=>{ lastSingle=[];lastMulti=[]; newItem(); };
+  $("btn-check").onclick=checkAnswer;
+  $("btn-hint").onclick=getHint;
+  $("btn-next").onclick=newItem;
+  $("btn-progress").onclick=openProgress;
+  $("btn-close").onclick=closeProgress;
+  $("btn-reset").onclick=resetProgress;
+  $("overlay").onclick=(e)=>{ if(e.target===$("overlay")) closeProgress(); };
+  $("answer").addEventListener("keydown",(e)=>{ if((e.metaKey||e.ctrlKey)&&e.key==="Enter") checkAnswer(); });
+  $("mode-hint").textContent=MODE_HINTS.single;
+  refreshTopbar();
+  newItem();
+}
+
+loadAll().then(init);
+</script>
+
+<style>
+.rtf{background:#f8fafc;border-top:2px solid #e2e8f0;padding:20px 16px 28px;margin-top:32px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.rtf-hd{font-size:.72rem;font-weight:700;color:#64748b;letter-spacing:1.5px;text-transform:uppercase;text-align:center;margin-bottom:14px}
+.rtf-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px;max-width:860px;margin:0 auto 14px}
+.rtf-ch{font-size:.68rem;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px}
+.rtf-links{display:flex;flex-direction:column;gap:3px}
+.rtf-links a{font-size:.8rem;color:#2563eb;text-decoration:none;line-height:1.4}
+.rtf-links a:hover{text-decoration:underline}
+.rtf-links a.rtf-cur{color:#cbd5e0;pointer-events:none;cursor:default;font-weight:600}
+.rtf-home{display:block;text-align:center;font-size:.8rem;color:#64748b;text-decoration:none;margin-top:4px}
+.rtf-home:hover{color:#1e40af}
+</style>
+<div class="rtf">
+  <div class="rtf-hd">🔗 高考工具合集 · 快速跳转</div>
+  <div class="rtf-grid">
+<div><div class="rtf-ch">📖 阅读 · 完形真题</div><div class="rtf-links"><a href="english-reading.html">高考阅读理解真题 (441题)</a>
+<a href="english-cloze.html">高考完形填空真题 (1276题)</a>
+<a href="cloze-practice.html">完形填空专练</a>
+<a href="cloze-logic-tracker.html">逻辑链追踪器</a>
+</div></div>
+<div><div class="rtf-ch">🔠 词汇</div><div class="rtf-links"><a href="vocab-match.html">连连看闯关</a>
+<a href="vocab-3500.html">3500词 · 词根版</a>
+<a href="vocab-3500-stories.html">3500词 · 故事版</a>
+<a class="rtf-cur" href="850-english-practice.html">850核心词表达 ✦</a>
+</div></div>
+<div><div class="rtf-ch">📐 语法</div><div class="rtf-links"><a href="grammar-master.html">语法神器 · 闯关版</a>
+<a href="grammar-mcq.html">语法填空选择题</a>
+<a href="grammar-cloze.html">语法填空手填版</a>
+<a href="grammar-breakdown.html">长难句拆解器</a>
+<a href="gaokao-grammar.html">高考语法通</a>
+</div></div>
+<div><div class="rtf-ch">✍️ 写作</div><div class="rtf-links"><a href="gaokao-writing.html">写作神器</a>
+<a href="gaokao-golden.html">金句闪卡 · 50句</a>
+<a href="gaokao-english-templates.html">万能句背诵库</a>
+</div></div>
+<div><div class="rtf-ch">🔢 数学 · 物理</div><div class="rtf-links"><a href="math-formula-cards.html">数学公式闪卡</a>
+<a href="physics-challenge.html">物理公式闯关 60题</a>
+</div></div>
+<div><div class="rtf-ch">🧬 生物</div><div class="rtf-links">
+<a href="shengwu/index.html">生物选择题真题 (380套)</a>
+<a href="shengwu/duiduipeng.html">生物填空对对碰</a>
+<a href="shengwu/zhishi.html">生物考点速查</a>
+</div></div>
+<div><div class="rtf-ch">📚 语文 · 物理 · 化学</div><div class="rtf-links">
+<a href="yuwen/zhishi.html">语文考点速查</a>
+<a href="wuli/zhishi.html">物理考点速查</a>
+<a href="huaxue/zhishi.html">化学考点速查</a>
+</div></div>
+  </div>
+  <a class="rtf-home" href="index.html">← 高考工具箱 · 全部工具</a>
+</div>
+</body>
+</html>

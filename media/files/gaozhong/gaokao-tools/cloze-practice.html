@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>完形填空专练 · 离线版</title>
+<style>
+  :root{
+    --brand:#574AE2; --brand-deep:#3f34c0; --brand-soft:#ECEAFB; --brand-line:#CFC9F4;
+    --bg:#EEF1F6; --card:#FFFFFF; --ink:#1E2330; --ink-soft:#566; --faint:#8A93A6;
+    --line:#E6E9F0; --line2:#D8DDE8; --ok:#1E9E6A; --ok-soft:#E6F6EE; --ok-line:#A7E3C6;
+    --err:#D6455D; --err-soft:#FCEBEE; --err-line:#F3B6C0;
+    --mono:'SF Mono',ui-monospace,'Cascadia Code',Consolas,monospace;
+    --sans:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;
+    --shadow:0 1px 2px rgba(30,35,48,.04),0 4px 14px rgba(30,35,48,.05);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.65;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:780px;margin:0 auto;padding:20px 18px 60px}
+  header h1{font-size:1.5rem;margin:0;letter-spacing:-.01em}
+  header .sub{color:var(--ink-soft);font-size:.86rem;margin-top:3px}
+  .crumbs{display:flex;align-items:center;gap:8px;margin:14px 0 8px;font-size:.84rem;color:var(--ink-soft);flex-wrap:wrap}
+  .crumbs button{border:1px solid var(--line2);background:var(--card);border-radius:999px;padding:5px 13px;cursor:pointer;color:var(--brand-deep);font-family:var(--sans);font-size:.84rem}
+  .crumbs button:hover{border-color:var(--brand)} .crumbs span.sep{color:var(--faint)}
+
+  .pcard{display:block;width:100%;text-align:left;border:1px solid var(--line);background:var(--card);border-radius:14px;padding:14px 16px;cursor:pointer;box-shadow:var(--shadow);margin-bottom:11px;font-family:var(--sans)}
+  .pcard:hover{border-color:var(--brand)}
+  .pcard .pt{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+  .pcard b{font-size:1.04rem;color:var(--ink)} .pcard .genre{flex:none;font-size:.72rem;color:var(--brand-deep);background:var(--brand-soft);border:1px solid var(--brand-line);border-radius:999px;padding:1px 9px}
+  .pcard p{margin:6px 0 0;font-size:.82rem;color:var(--ink-soft)}
+  .pcard .meta{margin-top:7px;font-size:.76rem;color:var(--faint);display:flex;gap:14px}
+  .pcard .meta .best{color:var(--ok)}
+  .tools{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px}
+  .tool{display:block;text-align:left;border:1px dashed var(--brand-line);background:var(--brand-soft);border-radius:14px;padding:13px 15px;cursor:pointer;font-family:var(--sans)}
+  .tool:hover{border-color:var(--brand)} .tool b{color:var(--brand-deep);font-size:.96rem} .tool p{margin:4px 0 0;font-size:.78rem;color:var(--ink-soft)}
+  .tool .cnt{color:var(--err);font-weight:700}
+
+  .doc h2{font-size:1.3rem;margin:6px 0 2px} .doc .den{color:var(--faint);font-size:.82rem;margin-bottom:8px}
+  .intro{background:var(--brand-soft);border-left:3px solid var(--brand);border-radius:0 10px 10px 0;padding:10px 13px;font-size:.86rem;margin-bottom:16px}
+  .passage{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:16px 17px;font-size:1.02rem;line-height:2.05;box-shadow:var(--shadow)}
+  .blank{display:inline-block;min-width:30px;text-align:center;border-bottom:2px solid var(--brand-line);color:var(--brand-deep);font-family:var(--mono);font-weight:700;padding:0 5px;margin:0 1px}
+  .blank.filled{border-bottom-color:var(--brand)}
+  .blank.bk-ok{color:var(--ok);border-bottom-color:var(--ok)} .blank.bk-no{color:var(--err);border-bottom-color:var(--err)}
+
+  .q{border:1px solid var(--line);background:var(--card);border-radius:12px;padding:10px 12px;margin-bottom:9px}
+  .q .qn{font-family:var(--mono);font-weight:700;color:var(--brand-deep);font-size:.82rem;margin-bottom:7px}
+  .opts{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+  .opt{display:flex;gap:7px;align-items:baseline;border:1px solid var(--line2);background:#fff;border-radius:9px;padding:7px 10px;cursor:pointer;font-size:.9rem;font-family:var(--sans);text-align:left}
+  .opt:hover{border-color:var(--brand)} .opt .ol{font-family:var(--mono);font-weight:700;color:var(--faint);flex:none}
+  .opt.sel{border-color:var(--brand);background:var(--brand-soft)} .opt.sel .ol{color:var(--brand-deep)}
+  .opt.correct{border-color:var(--ok-line);background:var(--ok-soft)} .opt.correct .ol{color:var(--ok)}
+  .opt.wrong{border-color:var(--err-line);background:var(--err-soft)} .opt.wrong .ol{color:var(--err)}
+  .exp{display:none;margin-top:8px;font-size:.82rem;color:var(--ink-soft);background:var(--bg);border-radius:8px;padding:8px 10px;border-left:3px solid var(--brand-line)}
+  .exp.show{display:block} .exp b{color:var(--brand-deep)}
+
+  .scorebar{position:sticky;bottom:0;margin-top:14px;background:rgba(255,255,255,.95);backdrop-filter:blur(6px);border:1px solid var(--line);border-radius:13px;padding:11px 13px;display:flex;gap:10px;align-items:center;box-shadow:0 -2px 14px rgba(30,35,48,.06);flex-wrap:wrap}
+  .scorebar .sc{font-weight:800;font-family:var(--mono);font-size:1.05rem;margin-right:auto}
+  .scorebar .sc small{font-weight:500;color:var(--faint);font-family:var(--sans)}
+  .scorebar button{border:1.5px solid var(--line2);background:#fff;border-radius:10px;padding:9px 16px;font-size:.88rem;font-weight:700;cursor:pointer;color:var(--ink-soft);font-family:var(--sans)}
+  .scorebar button.primary{background:var(--brand);border-color:var(--brand);color:#fff}
+
+  .plist .point{position:relative;padding:6px 0 6px 22px;font-size:.9rem}
+  .plist .point::before{content:"";position:absolute;left:5px;top:13px;width:7px;height:7px;border-radius:50%;background:var(--brand)}
+  .block{margin-bottom:18px} .block h3{font-size:1.02rem;margin:0 0 8px;padding-left:11px;border-left:4px solid var(--brand-line)}
+  .empty{color:var(--faint);font-size:.9rem;padding:18px 4px;text-align:center}
+
+  .btnrow{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+  .btnrow button{flex:1;min-width:130px;border:1.5px solid var(--line2);background:#fff;border-radius:12px;padding:12px;font-size:.92rem;font-weight:700;cursor:pointer;color:var(--ink-soft);font-family:var(--sans)}
+  .btnrow button.primary{background:var(--brand);border-color:var(--brand);color:#fff}
+  footer{margin-top:30px;text-align:center;color:var(--faint);font-size:.74rem}
+  @media (max-width:560px){.tools{grid-template-columns:1fr}.opts{grid-template-columns:1fr}.wrap{padding:16px 14px 50px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>完形填空专练 <span style="font-size:.7em;color:var(--faint)">· 离线版</span></h1>
+    <div class="sub">新高考题型 · 即时批改 · 逐空解析 · 错题本 · 进度存本机</div>
+  </header>
+  <div class="crumbs" id="crumbs"></div>
+  <div id="view"></div>
+  <footer>纯离线 · 双击即用 · 完形填空考的是“词汇 + 语境逻辑”</footer>
+</div>
+<script>
+const CLOZE = {"passages": [{"id": "umbrella", "title": "The Umbrella", "genre": "记叙文", "intro": "一个雨天，一位陌生老人的善意温暖了 Tom。留意人物情感与主题词“善意”的复现。", "text": "It was raining heavily when Tom __1__ school. He had __2__ his umbrella, so he had to __3__ under a tree, hoping the rain would __4__ soon. Minutes passed, but the rain only grew __5__. Tom felt cold and a little __6__, because his home was far away. Just then, an old man walked __7__ him slowly, holding a large __8__. \"You look wet, young man,\" he said with a warm __9__. \"Let me walk you home.\" Tom was __10__ by the kindness of a stranger, but he __11__ accepted the offer. On the way, they talked __12__ about school and life. The old man told Tom that he had once been a teacher. When they finally __13__ Tom's home, Tom thanked him again and again. The old man simply said, \"Helping others makes me happy.\" That night, Tom kept thinking about the old man's words. He realized that a small act of __14__ could warm someone's whole day. From then on, he decided to __15__ others whenever he could.", "blanks": [{"options": ["left", "reached", "cleaned", "entered"], "answer": 0, "exp": "下文要等雨、回家，说明 Tom 正“离开”学校。reach 到达、enter 进入均与情境相反。", "n": 1, "ctx": "It was raining heavily when Tom ______ school."}, {"options": ["brought", "forgotten", "bought", "found"], "answer": 1, "exp": "正因为“忘带(forgotten)”伞，才不得不躲雨。had + 过去分词，构成过去完成时。", "n": 2, "ctx": "He had ______ his umbrella, so he had to ______ under a tree, hoping the rain would ______ soon."}, {"options": ["wait", "play", "sleep", "sing"], "answer": 0, "exp": "hoping the rain would stop，说明他在树下“等(wait)”雨停。", "n": 3, "ctx": "He had ______ his umbrella, so he had to ______ under a tree, hoping the rain would ______ soon."}, {"options": ["start", "fall", "stop", "come"], "answer": 2, "exp": "盼着雨快点“停(stop)”。下句 but 转折说雨更大，正与“希望停”相对。", "n": 4, "ctx": "He had ______ his umbrella, so he had to ______ under a tree, hoping the rain would ______ soon."}, {"options": ["lighter", "heavier", "colder", "shorter"], "answer": 1, "exp": "but 表转折：雨非但没停，反而下得“更大(heavier)”。", "n": 5, "ctx": "Minutes passed, but the rain only grew ______."}, {"options": ["excited", "worried", "proud", "bored"], "answer": 1, "exp": "又冷、家又远，自然“担心(worried)”。a little 后接情绪形容词。", "n": 6, "ctx": "Tom felt cold and a little ______, because his home was far away."}, {"options": ["towards", "past", "behind", "from"], "answer": 0, "exp": "老人朝他“走来(walk towards)”，后文才会和他说话、送他回家。", "n": 7, "ctx": "Just then, an old man walked ______ him slowly, holding a large ______."}, {"options": ["bag", "book", "umbrella", "box"], "answer": 2, "exp": "下雨天 + 后文 walk you home（共撑），老人拿的是“伞(umbrella)”。", "n": 8, "ctx": "Just then, an old man walked ______ him slowly, holding a large ______."}, {"options": ["voice", "smile", "heart", "look"], "answer": 1, "exp": "固定搭配 with a warm smile（面带温暖的微笑）。", "n": 9, "ctx": "he said with a warm ______."}, {"options": ["surprised", "angry", "bored", "frightened"], "answer": 0, "exp": "陌生人的善意让 Tom 感到“惊讶(surprised)”，下句 but 接“仍感激地接受”。", "n": 10, "ctx": "Tom was ______ by the kindness of a stranger, but he ______ accepted the offer."}, {"options": ["gratefully", "angrily", "carelessly", "nervously"], "answer": 0, "exp": "面对善意，他“感激地(gratefully)”接受帮助。", "n": 11, "ctx": "Tom was ______ by the kindness of a stranger, but he ______ accepted the offer."}, {"options": ["happily", "quietly", "angrily", "nervously"], "answer": 0, "exp": "一路愉快地聊学校和生活，气氛温暖，选“开心地(happily)”。", "n": 12, "ctx": "On the way, they talked ______ about school and life."}, {"options": ["left", "reached", "built", "passed"], "answer": 1, "exp": "finally + 目的地，表示“到达(reach)”了 Tom 家。", "n": 13, "ctx": "When they finally ______ Tom's home, Tom thanked him again and again."}, {"options": ["kindness", "anger", "fear", "study"], "answer": 0, "exp": "主题词复现：一个小小的“善举(kindness)”能温暖别人一整天。", "n": 14, "ctx": "He realized that a small act of ______ could warm someone's whole day."}, {"options": ["help", "hurt", "ignore", "follow"], "answer": 0, "exp": "受老人感染，他决定尽己所能去“帮助(help)”别人，呼应主题。", "n": 15, "ctx": "From then on, he decided to ______ others whenever he could."}]}, {"id": "english", "title": "How I Fell in Love with English", "genre": "夹叙夹议", "intro": "“我”从学不好英语到爱上英语的经历。注意议论句中的逻辑词与情感转变。", "text": "When I first started learning English, I found it really __1__. I could hardly understand what the teacher said, and my grades were always __2__. Sometimes I even wanted to give __3__. One day, my teacher noticed my __4__ and had a talk with me. She told me that everyone meets difficulties at the __5__, and what matters most is whether you keep __6__. Her words gave me great __7__. From then on, I decided to change. I read English stories every day, even if I could only understand a few __8__. I listened to English songs and tried to __9__ them. Little by little, English became less __10__ to me. Of course, progress was __11__. There were still days when I made many mistakes. But instead of feeling __12__, I treated every mistake as a chance to __13__. A year later, I was __14__ to find that I could read simple novels by myself. Now I understand that success never comes easily; it is the __15__ of hard work and patience.", "blanks": [{"options": ["easy", "difficult", "interesting", "relaxing"], "answer": 1, "exp": "下文 hardly understand、grades low，说明起初觉得很“难(difficult)”。", "n": 1, "ctx": "When I first started learning English, I found it really ______."}, {"options": ["high", "low", "good", "perfect"], "answer": 1, "exp": "听不懂，成绩自然“低(low)”。always 表一贯状态。", "n": 2, "ctx": "I could hardly understand what the teacher said, and my grades were always ______."}, {"options": ["up", "in", "out", "off"], "answer": 0, "exp": "固定词组 give up（放弃）。", "n": 3, "ctx": "Sometimes I even wanted to give ______."}, {"options": ["success", "difficulty", "happiness", "progress"], "answer": 1, "exp": "老师注意到“我”的“困难/困境(difficulty)”才来谈心。", "n": 4, "ctx": "One day, my teacher noticed my ______ and had a talk with me."}, {"options": ["end", "beginning", "night", "weekend"], "answer": 1, "exp": "人人在“开始(beginning)”阶段都会遇到困难——议论句的常识。", "n": 5, "ctx": "She told me that everyone meets difficulties at the ______, and what matters most is whether you keep ______."}, {"options": ["trying", "sleeping", "playing", "crying"], "answer": 0, "exp": "keep trying（坚持努力）才是关键，与全文励志基调一致。", "n": 6, "ctx": "She told me that everyone meets difficulties at the ______, and what matters most is whether you keep ______."}, {"options": ["trouble", "encouragement", "pressure", "fear"], "answer": 1, "exp": "老师的话给了“我”极大的“鼓励(encouragement)”，故下文 decided to change。", "n": 7, "ctx": "Her words gave me great ______."}, {"options": ["words", "songs", "books", "minutes"], "answer": 0, "exp": "读故事，起初只能看懂几个“单词(words)”。a few + 可数名词复数。", "n": 8, "ctx": "I read English stories every day, even if I could only understand a few ______."}, {"options": ["write", "sing", "buy", "forget"], "answer": 1, "exp": "listened to songs（听歌）→ 试着“跟唱(sing)”。", "n": 9, "ctx": "I listened to English songs and tried to ______ them."}, {"options": ["difficult", "easy", "clear", "simple"], "answer": 0, "exp": "坚持之后，英语对“我”而言变得“不那么难(less difficult)”，呼应开头的 difficult。", "n": 10, "ctx": "Little by little, English became less ______ to me."}, {"options": ["fast", "slow", "easy", "clear"], "answer": 1, "exp": "下文 still made many mistakes，说明进步是“缓慢的(slow)”。", "n": 11, "ctx": "Of course, progress was ______."}, {"options": ["proud", "discouraged", "excited", "happy"], "answer": 1, "exp": "instead of feeling discouraged（没有气馁），而是把错误当机会，转折逻辑。", "n": 12, "ctx": "But instead of feeling ______, I treated every mistake as a chance to ______."}, {"options": ["learn", "fail", "rest", "win"], "answer": 0, "exp": "把每次错误当成“学习(learn)”的机会——积极心态。", "n": 13, "ctx": "But instead of feeling ______, I treated every mistake as a chance to ______."}, {"options": ["sorry", "surprised", "angry", "afraid"], "answer": 1, "exp": "能独立读小说，令“我”又惊又喜，选“惊讶(surprised)”。", "n": 14, "ctx": "A year later, I was ______ to find that I could read simple novels by myself."}, {"options": ["result", "start", "cause", "problem"], "answer": 0, "exp": "成功是努力与耐心的“结果(result)”——点题。", "n": 15, "ctx": "Now I understand that success never comes easily; it is the ______ of hard work and patience."}]}, {"id": "newgirl", "title": "A Simple Hello", "genre": "记叙文", "intro": "一句简单的“你好”，让转学生 Lucy 融入集体，也让“我”收获友谊。关注情感与主题“善意/友谊”。", "text": "Lucy was a new student in our class. On her first day, she looked very __1__ and sat alone in a corner. Nobody talked to her, and she seemed quite __2__. I still remembered how nervous I had been as a new student, so I decided to __3__ her. I walked over, sat down beside her, and said __4__, \"Hi, I'm Anna. Welcome to our class!\" Her face lit up with a bright __5__. From that moment, we became good __6__. I showed her around the school and __7__ her with her homework. She was clever and soon __8__ up with the rest of us. What surprised me most was that Lucy was very good at __9__. She could draw beautiful pictures that made everyone __10__. Our class even asked her to design the poster for the coming sports __11__. Looking back, I feel __12__ that I made the first move. A simple \"hello\" not only helped Lucy, but also __13__ me a wonderful friend. Now I believe that __14__ is like a key: it can open the door to friendship. If we are __15__ to others, the world will become warmer.", "blanks": [{"options": ["happy", "shy", "proud", "angry"], "answer": 1, "exp": "独自坐在角落，说明她很“害羞/胆怯(shy)”。", "n": 1, "ctx": "On her first day, she looked very ______ and sat alone in a corner."}, {"options": ["lonely", "excited", "lucky", "busy"], "answer": 0, "exp": "没人理她，显得很“孤单(lonely)”。", "n": 2, "ctx": "Nobody talked to her, and she seemed quite ______."}, {"options": ["ignore", "help", "follow", "leave"], "answer": 1, "exp": "“我”记得自己当新生时的紧张，于是决定去“帮(help)”她。", "n": 3, "ctx": "I still remembered how nervous I had been as a new student, so I decided to ______ her."}, {"options": ["angrily", "warmly", "quietly", "sadly"], "answer": 1, "exp": "主动打招呼应是“热情地(warmly)”，与全文温暖基调一致。", "n": 4, "ctx": "I walked over, sat down beside her, and said ______, \"Hi, I'm Anna."}, {"options": ["smile", "voice", "idea", "tear"], "answer": 0, "exp": "face lit up with a bright smile（脸上绽放灿烂的微笑）。", "n": 5, "ctx": "Her face lit up with a bright ______."}, {"options": ["students", "friends", "teachers", "neighbours"], "answer": 1, "exp": "从那一刻起成了好“朋友(friends)”，照应主题。", "n": 6, "ctx": "From that moment, we became good ______."}, {"options": ["helped", "left", "compared", "troubled"], "answer": 0, "exp": "带她熟悉学校并“帮(helped)”她做作业。与前文 decided to help 呼应。", "n": 7, "ctx": "I showed her around the school and ______ her with her homework."}, {"options": ["caught", "gave", "made", "looked"], "answer": 0, "exp": "固定词组 catch up with（赶上）——很快赶上了大家。", "n": 8, "ctx": "She was clever and soon ______ up with the rest of us."}, {"options": ["singing", "drawing", "running", "cooking"], "answer": 1, "exp": "下句 draw beautiful pictures，说明她擅长“画画(drawing)”。be good at + 动名词。", "n": 9, "ctx": "What surprised me most was that Lucy was very good at ______."}, {"options": ["amazed", "bored", "tired", "worried"], "answer": 0, "exp": "漂亮的画让大家“惊叹(amazed)”。make + 宾 + 形容词。", "n": 10, "ctx": "She could draw beautiful pictures that made everyone ______."}, {"options": ["game", "meeting", "class", "trip"], "answer": 1, "exp": "固定搭配 sports meeting（运动会）的海报。", "n": 11, "ctx": "Our class even asked her to design the poster for the coming sports ______."}, {"options": ["sorry", "glad", "angry", "afraid"], "answer": 1, "exp": "回想起来，“我”为当初主动迈出第一步而“高兴(glad)”。", "n": 12, "ctx": "Looking back, I feel ______ that I made the first move."}, {"options": ["cost", "brought", "taught", "sent"], "answer": 1, "exp": "一句 hello 不仅帮了 Lucy，也“带给(brought)”我一位好朋友。not only...but also 并列。", "n": 13, "ctx": "not only helped Lucy, but also ______ me a wonderful friend."}, {"options": ["kindness", "money", "luck", "study"], "answer": 0, "exp": "主题升华：善意(kindness)像一把钥匙，能打开友谊之门。", "n": 14, "ctx": "Now I believe that ______ is like a key: it can open the door to friendship."}, {"options": ["rude", "kind", "strange", "quiet"], "answer": 1, "exp": "我们对人“友善(kind)”，世界就会更温暖——点题，呼应 kindness。", "n": 15, "ctx": "If we are ______ to others, the world will become warmer."}]}], "tips": {"method": ["先跳读全文、抓住大意与情感基调，再动笔，不要一空一填。", "瞻前顾后：答案常藏在空格的前一句或后一句，甚至下一段。", "复现原则：正确选项往往与文中出现过的词或主题词相呼应。", "看逻辑词：but/however 转折、so/because 因果、and 并列、although 让步，决定取舍。", "固定搭配：give up、catch up with、be good at、make friends、with a smile 等要熟记。", "感情色彩：记叙文多传递正能量，选词常与积极、温暖的情感一致。", "代入检验：把选项放回原句读一读，看是否通顺、合逻辑、合搭配。"], "traps": ["只读空格所在的半句就下笔——务必读完整句乃至整段。", "近义干扰项：四个词意思相近时，比较细微差别与搭配语境。", "脱离主题：选了语法正确但与文章情感/主旨不符的词。"]}};
+const $=id=>document.getElementById(id);
+const esc=s=>(s==null?"":String(s)).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const KEY="gaokao-cloze-v1";
+function load(){ try{return JSON.parse(localStorage.getItem(KEY))||{};}catch(e){return {};} }
+function save(s){ try{localStorage.setItem(KEY,JSON.stringify(s));}catch(e){} }
+let STATE=load(); if(!STATE.best)STATE.best={}; if(!STATE.wrong)STATE.wrong={};
+const LETTER=["A","B","C","D"];
+
+function setCrumbs(arr){ $("crumbs").innerHTML=arr.map(c=>c.go?'<button data-go="'+c.go+'">'+esc(c.t)+'</button>':'<span>'+esc(c.t)+'</span>').join('<span class="sep">›</span>');
+  $("crumbs").querySelectorAll('button').forEach(b=>b.onclick=()=>{ if(b.dataset.go==="home")renderHome(); else if(b.dataset.go==="tips")renderTips(); else if(b.dataset.go==="wrong")renderWrong(); }); }
+
+function renderHome(){
+  window.scrollTo({top:0}); setCrumbs([{t:"完形首页"}]);
+  let h='';
+  CLOZE.passages.forEach(p=>{
+    const best=STATE.best[p.id];
+    h+='<button class="pcard" data-id="'+p.id+'"><div class="pt"><b>'+esc(p.title)+'</b><span class="genre">'+esc(p.genre)+'</span></div>'+
+       '<p>'+esc(p.intro)+'</p><div class="meta"><span>'+p.blanks.length+' 空</span>'+(best!=null?'<span class="best">最好成绩 '+best+'/'+p.blanks.length+'</span>':'<span>未做</span>')+'</div></button>';
+  });
+  const wn=Object.keys(STATE.wrong).length;
+  h+='<div class="tools"><button class="tool" data-go="tips"><b>完形解题技巧 →</b><p>通读、瞻前顾后、复现、逻辑词、固定搭配、感情色彩</p></button>'+
+     '<button class="tool" data-go="wrong"><b>错题本 →</b><p>把做错的空集中重做，<span class="cnt">'+wn+'</span> 个待复习</p></button></div>';
+  $("view").innerHTML=h;
+  $("view").querySelectorAll('.pcard').forEach(b=>b.onclick=()=>renderPassage(b.dataset.id));
+  $("view").querySelectorAll('.tool').forEach(b=>b.onclick=()=>{ b.dataset.go==="tips"?renderTips():renderWrong(); });
+}
+
+function renderPassage(id){
+  window.scrollTo({top:0});
+  const p=CLOZE.passages.find(x=>x.id===id); if(!p)return;
+  setCrumbs([{t:"完形首页",go:"home"},{t:p.title}]);
+  const sel=new Array(p.blanks.length).fill(-1); let graded=false;
+  // 渲染短文
+  const parts=p.text.split(/__(\d+)__/);
+  let ptxt="";
+  for(let i=0;i<parts.length;i++){ if(i%2===0) ptxt+=esc(parts[i]); else { const n=+parts[i]; ptxt+='<span class="blank" id="bk-'+n+'" data-n="'+n+'">('+n+')</span>'; } }
+  let h='<div class="doc"><h2>'+esc(p.title)+'</h2><div class="den">'+esc(p.genre)+' · '+p.blanks.length+' 空</div>';
+  h+='<div class="intro">'+esc(p.intro)+'</div>';
+  h+='<div class="passage" id="passage">'+ptxt+'</div>';
+  h+='<div style="margin:16px 0 8px;font-family:var(--mono);font-size:.78rem;color:var(--faint)">// 选择最佳答案</div><div id="qs">';
+  p.blanks.forEach(b=>{
+    h+='<div class="q" id="q-'+b.n+'"><div class="qn">'+b.n+'.</div><div class="opts">'+
+       b.options.map((o,oi)=>'<button class="opt" data-n="'+b.n+'" data-oi="'+oi+'"><span class="ol">'+LETTER[oi]+'</span><span>'+esc(o)+'</span></button>').join('')+
+       '</div><div class="exp" id="exp-'+b.n+'"><b>解析：</b>'+esc(b.exp)+'</div></div>';
+  });
+  h+='</div>';
+  h+='<div class="scorebar"><span class="sc" id="sc">已选 0/'+p.blanks.length+' <small>个</small></span>'+
+     '<button id="reveal">显示答案</button><button class="primary" id="grade">批改</button></div>';
+  h+='<div class="btnrow"><button id="back">← 返回完形首页</button></div></div>';
+  $("view").innerHTML=h;
+
+  function updScore(){ const done=sel.filter(x=>x>=0).length; if(!graded)$("sc").innerHTML='已选 '+done+'/'+p.blanks.length+' <small>个</small>'; }
+  $("view").querySelectorAll('.opt').forEach(btn=>btn.onclick=()=>{
+    if(graded)return; const n=+btn.dataset.n, oi=+btn.dataset.oi;
+    sel[n-1]=oi;
+    $("q-"+n).querySelectorAll('.opt').forEach(o=>o.classList.remove('sel')); btn.classList.add('sel');
+    const bk=$("bk-"+n); bk.textContent=p.blanks[n-1].options[oi]; bk.classList.add('filled');
+    updScore();
+  });
+  function grade(reveal){
+    graded=true; let correct=0;
+    p.blanks.forEach(b=>{
+      const ans=b.answer, my=sel[b.n-1];
+      const opts=$("q-"+b.n).querySelectorAll('.opt');
+      opts.forEach((o,oi)=>{ o.classList.remove('sel'); if(oi===ans)o.classList.add('correct'); else if(oi===my&&my!==ans)o.classList.add('wrong'); });
+      $("exp-"+b.n).classList.add('show');
+      const bk=$("bk-"+b.n); bk.textContent=b.options[ans];
+      if(my===ans){ correct++; bk.classList.add('bk-ok'); }
+      else { bk.classList.add('bk-no'); STATE.wrong[p.id+"#"+b.n]=1; }
+      if(my===ans) delete STATE.wrong[p.id+"#"+b.n];
+    });
+    const prev=STATE.best[p.id]; if(prev==null||correct>prev)STATE.best[p.id]=correct;
+    save(STATE);
+    $("sc").innerHTML='得分 '+correct+'/'+p.blanks.length+' <small>'+(reveal?'(已显示答案)':'')+'</small>';
+    $("grade").disabled=true; $("reveal").textContent="已批改";
+  }
+  $("grade").onclick=()=>grade(false);
+  $("reveal").onclick=()=>{ if(!graded)grade(true); };
+  $("back").onclick=renderHome;
+}
+
+function renderTips(){
+  window.scrollTo({top:0}); setCrumbs([{t:"完形首页",go:"home"},{t:"解题技巧"}]);
+  const t=CLOZE.tips;
+  let h='<div class="doc"><h2>完形填空解题技巧</h2><div class="den">方法 + 易错点</div>';
+  h+='<div class="block"><h3>七步方法</h3><div class="plist">'+t.method.map(m=>'<div class="point">'+esc(m)+'</div>').join('')+'</div></div>';
+  h+='<div class="block"><h3>常见易错点</h3><div class="plist">'+t.traps.map(m=>'<div class="point">'+esc(m)+'</div>').join('')+'</div></div>';
+  h+='<div class="btnrow"><button id="back">← 返回完形首页</button></div></div>';
+  $("view").innerHTML=h; $("back").onclick=renderHome;
+}
+
+function renderWrong(){
+  window.scrollTo({top:0}); setCrumbs([{t:"完形首页",go:"home"},{t:"错题本"}]);
+  const keys=Object.keys(STATE.wrong);
+  let h='<div class="doc"><h2>错题本</h2><div class="den">把做错的空集中重做，答对即移出</div>';
+  if(!keys.length){ h+='<div class="empty">还没有错题。去做几篇完形，错的空会自动收集到这里。</div><div class="btnrow"><button id="back">← 返回完形首页</button></div></div>'; $("view").innerHTML=h; $("back").onclick=renderHome; return; }
+  h+='<div id="wlist">';
+  keys.forEach(k=>{
+    const [pid,nn]=k.split("#"); const p=CLOZE.passages.find(x=>x.id===pid); if(!p)return;
+    const b=p.blanks[(+nn)-1];
+    h+='<div class="q" id="w-'+k.replace("#","_")+'"><div class="qn">'+esc(p.title)+' · 第 '+b.n+' 空</div>'+
+       '<div style="font-size:.9rem;color:var(--ink-soft);margin-bottom:8px">'+esc(b.ctx)+'</div>'+
+       '<div class="opts">'+b.options.map((o,oi)=>'<button class="opt" data-k="'+k+'" data-oi="'+oi+'"><span class="ol">'+LETTER[oi]+'</span><span>'+esc(o)+'</span></button>').join('')+'</div>'+
+       '<div class="exp" id="we-'+k.replace("#","_")+'"><b>解析：</b>'+esc(b.exp)+'</div></div>';
+  });
+  h+='</div><div class="btnrow"><button id="back">← 返回完形首页</button></div></div>';
+  $("view").innerHTML=h;
+  $("view").querySelectorAll('.opt').forEach(btn=>btn.onclick=()=>{
+    const k=btn.dataset.k, oi=+btn.dataset.oi, [pid,nn]=k.split("#");
+    const p=CLOZE.passages.find(x=>x.id===pid), b=p.blanks[(+nn)-1];
+    const box=$("w-"+k.replace("#","_")); if(box.dataset.done)return;
+    const opts=box.querySelectorAll('.opt');
+    opts.forEach((o,i)=>{ if(i===b.answer)o.classList.add('correct'); else if(i===oi&&oi!==b.answer)o.classList.add('wrong'); });
+    $("we-"+k.replace("#","_")).classList.add('show'); box.dataset.done="1";
+    if(oi===b.answer){ delete STATE.wrong[k]; save(STATE); setTimeout(()=>{ box.style.opacity=".5"; },150); }
+  });
+  $("back").onclick=renderHome;
+}
+
+renderHome();
+</script>
+
+<style>
+.rtf{background:#f8fafc;border-top:2px solid #e2e8f0;padding:20px 16px 28px;margin-top:32px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.rtf-hd{font-size:.72rem;font-weight:700;color:#64748b;letter-spacing:1.5px;text-transform:uppercase;text-align:center;margin-bottom:14px}
+.rtf-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px;max-width:860px;margin:0 auto 14px}
+.rtf-ch{font-size:.68rem;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px}
+.rtf-links{display:flex;flex-direction:column;gap:3px}
+.rtf-links a{font-size:.8rem;color:#2563eb;text-decoration:none;line-height:1.4}
+.rtf-links a:hover{text-decoration:underline}
+.rtf-links a.rtf-cur{color:#cbd5e0;pointer-events:none;cursor:default;font-weight:600}
+.rtf-home{display:block;text-align:center;font-size:.8rem;color:#64748b;text-decoration:none;margin-top:4px}
+.rtf-home:hover{color:#1e40af}
+</style>
+<div class="rtf">
+  <div class="rtf-hd">🔗 高考工具合集 · 快速跳转</div>
+  <div class="rtf-grid">
+<div><div class="rtf-ch">📖 阅读 · 完形真题</div><div class="rtf-links"><a href="english-reading.html">高考阅读理解真题 (441题)</a>
+<a href="english-cloze.html">高考完形填空真题 (1276题)</a>
+<a class="rtf-cur" href="cloze-practice.html">完形填空专练 ✦</a>
+<a href="cloze-logic-tracker.html">逻辑链追踪器</a>
+</div></div>
+<div><div class="rtf-ch">🔠 词汇</div><div class="rtf-links"><a href="vocab-match.html">连连看闯关</a>
+<a href="vocab-3500.html">3500词 · 词根版</a>
+<a href="vocab-3500-stories.html">3500词 · 故事版</a>
+<a href="850-english-practice.html">850核心词表达</a>
+</div></div>
+<div><div class="rtf-ch">📐 语法</div><div class="rtf-links"><a href="grammar-master.html">语法神器 · 闯关版</a>
+<a href="grammar-mcq.html">语法填空选择题</a>
+<a href="grammar-cloze.html">语法填空手填版</a>
+<a href="grammar-breakdown.html">长难句拆解器</a>
+<a href="gaokao-grammar.html">高考语法通</a>
+</div></div>
+<div><div class="rtf-ch">✍️ 写作</div><div class="rtf-links"><a href="gaokao-writing.html">写作神器</a>
+<a href="gaokao-golden.html">金句闪卡 · 50句</a>
+<a href="gaokao-english-templates.html">万能句背诵库</a>
+</div></div>
+<div><div class="rtf-ch">🔢 数学 · 物理</div><div class="rtf-links"><a href="math-formula-cards.html">数学公式闪卡</a>
+<a href="physics-challenge.html">物理公式闯关 60题</a>
+</div></div>
+<div><div class="rtf-ch">🧬 生物</div><div class="rtf-links">
+<a href="shengwu/index.html">生物选择题真题 (380套)</a>
+<a href="shengwu/duiduipeng.html">生物填空对对碰</a>
+<a href="shengwu/zhishi.html">生物考点速查</a>
+</div></div>
+<div><div class="rtf-ch">📚 语文 · 物理 · 化学</div><div class="rtf-links">
+<a href="yuwen/zhishi.html">语文考点速查</a>
+<a href="wuli/zhishi.html">物理考点速查</a>
+<a href="huaxue/zhishi.html">化学考点速查</a>
+</div></div>
+  </div>
+  <a class="rtf-home" href="index.html">← 高考工具箱 · 全部工具</a>
+</div>
+</body>
+</html>

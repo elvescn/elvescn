@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>高考写作神器 · 离线版</title>
+<style>
+  :root{
+    --brand:#574AE2; --brand-deep:#3f34c0; --brand-soft:#ECEAFB; --brand-line:#CFC9F4;
+    --bg:#EEF1F6; --card:#FFFFFF; --ink:#1E2330; --ink-soft:#566; --faint:#8A93A6;
+    --line:#E6E9F0; --line2:#D8DDE8; --ok:#1E9E6A; --ok-soft:#E6F6EE; --err:#D6455D;
+    --mono:'SF Mono',ui-monospace,'Cascadia Code',Consolas,monospace;
+    --sans:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;
+    --shadow:0 1px 2px rgba(30,35,48,.04),0 4px 14px rgba(30,35,48,.05);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.65;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:780px;margin:0 auto;padding:20px 18px 60px}
+  header h1{font-size:1.5rem;margin:0;letter-spacing:-.01em}
+  header .sub{color:var(--ink-soft);font-size:.86rem;margin-top:3px}
+  .crumbs{display:flex;align-items:center;gap:8px;margin:14px 0 8px;font-size:.84rem;color:var(--ink-soft);flex-wrap:wrap}
+  .crumbs button{border:1px solid var(--line2);background:var(--card);border-radius:999px;padding:5px 13px;cursor:pointer;color:var(--brand-deep);font-family:var(--sans);font-size:.84rem}
+  .crumbs button:hover{border-color:var(--brand)}
+  .crumbs span.sep{color:var(--faint)}
+
+  .catsec{margin-top:22px}
+  .catsec h2{font-size:1.04rem;margin:0 0 4px;display:flex;align-items:center;gap:9px}
+  .catsec h2 .dot{width:9px;height:9px;border-radius:50%;background:var(--brand)}
+  .catsec .cdesc{font-size:.8rem;color:var(--faint);margin:0 0 11px}
+  .tgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .tcard{text-align:left;border:1px solid var(--line);background:var(--card);border-radius:14px;padding:13px 14px;cursor:pointer;box-shadow:var(--shadow);font-family:var(--sans)}
+  .tcard:hover{border-color:var(--brand)}
+  .tcard b{display:block;font-size:.98rem;color:var(--ink)}
+  .tcard i{font-style:normal;font-size:.74rem;color:var(--faint)}
+  .bigcard{display:block;width:100%;text-align:left;border:1px dashed var(--brand-line);background:var(--brand-soft);border-radius:14px;padding:14px 16px;cursor:pointer;margin-top:10px;font-family:var(--sans)}
+  .bigcard:hover{border-color:var(--brand)}
+  .bigcard b{font-size:1rem;color:var(--brand-deep)} .bigcard p{margin:5px 0 0;font-size:.82rem;color:var(--ink-soft)}
+
+  .doc h2{font-size:1.35rem;margin:6px 0 2px} .doc .den{font-family:var(--mono);color:var(--faint);font-size:.84rem;margin-bottom:10px}
+  .intro{background:var(--brand-soft);border-left:3px solid var(--brand);border-radius:0 10px 10px 0;padding:11px 14px;font-size:.9rem;margin-bottom:18px}
+  .intro .lab{color:var(--brand-deep);font-weight:700}
+  .block{margin-bottom:20px}
+  .block h3{font-size:1.04rem;margin:0 0 9px;padding-left:11px;border-left:4px solid var(--brand-line)}
+  .struct{display:flex;flex-direction:column;gap:7px}
+  .struct .st{display:flex;gap:10px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:11px;padding:9px 12px}
+  .struct .st .sp{flex:none;background:var(--brand);color:#fff;border-radius:7px;padding:1px 9px;font-size:.8rem;font-weight:700}
+  .struct .st .sd{font-size:.88rem;color:var(--ink)}
+  .sent{background:var(--card);border:1px solid var(--line);border-radius:11px;padding:9px 12px;margin-bottom:7px}
+  .sent .se{font-size:.95rem;display:flex;gap:8px;align-items:flex-start}
+  .sent .se .say{flex:none;border:1px solid var(--brand-line);background:var(--brand-soft);border-radius:7px;padding:0 7px;cursor:pointer;font-size:.8rem;line-height:1.7}
+  .sent .sz{font-size:.82rem;color:var(--ink-soft);margin-top:2px}
+  .skeleton{white-space:pre-wrap;background:#1f2330;color:#e8e8f0;border-radius:12px;padding:14px 16px;font-family:var(--mono);font-size:.86rem;line-height:1.8}
+  .skeleton .bk{color:#ffd479}
+  .note{font-size:.78rem;color:var(--faint);margin-top:6px}
+  .model{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:14px 16px;box-shadow:var(--shadow)}
+  .model .mp{display:flex;gap:8px;align-items:flex-start;margin-bottom:8px}
+  .model .mp .say{flex:none;border:1px solid var(--brand-line);background:var(--brand-soft);border-radius:7px;padding:0 8px;cursor:pointer;font-size:.8rem;line-height:1.7}
+  .model .mp .mt{font-size:.97rem;line-height:1.7;white-space:pre-wrap}
+  .model .mz{display:none;border-top:1px dashed var(--line2);margin-top:6px;padding-top:10px;color:var(--ink-soft);font-size:.88rem;white-space:pre-wrap}
+  .model .mz.show{display:block}
+
+  table.gt{width:100%;border-collapse:collapse;margin-top:4px;font-size:.88rem}
+  table.gt th,table.gt td{border:1px solid var(--line2);padding:7px 10px;text-align:left;vertical-align:top}
+  table.gt th{background:var(--brand-soft);color:var(--brand-deep)}
+  table.gt td.k{font-family:var(--mono);color:var(--ink);white-space:nowrap}
+  .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+  .chip{background:var(--brand-soft);border:1px solid var(--brand-line);border-radius:999px;padding:3px 11px;font-size:.84rem;color:var(--brand-deep);font-family:var(--mono)}
+  .grp{margin-bottom:13px} .grp .gh{font-size:.85rem;font-weight:700;color:var(--ink);margin-bottom:5px}
+  .plist .point{position:relative;padding:5px 0 5px 20px;font-size:.9rem}
+  .plist .point::before{content:"";position:absolute;left:4px;top:12px;width:7px;height:7px;border-radius:50%;background:var(--brand)}
+  .pat{background:var(--card);border:1px solid var(--line);border-radius:11px;padding:10px 12px;margin-bottom:8px}
+  .pat .pn{font-size:.8rem;color:var(--brand-deep);font-weight:700;margin-bottom:3px}
+  .pat .pe{font-size:.92rem;display:flex;gap:8px;align-items:flex-start} .pat .pe .say{flex:none;border:1px solid var(--brand-line);background:var(--brand-soft);border-radius:7px;padding:0 7px;cursor:pointer;font-size:.78rem}
+  .pat .pz{font-size:.82rem;color:var(--ink-soft);margin-top:2px}
+  .check li{font-size:.88rem;margin:5px 0 5px 2px;list-style:none;position:relative;padding-left:24px}
+  .check li::before{content:"☐";position:absolute;left:0;color:var(--brand);font-size:1rem}
+  .exbox{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:14px 16px;box-shadow:var(--shadow)}
+  .exhead{background:var(--brand-soft);border-radius:9px;padding:8px 11px;font-size:.86rem;color:var(--brand-deep);font-weight:600;margin:10px 0 6px}
+
+  /* 练习本 */
+  .pad textarea{width:100%;min-height:300px;border:1px solid var(--line2);border-radius:12px;padding:14px;font-size:1rem;line-height:1.8;font-family:var(--sans);resize:vertical}
+  .pad textarea:focus{outline:none;border-color:var(--brand)}
+  .padbar{display:flex;gap:10px;align-items:center;margin-top:10px;flex-wrap:wrap}
+  .padbar .wc{font-size:.84rem;color:var(--ink-soft);font-variant-numeric:tabular-nums;margin-right:auto}
+  .padbar button{border:1px solid var(--line2);background:var(--card);border-radius:10px;padding:8px 14px;font-size:.85rem;cursor:pointer;color:var(--ink-soft);font-family:var(--sans)}
+  .padbar button.primary{background:var(--brand);border-color:var(--brand);color:#fff;font-weight:600}
+
+  .btnrow{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+  .btnrow button{flex:1;min-width:130px;border:1.5px solid var(--line2);background:#fff;border-radius:12px;padding:12px;font-size:.92rem;font-weight:700;cursor:pointer;color:var(--ink-soft);font-family:var(--sans)}
+  .btnrow button.primary{background:var(--brand);border-color:var(--brand);color:#fff}
+  footer{margin-top:30px;text-align:center;color:var(--faint);font-size:.74rem}
+  @media (max-width:560px){ .tgrid{grid-template-columns:1fr} .wrap{padding:16px 14px 50px} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>高考写作神器 <span style="font-size:.7em;color:var(--faint)">· 离线版</span></h1>
+    <div class="sub">应用文 8 类 · 读后续写方法与句库 · 提分工具箱 · 可保存的练习本</div>
+  </header>
+  <div class="crumbs" id="crumbs"></div>
+  <div id="view"></div>
+  <footer>纯离线 · 双击即用 · 范文/句型可朗读 · 练习本存在本机</footer>
+</div>
+<script>
+const WRITING = {"applied": [{"id": "invite", "name": "邀请信", "en": "Invitation Letter", "scene": "邀请外教/笔友/同学参加活动（比赛、晚会、讲座、出游等）。", "points": "第二人称 you；多用一般将来时说明活动；语气热情礼貌。", "structure": [["开头", "表明写信目的——邀请对方参加某活动。"], ["主体", "说明活动的时间、地点、内容、安排，以及为何邀请对方。"], ["结尾", "表达期待并请求回复。"]], "opens": ["I am writing to invite you to take part in …（我写信是想邀请你参加…）", "I would like to invite you to … on behalf of our class.（我谨代表全班邀请你…）"], "bodies": ["The activity will be held in … on … (date).（活动将于…在…举行。）", "During the activity, we will … , which I believe you will enjoy.（活动期间我们将…，相信你会喜欢。）", "The reason why we invite you is that ….（我们邀请你是因为…）"], "closes": ["I do hope you can come, and I am looking forward to your reply.（真诚希望你能来，期待你的回复。）", "It would be a great honour if you could join us.（如果你能参加，将是我们的荣幸。）"], "template": "Dear ___,\n  I am writing to invite you to ___ (活动). It will be held ___ (时间/地点).\n  During the activity, we will ___ (内容/安排). The reason we invite you is that ___.\n  I do hope you can come. Looking forward to your reply.\nYours, Li Hua", "model": {"en": "Dear Chris,\n  I am writing to invite you to our school’s English Speech Contest. It will be held in the lecture hall at 3 p.m. next Friday.\n  During the contest, ten students will give speeches on the theme of “My Dream”. As an English teacher, you are warmly invited to be one of our judges. Your professional advice will mean a lot to us.\n  I do hope you can come, and I am looking forward to your reply.\nYours,\nLi Hua", "zh": "亲爱的克里斯：\n  我写信是想邀请你参加我校的英语演讲比赛。比赛将于下周五下午三点在报告厅举行。\n  比赛中，十名学生将围绕“我的梦想”进行演讲。作为英语老师，诚挚邀请你担任评委，你的专业建议对我们意义重大。\n  真诚希望你能来，期待你的回复。\n你的，李华"}}, {"id": "thanks", "name": "感谢信", "en": "Thank-you Letter", "scene": "感谢他人的帮助、款待、礼物或指导。", "points": "多用一般过去时回顾对方的帮助；语气真诚。", "structure": [["开头", "表达感谢之意，点明为何感谢。"], ["主体", "具体描述对方所做之事及对你的意义/影响。"], ["结尾", "再次致谢，表达回报或祝愿。"]], "opens": ["I am writing to express my sincere thanks for ….（我写信是为了对…表示衷心感谢。）", "Words fail to express how grateful I am for your help.（言语难以表达我对你帮助的感激。）"], "bodies": ["Thanks to your help, I ….（多亏你的帮助，我…）", "It was very kind of you to ….（你…真是太好心了。）", "Without your support, I could not have ….（没有你的支持，我不可能…）"], "closes": ["I really appreciate it and hope to repay your kindness one day.（我十分感激，希望有朝一日能报答你的好意。）", "Once again, thank you from the bottom of my heart.（再次衷心感谢你。）"], "template": "Dear ___,\n  I am writing to express my sincere thanks for ___.\n  Thanks to your help, I ___ (影响/结果). It was very kind of you to ___.\n  I really appreciate it and hope to ___.\nYours, Li Hua", "model": {"en": "Dear Mr. Smith,\n  I am writing to express my sincere thanks for your help during my stay in London.\n  Thanks to your patient guidance, my spoken English improved a lot. It was very kind of you to spend your weekends showing me around the city. Without your support, I could not have settled down so quickly.\n  I really appreciate it and hope to welcome you in China one day.\nYours,\nLi Hua", "zh": "亲爱的史密斯先生：\n  我写信是为了对你在我逗留伦敦期间的帮助表示衷心感谢。\n  多亏你耐心的指导，我的英语口语进步很大。你周末还带我游览这座城市，真是太好心了。没有你的支持，我不可能这么快安顿下来。\n  我十分感激，希望有朝一日能在中国接待你。\n你的，李华"}}, {"id": "advice", "name": "建议信", "en": "Letter of Advice", "scene": "就对方的问题（学习、健康、适应等）提出建议。", "points": "多用 should / had better / Why not …；建议要分条、具体、可行。", "structure": [["开头", "表明得知对方的困扰，愿意提供建议。"], ["主体", "分条提出 2–3 条具体建议并简述理由。"], ["结尾", "表达建议有帮助的期望与祝愿。"]], "opens": ["I am sorry to hear that you are troubled by …. Here are some suggestions.（很遗憾你被…困扰，以下是一些建议。）", "I am writing to offer some advice on ….（我写信是想就…提供一些建议。）"], "bodies": ["First of all, I suggest that you (should) ….（首先，我建议你…）", "What’s more, it would be a good idea to ….（此外，…会是个好主意。）", "Last but not least, you’d better ….（最后同样重要的是，你最好…）"], "closes": ["I hope these suggestions will be of some help to you.（希望这些建议对你有所帮助。）", "I am sure things will get better if you follow them.（如果照做，相信情况会好转。）"], "template": "Dear ___,\n  I am sorry to hear that ___. Here are some suggestions.\n  First, I suggest that you ___. What’s more, ___. Last but not least, you’d better ___.\n  I hope these suggestions will be of some help to you.\nYours, Li Hua", "model": {"en": "Dear Tom,\n  I am sorry to hear that you are having trouble learning Chinese. Here are some suggestions that may help.\n  First of all, I suggest that you watch Chinese films with subtitles, which makes learning fun. What’s more, it would be a good idea to make Chinese friends and practise speaking every day. Last but not least, you’d better keep a notebook of new words and review them often.\n  I hope these suggestions will be of some help to you.\nYours,\nLi Hua", "zh": "亲爱的汤姆：\n  很遗憾听说你学中文遇到困难。以下是一些也许有用的建议。\n  首先，我建议你看带字幕的中文电影，让学习变得有趣。此外，结交中国朋友、每天练习口语也是个好主意。最后同样重要的是，你最好准备一个生词本并经常复习。\n  希望这些建议对你有所帮助。\n你的，李华"}}, {"id": "apology", "name": "道歉信", "en": "Letter of Apology", "scene": "为失约、迟到、损坏物品等向对方道歉。", "points": "先道歉，再说明原因，最后提补救并请求原谅；语气诚恳。", "structure": [["开头", "表达歉意，点明所道歉之事。"], ["主体", "说明原因，并提出补救办法。"], ["结尾", "再次致歉，请求谅解。"]], "opens": ["I am writing to apologize to you for ….（我写信是为…向你道歉。）", "Please accept my sincere apology for ….（请接受我为…的诚挚歉意。）"], "bodies": ["The reason for this was that ….（原因是…）", "To make up for it, I would like to ….（为了弥补，我想…）", "I never meant to cause you any trouble.（我绝非有意给你添麻烦。）"], "closes": ["I do hope you can understand and forgive me.（真心希望你能理解并原谅我。）", "Once again, I am terribly sorry for the inconvenience.（再次为给你带来的不便深表歉意。）"], "template": "Dear ___,\n  I am writing to apologize to you for ___.\n  The reason was that ___. To make up for it, I would like to ___.\n  I do hope you can understand and forgive me.\nYours, Li Hua", "model": {"en": "Dear Jack,\n  I am writing to apologize to you for not attending your birthday party last Saturday.\n  The reason was that my grandmother suddenly fell ill and I had to take her to hospital. To make up for it, I would like to invite you to dinner this weekend and give you the gift I prepared.\n  I do hope you can understand and forgive me. Once again, I am terribly sorry.\nYours,\nLi Hua", "zh": "亲爱的杰克：\n  我写信是为上周六没能参加你的生日聚会向你道歉。\n  原因是我奶奶突然生病，我不得不送她去医院。为了弥补，本周末我想请你吃饭，并送上我准备的礼物。\n  真心希望你能理解并原谅我。再次深表歉意。\n你的，李华"}}, {"id": "apply", "name": "申请信", "en": "Application Letter", "scene": "申请志愿者、社团、夏令营、交流项目等。", "points": "说明申请职位/项目，陈述自身优势与意愿；语气自信礼貌。", "structure": [["开头", "表明申请的职位/项目及信息来源。"], ["主体", "陈述申请理由、个人优势（能力、经历、性格）。"], ["结尾", "表达期待并感谢考虑。"]], "opens": ["I am writing to apply for the position of ….（我写信申请…职位。）", "I would like to apply to be a … in ….（我想申请成为…的…。）"], "bodies": ["I think I am fit for it for the following reasons.（我认为我胜任此职，理由如下。）", "Not only do I have …, but I am also good at ….（我不仅拥有…，还擅长…。）", "I have taken part in … , which has prepared me well.（我曾参加…，为此做好了准备。）"], "closes": ["I would appreciate it if you could give me the chance.（如能给我机会，我将不胜感激。）", "Thank you for considering my application.（感谢你考虑我的申请。）"], "template": "Dear ___,\n  I am writing to apply for ___. I think I am fit for it for the following reasons.\n  First, ___. Besides, ___.\n  I would appreciate it if you could give me the chance. Thank you for considering my application.\nYours, Li Hua", "model": {"en": "Dear Sir or Madam,\n  I am writing to apply for the position of volunteer guide at the coming sports meeting. I think I am fit for it for the following reasons.\n  First, I can speak both English and Chinese fluently, so I can help foreign visitors easily. Besides, I am outgoing and have served as a volunteer before, which has prepared me well.\n  I would appreciate it if you could give me the chance. Thank you for considering my application.\nYours,\nLi Hua", "zh": "尊敬的先生/女士：\n  我写信申请即将举行的运动会的志愿者向导一职。我认为我能胜任，理由如下。\n  首先，我能流利使用中英文，能轻松帮助外国来宾。此外，我性格外向，之前做过志愿者，为此做好了准备。\n  如能给我机会，我将不胜感激。感谢你考虑我的申请。\n你的，李华"}}, {"id": "notice", "name": "通知 / 启事", "en": "Notice", "scene": "发布活动、招募、寻物等通知。", "points": "标题居中写 NOTICE；正文交代 5W（何事/何时/何地/何人/如何）；可不写称呼。", "structure": [["标题", "居中写 NOTICE。"], ["正文", "说明活动内容、时间、地点、对象及要求/报名方式。"], ["落款", "写明发出通知的单位/人。"]], "opens": ["A … will be held … to ….（…将举行，以…）", "In order to …, our school will ….（为了…，我校将…）"], "bodies": ["It will take place at … on ….（活动将于…在…举行。）", "All those who are interested are welcome to take part.（欢迎所有感兴趣者参加。）", "Please sign up at … before ….（请于…前到…报名。）"], "closes": ["Don’t miss it! / Everyone is welcome.（不要错过！/ 欢迎大家参加。）", "For more information, please contact ….（欲知详情，请联系…）"], "template": "NOTICE\n  In order to ___, our school will hold ___.\n  It will take place at ___ on ___. All those interested are welcome.\n  Please sign up at ___ before ___.\n  The Students’ Union", "model": {"en": "NOTICE\n  In order to enrich our school life, the Students’ Union will hold an English Singing Competition next month.\n  It will take place in the school hall at 7 p.m. on June 20th. All students who love singing are welcome to take part. Please sign up at Room 201 before June 10th.\n  Don’t miss this wonderful chance!\n  The Students’ Union", "zh": "通知\n  为丰富校园生活，学生会将于下月举办英语歌唱比赛。\n  比赛将于6月20日晚7点在学校礼堂举行。欢迎所有热爱唱歌的同学参加。请于6月10日前到201室报名。\n  不要错过这一精彩机会！\n  学生会"}}, {"id": "speech", "name": "演讲稿", "en": "Speech", "scene": "国旗下讲话、班会、英语演讲等。", "points": "开头有称呼问候；中间分点论述；结尾点题升华、致谢。", "structure": [["开头", "问候听众，点明演讲主题。"], ["主体", "分点阐述观点/做法，举例说明。"], ["结尾", "总结呼吁，感谢聆听。"]], "opens": ["Good morning, everyone! It’s my honour to speak about ….（大家早上好！很荣幸就…发言。）", "Ladies and gentlemen, today I’d like to share my views on ….（女士们先生们，今天我想分享我对…的看法。）"], "bodies": ["On the one hand, …. On the other hand, ….（一方面…另一方面…）", "Take … for example.（以…为例。）", "There is no doubt that ….（毫无疑问…）"], "closes": ["In a word, let’s ….（总之，让我们…）", "That’s all. Thank you for listening!（我的发言到此结束，谢谢聆听！）"], "template": "Good morning, everyone!\n  It’s my honour to speak about ___.\n  On the one hand, ___. On the other hand, ___. Take ___ for example.\n  In a word, let’s ___. Thank you for listening!", "model": {"en": "Good morning, everyone!\n  It’s my honour to speak about the importance of reading. There is no doubt that reading benefits us in many ways.\n  On the one hand, reading widens our knowledge and opens our minds. On the other hand, it brings us joy and peace. Take great books for example; they are like wise friends who guide us through life.\n  In a word, let’s pick up a book and start reading today. That’s all. Thank you for listening!", "zh": "大家早上好！\n  很荣幸就阅读的重要性发言。毫无疑问，阅读在许多方面让我们受益。\n  一方面，阅读拓宽知识、开阔心胸；另一方面，它带给我们快乐与宁静。以伟大的书籍为例，它们就像睿智的朋友，指引我们走过人生。\n  总之，让我们今天就拿起一本书开始阅读吧。我的发言到此结束，谢谢聆听！"}}, {"id": "inquiry", "name": "询问信", "en": "Letter of Inquiry", "scene": "咨询课程、活动、产品、入学等信息。", "points": "礼貌提出问题，问题清晰具体；多用 I would like to know / Could you tell me …。", "structure": [["开头", "说明写信目的——咨询某事。"], ["主体", "逐条提出想了解的问题。"], ["结尾", "表达期待答复并致谢。"]], "opens": ["I am writing to ask for some information about ….（我写信是想咨询有关…的信息。）", "I would be grateful if you could tell me about ….（如蒙告知…，将不胜感激。）"], "bodies": ["First, I would like to know ….（首先，我想知道…）", "In addition, could you tell me whether …?（另外，你能告诉我是否…吗？）", "I am also wondering ….（我还想知道…）"], "closes": ["I am looking forward to your early reply. Thank you.（期待你的尽早回复，谢谢。）", "Your help would be greatly appreciated.（你的帮助将不胜感激。）"], "template": "Dear ___,\n  I am writing to ask for some information about ___.\n  First, I would like to know ___. In addition, could you tell me whether ___? I am also wondering ___.\n  I am looking forward to your early reply. Thank you.\nYours, Li Hua", "model": {"en": "Dear Sir or Madam,\n  I am writing to ask for some information about your summer English camp.\n  First, I would like to know when the camp begins and how long it lasts. In addition, could you tell me whether accommodation is provided? I am also wondering how much the camp costs.\n  I am looking forward to your early reply. Thank you.\nYours,\nLi Hua", "zh": "尊敬的先生/女士：\n  我写信是想咨询贵方暑期英语营的信息。\n  首先，我想知道营期何时开始、持续多久。另外，你能告诉我是否提供住宿吗？我还想知道费用是多少。\n  期待你的尽早回复，谢谢。\n你的，李华"}}], "continuation": {"method": ["通读原文，圈出人物、时间、地点、起因，把握情感基调（紧张？温暖？）。", "用好两段首句：每段给的首句就是该段“路标”，顺着它推进情节，不要另起炉灶。", "情节合理、积极向上：续写多以“努力—转机—感悟/团圆”收尾，呼应原文。", "首尾呼应：结尾点出主题或人物成长，与原文情感、伏笔照应。", "多用动作、心理、环境描写让画面生动；少用空泛的叙述。", "时态与原文一致（一般用过去时）；人称与原文一致。"], "banks": [{"h": "动作描写（让画面动起来）", "items": [{"en": "He rushed out of the room, his heart pounding wildly.", "zh": "他冲出房间，心脏狂跳。"}, {"en": "Without a second thought, she grabbed the rope and pulled with all her strength.", "zh": "她毫不犹豫地抓住绳子，使出全身力气拉。"}, {"en": "He took a deep breath, clenched his fists and stepped forward.", "zh": "他深吸一口气，握紧拳头，向前迈步。"}, {"en": "Tears streaming down her face, she threw herself into her mother’s arms.", "zh": "泪水顺着脸颊滑落，她扑进母亲的怀里。"}, {"en": "They worked shoulder to shoulder until the sun went down.", "zh": "他们并肩劳作，直到太阳落山。"}]}, {"h": "心理 / 情绪描写", "items": [{"en": "A wave of relief washed over him.", "zh": "一阵宽慰涌上他的心头。"}, {"en": "Her heart sank as she realized what had happened.", "zh": "意识到发生了什么，她的心一沉。"}, {"en": "For the first time, he felt a flame of hope burning inside him.", "zh": "他第一次感到内心燃起一团希望之火。"}, {"en": "Mixed feelings of fear and excitement filled her mind.", "zh": "恐惧与兴奋交织，充满她的脑海。"}, {"en": "He could hardly believe his eyes, his mouth wide open in surprise.", "zh": "他几乎不敢相信自己的眼睛，惊讶得张大了嘴。"}]}, {"h": "环境描写（烘托气氛）", "items": [{"en": "The wind howled and the rain beat against the window.", "zh": "狂风怒号，雨点拍打着窗户。"}, {"en": "The first rays of sunlight broke through the clouds.", "zh": "第一缕阳光穿透云层。"}, {"en": "Silence fell over the room; you could hear a pin drop.", "zh": "房间陷入沉寂，落针可闻。"}, {"en": "The golden leaves danced gently in the autumn breeze.", "zh": "金黄的叶子在秋风中轻轻起舞。"}]}, {"h": "过渡 / 推进情节", "items": [{"en": "At that very moment, …", "zh": "就在那一刻，…"}, {"en": "To his surprise, …", "zh": "令他惊讶的是，…"}, {"en": "After what seemed like hours, …", "zh": "似乎过了几个小时之后，…"}, {"en": "Just as they were about to give up, …", "zh": "正当他们要放弃时，…"}, {"en": "From then on, he understood that …", "zh": "从那以后，他明白了…"}]}], "transitions": ["at first", "then", "after that", "suddenly", "at that moment", "finally", "in the end", "fortunately", "to one’s surprise", "as a result"], "example": {"prompt": "原文梗概：男孩 Tom 在登山途中与同伴走散，天色渐暗，他又冷又怕……（给定两段首句如下）", "para1head": "Para 1: As it grew darker, Tom became more and more frightened.", "para2head": "Para 2: Just as he was losing hope, he saw a light in the distance.", "para1": {"en": "As it grew darker, Tom became more and more frightened. The wind howled and the cold cut through his thin coat. He shouted his friends’ names again and again, but only echoes answered him. His heart sank as he realized he was completely lost. Taking a deep breath, he told himself to stay calm and keep moving down the mountain.", "zh": "天色渐暗，汤姆越来越害怕。狂风怒号，寒意穿透他单薄的外套。他一遍遍呼喊同伴的名字，回应他的却只有回声。意识到自己彻底迷路了，他的心一沉。他深吸一口气，告诉自己要保持冷静，继续往山下走。"}, "para2": {"en": "Just as he was losing hope, he saw a light in the distance. With his last bit of strength, he stumbled towards it and found a small cabin. An old man opened the door and welcomed him in by the warm fire. Soon, his worried friends arrived with a rescue team. A wave of relief washed over Tom. From then on, he understood that courage and calmness matter most in times of danger.", "zh": "正当他要失去希望时，他看到远处有一束光。他用最后的力气跌跌撞撞地走过去，发现一间小木屋。一位老人开门，把他迎到温暖的火炉旁。不久，焦急的同伴和救援队赶到了。一阵宽慰涌上汤姆心头。从那以后，他明白了在危险时刻，勇气与镇定最为重要。"}, "notes": ["首段顺着“害怕”推进：用环境（风/冷）+ 动作（呼喊）+ 心理（心一沉）渲染，再让人物自我打气，自然过渡到行动。", "次段顺着“看到光”转机：动作（跌撞前行）→ 帮助（老人/救援）→ 情绪（宽慰）→ 主题升华（勇气与镇定），首尾呼应。"]}}, "toolbox": {"replace": [{"plain": "good", "better": ["excellent", "outstanding", "impressive", "remarkable"]}, {"plain": "bad", "better": ["terrible", "awful", "unpleasant", "negative"]}, {"plain": "important", "better": ["essential", "crucial", "vital", "significant"]}, {"plain": "think", "better": ["believe", "hold the view that", "be convinced that", "argue"]}, {"plain": "very", "better": ["extremely", "incredibly", "remarkably", "fairly"]}, {"plain": "many / a lot of", "better": ["numerous", "a great number of", "plenty of", "a host of"]}, {"plain": "happy", "better": ["delighted", "cheerful", "content", "overjoyed"]}, {"plain": "sad", "better": ["upset", "disappointed", "sorrowful", "down"]}, {"plain": "help", "better": ["assist", "be of great help to", "give a hand", "contribute to"]}, {"plain": "in my opinion", "better": ["from my perspective", "as far as I am concerned", "personally"]}, {"plain": "more and more", "better": ["increasingly", "a growing number of", "rising"]}, {"plain": "I like", "better": ["I am fond of", "I am keen on", "I have a passion for"]}], "connectors": [{"group": "并列 / 递进", "words": ["and", "besides", "what’s more", "in addition", "moreover", "furthermore"]}, {"group": "转折 / 对比", "words": ["but", "however", "while", "on the contrary", "nevertheless", "instead"]}, {"group": "因果", "words": ["because", "since", "as", "so", "therefore", "as a result", "thanks to"]}, {"group": "举例 / 解释", "words": ["for example", "for instance", "such as", "that is to say", "in other words"]}, {"group": "顺序 / 时间", "words": ["first", "then", "after that", "meanwhile", "finally", "at last"]}, {"group": "总结", "words": ["in a word", "in short", "to sum up", "all in all", "on the whole"]}], "patterns": [{"name": "强调句", "en": "It is/was … that … 　It was hard work that led to his success.", "zh": "正是努力让他成功。"}, {"name": "倒装（only 提前）", "en": "Only in this way can we make progress.", "zh": "只有这样我们才能进步。"}, {"name": "定语从句", "en": "Reading is a habit that benefits us for life.", "zh": "阅读是一种使我们终身受益的习惯。"}, {"name": "非谓语作状语", "en": "Faced with difficulties, we should never give up.", "zh": "面对困难，我们决不应放弃。"}, {"name": "the more … the more", "en": "The harder you work, the luckier you will be.", "zh": "你越努力，就越幸运。"}, {"name": "not only … but also", "en": "It not only saves time but also protects the environment.", "zh": "它不仅省时，还保护环境。"}, {"name": "形式主语 it", "en": "It is of great importance for us to learn English well.", "zh": "学好英语对我们意义重大。"}, {"name": "so … that", "en": "He was so excited that he could hardly fall asleep.", "zh": "他激动得几乎睡不着。"}], "opens": ["Nowadays, more and more people begin to realize the importance of ….（如今越来越多人意识到…的重要性。）", "As the saying goes, “….”（正如谚语所说，“…”。）", "When it comes to …, opinions vary from person to person.（谈到…，人们看法不一。）"], "closes": ["In a word, only by … can we ….（总之，只有…我们才能…。）", "It is high time that we took action to ….（我们该立即行动…了。）", "I firmly believe that our future will be brighter if ….（我坚信，只要…我们的未来会更光明。）"], "checklist": ["审题：文体、人称、时态对了吗？要点是否齐全（不漏点、不跑题）？", "结构：是否分段清晰、有开头/主体/结尾？", "句式：是否用了 2–3 个高分句型（强调/倒装/从句/非谓语）？", "连接：句与句之间是否有连接词，逻辑顺畅？", "用词：是否把 good/very/think 等换成了高级表达？", "准确：主谓一致、时态、冠词、拼写、大小写有无错误？", "卷面：字数达标、书写工整、没有涂改过多？"]}};
+const $=id=>document.getElementById(id);
+const esc=s=>(s==null?"":String(s)).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function speak(t){ try{ speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(t); u.lang="en-US"; u.rate=.95; speechSynthesis.speak(u);}catch(e){} }
+const KEY="gaokao-writing-v1";
+function lsGet(k){try{return localStorage.getItem(k);}catch(e){return null;}}
+function lsSet(k,v){try{localStorage.setItem(k,v);return true;}catch(e){return false;}}
+
+function setCrumbs(arr){ $("crumbs").innerHTML=arr.map(c=>c.go?'<button data-go="'+c.go+'">'+esc(c.t)+'</button>':'<span>'+esc(c.t)+'</span>').join('<span class="sep">›</span>');
+  $("crumbs").querySelectorAll('button').forEach(b=>b.onclick=()=>route(b.dataset.go)); }
+function route(g){ if(g==="home")renderHome(); else if(g==="cont")renderCont(); else if(g==="tool")renderTool(); else if(g==="pad")renderPad(); }
+
+function wireSay(){ $("view").querySelectorAll('[data-say]').forEach(b=>b.onclick=()=>speak(b.dataset.say)); }
+
+function renderHome(){
+  window.scrollTo({top:0}); setCrumbs([{t:"写作首页"}]);
+  let h='<div class="catsec"><h2><span class="dot"></span>应用文写作</h2><p class="cdesc">新高考第一篇 / 书面表达：选文体 → 看结构 → 套高分句型与模板 → 对照范文（约15分）</p><div class="tgrid">';
+  WRITING.applied.forEach(g=>{ h+='<button class="tcard" data-id="'+g.id+'"><b>'+esc(g.name)+'</b><i>'+esc(g.en)+'</i></button>'; });
+  h+='</div></div>';
+  h+='<div class="catsec"><h2><span class="dot"></span>读后续写</h2><p class="cdesc">新高考第二篇，最能拉开差距（约25分）：方法步骤 + 动作/心理/环境描写高分句库 + 范例点评</p>';
+  h+='<button class="bigcard" data-go="cont"><b>进入读后续写 →</b><p>怎么读、怎么续、怎么写得高级，配一篇带点评的范例</p></button></div>';
+  h+='<div class="catsec"><h2><span class="dot"></span>提分工具箱</h2><p class="cdesc">高级词替换、连接词分类、万能高分句型、开头结尾句、写作自检清单</p>';
+  h+='<button class="bigcard" data-go="tool"><b>打开工具箱 →</b><p>把 good/very/think 换成高级表达，套用 2–3 个高分句型立刻提档</p></button></div>';
+  h+='<div class="catsec"><h2><span class="dot"></span>我的练习本</h2><p class="cdesc">在本机草稿纸上练笔，自动统计词数、保存与导出，旁边附自检清单</p>';
+  h+='<button class="bigcard" data-go="pad"><b>打开练习本 →</b><p>写完对照清单逐项检查：文体 / 结构 / 句式 / 连接 / 用词 / 准确 / 卷面</p></button></div>';
+  $("view").innerHTML=h;
+  $("view").querySelectorAll('.tcard').forEach(b=>b.onclick=()=>renderGenre(b.dataset.id));
+  $("view").querySelectorAll('.bigcard').forEach(b=>b.onclick=()=>route(b.dataset.go));
+}
+
+function sentList(arr){ return arr.map(s=>{ const i=s.indexOf('（'); const en=i>0?s.slice(0,i).trim():s; const zh=i>0?s.slice(i):'';
+  return '<div class="sent"><div class="se"><button class="say" data-say="'+esc(en)+'">🔊</button><span>'+esc(en)+'</span></div>'+(zh?'<div class="sz">'+esc(zh)+'</div>':'')+'</div>'; }).join(''); }
+
+function renderGenre(id){
+  window.scrollTo({top:0});
+  const g=WRITING.applied.find(x=>x.id===id); if(!g)return;
+  setCrumbs([{t:"写作首页",go:"home"},{t:g.name}]);
+  let h='<div class="doc"><h2>'+esc(g.name)+'</h2><div class="den">'+esc(g.en)+'</div>';
+  h+='<div class="intro"><div><span class="lab">适用场景：</span>'+esc(g.scene)+'</div><div style="margin-top:5px"><span class="lab">写作要点：</span>'+esc(g.points)+'</div></div>';
+  h+='<div class="block"><h3>谋篇结构（三段式）</h3><div class="struct">'+g.structure.map(s=>'<div class="st"><span class="sp">'+esc(s[0])+'</span><span class="sd">'+esc(s[1])+'</span></div>').join('')+'</div></div>';
+  h+='<div class="block"><h3>高分句型 · 开头</h3>'+sentList(g.opens)+'</div>';
+  h+='<div class="block"><h3>高分句型 · 主体</h3>'+sentList(g.bodies)+'</div>';
+  h+='<div class="block"><h3>高分句型 · 结尾</h3>'+sentList(g.closes)+'</div>';
+  const skel=esc(g.template).replace(/___/g,'<span class="bk">______</span>');
+  h+='<div class="block"><h3>万能模板（套用框架）</h3><div class="skeleton">'+skel+'</div><div class="note">把高亮处换成题目要求的具体内容即可。</div></div>';
+  // model
+  const paras=g.model.en.split('\n');
+  h+='<div class="block"><h3>范文 <button class="say" data-say="'+esc(g.model.en.replace(/\n/g,' '))+'" style="border:1px solid var(--brand-line);background:var(--brand-soft);border-radius:7px;padding:0 8px;cursor:pointer;font-size:.78rem">🔊 全文</button></h3><div class="model">';
+  h+=paras.map(p=>p.trim()?'<div class="mp"><button class="say" data-say="'+esc(p)+'">🔊</button><div class="mt">'+esc(p)+'</div></div>':'').join('');
+  h+='<button id="tr-toggle" style="border:1px solid var(--line2);background:var(--bg);border-radius:8px;padding:5px 12px;font-size:.82rem;cursor:pointer;margin-top:4px">显示译文</button>';
+  h+='<div class="mz" id="mz">'+esc(g.model.zh)+'</div></div></div>';
+  h+='<div class="btnrow"><button id="back" >← 返回写作首页</button></div></div>';
+  $("view").innerHTML=h; wireSay();
+  $("tr-toggle").onclick=()=>{ const z=$("mz"); z.classList.toggle("show"); $("tr-toggle").textContent=z.classList.contains("show")?"隐藏译文":"显示译文"; };
+  $("back").onclick=renderHome;
+}
+
+function renderCont(){
+  window.scrollTo({top:0}); setCrumbs([{t:"写作首页",go:"home"},{t:"读后续写"}]);
+  const c=WRITING.continuation;
+  let h='<div class="doc"><h2>读后续写</h2><div class="den">Continuation Writing</div>';
+  h+='<div class="block"><h3>方法与步骤</h3><div class="plist">'+c.method.map(m=>'<div class="point">'+esc(m)+'</div>').join('')+'</div></div>';
+  c.banks.forEach(b=>{ h+='<div class="block"><h3>'+esc(b.h)+'</h3>'+b.items.map(it=>'<div class="sent"><div class="se"><button class="say" data-say="'+esc(it.en)+'">🔊</button><span>'+esc(it.en)+'</span></div><div class="sz">'+esc(it.zh)+'</div></div>').join('')+'</div>'; });
+  h+='<div class="block"><h3>过渡词 / 衔接</h3><div class="chips">'+c.transitions.map(t=>'<span class="chip">'+esc(t)+'</span>').join('')+'</div></div>';
+  const e=c.example;
+  h+='<div class="block"><h3>范例与点评</h3><div class="exbox"><div class="note" style="color:var(--ink-soft);font-size:.84rem">'+esc(e.prompt)+'</div>';
+  h+='<div class="exhead">'+esc(e.para1head)+'</div><div class="mp" style="display:flex;gap:8px"><button class="say" data-say="'+esc(e.para1.en)+'" style="flex:none;border:1px solid var(--brand-line);background:var(--brand-soft);border-radius:7px;padding:0 8px;cursor:pointer;font-size:.8rem">🔊</button><div class="mt" style="font-size:.95rem;line-height:1.7">'+esc(e.para1.en)+'</div></div><div class="sz" style="font-size:.84rem;color:var(--ink-soft);margin-top:4px">'+esc(e.para1.zh)+'</div>';
+  h+='<div class="exhead">'+esc(e.para2head)+'</div><div class="mp" style="display:flex;gap:8px"><button class="say" data-say="'+esc(e.para2.en)+'" style="flex:none;border:1px solid var(--brand-line);background:var(--brand-soft);border-radius:7px;padding:0 8px;cursor:pointer;font-size:.8rem">🔊</button><div class="mt" style="font-size:.95rem;line-height:1.7">'+esc(e.para2.en)+'</div></div><div class="sz" style="font-size:.84rem;color:var(--ink-soft);margin-top:4px">'+esc(e.para2.zh)+'</div>';
+  h+='<div class="exhead">点评</div><div class="plist">'+e.notes.map(n=>'<div class="point">'+esc(n)+'</div>').join('')+'</div>';
+  h+='</div></div>';
+  h+='<div class="btnrow"><button id="back">← 返回写作首页</button></div></div>';
+  $("view").innerHTML=h; wireSay(); $("back").onclick=renderHome;
+}
+
+function renderTool(){
+  window.scrollTo({top:0}); setCrumbs([{t:"写作首页",go:"home"},{t:"提分工具箱"}]);
+  const t=WRITING.toolbox;
+  let h='<div class="doc"><h2>提分工具箱</h2><div class="den">Toolbox for a Higher Score</div>';
+  h+='<div class="block"><h3>高级词替换（别再只会 good / very / think）</h3><table class="gt"><tr><th>普通表达</th><th>高级替换</th></tr>'+
+     t.replace.map(r=>'<tr><td class="k">'+esc(r.plain)+'</td><td>'+r.better.map(b=>esc(b)).join(' · ')+'</td></tr>').join('')+'</table></div>';
+  h+='<div class="block"><h3>连接词分类（让逻辑顺起来）</h3>'+t.connectors.map(c=>'<div class="grp"><div class="gh">'+esc(c.group)+'</div><div class="chips">'+c.words.map(w=>'<span class="chip">'+esc(w)+'</span>').join('')+'</div></div>').join('')+'</div>';
+  h+='<div class="block"><h3>万能高分句型（每篇用上 2–3 个）</h3>'+t.patterns.map(p=>'<div class="pat"><div class="pn">'+esc(p.name)+'</div><div class="pe"><button class="say" data-say="'+esc(p.en)+'">🔊</button><span>'+esc(p.en)+'</span></div><div class="pz">'+esc(p.zh)+'</div></div>').join('')+'</div>';
+  h+='<div class="block"><h3>万能开头句</h3>'+sentList(t.opens)+'</div>';
+  h+='<div class="block"><h3>万能结尾句</h3>'+sentList(t.closes)+'</div>';
+  h+='<div class="block"><h3>写作自检清单</h3><ul class="check">'+t.checklist.map(c=>'<li>'+esc(c)+'</li>').join('')+'</ul></div>';
+  h+='<div class="btnrow"><button id="back">← 返回写作首页</button></div></div>';
+  $("view").innerHTML=h; wireSay(); $("back").onclick=renderHome;
+}
+
+function renderPad(){
+  window.scrollTo({top:0}); setCrumbs([{t:"写作首页",go:"home"},{t:"我的练习本"}]);
+  const saved=lsGet(KEY)||"";
+  let h='<div class="pad"><p class="cdesc" style="margin:0 0 10px">在这里练笔，内容会自动保存到本机。写完对照下方清单逐项检查。</p>';
+  h+='<textarea id="pad-ta" placeholder="在这里开始写作…（例如先套用某类应用文的模板）">'+esc(saved)+'</textarea>';
+  h+='<div class="padbar"><span class="wc" id="wc">0 词</span><button id="pad-clear">清空</button><button id="pad-export" class="primary">导出为文本</button></div>';
+  h+='<div class="block" style="margin-top:20px"><h3>写完自检</h3><ul class="check">'+WRITING.toolbox.checklist.map(c=>'<li>'+esc(c)+'</li>').join('')+'</ul></div>';
+  h+='<div class="btnrow"><button id="back">← 返回写作首页</button></div></div>';
+  $("view").innerHTML=h;
+  const ta=$("pad-ta");
+  const count=()=>{ const w=(ta.value.match(/[A-Za-z'’]+/g)||[]).length; $("wc").textContent=w+' 词'; };
+  count();
+  ta.addEventListener('input',()=>{ lsSet(KEY,ta.value); count(); });
+  $("pad-clear").onclick=()=>{ if(confirm("清空练习本内容？")){ ta.value=""; lsSet(KEY,""); count(); } };
+  $("pad-export").onclick=()=>{ try{ const blob=new Blob([ta.value],{type:"text/plain"}); const url=URL.createObjectURL(blob); const a=document.createElement("a"); a.href=url; a.download="我的写作练习.txt"; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);}catch(e){ alert("导出被拦截，请手动复制内容保存。"); } };
+  $("back").onclick=renderHome;
+}
+
+renderHome();
+</script>
+
+<style>
+.rtf{background:#f8fafc;border-top:2px solid #e2e8f0;padding:20px 16px 28px;margin-top:32px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.rtf-hd{font-size:.72rem;font-weight:700;color:#64748b;letter-spacing:1.5px;text-transform:uppercase;text-align:center;margin-bottom:14px}
+.rtf-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px;max-width:860px;margin:0 auto 14px}
+.rtf-ch{font-size:.68rem;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px}
+.rtf-links{display:flex;flex-direction:column;gap:3px}
+.rtf-links a{font-size:.8rem;color:#2563eb;text-decoration:none;line-height:1.4}
+.rtf-links a:hover{text-decoration:underline}
+.rtf-links a.rtf-cur{color:#cbd5e0;pointer-events:none;cursor:default;font-weight:600}
+.rtf-home{display:block;text-align:center;font-size:.8rem;color:#64748b;text-decoration:none;margin-top:4px}
+.rtf-home:hover{color:#1e40af}
+</style>
+<div class="rtf">
+  <div class="rtf-hd">🔗 高考工具合集 · 快速跳转</div>
+  <div class="rtf-grid">
+<div><div class="rtf-ch">📖 阅读 · 完形真题</div><div class="rtf-links"><a href="english-reading.html">高考阅读理解真题 (441题)</a>
+<a href="english-cloze.html">高考完形填空真题 (1276题)</a>
+<a href="cloze-practice.html">完形填空专练</a>
+<a href="cloze-logic-tracker.html">逻辑链追踪器</a>
+</div></div>
+<div><div class="rtf-ch">🔠 词汇</div><div class="rtf-links"><a href="vocab-match.html">连连看闯关</a>
+<a href="vocab-3500.html">3500词 · 词根版</a>
+<a href="vocab-3500-stories.html">3500词 · 故事版</a>
+<a href="850-english-practice.html">850核心词表达</a>
+</div></div>
+<div><div class="rtf-ch">📐 语法</div><div class="rtf-links"><a href="grammar-master.html">语法神器 · 闯关版</a>
+<a href="grammar-mcq.html">语法填空选择题</a>
+<a href="grammar-cloze.html">语法填空手填版</a>
+<a href="grammar-breakdown.html">长难句拆解器</a>
+<a href="gaokao-grammar.html">高考语法通</a>
+</div></div>
+<div><div class="rtf-ch">✍️ 写作</div><div class="rtf-links"><a class="rtf-cur" href="gaokao-writing.html">写作神器 ✦</a>
+<a href="gaokao-golden.html">金句闪卡 · 50句</a>
+<a href="gaokao-english-templates.html">万能句背诵库</a>
+</div></div>
+<div><div class="rtf-ch">🔢 数学 · 物理</div><div class="rtf-links"><a href="math-formula-cards.html">数学公式闪卡</a>
+<a href="physics-challenge.html">物理公式闯关 60题</a>
+</div></div>
+<div><div class="rtf-ch">🧬 生物</div><div class="rtf-links">
+<a href="shengwu/index.html">生物选择题真题 (380套)</a>
+<a href="shengwu/duiduipeng.html">生物填空对对碰</a>
+<a href="shengwu/zhishi.html">生物考点速查</a>
+</div></div>
+<div><div class="rtf-ch">📚 语文 · 物理 · 化学</div><div class="rtf-links">
+<a href="yuwen/zhishi.html">语文考点速查</a>
+<a href="wuli/zhishi.html">物理考点速查</a>
+<a href="huaxue/zhishi.html">化学考点速查</a>
+</div></div>
+  </div>
+  <a class="rtf-home" href="index.html">← 高考工具箱 · 全部工具</a>
+</div>
+</body>
+</html>

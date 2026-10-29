@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>高考英语金句闪卡 · 50句必背模板</title>
+<style>
+:root{
+  --brand:#574AE2;--brand-deep:#3f34c0;--brand-soft:#ECEAFB;--brand-line:#CFC9F4;
+  --bg:#EEF1F6;--card:#FFF;--ink:#1E2330;--ink-soft:#556;--faint:#8A93A6;
+  --line:#E6E9F0;--ok:#1E9E6A;--ok-soft:#E6F6EE;--err:#D6455D;--err-soft:#FCEBEE;
+  --warn:#E8930A;--warn-soft:#FFF3E0;
+  --shadow:0 2px 12px rgba(30,35,48,.08);
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh}
+.wrap{max-width:600px;margin:0 auto;padding:0 15px 80px}
+
+/* Header */
+.hd{background:var(--brand);color:#fff;padding:14px 15px 12px;text-align:center}
+.hd h1{font-size:1.15rem;font-weight:700}
+.hd p{font-size:.75rem;opacity:.75;margin-top:3px}
+
+/* Mode toggle */
+.mode-bar{display:flex;background:var(--brand-soft);border-bottom:1px solid var(--brand-line);padding:10px 15px;gap:8px;position:sticky;top:0;z-index:50}
+.mode-bar button{flex:1;padding:8px 5px;border:1.5px solid var(--brand-line);border-radius:10px;background:#fff;color:var(--brand-deep);font-family:var(--sans);font-size:.82rem;font-weight:600;cursor:pointer;transition:all .15s}
+.mode-bar button.active{background:var(--brand);color:#fff;border-color:var(--brand)}
+
+/* Category selector */
+.cat-scroll{display:flex;gap:7px;overflow-x:auto;padding:12px 15px 8px;scrollbar-width:none}
+.cat-scroll::-webkit-scrollbar{display:none}
+.cat-btn{white-space:nowrap;padding:6px 14px;border:1.5px solid var(--line);border-radius:999px;background:#fff;color:var(--ink-soft);font-family:var(--sans);font-size:.8rem;cursor:pointer;font-weight:500;flex-shrink:0;transition:all .15s}
+.cat-btn.active{background:var(--brand);color:#fff;border-color:var(--brand)}
+
+/* Progress bar */
+.prog-wrap{padding:0 15px;margin:8px 0}
+.prog-info{display:flex;justify-content:space-between;font-size:.75rem;color:var(--faint);margin-bottom:5px}
+.pbar{height:6px;background:var(--line);border-radius:3px;overflow:hidden}
+.pfill{height:100%;background:var(--brand);border-radius:3px;transition:width .4s}
+
+/* ======= FLASHCARD MODE ======= */
+.fc-wrap{padding:15px}
+.card-scene{perspective:1000px;height:220px;margin-bottom:16px;cursor:pointer}
+.card-3d{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .45s cubic-bezier(.4,0,.2,1)}
+.card-3d.flipped{transform:rotateY(180deg)}
+.c-face{position:absolute;width:100%;height:100%;backface-visibility:hidden;border-radius:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;box-shadow:var(--shadow)}
+.c-front{background:linear-gradient(135deg,var(--brand),var(--brand-deep));color:#fff}
+.c-back{background:#fff;border:2px solid var(--brand-line);transform:rotateY(180deg)}
+.c-front .hint{font-size:.72rem;opacity:.65;margin-bottom:10px;letter-spacing:.05em}
+.c-front .cn-text{font-size:1.05rem;font-weight:600;text-align:center;line-height:1.6}
+.c-back .back-label{font-size:.72rem;color:var(--faint);margin-bottom:10px;font-weight:600;letter-spacing:.05em}
+.c-back .en-text{font-size:.95rem;color:var(--ink);text-align:center;line-height:1.75;font-weight:500}
+.c-back .key{color:var(--brand-deep);font-weight:700}
+.tap-hint{text-align:center;font-size:.75rem;color:var(--faint);margin-bottom:12px}
+
+/* Action buttons */
+.fc-actions{display:flex;gap:10px;margin-top:4px}
+.fc-actions button{flex:1;padding:13px;border:none;border-radius:12px;font-family:var(--sans);font-size:.9rem;font-weight:700;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;gap:6px}
+.btn-know{background:var(--ok-soft);color:var(--ok);}
+.btn-know:hover{background:var(--ok);color:#fff}
+.btn-retry{background:var(--err-soft);color:var(--err);}
+.btn-retry:hover{background:var(--err);color:#fff}
+.fc-actions button:disabled{opacity:.35;cursor:not-allowed}
+
+/* Mini stat chips */
+.mini-stats{display:flex;gap:8px;justify-content:center;margin:12px 0 0;flex-wrap:wrap}
+.mchip{font-size:.75rem;padding:3px 10px;border-radius:999px;border:1px solid var(--line);background:#fff}
+.mchip b{font-size:.82rem}
+
+/* ======= BROWSE MODE ======= */
+.browse-list{padding:12px 15px}
+.gold-card{background:#fff;border:1px solid var(--line);border-radius:14px;margin-bottom:10px;box-shadow:var(--shadow);overflow:hidden}
+.gold-head{padding:11px 13px;display:flex;align-items:center;gap:8px}
+.gold-num{width:24px;height:24px;border-radius:50%;background:var(--brand-soft);color:var(--brand-deep);font-size:.72rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.gold-cn{font-size:.88rem;color:var(--ink-soft);flex:1}
+.ms-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.ms-dot.m0{background:var(--line)}
+.ms-dot.m1{background:var(--warn)}
+.ms-dot.m2{background:var(--ok)}
+.gold-body{padding:0 13px 13px;border-top:1px solid var(--line)}
+.gold-en{font-size:.92rem;color:var(--ink);line-height:1.75;padding-top:10px;font-weight:500}
+.gold-en .kw{color:var(--brand-deep);font-weight:700}
+.gold-foot{display:flex;align-items:center;gap:8px;margin-top:8px}
+.cpbtn{border:1px solid var(--brand-line);background:none;color:var(--brand-deep);border-radius:7px;padding:4px 10px;font-size:.73rem;cursor:pointer;font-family:var(--sans)}
+.cpbtn:hover{background:var(--brand);color:#fff}
+.ms-badge{font-size:.7rem;padding:2px 8px;border-radius:999px;border:1px solid var(--line);color:var(--faint);background:var(--bg)}
+.ms-badge.m1{background:var(--warn-soft);color:var(--warn);border-color:#f0d9a0}
+.ms-badge.m2{background:var(--ok-soft);color:var(--ok);border-color:#a8dfc7}
+
+/* ======= RESULT ======= */
+.result-box{margin:20px 15px;background:#fff;border-radius:18px;padding:28px 20px;text-align:center;box-shadow:var(--shadow)}
+.result-box .big{font-size:2.8rem;font-weight:800;color:var(--brand-deep)}
+.result-box .sub{font-size:.82rem;color:var(--faint);margin:4px 0 14px}
+.result-box .verdict{font-size:1.1rem;font-weight:700;margin-bottom:6px}
+.result-box p{font-size:.85rem;color:var(--ink-soft);margin-bottom:16px}
+.result-btns{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.rbtn{padding:10px 18px;border-radius:10px;border:1.5px solid var(--brand);background:none;color:var(--brand-deep);font-family:var(--sans);font-size:.88rem;cursor:pointer;font-weight:600}
+.rbtn.pri{background:var(--brand);color:#fff}
+
+/* Overview */
+.ov-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:12px 15px;margin-top:4px}
+.ov-item{background:#fff;border-radius:12px;padding:11px 10px;text-align:center;box-shadow:var(--shadow)}
+.ov-item .ov-num{font-size:1.4rem;font-weight:800;color:var(--brand-deep)}
+.ov-item .ov-label{font-size:.72rem;color:var(--faint);margin-top:2px}
+.ov-item.done .ov-num{color:var(--ok)}
+.ov-item.pending .ov-num{color:var(--warn)}
+</style>
+</head>
+<body>
+
+<div class="hd">
+  <h1>✨ 高考英语金句闪卡</h1>
+  <p>50句必背模板 · 翻卡记忆 + 浏览查询</p>
+</div>
+
+<div class="mode-bar">
+  <button class="active" id="btn-flash" onclick="setMode('flash')">🃏 闪卡练习</button>
+  <button id="btn-browse" onclick="setMode('browse')">📋 浏览全部</button>
+</div>
+
+<div id="app"></div>
+
+<script>
+// ===== DATA =====
+const CATS=[
+  {id:'c',label:'📌 结论金句'},
+  {id:'o',label:'🚀 开头公式'},
+  {id:'e',label:'🎯 结尾公式'},
+  {id:'p',label:'💡 点睛万能句'},
+  {id:'l',label:'✉️ 书信套句'},
+  {id:'t',label:'🔗 过渡短语'},
+  {id:'x',label:'🔧 复杂句式'},
+  {id:'m',label:'📚 学习心法'},
+];
+
+// cn=中文提示, en=英文原句, key=需要注意的关键词(用于高亮)
+const SENTENCES=[
+  // 结论金句
+  {id:'c1',cat:'c',cn:'从以上的讨论，我们可以安全地得出结论……',en:'From what has been discussed above, we may safely draw the <key>conclusion</key> that...',raw:'From what has been discussed above, we may safely draw the conclusion that...'},
+  {id:'c2',cat:'c',cn:'考虑到所有的因素，我们可以安全地得出结论……',en:'Taking into account <key>all the factors</key>, we may safely come to the conclusion that...',raw:'Taking into account all the factors, we may safely come to the conclusion that...'},
+  {id:'c3',cat:'c',cn:'从所提供的所有证据来看，我们可以得出结论……',en:'<key>Judging from</key> all the evidence offered, we may safely arrive at the conclusion that...',raw:'Judging from all the evidence offered, we may safely arrive at the conclusion that...'},
+  {id:'c4',cat:'c',cn:'所有的证据都支持一个可靠的结论……',en:'All the evidence supports a <key>sound conclusion</key> that...',raw:'All the evidence supports a sound conclusion that...'},
+  {id:'c5',cat:'c',cn:'从上面提到的，我们可以得出这样的结论……',en:'From what is mentioned above, we may <key>come to</key> the conclusion that...',raw:'From what is mentioned above, we may come to the conclusion that...'},
+  {id:'c6',cat:'c',cn:'为了总结/得出结论，我们发现……',en:'<key>To sum up</key>/draw a conclusion, we find that...',raw:'To sum up/draw a conclusion, we find that...'},
+  {id:'c7',cat:'c',cn:'简而言之/总之，这是……（万能收尾）',en:'In <key>short/brief</key>/a word/conclusion, it is...',raw:'In short/brief/a word/conclusion, it is...'},
+  {id:'c8',cat:'c',cn:'因此，可以推断/得出结论……',en:'<key>Therefore/Thus</key>, it can be inferred/concluded/deduced that...',raw:'Therefore/Thus, it can be inferred/concluded/deduced that...'},
+  {id:'c9',cat:'c',cn:'根据以上讨论，我们可以得出结论……',en:'According to what has been discussed above, we can <key>come to/reach</key> the conclusion that...',raw:'According to what has been discussed above, we can come to/reach the conclusion that...'},
+  {id:'c10',cat:'c',cn:'被认为/据信……',en:'It <key>is believed</key> that...',raw:'It is believed that...'},
+
+  // 开头公式
+  {id:'o1',cat:'o',cn:'一个谚语说，"你只年轻一次。"（真没有名言就编一个）',en:'A proverb says, "<key>You are only young once.</key>"',raw:'A proverb says, "You are only young once."'},
+  {id:'o2',cat:'o',cn:'不用说，我们不能永远年轻。（适用于自编名言）',en:'It goes without saying that <key>we cannot be young forever</key>.',raw:'It goes without saying that we cannot be young forever.'},
+  {id:'o3',cat:'o',cn:'众所周知，没有人能够否认……',en:'As everyone knows, <key>no one can deny</key> that...',raw:'As everyone knows, no one can deny that...'},
+  {id:'o4',cat:'o',cn:'根据最近的一项调查，约78.9%的大学生想继续深造。',en:'According to a <key>recent survey</key>, about 78.9% of the college students wanted to further their study after graduation.',raw:'According to a recent survey, about 78.9% of the college students wanted to further their study after graduation.'},
+  {id:'o5',cat:'o',cn:'最近的数据显示……',en:'A <key>recent statistics</key> shows that...',raw:'A recent statistics shows that...'},
+  {id:'o6',cat:'o',cn:'……已成为热门话题，特别是在年青人当中，将引发激烈辩论。',en:'___ has become a <key>hot topic</key> among people, especially among the young, and heated debates are right on their way.',raw:'___ has become a hot topic among people, especially among the young, and heated debates are right on their way.'},
+  {id:'o7',cat:'o',cn:'人类正面临着一个严重的问题……，越来越严重。',en:'Man is now facing a big problem ___ which is becoming <key>more and more serious</key>.',raw:'Man is now facing a big problem ___ which is becoming more and more serious.'},
+  {id:'o8',cat:'o',cn:'现在，……很普遍，许多人喜欢……，因为……，另外……',en:'Nowadays, it is <key>common to</key> ___. Many people like ___ because ___. Besides, ___.',raw:'Nowadays, it is common to ___. Many people like ___ because ___. Besides, ___.'},
+
+  // 结尾公式
+  {id:'e1',cat:'e',cn:'显然，我们可以得出结论，良好的举止源于礼貌和对别人的尊重。',en:'Obviously, we can draw the conclusion that <key>good manners arise from</key> politeness and respect for others.',raw:'Obviously, we can draw the conclusion that good manners arise from politeness and respect for others.'},
+  {id:'e2',cat:'e',cn:'因此，可以得出结论……',en:'<key>Thus</key>, it can be concluded that...',raw:'Thus, it can be concluded that...'},
+  {id:'e3',cat:'e',cn:'因此，我们可以发现……',en:'<key>Therefore</key>, we can find that...',raw:'Therefore, we can find that...'},
+  {id:'e4',cat:'e',cn:'显然，我们是时候采取一些措施来解决这个问题了。（用虚拟语气加分！）',en:'Obviously, it is <key>high time that</key> we took some measures to solve the problem.',raw:'Obviously, it is high time that we took some measures to solve the problem.'},
+  {id:'e5',cat:'e',cn:'因此，我建议采取一些措施。（虚拟语气：recommend+that+should省略）',en:'Accordingly, I <key>recommend that</key> some measures be taken.',raw:'Accordingly, I recommend that some measures be taken.'},
+  {id:'e6',cat:'e',cn:'因此，为了解决这个问题，应该采取一些措施。',en:'Consequently, to solve the problem, some measures <key>should be taken</key>.',raw:'Consequently, to solve the problem, some measures should be taken.'},
+
+  // 点睛万能句
+  {id:'p1',cat:'p',cn:'关于……人们有不同的观点。一些人认为……',en:'There are <key>different opinions</key> among people as to ___. Some people suggest that ___.',raw:'There are different opinions among people as to ___. Some people suggest that ___.'},
+  {id:'p2',cat:'p',cn:'俗话说……，它是我们前辈的经历，但即使在今天，它在许多场合仍然适用。',en:'There is an old saying "___". It\'s the experience of our forefathers, however, it is correct in <key>many cases even today</key>.',raw:"There is an old saying \"___\". It's the experience of our forefathers, however, it is correct in many cases even today."},
+  {id:'p3',cat:'p',cn:'今天，……给我们的日常生活带来了许多危害。首先……；其次……。更为糟糕的是……',en:'Today, ___, which have brought a lot of harms in our daily life. First, ___. Second, ___. <key>What makes things worse is that</key> ___.',raw:"Today, ___, which have brought a lot of harms in our daily life. First, ___. Second, ___. What makes things worse is that ___."},
+  {id:'p4',cat:'p',cn:'任何事物都有两面性，……也不例外。它既有有利的一面，也有不利的一面。',en:'Everything has two sides and ___ is <key>not an exception</key>. It has both advantages and disadvantages.',raw:'Everything has two sides and ___ is not an exception. It has both advantages and disadvantages.'},
+  {id:'p5',cat:'p',cn:'关于……人们的观点各不相同，一些人认为……，在他们看来……',en:"People's opinions about ___ <key>vary from person to person</key>. Some people say that ___. To them, ___.",raw:"People's opinions about ___ vary from person to person. Some people say that ___. To them, ___."},
+  {id:'p6',cat:'p',cn:'……在我们的日常生活中起着越来越重要的作用，带来许多好处，但同时也带来严重问题。',en:'___ has been playing an <key>increasingly important role</key> in our day-to-day life. It has brought us a lot of benefits but has created some serious problems as well.',raw:'___ has been playing an increasingly important role in our day-to-day life. It has brought us a lot of benefits but has created some serious problems as well.'},
+  {id:'p7',cat:'p',cn:'根据图表/数字/统计数字……可以看出……，很显然……，但是为什么呢？',en:'According to the figure/statistics in the chart/bar graph, it can be seen that ___ while. Obviously, ___, <key>but why?</key>',raw:'According to the figure/statistics in the chart/bar graph, it can be seen that ___ while. Obviously, ___, but why?'},
+  {id:'p8',cat:'p',cn:'不同的人对……有不同的看法，一些人认为……，而另一些人则认为……',en:'Different people have <key>different views</key> on ___. Some people think that ___, while others argue that ___.',raw:'Different people have different views on ___. Some people think that ___, while others argue that ___.'},
+  {id:'p9',cat:'p',cn:'毫无疑问，……。人们普遍认为……',en:'There is <key>no doubt that</key> ___. It is generally believed that ___.',raw:'There is no doubt that ___. It is generally believed that ___.'},
+  {id:'p10',cat:'p',cn:'与……相比，……具有……的优势',en:'<key>Compared with</key> ___, ___ has the advantage of ___.',raw:'Compared with ___, ___ has the advantage of ___.'},
+
+  // 书信套句
+  {id:'l1',cat:'l',cn:'很高兴再次收到你的来信。',en:'<key>How nice</key> to hear from you again.',raw:'How nice to hear from you again.'},
+  {id:'l2',cat:'l',cn:'让我告诉你一些关于这个活动的事情。',en:'<key>Let me tell you</key> something about the activity.',raw:'Let me tell you something about the activity.'},
+  {id:'l3',cat:'l',cn:'我很高兴收到你4月9日的来信。',en:"I'm <key>glad to have received</key> your letter of Apr. 9th.",raw:"I'm glad to have received your letter of Apr. 9th."},
+  {id:'l4',cat:'l',cn:'我很高兴听说你要来中国参观。',en:"I'm <key>pleased to hear</key> that you're coming to China for a visit.",raw:"I'm pleased to hear that you're coming to China for a visit."},
+  {id:'l5',cat:'l',cn:'我写信是为了感谢你在我在美国期间给予的帮助。',en:"I'm writing to <key>thank you for</key> your help during my stay in America.",raw:"I'm writing to thank you for your help during my stay in America."},
+  {id:'l6',cat:'l',cn:'致以最美好的祝愿。（书信结尾）',en:'<key>With best wishes.</key>',raw:'With best wishes.'},
+  {id:'l7',cat:'l',cn:'我期待你的回复。',en:"I'm <key>looking forward to</key> your reply.",raw:"I'm looking forward to your reply."},
+  {id:'l8',cat:'l',cn:'如果你能早点回复，我将不胜感激。（虚拟语气！）',en:"I'd <key>appreciate it if</key> you could reply earlier.",raw:"I'd appreciate it if you could reply earlier."},
+
+  // 过渡短语
+  {id:'t1',cat:'t',cn:'总之，最后……（结尾过渡）',en:'<key>In conclusion</key> / to sum up / in brief...',raw:'In conclusion / to sum up / in brief...'},
+  {id:'t2',cat:'t',cn:'因此，所以……',en:'<key>Therefore / thus / hence</key>...',raw:'Therefore / thus / hence...'},
+  {id:'t3',cat:'t',cn:'一方面……另一方面……',en:'<key>On one hand</key>, _____. On the other hand, _____.',raw:'On one hand, _____. On the other hand, _____.'},
+  {id:'t4',cat:'t',cn:'此外，另外，而且……',en:'<key>Besides / furthermore / moreover / in addition</key>, _____.',raw:'Besides / furthermore / moreover / in addition, _____.'},
+  {id:'t5',cat:'t',cn:'相比之下，与此相反……',en:'<key>By contrast / in contrast</key>, _____.',raw:'By contrast / in contrast, _____.'},
+  {id:'t6',cat:'t',cn:'换句话说……',en:'<key>In other words</key>, _____.',raw:'In other words, _____.'},
+  {id:'t7',cat:'t',cn:'事实上，实际上……',en:'<key>In fact / as a matter of fact</key>, _____.',raw:'In fact / as a matter of fact, _____.'},
+  {id:'t8',cat:'t',cn:'毫无疑问，毋庸置疑……',en:'<key>Without doubt / undoubtedly</key>, _____.',raw:'Without doubt / undoubtedly, _____.'},
+  {id:'t9',cat:'t',cn:'尽管如此，然而……',en:'<key>Nevertheless / nonetheless / however</key>, _____.',raw:'Nevertheless / nonetheless / however, _____.'},
+  {id:'t10',cat:'t',cn:'首先……其次……最后……',en:'<key>First of all</key>, _____. <key>Secondly</key>, _____. <key>Finally</key>, _____.',raw:'First of all, _____. Secondly, _____. Finally, _____.'},
+
+  // ── 复杂句式（语法填空考什么，写作就用什么）──
+  {id:'x1',cat:'x',cn:'非谓语·完成后做了……（having done 做状语）',en:'<key>Having finished</key> the task, he felt a great sense of relief.',raw:'Having finished the task, he felt a great sense of relief.'},
+  {id:'x2',cat:'x',cn:'非谓语·被动定语（过去分词修饰名词）',en:'The project, <key>completed</key> ahead of schedule, was praised by everyone.',raw:'The project, completed ahead of schedule, was praised by everyone.'},
+  {id:'x3',cat:'x',cn:'非谓语·目的状语（to do 表目的）',en:'She studied hard <key>to achieve</key> her dream of becoming a doctor.',raw:'She studied hard to achieve her dream of becoming a doctor.'},
+  {id:'x4',cat:'x',cn:'强调句·直到……才……（not until）',en:'<key>It was not until</key> midnight that he finally understood the truth.',raw:'It was not until midnight that he finally understood the truth.'},
+  {id:'x5',cat:'x',cn:'倒装句·不仅……而且……（not only…but also）',en:'<key>Not only does</key> reading broaden our mind, but it also improves our writing.',raw:'Not only does reading broaden our mind, but it also improves our writing.'},
+  {id:'x6',cat:'x',cn:'让步状语从句·尽管……（although/though）',en:'<key>Although</key> the task was difficult, they never gave up.',raw:'Although the task was difficult, they never gave up.'},
+  {id:'x7',cat:'x',cn:'非限制性定语从句·补充说明（which 引导）',en:'He donated all his savings to the school, <key>which</key> moved everyone deeply.',raw:'He donated all his savings to the school, which moved everyone deeply.'},
+  {id:'x8',cat:'x',cn:'虚拟语气·建议/要求（suggest that…should省略）',en:'I <key>suggest that</key> the school hold more outdoor activities.',raw:'I suggest that the school hold more outdoor activities.'},
+  {id:'x9',cat:'x',cn:'虚拟语气·感激句（appreciate if…could）',en:'I would <key>appreciate it if</key> you could reply at your earliest convenience.',raw:'I would appreciate it if you could reply at your earliest convenience.'},
+  {id:'x10',cat:'x',cn:'分词独立主格·做完某事后（with+名词+过去分词）',en:'<key>With the work done</key>, the team celebrated their success.',raw:'With the work done, the team celebrated their success.'},
+  {id:'x11',cat:'x',cn:'原因状语从句·由于……（because/since/as）',en:'<key>Since</key> she had spent years preparing, her performance was outstanding.',raw:'Since she had spent years preparing, her performance was outstanding.'},
+  {id:'x12',cat:'x',cn:'结果状语从句·如此……以至于（so…that）',en:'He was <key>so moved</key> by the story that tears ran down his cheeks.',raw:'He was so moved by the story that tears ran down his cheeks.'},
+  {id:'x13',cat:'x',cn:'宾语从句·意识到/发现……（realize/find that）',en:'She gradually <key>realized that</key> success comes from persistence, not luck.',raw:'She gradually realized that success comes from persistence, not luck.'},
+  {id:'x14',cat:'x',cn:'it形式主语·做某事很重要（It is + adj + to do）',en:'<key>It is essential</key> to develop good reading habits from an early age.',raw:'It is essential to develop good reading habits from an early age.'},
+  {id:'x15',cat:'x',cn:'表语从句·问题是……（The problem/fact is that）',en:'The <key>problem is that</key> many students ignore grammar while focusing only on vocabulary.',raw:'The problem is that many students ignore grammar while focusing only on vocabulary.'},
+
+  // ── 学习心法（3条提分关键）──
+  {id:'m1',cat:'m',cn:'心法一：抄句式，不背范文 ✍️',en:'<key>Learn patterns, not passages.</key> Copy 30 high-scoring sentence structures from model answers — they work across ALL topics. Memorizing full essays wastes time.',raw:'Learn patterns, not passages. Copy 30 high-scoring sentence structures from model answers — they work across ALL topics. Memorizing full essays wastes time.'},
+  {id:'m2',cat:'m',cn:'心法二：从阅读真题里"偷"表达 📖',en:'<key>Steal from reading passages.</key> Every gaokao article uses exam-level English. While doing reading, mark 2 good phrases per passage. Example: "She shows no signs of slowing down." → use directly in writing.',raw:'Steal from reading passages. Every gaokao article uses exam-level English. While doing reading, mark 2 good phrases per passage.'},
+  {id:'m3',cat:'m',cn:'心法三：语法填空=写作语法练习 🔧',en:'<key>Grammar cloze IS writing practice.</key> Every blank tests a structure you need in writing: non-finite verbs, relative clauses, tenses. Master grammar cloze first, writing complexity comes naturally.',raw:'Grammar cloze IS writing practice. Every blank tests a structure you need in writing: non-finite verbs, relative clauses, tenses. Master grammar cloze first, writing complexity comes naturally.'},
+];
+
+// ===== STATE =====
+const LS='gaokao_golden_v1';
+let mode='flash',curCat='all',queue=[],qIdx=0,flipped=false,session={right:0,retry:0};
+
+function loadMs(){try{return JSON.parse(localStorage.getItem(LS))||{}}catch(e){return{}}}
+function saveMs(ms){try{localStorage.setItem(LS,JSON.stringify(ms))}catch(e){}}
+function getMastery(id){const ms=loadMs();const v=ms[id]||0;return v>=3?2:v>=1?1:0;}
+function addMastery(id,delta){const ms=loadMs();ms[id]=(ms[id]||0)+delta;if(ms[id]<0)ms[id]=0;saveMs(ms);}
+
+function getFiltered(){
+  return curCat==='all'?SENTENCES:SENTENCES.filter(s=>s.cat===curCat);
+}
+
+function shuffle(arr){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+function buildQueue(){
+  queue=shuffle(getFiltered());
+  qIdx=0;flipped=false;session={right:0,retry:0};
+}
+
+// ===== RENDER =====
+function render(){
+  const app=document.getElementById('app');
+  if(mode==='flash') renderFlash(app);
+  else renderBrowse(app);
+}
+
+// ---- FLASHCARD ----
+function renderFlash(app){
+  const filtered=getFiltered();
+  const mastered=filtered.filter(s=>getMastery(s.id)>=2).length;
+  const total=filtered.length;
+  if(queue.length===0)buildQueue();
+
+  let html=catBar();
+  // Overview chips
+  html+=`<div class="ov-grid">
+    <div class="ov-item done"><div class="ov-num">${mastered}</div><div class="ov-label">已掌握</div></div>
+    <div class="ov-item pending"><div class="ov-num">${total-mastered}</div><div class="ov-label">待掌握</div></div>
+    <div class="ov-item"><div class="ov-num">${total}</div><div class="ov-label">本类总数</div></div>
+  </div>`;
+
+  // Progress
+  html+=`<div class="prog-wrap">
+    <div class="prog-info"><span>本局进度</span><span>${Math.min(qIdx,queue.length)}/${queue.length}</span></div>
+    <div class="pbar"><div class="pfill" style="width:${Math.min(qIdx/queue.length*100,100)}%"></div></div>
+  </div>`;
+
+  if(qIdx>=queue.length){
+    // Done
+    const pct=Math.round(session.right/(session.right+session.retry)*100)||0;
+    const v=pct>=90?'🏆 记忆超强！':pct>=70?'👍 记得不错！':pct>=50?'📚 再多练几遍':' 💪 坚持下去！';
+    html+=`<div class="result-box">
+      <div class="big">${session.right}/${session.right+session.retry}</div>
+      <div class="sub">首遍记住的句子 · 正确率${pct}%</div>
+      <div class="verdict">${v}</div>
+      <p>掌握中：${mastered}/${total} 句</p>
+      <div class="result-btns">
+        <button class="rbtn pri" onclick="restartSession()">🔀 再练一局</button>
+        <button class="rbtn" onclick="setMode('browse')">📋 查看全部</button>
+      </div>
+    </div>`;
+    app.innerHTML=html;return;
+  }
+
+  const s=queue[qIdx];
+  const enHtml=s.en.replace(/<key>(.*?)<\/key>/g,'<span class="key">$1</span>');
+  html+=`<div class="fc-wrap">
+    <div class="tap-hint">👆 点击卡片翻转查看英文</div>
+    <div class="card-scene" onclick="flipCard()">
+      <div class="card-3d" id="card3d">
+        <div class="c-face c-front">
+          <div class="hint">🇨🇳 中文提示 — 想想对应的英文</div>
+          <div class="cn-text">${s.cn}</div>
+        </div>
+        <div class="c-face c-back">
+          <div class="back-label">🇬🇧 英文原句</div>
+          <div class="en-text">${enHtml}</div>
+        </div>
+      </div>
+    </div>
+    <div class="fc-actions">
+      <button class="btn-retry" id="btn-retry" onclick="markCard(false)" disabled>🔄 再练一遍</button>
+      <button class="btn-know" id="btn-know" onclick="markCard(true)" disabled>✅ 记住了！</button>
+    </div>
+    <div class="mini-stats">
+      <span class="mchip">✅ 记住 <b>${session.right}</b></span>
+      <span class="mchip">🔄 再练 <b>${session.retry}</b></span>
+      <span class="mchip">📌 剩余 <b>${queue.length-qIdx-1}</b></span>
+    </div>
+  </div>`;
+  app.innerHTML=html;
+}
+
+function flipCard(){
+  flipped=!flipped;
+  const c=document.getElementById('card3d');
+  if(c)c.classList.toggle('flipped',flipped);
+  if(flipped){
+    const br=document.getElementById('btn-retry');
+    const bk=document.getElementById('btn-know');
+    if(br)br.disabled=false;
+    if(bk)bk.disabled=false;
+  }
+}
+
+function markCard(knew){
+  addMastery(queue[qIdx].id,knew?1:-1);
+  if(knew)session.right++;else session.retry++;
+  qIdx++;flipped=false;
+  render();
+}
+
+function restartSession(){buildQueue();render();}
+
+// ---- BROWSE ----
+function renderBrowse(app){
+  const filtered=getFiltered();
+  const ms=loadMs();
+  let html=catBar();
+  html+='<div class="browse-list">';
+  filtered.forEach((s,i)=>{
+    const mv=ms[s.id]||0;
+    const ml=mv>=3?2:mv>=1?1:0;
+    const mlabel=['未开始','学习中','已掌握'][ml];
+    const enHtml=s.en.replace(/<key>(.*?)<\/key>/g,'<span class="kw">$1</span>');
+    html+=`<div class="gold-card">
+      <div class="gold-head">
+        <div class="gold-num">${i+1}</div>
+        <div class="gold-cn">${s.cn}</div>
+        <div class="ms-dot m${ml}" title="${mlabel}"></div>
+      </div>
+      <div class="gold-body">
+        <div class="gold-en">${enHtml}</div>
+        <div class="gold-foot">
+          <button class="cpbtn" onclick="copyS('${s.id}')">复制</button>
+          <span class="ms-badge m${ml}">${mlabel}</span>
+        </div>
+      </div>
+    </div>`;
+  });
+  html+='</div>';
+  app.innerHTML=html;
+}
+
+function copyS(id){
+  const s=SENTENCES.find(x=>x.id===id);
+  if(!s)return;
+  navigator.clipboard.writeText(s.raw).then(()=>{
+    // find button by id would need DOM walk; simple alert for now
+  }).catch(()=>{});
+  // Flash feedback via temporary class
+  event.target.textContent='✓';
+  setTimeout(()=>{event.target.textContent='复制'},1200);
+}
+
+// ---- SHARED ----
+function catBar(){
+  const cats=[{id:'all',label:'全部 ('+SENTENCES.length+')'},...CATS.map(c=>({id:c.id,label:c.label+' ('+SENTENCES.filter(s=>s.cat===c.id).length+')'}))];
+  return `<div class="cat-scroll">${cats.map(c=>`
+    <button class="cat-btn${curCat===c.id?' active':''}" onclick="setCat('${c.id}')">${c.label}</button>`).join('')}
+  </div>`;
+}
+
+function setCat(cat){
+  curCat=cat;
+  if(mode==='flash')buildQueue();
+  render();
+}
+
+function setMode(m){
+  mode=m;
+  document.getElementById('btn-flash').classList.toggle('active',m==='flash');
+  document.getElementById('btn-browse').classList.toggle('active',m==='browse');
+  if(m==='flash'&&queue.length===0)buildQueue();
+  render();
+}
+
+// ===== INIT =====
+buildQueue();
+render();
+</script>
+
+<style>
+.rtf{background:#f8fafc;border-top:2px solid #e2e8f0;padding:20px 16px 28px;margin-top:32px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.rtf-hd{font-size:.72rem;font-weight:700;color:#64748b;letter-spacing:1.5px;text-transform:uppercase;text-align:center;margin-bottom:14px}
+.rtf-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px;max-width:860px;margin:0 auto 14px}
+.rtf-ch{font-size:.68rem;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px}
+.rtf-links{display:flex;flex-direction:column;gap:3px}
+.rtf-links a{font-size:.8rem;color:#2563eb;text-decoration:none;line-height:1.4}
+.rtf-links a:hover{text-decoration:underline}
+.rtf-links a.rtf-cur{color:#cbd5e0;pointer-events:none;cursor:default;font-weight:600}
+.rtf-home{display:block;text-align:center;font-size:.8rem;color:#64748b;text-decoration:none;margin-top:4px}
+.rtf-home:hover{color:#1e40af}
+</style>
+<div class="rtf">
+  <div class="rtf-hd">🔗 高考工具合集 · 快速跳转</div>
+  <div class="rtf-grid">
+<div><div class="rtf-ch">📖 阅读 · 完形真题</div><div class="rtf-links"><a href="english-reading.html">高考阅读理解真题 (441题)</a>
+<a href="english-cloze.html">高考完形填空真题 (1276题)</a>
+<a href="cloze-practice.html">完形填空专练</a>
+<a href="cloze-logic-tracker.html">逻辑链追踪器</a>
+</div></div>
+<div><div class="rtf-ch">🔠 词汇</div><div class="rtf-links"><a href="vocab-match.html">连连看闯关</a>
+<a href="vocab-3500.html">3500词 · 词根版</a>
+<a href="vocab-3500-stories.html">3500词 · 故事版</a>
+<a href="850-english-practice.html">850核心词表达</a>
+</div></div>
+<div><div class="rtf-ch">📐 语法</div><div class="rtf-links"><a href="grammar-master.html">语法神器 · 闯关版</a>
+<a href="grammar-mcq.html">语法填空选择题</a>
+<a href="grammar-cloze.html">语法填空手填版</a>
+<a href="grammar-breakdown.html">长难句拆解器</a>
+<a href="gaokao-grammar.html">高考语法通</a>
+</div></div>
+<div><div class="rtf-ch">✍️ 写作</div><div class="rtf-links"><a href="gaokao-writing.html">写作神器</a>
+<a class="rtf-cur" href="gaokao-golden.html">金句闪卡 · 50句 ✦</a>
+<a href="gaokao-english-templates.html">万能句背诵库</a>
+</div></div>
+<div><div class="rtf-ch">🔢 数学 · 物理</div><div class="rtf-links"><a href="math-formula-cards.html">数学公式闪卡</a>
+<a href="physics-challenge.html">物理公式闯关 60题</a>
+</div></div>
+<div><div class="rtf-ch">🧬 生物</div><div class="rtf-links">
+<a href="shengwu/index.html">生物选择题真题 (380套)</a>
+<a href="shengwu/duiduipeng.html">生物填空对对碰</a>
+<a href="shengwu/zhishi.html">生物考点速查</a>
+</div></div>
+<div><div class="rtf-ch">📚 语文 · 物理 · 化学</div><div class="rtf-links">
+<a href="yuwen/zhishi.html">语文考点速查</a>
+<a href="wuli/zhishi.html">物理考点速查</a>
+<a href="huaxue/zhishi.html">化学考点速查</a>
+</div></div>
+  </div>
+  <a class="rtf-home" href="index.html">← 高考工具箱 · 全部工具</a>
+</div>
+</body>
+</html>

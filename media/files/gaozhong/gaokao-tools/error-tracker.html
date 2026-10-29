@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>理科错题追踪器 · 高考备考</title>
+<meta name="description" content="高考理科错题追踪工具：记录数学、物理、化学、生物错题，自动分析薄弱知识点，生成专项复习建议。本地存储，无需登录。">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#f8f9fb;--card:#fff;--border:#e2e8f0;--accent:#dc2626;--accent2:#ef4444;--math:#7c3aed;--phy:#0369a1;--chem:#0f766e;--bio:#15803d}
+body{font-family:'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:#1e293b;min-height:100vh}
+header{background:#1e293b;color:#fff;padding:14px 20px;display:flex;align-items:center;gap:12px}
+header h1{font-size:1rem;font-weight:600;flex:1}
+header a{color:#94a3b8;font-size:.8rem;text-decoration:none}
+header a:hover{color:#fff}
+.main{max-width:900px;margin:0 auto;padding:16px}
+/* Stats row */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 14px;text-align:center}
+.stat-card .num{font-size:1.8rem;font-weight:700;line-height:1}
+.stat-card .label{font-size:.75rem;color:#64748b;margin-top:4px}
+.stat-math .num{color:var(--math)}
+.stat-phy .num{color:var(--phy)}
+.stat-chem .num{color:var(--chem)}
+.stat-bio .num{color:var(--bio)}
+/* Add form */
+.add-form{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:16px}
+.add-form h2{font-size:.9rem;font-weight:700;color:#374151;margin-bottom:12px}
+.form-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.form-row select,.form-row input,.form-row textarea{font-family:inherit;font-size:.87rem;padding:8px 11px;border:1px solid var(--border);border-radius:7px;background:#f8f9fb;color:#1e293b;outline:none}
+.form-row select:focus,.form-row input:focus,.form-row textarea:focus{border-color:#94a3b8}
+.form-row select{cursor:pointer}
+.form-row .grow{flex:1;min-width:140px}
+.form-row textarea{flex:1;min-width:200px;resize:vertical;min-height:54px}
+.btn-add{background:var(--accent);color:#fff;border:none;border-radius:7px;padding:9px 20px;font-size:.88rem;font-weight:600;cursor:pointer;font-family:inherit;transition:background .15s}
+.btn-add:hover{background:var(--accent2)}
+/* Heatmap */
+.section-title{font-size:.8rem;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px}
+.heatmap-wrap{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:16px}
+.heatmap-grid{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.heat-item{border-radius:5px;padding:5px 10px;font-size:.78rem;cursor:default;position:relative}
+.heat-item .count{font-weight:700}
+/* Error list */
+.list-wrap{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:16px}
+.filter-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.filter-btn{padding:5px 13px;border-radius:20px;border:1px solid var(--border);background:#f1f5f9;font-size:.8rem;cursor:pointer;font-family:inherit;color:#475569;transition:all .15s}
+.filter-btn.active{background:#1e293b;color:#fff;border-color:#1e293b}
+.err-item{border:1px solid var(--border);border-radius:8px;padding:11px 14px;margin-bottom:8px;display:flex;gap:12px;align-items:flex-start}
+.err-subj{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;color:#fff;flex-shrink:0;margin-top:1px}
+.s-math{background:var(--math)}
+.s-phy{background:var(--phy)}
+.s-chem{background:var(--chem)}
+.s-bio{background:var(--bio)}
+.err-body{flex:1}
+.err-topic{font-weight:600;font-size:.9rem;color:#1e293b}
+.err-type{font-size:.75rem;color:#64748b;margin-top:2px}
+.err-note{font-size:.82rem;color:#475569;margin-top:4px;font-style:italic}
+.err-date{font-size:.72rem;color:#94a3b8}
+.err-del{background:none;border:none;color:#cbd5e1;cursor:pointer;font-size:1rem;padding:2px 6px;border-radius:4px}
+.err-del:hover{color:var(--accent);background:#fee2e2}
+/* Insight box */
+.insight-wrap{background:#fffbeb;border:1px solid #fcd34d;border-radius:12px;padding:14px 18px;margin-bottom:16px}
+.insight-wrap h3{font-size:.9rem;font-weight:700;color:#92400e;margin-bottom:8px}
+.insight-list{list-style:none}
+.insight-list li{font-size:.85rem;color:#78350f;padding:3px 0;display:flex;align-items:center;gap:6px}
+.insight-list li::before{content:"→";color:#d97706;font-weight:700}
+/* Empty */
+.empty{text-align:center;padding:40px;color:#94a3b8;font-size:.9rem}
+@media(max-width:600px){
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .form-row{flex-direction:column}
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>📋 理科错题追踪器</h1>
+  <a href="index.html">↑ 工具列表</a>
+</header>
+<div class="main">
+
+  <!-- Stats -->
+  <div class="stats">
+    <div class="stat-card stat-math"><div class="num" id="cnt-math">0</div><div class="label">数学错题</div></div>
+    <div class="stat-card stat-phy"><div class="num" id="cnt-phy">0</div><div class="label">物理错题</div></div>
+    <div class="stat-card stat-chem"><div class="num" id="cnt-chem">0</div><div class="label">化学错题</div></div>
+    <div class="stat-card stat-bio"><div class="num" id="cnt-bio">0</div><div class="label">生物错题</div></div>
+  </div>
+
+  <!-- Add form -->
+  <div class="add-form">
+    <h2>➕ 记录一道错题</h2>
+    <div class="form-row">
+      <select id="f-subj" class="grow">
+        <option value="math">数学</option>
+        <option value="phy">物理</option>
+        <option value="chem">化学</option>
+        <option value="bio">生物</option>
+      </select>
+      <input id="f-topic" class="grow" placeholder="知识点（如：三角函数 / 牛顿第二定律）" />
+      <select id="f-type" class="grow">
+        <option value="概念模糊">概念模糊</option>
+        <option value="公式记错">公式记错</option>
+        <option value="计算失误">计算失误</option>
+        <option value="题型不熟">题型不熟</option>
+        <option value="审题错误">审题错误</option>
+        <option value="方法不知">方法不知</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <textarea id="f-note" placeholder="错在哪里？正确做法是什么？（选填，但写下来记忆效果提升50%）"></textarea>
+    </div>
+    <button class="btn-add" onclick="addError()">记录错题</button>
+  </div>
+
+  <!-- Insight -->
+  <div class="insight-wrap" id="insight-wrap" style="display:none">
+    <h3>🎯 系统分析 · 你的薄弱点</h3>
+    <ul class="insight-list" id="insight-list"></ul>
+  </div>
+
+  <!-- Heatmap -->
+  <div class="heatmap-wrap">
+    <div class="section-title">📊 各知识点错误频次</div>
+    <div class="heatmap-grid" id="heatmap"></div>
+  </div>
+
+  <!-- List -->
+  <div class="list-wrap">
+    <div class="section-title">错题记录</div>
+    <div class="filter-row">
+      <button class="filter-btn active" onclick="setFilter('all',this)">全部</button>
+      <button class="filter-btn" onclick="setFilter('math',this)">数学</button>
+      <button class="filter-btn" onclick="setFilter('phy',this)">物理</button>
+      <button class="filter-btn" onclick="setFilter('chem',this)">化学</button>
+      <button class="filter-btn" onclick="setFilter('bio',this)">生物</button>
+    </div>
+    <div id="err-list"></div>
+  </div>
+
+</div>
+
+<div style="background:#f1f5f9;border-top:2px solid #e2e8f0;padding:14px 16px;font-size:.82rem">
+  <div style="font-weight:700;color:#374151;margin-bottom:8px">高考工具合集</div>
+  <div style="display:flex;flex-wrap:wrap;gap:6px">
+    <a href="error-tracker.html" style="padding:4px 10px;background:#dc2626;border-radius:4px;color:#fff;text-decoration:none">📋错题追踪</a>
+    <a href="desmos-grapher.html" style="padding:4px 10px;background:#e2e8f0;border-radius:4px;color:#374151;text-decoration:none">📈函数图像</a>
+    <a href="project-euler-guide.html" style="padding:4px 10px;background:#e2e8f0;border-radius:4px;color:#374151;text-decoration:none">🧠编程思维</a>
+    <a href="math-formula-cards.html" style="padding:4px 10px;background:#e2e8f0;border-radius:4px;color:#374151;text-decoration:none">数学公式</a>
+    <a href="physics-challenge.html" style="padding:4px 10px;background:#e2e8f0;border-radius:4px;color:#374151;text-decoration:none">物理闯关</a>
+    <a href="index.html" style="padding:4px 10px;background:#e2e8f0;border-radius:4px;color:#374151;text-decoration:none">全部工具</a>
+  </div>
+</div>
+
+<script>
+var SUBJ_LABEL = {math:'数',phy:'物',chem:'化',bio:'生'};
+var SUBJ_COLOR = {math:'s-math',phy:'s-phy',chem:'s-chem',bio:'s-bio'};
+var currentFilter = 'all';
+
+function load() { return JSON.parse(localStorage.getItem('gaokao_errors')||'[]'); }
+function save(data) { localStorage.setItem('gaokao_errors', JSON.stringify(data)); }
+
+function addError() {
+  var subj = document.getElementById('f-subj').value;
+  var topic = document.getElementById('f-topic').value.trim();
+  var type = document.getElementById('f-type').value;
+  var note = document.getElementById('f-note').value.trim();
+  if (!topic) { document.getElementById('f-topic').focus(); return; }
+  var data = load();
+  data.unshift({id: Date.now(), subj, topic, type, note, date: new Date().toLocaleDateString('zh-CN')});
+  save(data);
+  document.getElementById('f-topic').value = '';
+  document.getElementById('f-note').value = '';
+  render();
+}
+
+function deleteError(id) {
+  var data = load().filter(e => e.id !== id);
+  save(data);
+  render();
+}
+
+function setFilter(f, btn) {
+  currentFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+}
+
+function render() {
+  var data = load();
+  // Stats
+  ['math','phy','chem','bio'].forEach(s => {
+    document.getElementById('cnt-'+s).textContent = data.filter(e=>e.subj===s).length;
+  });
+
+  // Heatmap: topic frequency
+  var topicCount = {};
+  data.forEach(e => {
+    var key = e.subj+'::'+e.topic;
+    topicCount[key] = (topicCount[key]||0)+1;
+  });
+  var sorted = Object.entries(topicCount).sort((a,b)=>b[1]-a[1]).slice(0,24);
+  var maxCount = sorted.length ? sorted[0][1] : 1;
+  var hm = document.getElementById('heatmap');
+  if (sorted.length === 0) {
+    hm.innerHTML = '<span style="color:#94a3b8;font-size:.85rem">记录错题后这里会显示热力图</span>';
+  } else {
+    var colors = {math:'#7c3aed',phy:'#0369a1',chem:'#0f766e',bio:'#15803d'};
+    hm.innerHTML = sorted.map(([key,cnt])=>{
+      var [subj,topic] = key.split('::');
+      var alpha = 0.15 + 0.75*(cnt/maxCount);
+      var bg = colors[subj];
+      return `<div class="heat-item" style="background:${bg};opacity:${alpha.toFixed(2)};color:#fff" title="${topic}: ${cnt}次">
+        <span class="count">${cnt}</span> ${topic}
+      </div>`;
+    }).join('');
+  }
+
+  // Insights
+  var insightWrap = document.getElementById('insight-wrap');
+  var insightList = document.getElementById('insight-list');
+  if (data.length >= 3) {
+    insightWrap.style.display = '';
+    var insights = [];
+    // Most frequent subject
+    var subjCount = {math:0,phy:0,chem:0,bio:0};
+    data.forEach(e=>subjCount[e.subj]++);
+    var worstSubj = Object.entries(subjCount).sort((a,b)=>b[1]-a[1])[0];
+    var subjName = {math:'数学',phy:'物理',chem:'化学',bio:'生物'};
+    if(worstSubj[1]>0) insights.push(`<strong>${subjName[worstSubj[0]]}</strong>错题最多（${worstSubj[1]}道），优先攻克`);
+    // Most frequent error type
+    var typeCount = {};
+    data.forEach(e=>typeCount[e.type]=(typeCount[e.type]||0)+1);
+    var worstType = Object.entries(typeCount).sort((a,b)=>b[1]-a[1])[0];
+    if(worstType) insights.push(`你最常犯的错误类型是 <strong>${worstType[0]}</strong>（${worstType[1]}次）——这是系统性问题，需要专项训练`);
+    // Most frequent topic
+    if(sorted.length>0){
+      var [topKey,topCnt] = sorted[0];
+      var [ts,tt] = topKey.split('::');
+      if(topCnt>=2) insights.push(`<strong>${tt}</strong>错了${topCnt}次，把这个考点加入今天的Anki复习队列`);
+    }
+    // Recent errors
+    var recentTypes = data.slice(0,5).map(e=>e.type);
+    var calcMistakes = recentTypes.filter(t=>t==='计算失误').length;
+    if(calcMistakes>=2) insights.push('最近5道错题中有'+calcMistakes+'道是计算失误——慢下来，写完整步骤，不要跳步');
+    insightList.innerHTML = insights.map(i=>`<li>${i}</li>`).join('');
+  } else {
+    insightWrap.style.display = 'none';
+  }
+
+  // Error list
+  var filtered = currentFilter === 'all' ? data : data.filter(e=>e.subj===currentFilter);
+  var listEl = document.getElementById('err-list');
+  if (filtered.length === 0) {
+    listEl.innerHTML = '<div class="empty">还没有记录。做题遇到不会的，马上记下来。</div>';
+    return;
+  }
+  listEl.innerHTML = filtered.map(e=>`
+    <div class="err-item">
+      <div class="err-subj ${SUBJ_COLOR[e.subj]}">${SUBJ_LABEL[e.subj]}</div>
+      <div class="err-body">
+        <div class="err-topic">${e.topic}</div>
+        <div class="err-type">错误类型：${e.type}</div>
+        ${e.note?`<div class="err-note">"${e.note}"</div>`:''}
+        <div class="err-date">${e.date}</div>
+      </div>
+      <button class="err-del" onclick="deleteError(${e.id})" title="删除">×</button>
+    </div>`).join('');
+}
+
+render();
+</script>
+</body>
+</html>

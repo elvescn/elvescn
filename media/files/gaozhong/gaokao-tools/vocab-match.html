@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>高考3500词连连看 · 闯关记忆</title>
+<meta name="description" content="高考3500核心单词连连看游戏。8个单词一关，217关通关背完所有单词。">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#09101F;--surf:#111827;--surf2:#1A2436;--surf3:#212f47;
+  --acc:#6366F1;--accl:#818CF8;--accd:rgba(99,102,241,.15);--accg:rgba(99,102,241,.3);
+  --ok:#10B981;--okd:rgba(16,185,129,.15);--okg:rgba(16,185,129,.35);
+  --err:#EF4444;--errd:rgba(239,68,68,.1);
+  --gold:#F59E0B;--goldd:rgba(245,158,11,.12);
+  --wh:#F1F5F9;--mu:#64748B;--fa:#2D3A50;
+}
+body{background:var(--bg);color:var(--wh);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased}
+
+/* ── HERO (visible by default) ── */
+#hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:50px 20px 60px;background:radial-gradient(ellipse at 50% 0%,rgba(99,102,241,.18) 0%,transparent 62%)}
+.htag{font-size:.7rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accl);margin-bottom:14px}
+#hero h1{font-size:clamp(2.4rem,9vw,5.5rem);font-weight:900;letter-spacing:-.04em;line-height:1;margin-bottom:6px}
+#hero h1 em{font-style:normal;color:var(--accl)}
+.hero-sub{font-size:clamp(.88rem,2.5vw,1.05rem);color:var(--mu);max-width:440px;margin:0 auto 32px;line-height:1.85}
+.resume-bar{background:var(--surf2);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:14px 18px;max-width:440px;width:100%;margin:0 auto 18px;text-align:left;display:none}
+.resume-bar .rl{font-size:.75rem;color:var(--mu);margin-bottom:6px}
+.rpbar{height:6px;background:var(--fa);border-radius:99px;overflow:hidden;margin-bottom:6px}
+.rpfill{height:100%;background:linear-gradient(90deg,var(--acc),var(--accl));border-radius:99px}
+.rinfo{display:flex;justify-content:space-between;font-size:.78rem}
+.rinfo b{color:var(--accl)}.rinfo span{color:var(--mu)}
+.hero-btns{display:flex;flex-direction:column;gap:10px;width:100%;max-width:440px}
+.btn-start{padding:16px;background:linear-gradient(120deg,var(--acc),var(--accl));border:none;border-radius:13px;color:#fff;font-size:1.05rem;font-weight:800;cursor:pointer;transition:filter .15s}
+.btn-start:hover{filter:brightness(1.12)}
+.btn-alt{padding:13px;background:transparent;border:1.5px solid rgba(255,255,255,.12);border-radius:13px;color:var(--mu);font-size:.95rem;cursor:pointer;transition:.15s}
+.btn-alt:hover{border-color:var(--gold);color:var(--gold)}
+.hero-meta{margin-top:12px;font-size:.76rem;color:var(--fa)}
+.badge-preview{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:20px auto 28px;max-width:440px}
+.bpv{background:var(--surf2);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:8px 12px;text-align:center;font-size:1.5rem;opacity:.35}
+.bpv.earned{opacity:1;box-shadow:0 0 14px rgba(245,158,11,.3)}
+.bpv .bvl{font-size:.58rem;color:var(--mu);margin-top:3px}
+
+/* ── GAME (hidden by default) ── */
+#game{display:none;max-width:720px;margin:0 auto;padding:16px 14px 60px}
+.topbar{display:flex;align-items:center;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.btn-sm{padding:7px 13px;border:1px solid rgba(255,255,255,.1);border-radius:8px;background:transparent;color:var(--mu);font-size:.8rem;cursor:pointer;transition:.15s}
+.btn-sm:hover{border-color:var(--accl);color:var(--accl)}
+.topbar-r{margin-left:auto;display:flex;align-items:center;gap:10px;font-size:.8rem;color:var(--mu)}
+.lv-badge{padding:3px 10px;border-radius:20px;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;background:var(--accd);color:var(--accl)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
+.st{background:var(--surf);border:1px solid rgba(255,255,255,.05);border-radius:11px;padding:9px;text-align:center}
+.st-v{display:block;font-size:1.25rem;font-weight:900;letter-spacing:-.03em;line-height:1}
+.st-v.ac{color:var(--accl)}.st-v.ok{color:var(--ok)}.st-v.gd{color:var(--gold)}
+.st-l{font-size:.58rem;color:var(--mu);text-transform:uppercase;letter-spacing:.08em;margin-top:3px;display:block}
+.prog-wrap{height:4px;background:var(--fa);border-radius:99px;overflow:hidden;margin-bottom:12px}
+.prog-bar{height:100%;background:linear-gradient(90deg,var(--acc),var(--accl));border-radius:99px;transition:width .5s ease}
+.status{text-align:center;min-height:24px;margin-bottom:10px;font-size:.88rem;color:var(--mu)}
+.status.good{color:var(--ok)}.status.bad{color:var(--err)}.status.hint{color:var(--accl)}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:12px}
+@media(max-width:380px){.grid{grid-template-columns:repeat(2,1fr)}}
+.tile{background:var(--surf2);border:2px solid rgba(255,255,255,.07);border-radius:13px;padding:10px 6px 9px;text-align:center;cursor:pointer;user-select:none;position:relative;min-height:70px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;transition:border-color .13s,background .13s,transform .13s,opacity .3s}
+.tile:hover:not(.ok):not(.gone){border-color:rgba(99,102,241,.45);background:var(--surf3);transform:translateY(-2px)}
+.tile.sel{border-color:var(--acc);background:var(--accd);box-shadow:0 0 0 3px var(--accg);transform:translateY(-3px)}
+.tile.ok{border-color:var(--ok);background:var(--okd);box-shadow:0 0 0 3px var(--okg);animation:pop .3s ease}
+.tile.no{animation:shake .36s ease;border-color:var(--err);background:var(--errd)}
+.tile.gone{opacity:0;pointer-events:none}
+.tile.type-en{border-color:rgba(99,102,241,.6);background:rgba(99,102,241,.12)}
+.tile.type-zh{border-color:rgba(16,185,129,.5);background:rgba(16,185,129,.1)}
+@keyframes pop{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
+.tile-word{font-size:1.05rem;font-weight:800;line-height:1.1;color:#fff}
+.tile-ph{font-size:.6rem;color:rgba(255,255,255,.6);margin-top:1px}
+.tile-def{font-size:.75rem;color:#fff;font-weight:600;line-height:1.35;padding:0 4px}
+.tile-type{position:absolute;top:4px;right:6px;font-size:.55rem;font-weight:700;text-transform:uppercase;opacity:.6}
+.actions{display:flex;gap:8px;justify-content:center}
+.act-btn{padding:8px 18px;background:transparent;border:1px solid rgba(255,255,255,.1);border-radius:9px;color:var(--mu);font-size:.8rem;cursor:pointer;transition:.14s}
+.act-btn:hover{border-color:var(--accl);color:var(--accl)}
+
+/* ── RESULT ── */
+#result{display:none;max-width:520px;margin:0 auto;padding:50px 20px;text-align:center}
+.res-tag{font-size:.7rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accl);margin-bottom:12px}
+.res-h{font-size:clamp(2rem,6vw,3rem);font-weight:900;letter-spacing:-.04em;margin-bottom:8px}
+.pct-box{background:linear-gradient(135deg,var(--accd),var(--goldd));border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:16px 20px;margin:14px 0 20px}
+.pct-big{font-size:2.2rem;font-weight:900;color:var(--gold);line-height:1}
+.pct-lbl{font-size:.82rem;color:var(--mu);margin-top:4px}
+.new-badge{background:linear-gradient(135deg,rgba(245,158,11,.15),rgba(245,158,11,.05));border:1px solid rgba(245,158,11,.35);border-radius:14px;padding:14px 18px;margin-bottom:16px;display:none}
+.nb-icon{font-size:2.2rem;margin-bottom:6px}
+.nb-name{font-size:1.05rem;font-weight:800}
+.res-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:24px}
+.res-stat{background:var(--surf);border:1px solid rgba(255,255,255,.06);border-radius:13px;padding:16px 8px}
+.res-n{font-size:1.8rem;font-weight:900;letter-spacing:-.04em;color:var(--accl);line-height:1}
+.res-l{font-size:.62rem;color:var(--mu);text-transform:uppercase;letter-spacing:.08em;margin-top:4px}
+.cs-strip{background:linear-gradient(120deg,rgba(16,185,129,.12),rgba(99,102,241,.08));border:1px solid rgba(16,185,129,.25);border-radius:13px;padding:14px 18px;margin:14px 0;display:none}
+.cs-title{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--ok);margin-bottom:6px}
+.cs-msg{font-size:.92rem;color:var(--wh);line-height:1.5}
+.res-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.btn-next{padding:14px 36px;background:linear-gradient(120deg,var(--acc),var(--accl));border:none;border-radius:12px;color:#fff;font-size:.97rem;font-weight:800;cursor:pointer}
+.btn-retry{padding:11px 24px;background:transparent;border:1px solid rgba(255,255,255,.1);border-radius:12px;color:var(--mu);font-size:.88rem;cursor:pointer}
+.btn-retry:hover{border-color:var(--accl);color:var(--accl)}
+.foot{margin-top:22px;font-size:.78rem;color:var(--fa)}
+.foot a{color:var(--mu)}
+
+/* ── BADGES ── */
+#badges{display:none;max-width:680px;margin:0 auto;padding:20px 20px 60px}
+.bwall-h{font-size:1.6rem;font-weight:900;letter-spacing:-.03em;margin-bottom:6px;margin-top:16px}
+.bwall-sub{font-size:.85rem;color:var(--mu);margin-bottom:24px}
+.bwall-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:12px}
+.badge-card{background:var(--surf);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:18px 12px;text-align:center}
+.badge-card.earned{border-color:rgba(245,158,11,.4);background:var(--goldd);box-shadow:0 0 18px rgba(245,158,11,.15)}
+.badge-card.locked{opacity:.35}
+.bc-icon{font-size:2.5rem;margin-bottom:8px}
+.bc-name{font-size:.88rem;font-weight:700;color:var(--wh);margin-bottom:3px}
+.bc-cond{font-size:.7rem;color:var(--mu)}
+.bc-date{font-size:.65rem;color:var(--gold);margin-top:4px}
+.ctost{position:fixed;top:50%;left:50%;transform:translate(-50%,-60%) scale(0);background:linear-gradient(120deg,var(--acc),var(--accl));color:#fff;font-size:1.5rem;font-weight:900;padding:10px 22px;border-radius:13px;pointer-events:none;z-index:800;transition:transform .2s}
+.ctost.show{transform:translate(-50%,-60%) scale(1)}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:0}}
+</style>
+</head>
+<body>
+
+
+<!-- HERO: visible by default, no JS required -->
+<div id="hero">
+  <div class="htag">1743个单词 · 217关 · 8词一关</div>
+  <h1 onclick="titleClick()" style="cursor:default">高考<em>单词</em><br>连连看</h1>
+  <p class="hero-sub">每关8对 · 英文配中文 · 连击加分 · 通关背完所有高考词汇</p>
+  <div class="badge-preview" id="badge-preview"></div>
+  <div class="resume-bar" id="resume-bar">
+    <div class="rl">🔖 继续上次进度</div>
+    <div class="rpbar"><div class="rpfill" id="rpfill"></div></div>
+    <div class="rinfo"><b id="rinfo-lvl">第1关</b><span id="rinfo-pct">0%</span></div>
+  </div>
+  <div class="hero-btns">
+    <button class="btn-start" onclick="startGame()">▶ 开始闯关</button>
+    <button class="btn-alt" onclick="showBadges()">🏆 徽章墙</button>
+  </div>
+  <div class="hero-meta">已学<b id="hero-learned" style="color:var(--ok)"> 0 </b>词 · 今日闯<b id="hero-today" style="color:var(--gold)"> 0 </b>关</div>
+</div>
+
+<!-- GAME -->
+<div id="game">
+  <div class="topbar">
+    <button class="btn-sm" onclick="goHome()">← 主页</button>
+    <div class="topbar-r">
+      <span class="lv-badge" id="lv-badge">第1关</span>
+      <span id="t-pair" style="font-size:.78rem"></span>
+    </div>
+  </div>
+  <div class="stats">
+    <div class="st"><span class="st-v ac" id="s-lv">1</span><span class="st-l">关卡</span></div>
+    <div class="st"><span class="st-v gd" id="s-sc">0</span><span class="st-l">得分</span></div>
+    <div class="st"><span class="st-v" id="s-tm">0:00</span><span class="st-l">用时</span></div>
+    <div class="st"><span class="st-v ok" id="s-cb">x1</span><span class="st-l">连击</span></div>
+  </div>
+  <div class="prog-wrap"><div class="prog-bar" id="prog" style="width:0%"></div></div>
+  <div class="status" id="status">点击英文单词，再点击对应中文</div>
+  <div class="grid" id="grid"></div>
+  <div class="actions">
+    <button class="act-btn" onclick="doHint()">提示 -20分</button>
+    <button class="act-btn" onclick="skipLevel()">跳过</button>
+    <button class="act-btn" onclick="showBadges()">徽章墙</button>
+  </div>
+</div>
+
+<!-- RESULT -->
+<div id="result">
+  <div class="res-tag" id="res-tag">第1关完成！</div>
+  <h2 class="res-h" id="res-h">干得漂亮！</h2>
+  <div class="pct-box">
+    <div class="pct-big" id="pct-big">TOP 50%</div>
+    <div class="pct-lbl" id="pct-lbl">你的速度超过了一半用户</div>
+  </div>
+  <div class="new-badge" id="new-badge">
+    <div class="nb-icon" id="nb-icon">🎖️</div>
+    <div style="font-size:.82rem;font-weight:700;color:var(--gold)">新徽章解锁！</div>
+    <div class="nb-name" id="nb-name"></div>
+  </div>
+  <div class="cs-strip" id="cs-strip">
+    <div class="cs-title">挑战升级</div>
+    <div class="cs-msg" id="cs-msg"></div>
+  </div>
+  <div class="res-grid">
+    <div class="res-stat"><div class="res-n" id="r-sc">0</div><div class="res-l">得分</div></div>
+    <div class="res-stat"><div class="res-n" id="r-tm">0:00</div><div class="res-l">用时</div></div>
+    <div class="res-stat"><div class="res-n" id="r-ac">100%</div><div class="res-l">正确率</div></div>
+  </div>
+  <div class="res-btns">
+    <button class="btn-next" id="btn-next" onclick="nextLevel()">下一关</button>
+    <button class="btn-retry" onclick="retryLevel()">重玩</button>
+    <button class="btn-retry" onclick="goHome()">主页</button>
+  </div>
+  <div class="foot">已学 <b id="r-learned">0</b>/1743 词 · <a href="index.html">返回工具箱</a></div>
+</div>
+
+<!-- BADGES -->
+<div id="badges">
+  <button class="btn-sm" onclick="goHome()" style="margin:20px 0 0 16px;display:block">← 返回</button>
+  <div style="padding:10px 20px 40px">
+    <div class="bwall-h">🏆 徽章墙</div>
+    <div class="bwall-sub" id="bwall-sub">解锁成就，不知不觉背完1743个高考词汇</div>
+    <div class="bwall-grid" id="bwall-grid"></div>
+  </div>
+</div>
+
+<div class="ctost" id="ctost"></div>
+
+<script src="vocab-data.js"></script>
+<script>
+var TOTAL=1743, TOTAL_LV=217;
+var BADGES=[
+  {id:'b1',icon:'🌱',name:'入门',cond:'完成第1关',lvl:1},
+  {id:'b5',icon:'⚡',name:'起步',cond:'完成第5关',lvl:5},
+  {id:'b10',icon:'⭐',name:'初学者',cond:'完成第10关',lvl:10},
+  {id:'b20',icon:'🔥',name:'热身完毕',cond:'完成第20关',lvl:20},
+  {id:'b30',icon:'🎯',name:'专注',cond:'完成第30关',lvl:30},
+  {id:'b50',icon:'🥈',name:'稳步前进',cond:'完成第50关',lvl:50},
+  {id:'b75',icon:'🏅',name:'词汇达人',cond:'完成第75关',lvl:75},
+  {id:'b100',icon:'🥇',name:'百关勇士',cond:'完成第100关',lvl:100},
+  {id:'b125',icon:'💎',name:'词汇精英',cond:'完成第125关',lvl:125},
+  {id:'b150',icon:'🚀',name:'冲刺阶段',cond:'完成第150关',lvl:150},
+  {id:'b175',icon:'🌟',name:'准考霸',cond:'完成第175关',lvl:175},
+  {id:'b200',icon:'🏆',name:'词汇霸主',cond:'完成第200关',lvl:200},
+  {id:'b217',icon:'👑',name:'高考词霸',cond:'通关全部217关！',lvl:217},
+  {id:'fast',icon:'⚡',name:'闪电手',cond:'20秒内完成一关',lvl:0,special:'speed20'},
+  {id:'perfect',icon:'💯',name:'完美主义',cond:'0失误完成一关',lvl:0,special:'perfect'},
+  {id:'streak3',icon:'🎪',name:'三连胜',cond:'连续3关无失误',lvl:0,special:'streak3'},
+];
+
+var LS='vm_v2';
+function getSt(){try{var d=JSON.parse(localStorage.getItem(LS))||{};return{lvl:d.lvl||1,learned:d.learned||0,badges:d.badges||[],times:d.times||[],streak:d.streak||0,tc:d.tc||0,td:d.td||''};}catch(e){return{lvl:1,learned:0,badges:[],times:[],streak:0,tc:0,td:''};}}
+function saveSt(d){try{localStorage.setItem(LS,JSON.stringify(d));}catch(e){}}
+
+var curLvl=1,pairs=[],selTile=null,matchedCount=0,score=0,combo=1,misses=0,timerID=null,elapsed=0,totalPairs=8,perfect=true;
+
+function hide(id){var e=document.getElementById(id);if(e)e.style.display='none';}
+function show(id,type){var e=document.getElementById(id);if(e)e.style.display=type||'block';}
+
+function goHome(){
+  clearInterval(timerID);timerID=null;
+  hide('game');hide('result');hide('badges');show('hero');
+  var s=getSt();
+  if(s.lvl>1){
+    show('resume-bar','block');
+    var pct=Math.min(100,Math.round((s.lvl-1)/TOTAL_LV*100));
+    document.getElementById('rpfill').style.width=pct+'%';
+    document.getElementById('rinfo-lvl').textContent='第'+s.lvl+'关';
+    document.getElementById('rinfo-pct').textContent=pct+'%';
+  }
+  document.getElementById('hero-learned').textContent=s.learned;
+  document.getElementById('hero-today').textContent=s.tc;
+  buildBadgePreview(s);
+}
+
+function buildBadgePreview(s){
+  var el=document.getElementById('badge-preview'),html='';
+  var lb=BADGES.filter(function(b){return b.lvl>0;}).slice(0,6);
+  for(var i=0;i<lb.length;i++){var b=lb[i],e=s.badges.indexOf(b.id)>=0;html+='<div class="bpv'+(e?' earned':'')+'">'+b.icon+'<div class="bvl">'+b.name+'</div></div>';}
+  el.innerHTML=html;
+}
+
+function startGame(){
+  var s=getSt();curLvl=s.lvl;
+  hide('hero');hide('result');hide('badges');
+  show('game');
+  loadLevel(curLvl);
+}
+
+function loadLevel(lv){
+  var sl=VD.slice((lv-1)*8,(lv-1)*8+8);
+  totalPairs=sl.length;pairs=[];
+  for(var i=0;i<sl.length;i++)pairs.push({id:i,word:sl[i][0],ph:sl[i][1]||'',def:sl[i][2]});
+  selTile=null;matchedCount=0;score=0;combo=1;misses=0;elapsed=0;perfect=true;wrongStreak=0;legendaryShown=false;
+  document.getElementById('s-lv').textContent=lv;
+  document.getElementById('lv-badge').textContent='第'+lv+'关';
+  document.getElementById('s-sc').textContent='0';
+  document.getElementById('s-tm').textContent='0:00';
+  document.getElementById('s-cb').textContent='x1';
+  document.getElementById('t-pair').textContent='剩'+totalPairs+'/'+totalPairs+'对';
+  document.getElementById('status').textContent='点击英文单词，再点击对应中文';
+  document.getElementById('status').className='status';
+  document.getElementById('prog').style.width='0%';
+  clearInterval(timerID);
+  timerID=setInterval(function(){elapsed++;var m=Math.floor(elapsed/60),s=elapsed%60;document.getElementById('s-tm').textContent=m+':'+(s<10?'0':'')+s;},1000);
+  renderGrid();
+}
+
+function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+function renderGrid(){
+  var tiles=[];
+  for(var i=0;i<pairs.length;i++){var p=pairs[i];tiles.push({tid:'en_'+p.id,pair:p.id,type:'en',word:p.word,ph:p.ph});tiles.push({tid:'zh_'+p.id,pair:p.id,type:'zh',def:p.def});}
+  shuffle(tiles);
+  var html='';
+  for(var i=0;i<tiles.length;i++){
+    var t=tiles[i];
+    if(t.type==='en'){
+      html+='<div class="tile type-en" id="t_'+t.tid+'" data-pair="'+t.pair+'" data-type="en" onclick="clickTile(this)"><span class="tile-type">EN</span><span class="tile-word">'+esc(t.word)+'</span><span class="tile-ph">'+esc(t.ph)+'</span></div>';
+    }else{
+      var ds=t.def.length>22?t.def.slice(0,22)+'…':t.def;
+      html+='<div class="tile type-zh" id="t_'+t.tid+'" data-pair="'+t.pair+'" data-type="zh" onclick="clickTile(this)"><span class="tile-type">中</span><span class="tile-def">'+esc(ds)+'</span></div>';
+    }
+  }
+  document.getElementById('grid').innerHTML=html;
+}
+
+function clickTile(el){
+  if(el.classList.contains('ok')||el.classList.contains('gone'))return;
+  if(!selTile){selTile=el;el.classList.add('sel');setSt2('已选：'+(el.dataset.type==='en'?el.querySelector('.tile-word').textContent:el.querySelector('.tile-def').textContent),'hint');return;}
+  if(selTile===el){selTile.classList.remove('sel');selTile=null;setSt2('点击英文单词，再点击对应中文','');return;}
+  if(selTile.dataset.type===el.dataset.type){selTile.classList.remove('sel');selTile=el;el.classList.add('sel');setSt2('已选：'+(el.dataset.type==='en'?el.querySelector('.tile-word').textContent:el.querySelector('.tile-def').textContent),'hint');return;}
+  var match=selTile.dataset.pair===el.dataset.pair,a=selTile,b=el;
+  a.classList.remove('sel');
+  if(match){
+    snd('ok');wrongStreak=0;
+    score+=10*combo;combo=Math.min(combo+1,8);
+    document.getElementById('s-sc').textContent=score;
+    document.getElementById('s-cb').textContent='x'+combo;
+    a.classList.add('ok');b.classList.add('ok');
+    var mp=null;for(var i=0;i<pairs.length;i++){if(pairs[i].id==a.dataset.pair){mp=pairs[i];break;}}
+    setSt2('✓ '+(mp?mp.def:''),'good');
+    if(combo===8&&!legendaryShown){legendaryShown=true;showCombo('👑 传奇！ x8');snd('legendary');eggLegendary();}
+    else if(combo>=3){showCombo('x'+combo+' 连击！');snd('combo');}
+    setTimeout(function(){a.classList.add('gone');b.classList.add('gone');},420);
+    matchedCount++;
+    document.getElementById('t-pair').textContent='剩'+(totalPairs-matchedCount)+'/'+totalPairs+'对';
+    document.getElementById('prog').style.width=((curLvl-1+matchedCount/totalPairs)/TOTAL_LV*100)+'%';
+    if(matchedCount===totalPairs)setTimeout(doneLevel,500);
+  }else{
+    snd('no');misses++;perfect=false;combo=1;document.getElementById('s-cb').textContent='x1';
+    wrongStreak++;
+    if(wrongStreak>=5){setSt2('🤔 是键盘坏了吗？别灰心加油！','bad');wrongStreak=0;}
+    else setSt2('× 不对，再试试','bad');
+    a.classList.add('no');b.classList.add('no');
+    setTimeout(function(){a.classList.remove('no');b.classList.remove('no');},400);
+  }
+  selTile=null;
+}
+
+function doHint(){
+  var um=null;for(var i=0;i<pairs.length;i++){var e=document.getElementById('t_en_'+pairs[i].id);if(e&&!e.classList.contains('gone')){um=pairs[i];break;}}
+  if(!um)return;
+  var ea=document.getElementById('t_en_'+um.id),za=document.getElementById('t_zh_'+um.id);
+  if(!ea||!za)return;
+  ea.classList.add('sel');za.classList.add('sel');
+  score=Math.max(0,score-20);document.getElementById('s-sc').textContent=score;
+  setSt2('💡 '+um.word+' = '+um.def,'hint');
+  setTimeout(function(){ea.classList.remove('sel');za.classList.remove('sel');},1500);
+}
+
+function skipLevel(){
+  clearInterval(timerID);timerID=null;
+  var s=getSt();s.lvl=Math.max(s.lvl,curLvl+1);s.learned=Math.min(s.lvl*8,TOTAL);saveSt(s);
+  curLvl++;if(curLvl>TOTAL_LV){goHome();return;}
+  hide('hero');hide('result');hide('badges');show('game');loadLevel(curLvl);
+}
+
+function retryLevel(){hide('result');show('game');loadLevel(curLvl);}
+
+function doneLevel(){
+  clearInterval(timerID);timerID=null;
+  var s=getSt();
+  s.lvl=Math.max(s.lvl,curLvl+1);s.learned=Math.min(s.lvl*8,TOTAL);
+  s.times=s.times.slice(-99).concat([elapsed]);
+  var today=new Date().toDateString();
+  if(s.td===today)s.tc++;else{s.tc=1;s.td=today;}
+  if(perfect)s.streak=(s.streak||0)+1;else s.streak=0;
+  var nb=[];
+  for(var i=0;i<BADGES.length;i++){
+    var b=BADGES[i];if(s.badges.indexOf(b.id)>=0)continue;
+    var earn=false;
+    if(b.lvl>0&&curLvl>=b.lvl)earn=true;
+    if(b.special==='speed20'&&elapsed<=20)earn=true;
+    if(b.special==='perfect'&&perfect)earn=true;
+    if(b.special==='streak3'&&s.streak>=3)earn=true;
+    if(earn){s.badges.push(b.id);nb.push(b);}
+  }
+  saveSt(s);
+  var faster=0;for(var j=0;j<s.times.length;j++){if(s.times[j]>elapsed)faster++;}
+  var pct=s.times.length>1?Math.round(faster/s.times.length*100):estPct(elapsed);
+  document.getElementById('res-tag').textContent='第'+curLvl+'关完成！';
+  var tt=['干得漂亮！','真棒！','势不可挡！','词汇猎手！','超强！','完美！'];
+  document.getElementById('res-h').textContent=tt[Math.min(Math.floor(score/60),5)];
+  document.getElementById('pct-big').textContent='TOP '+(100-pct)+'%';
+  document.getElementById('pct-lbl').textContent='你的速度超过了 '+pct+'% 的用户！';
+  var mm=Math.floor(elapsed/60),ss=elapsed%60;
+  document.getElementById('r-sc').textContent=score;
+  document.getElementById('r-tm').textContent=mm+':'+(ss<10?'0':'')+ss;
+  document.getElementById('r-ac').textContent=Math.round(totalPairs/(totalPairs+misses)*100)+'%';
+  document.getElementById('r-learned').textContent=s.learned;
+  var nbe=document.getElementById('new-badge');
+  if(nb.length>0){nbe.style.display='';document.getElementById('nb-icon').textContent=nb[0].icon;document.getElementById('nb-name').textContent=nb[0].icon+' '+nb[0].name;}
+  else nbe.style.display='none';
+  var cs=document.getElementById('cs-strip'),csm=document.getElementById('cs-msg');
+  if(curLvl<TOTAL_LV){
+    cs.style.display='';
+    var nw=VD.slice(curLvl*8,curLvl*8+3).map(function(w){return w[0];}).join('、');
+    csm.innerHTML=(pct>=70?'你已超过 '+pct+'% 的用户！<b style="color:var(--gold)">挑战第'+(curLvl+1)+'关？</b>':'加把劲！<b style="color:var(--ok)">你可以做到！</b>')+'<br><small style="color:var(--mu)">下一关：'+nw+'…</small>';
+  }else{cs.style.display='';csm.innerHTML='<b style="color:var(--gold)">🎉 通关全部217关！背完所有1743个高考单词！</b>';}
+  var bn=document.getElementById('btn-next');
+  if(curLvl<TOTAL_LV){bn.textContent='挑战第'+(curLvl+1)+'关';bn.style.display='';}else bn.style.display='none';
+  hide('game');hide('hero');hide('badges');show('result');
+  snd(nb.length>0?'badge':'done');
+  if(elapsed<=10)setTimeout(function(){showCombo('⚡ 神速！');},200);
+  if(curLvl===TOTAL_LV)setTimeout(eggMegaCelebration,1200);
+}
+
+function estPct(s){if(s<=15)return 95;if(s<=25)return 82;if(s<=40)return 65;if(s<=60)return 48;if(s<=90)return 30;return 18;}
+
+function nextLevel(){curLvl++;if(curLvl>TOTAL_LV){goHome();return;}hide('result');show('game');loadLevel(curLvl);}
+
+function showBadges(){
+  var s=getSt(),html='';
+  for(var i=0;i<BADGES.length;i++){var b=BADGES[i],e=s.badges.indexOf(b.id)>=0;html+='<div class="badge-card '+(e?'earned':'locked')+'"><div class="bc-icon">'+b.icon+'</div><div class="bc-name">'+b.name+'</div><div class="bc-cond">'+b.cond+'</div>'+(e?'<div class="bc-date">已解锁✓</div>':'')+'</div>';}
+  document.getElementById('bwall-grid').innerHTML=html;
+  document.getElementById('bwall-sub').textContent='已解锁 '+s.badges.length+'/'+BADGES.length+' 徽章 · 已学 '+s.learned+'/'+TOTAL+' 词';
+  hide('hero');hide('game');hide('result');show('badges');
+}
+
+function setSt2(txt,cls){var el=document.getElementById('status');el.textContent=txt;el.className='status'+(cls?' '+cls:'');}
+function showCombo(txt){var el=document.getElementById('ctost');el.textContent=txt;el.classList.add('show');setTimeout(function(){el.classList.remove('show');},900);}
+
+// ── SOUND ENGINE (Web Audio API, no external files) ──
+var _ac=null;
+function snd(type){
+  try{
+    if(!_ac)_ac=new(window.AudioContext||window.webkitAudioContext)();
+    var ctx=_ac,t=ctx.currentTime;
+    function tone(f,s,d,v,wt){var o=ctx.createOscillator(),g=ctx.createGain();o.type=wt||'sine';o.frequency.value=f;o.connect(g);g.connect(ctx.destination);g.gain.setValueAtTime(v||.22,t+s);g.gain.exponentialRampToValueAtTime(.001,t+s+d);o.start(t+s);o.stop(t+s+d+.05);}
+    if(type==='ok'){tone(880,0,.07);tone(1320,.06,.1,.18);}
+    else if(type==='no'){tone(200,0,.08,.2,'sawtooth');tone(160,.06,.1,.15,'sawtooth');}
+    else if(type==='combo'){[880,1108,1320,1760].forEach(function(f,i){tone(f,i*.07,.08,.18);});}
+    else if(type==='done'){[523,659,784,1047].forEach(function(f,i){tone(f,i*.1,.12,.22);});}
+    else if(type==='badge'){[1047,1319,1568,2093].forEach(function(f,i){tone(f,i*.08,.1,.22);});}
+    else if(type==='legendary'){[523,659,784,1047,1319,1568,2093].forEach(function(f,i){tone(f,i*.055,.09,.22);});}
+  }catch(e){}
+}
+
+// ── EASTER EGGS ──
+var wrongStreak=0,legendaryShown=false;
+// Konami: ↑↑↓↓←→←→BA
+var _kSeq=[38,38,40,40,37,39,37,39,66,65],_kIdx=0;
+document.addEventListener('keydown',function(e){
+  if(e.keyCode===_kSeq[_kIdx])_kIdx++;else _kIdx=0;
+  if(_kIdx===_kSeq.length){_kIdx=0;eggRainbow();}
+});
+var _tc=0,_tt=null;
+function titleClick(){
+  _tc++;clearTimeout(_tt);_tt=setTimeout(function(){_tc=0;},2000);
+  if(_tc>=5){_tc=0;eggConfetti();}
+}
+function eggRainbow(){
+  var tiles=document.querySelectorAll('.tile:not(.gone)');
+  tiles.forEach(function(t,i){t.style.background='hsl('+(i*55%360)+',75%,35%)';t.style.borderColor='hsl('+(i*55%360)+',90%,55%)';});
+  showCombo('🌈 彩虹模式！');snd('legendary');
+  setTimeout(function(){tiles.forEach(function(t){t.style.background='';t.style.borderColor='';});},3000);
+}
+function eggLegendary(){
+  var tiles=document.querySelectorAll('.tile');
+  tiles.forEach(function(t){t.style.boxShadow='0 0 22px rgba(245,158,11,.9)';});
+  setTimeout(function(){tiles.forEach(function(t){t.style.boxShadow='';});},900);
+}
+function spawnParticles(n){
+  for(var i=0;i<n;i++){(function(){
+    var p=document.createElement('div');
+    p.style.cssText='position:fixed;width:8px;height:8px;border-radius:50%;z-index:9998;pointer-events:none;top:-10px;left:'+(Math.random()*100)+'vw;background:hsl('+(Math.random()*360)+',80%,60%);animation:fall '+(1+Math.random()*2)+'s ease-in forwards;animation-delay:'+(Math.random()*.6)+'s';
+    document.body.appendChild(p);setTimeout(function(){p.remove();},3500);
+  })();}
+}
+function eggConfetti(){
+  spawnParticles(40);snd('legendary');
+  var msg=document.createElement('div');
+  msg.textContent='🎉 彩蛋解锁！背单词界的隐藏高手！';
+  msg.style.cssText='position:fixed;top:38%;left:50%;transform:translate(-50%,-50%);background:linear-gradient(120deg,#6366F1,#F59E0B);color:#fff;font-size:1.2rem;font-weight:900;padding:16px 28px;border-radius:16px;z-index:9999;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,.5)';
+  document.body.appendChild(msg);setTimeout(function(){msg.remove();},3000);
+}
+function eggMegaCelebration(){
+  spawnParticles(80);snd('legendary');
+  var ov=document.createElement('div');
+  ov.innerHTML='<div style="font-size:3rem;margin-bottom:12px">👑</div><div style="font-size:1.6rem;font-weight:900;line-height:1.6">恭喜！全部1743个<br>高考词汇已全部背完！</div><div style="font-size:.95rem;color:rgba(255,255,255,.7);margin-top:12px">高考英语满分不是梦 🎓</div><div style="font-size:.8rem;color:rgba(255,255,255,.4);margin-top:18px">点击任意处继续</div>';
+  ov.style.cssText='position:fixed;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(9,16,31,.96);color:#fff;z-index:9999;text-align:center;padding:20px;cursor:pointer';
+  ov.onclick=function(){ov.remove();};
+  document.body.appendChild(ov);
+}
+
+// Init hero on load (enhances already-visible hero with saved data)
+(function(){
+  var s=getSt();
+  if(s.lvl>1){
+    show('resume-bar','block');
+    var pct=Math.min(100,Math.round((s.lvl-1)/TOTAL_LV*100));
+    document.getElementById('rpfill').style.width=pct+'%';
+    document.getElementById('rinfo-lvl').textContent='第'+s.lvl+'关';
+    document.getElementById('rinfo-pct').textContent=pct+'%';
+  }
+  document.getElementById('hero-learned').textContent=s.learned;
+  document.getElementById('hero-today').textContent=s.tc;
+  buildBadgePreview(s);
+})();
+</script>
+
+<style>
+.rtf{background:#f8fafc;border-top:2px solid #e2e8f0;padding:20px 16px 28px;margin-top:32px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.rtf-hd{font-size:.72rem;font-weight:700;color:#64748b;letter-spacing:1.5px;text-transform:uppercase;text-align:center;margin-bottom:14px}
+.rtf-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px;max-width:860px;margin:0 auto 14px}
+.rtf-ch{font-size:.68rem;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px}
+.rtf-links{display:flex;flex-direction:column;gap:3px}
+.rtf-links a{font-size:.8rem;color:#2563eb;text-decoration:none;line-height:1.4}
+.rtf-links a:hover{text-decoration:underline}
+.rtf-links a.rtf-cur{color:#cbd5e0;pointer-events:none;cursor:default;font-weight:600}
+.rtf-home{display:block;text-align:center;font-size:.8rem;color:#64748b;text-decoration:none;margin-top:4px}
+.rtf-home:hover{color:#1e40af}
+</style>
+<div class="rtf">
+  <div class="rtf-hd">🔗 高考工具合集 · 快速跳转</div>
+  <div class="rtf-grid">
+<div><div class="rtf-ch">📖 阅读 · 完形真题</div><div class="rtf-links"><a href="english-reading.html">高考阅读理解真题 (441题)</a>
+<a href="english-cloze.html">高考完形填空真题 (1276题)</a>
+<a href="cloze-practice.html">完形填空专练</a>
+<a href="cloze-logic-tracker.html">逻辑链追踪器</a>
+</div></div>
+<div><div class="rtf-ch">🔠 词汇</div><div class="rtf-links"><a class="rtf-cur" href="vocab-match.html">连连看闯关 ✦</a>
+<a href="vocab-3500.html">3500词 · 词根版</a>
+<a href="vocab-3500-stories.html">3500词 · 故事版</a>
+<a href="850-english-practice.html">850核心词表达</a>
+</div></div>
+<div><div class="rtf-ch">📐 语法</div><div class="rtf-links"><a href="grammar-master.html">语法神器 · 闯关版</a>
+<a href="grammar-mcq.html">语法填空选择题</a>
+<a href="grammar-cloze.html">语法填空手填版</a>
+<a href="grammar-breakdown.html">长难句拆解器</a>
+<a href="gaokao-grammar.html">高考语法通</a>
+</div></div>
+<div><div class="rtf-ch">✍️ 写作</div><div class="rtf-links"><a href="gaokao-writing.html">写作神器</a>
+<a href="gaokao-golden.html">金句闪卡 · 50句</a>
+<a href="gaokao-english-templates.html">万能句背诵库</a>
+</div></div>
+<div><div class="rtf-ch">🔢 数学 · 物理</div><div class="rtf-links"><a href="math-formula-cards.html">数学公式闪卡</a>
+<a href="physics-challenge.html">物理公式闯关 60题</a>
+</div></div>
+<div><div class="rtf-ch">🧬 生物</div><div class="rtf-links">
+<a href="shengwu/index.html">生物选择题真题 (380套)</a>
+<a href="shengwu/duiduipeng.html">生物填空对对碰</a>
+<a href="shengwu/zhishi.html">生物考点速查</a>
+</div></div>
+<div><div class="rtf-ch">📚 语文 · 物理 · 化学</div><div class="rtf-links">
+<a href="yuwen/zhishi.html">语文考点速查</a>
+<a href="wuli/zhishi.html">物理考点速查</a>
+<a href="huaxue/zhishi.html">化学考点速查</a>
+</div></div>
+  </div>
+  <a class="rtf-home" href="index.html">← 高考工具箱 · 全部工具</a>
+</div>
+</body>
+</html>

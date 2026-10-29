@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>完形填空 · 逻辑链追踪器</title>
+<style>
+  :root{
+    --ink:#1f2a44; --ink-soft:#475068; --muted:#8a93a6;
+    --paper:#faf7f1; --card:#fff; --line:#ece7dd;
+    --gold:#d99a2b; --gold-soft:#f4e3c0;
+    --ok:#2f9e8f; --ok-soft:#dcefe9; --bad:#d64550; --bad-soft:#fbe7e8;
+    --shadow:0 1px 2px rgba(31,42,68,.06),0 6px 20px rgba(31,42,68,.06);
+    --shadow-lift:0 6px 16px rgba(31,42,68,.10),0 18px 44px rgba(31,42,68,.12);
+    --en:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+    --ui:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",Roboto,Arial,sans-serif;
+    /* 逻辑配色 */
+    --c-contrast:#d64550; --b-contrast:#fbe7e8;
+    --c-cause:#2f6fb0;    --b-cause:#e4eef8;
+    --c-progress:#7b53b8; --b-progress:#efe8f8;
+    --c-parallel:#2f9e8f; --b-parallel:#e0f1ee;
+    --c-repeat:#c08218;   --b-repeat:#f7ebcf;
+    --c-condition:#1b9aaa;--b-condition:#dcf0f3;
+    --c-concession:#5b6abf;--b-concession:#e8eafb;
+    --c-time:#8a7a23;     --b-time:#f0eed8;
+    --c-other:#6f7889;    --b-other:#eceef2;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--ui);background:var(--paper);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;padding-bottom:120px}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+  header{position:sticky;top:0;z-index:30;background:rgba(250,247,241,.9);backdrop-filter:saturate(140%) blur(10px);border-bottom:1px solid var(--line)}
+  .hi{max-width:820px;margin:0 auto;padding:13px 18px}
+  .brand{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+  .brand h1{font-size:19px;font-weight:800;letter-spacing:.4px}
+  .brand .seal{font-family:var(--en);font-style:italic;color:var(--cause);font-size:14px;font-weight:600}
+  .sub{font-size:12.5px;color:var(--muted);margin-top:2px}
+
+  /* toolbar */
+  .bar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  select{font-family:var(--ui);font-size:13.5px;font-weight:600;color:var(--ink);padding:9px 12px;border:1px solid var(--line);border-radius:11px;background:var(--card);cursor:pointer;outline:none;max-width:100%}
+  select:focus{border-color:var(--gold)}
+  .btn{font-family:var(--ui);font-size:13.5px;font-weight:700;cursor:pointer;border:1px solid var(--line);background:var(--card);color:var(--ink-soft);padding:9px 13px;border-radius:11px;transition:.15s;white-space:nowrap}
+  .btn:hover{background:#f1ece2}
+  .btn.primary{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .btn.primary:hover{background:#2c3a5c}
+  .btn.gold{background:var(--gold);color:#fff;border-color:var(--gold)}
+  .btn.gold:hover{background:#c98a1f}
+  .toggle{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:600;color:var(--ink-soft);background:var(--card);border:1px solid var(--line);padding:8px 12px;border-radius:11px;cursor:pointer;user-select:none}
+  .toggle .dot{width:34px;height:19px;border-radius:99px;background:#d9d3c7;position:relative;transition:.2s;flex:0 0 auto}
+  .toggle .dot::after{content:"";position:absolute;top:2px;left:2px;width:15px;height:15px;border-radius:50%;background:#fff;transition:.2s;box-shadow:0 1px 2px rgba(0,0,0,.2)}
+  .toggle.on .dot{background:var(--cause)}
+  .toggle.on .dot::after{transform:translateX(15px)}
+
+  main{max-width:820px;margin:0 auto;padding:18px 18px 0}
+
+  details.guide{border:1px solid var(--line);border-radius:14px;background:var(--card);margin-bottom:16px;overflow:hidden;box-shadow:var(--shadow)}
+  details.guide summary{cursor:pointer;list-style:none;padding:13px 16px;font-size:14px;font-weight:700;display:flex;align-items:center;gap:8px}
+  details.guide summary::-webkit-details-marker{display:none}
+  details.guide summary .chev{margin-left:auto;color:var(--muted);transition:.2s}
+  details.guide[open] summary .chev{transform:rotate(180deg)}
+  details.guide .gb{padding:0 16px 15px;font-size:13.5px;color:var(--ink-soft)}
+  details.guide .gb p{margin-bottom:8px}
+  details.guide .gb b{color:var(--ink)}
+  .step{display:inline-flex;width:20px;height:20px;border-radius:6px;background:var(--gold-soft);color:#9a6b14;font-size:12px;font-weight:800;align-items:center;justify-content:center;margin-right:6px}
+
+  /* legend */
+  .legend{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+  .lg{font-size:11.5px;font-weight:700;padding:3px 9px;border-radius:7px;background:var(--b);color:var(--c)}
+  .lg.cat-contrast{--c:var(--c-contrast);--b:var(--b-contrast)}
+  .lg.cat-cause{--c:var(--c-cause);--b:var(--b-cause)}
+  .lg.cat-progress{--c:var(--c-progress);--b:var(--b-progress)}
+  .lg.cat-parallel{--c:var(--c-parallel);--b:var(--b-parallel)}
+  .lg.cat-repeat{--c:var(--c-repeat);--b:var(--b-repeat)}
+  .lg.cat-condition{--c:var(--c-condition);--b:var(--b-condition)}
+  .lg.cat-concession{--c:var(--c-concession);--b:var(--b-concession)}
+  .lg.cat-time{--c:var(--c-time);--b:var(--b-time)}
+  .lg.cat-other{--c:var(--c-other);--b:var(--b-other)}
+
+  /* results */
+  .results{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:16px 18px;margin-bottom:18px}
+  .results .score{display:flex;align-items:baseline;gap:10px;margin-bottom:4px}
+  .results .score b{font-size:30px;font-weight:800;color:var(--gold);font-variant-numeric:tabular-nums}
+  .results .score span{font-size:14px;color:var(--ink-soft)}
+  .results .hint-line{font-size:13px;color:var(--muted);margin-bottom:13px}
+  .breakdown{display:flex;flex-direction:column;gap:7px}
+  .bd-row{display:flex;align-items:center;gap:10px;font-size:13px}
+  .bd-tag{font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:6px;min-width:40px;text-align:center}
+  .bd-bar{flex:1;height:8px;border-radius:99px;background:var(--line);overflow:hidden}
+  .bd-bar > i{display:block;height:100%;border-radius:99px}
+  .bd-num{font-variant-numeric:tabular-nums;font-weight:700;color:var(--ink-soft);min-width:40px;text-align:right}
+  .weak{margin-top:12px;font-size:13px;color:var(--ink-soft);background:var(--bad-soft);border-left:3px solid var(--bad);border-radius:9px;padding:9px 13px}
+
+  /* passage */
+  .passage{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:24px 26px;font-family:var(--en);font-size:18px;line-height:2.15;color:var(--ink);letter-spacing:.1px}
+  .ptitle{font-family:var(--ui);font-size:13px;font-weight:700;color:var(--muted);letter-spacing:.5px;margin-bottom:14px;text-transform:uppercase}
+  .passage p + p{margin-top:1em}
+
+  /* signal scan + clue highlight */
+  .sig{border-bottom:2px dashed var(--c-other);padding-bottom:1px;cursor:help}
+  .clue{background:var(--b);color:var(--c);border-radius:5px;padding:1px 4px;font-weight:700;box-shadow:inset 0 0 0 1.5px var(--c);animation:pop .5s ease}
+  @keyframes pop{0%{background:#fff8e0}100%{}}
+  .sig.cat-contrast,.clue.cat-contrast{--c:var(--c-contrast);--b:var(--b-contrast)}
+  .sig.cat-cause,.clue.cat-cause{--c:var(--c-cause);--b:var(--b-cause)}
+  .sig.cat-progress,.clue.cat-progress{--c:var(--c-progress);--b:var(--b-progress)}
+  .sig.cat-parallel,.clue.cat-parallel{--c:var(--c-parallel);--b:var(--b-parallel)}
+  .sig.cat-repeat,.clue.cat-repeat{--c:var(--c-repeat);--b:var(--b-repeat)}
+  .sig.cat-condition,.clue.cat-condition{--c:var(--c-condition);--b:var(--b-condition)}
+  .sig.cat-concession,.clue.cat-concession{--c:var(--c-concession);--b:var(--b-concession)}
+  .sig.cat-time,.clue.cat-time{--c:var(--c-time);--b:var(--b-time)}
+  .sig.cat-other,.clue.cat-other{--c:var(--c-other);--b:var(--b-other)}
+  .sig{border-color:var(--c)}
+
+  /* blank chip */
+  .blank{display:inline-flex;align-items:center;justify-content:center;min-width:54px;height:30px;padding:0 10px;margin:0 2px;border-radius:8px;border:1.5px dashed var(--gold);background:var(--gold-soft);color:#9a6b14;font-family:var(--ui);font-size:14px;font-weight:700;cursor:pointer;vertical-align:middle;transition:.15s;line-height:1}
+  .blank:hover{filter:brightness(.97)}
+  .blank.filled{border-style:solid;border-color:var(--ink);background:#fff;color:var(--ink)}
+  .blank.active{box-shadow:0 0 0 3px var(--gold-soft),0 0 0 4px var(--gold)}
+  .blank.correct{border-color:var(--ok);background:var(--ok-soft);color:#1c6f63}
+  .blank.wrong{border-color:var(--bad);background:var(--bad-soft);color:#a82e38;text-decoration:line-through}
+  .blank .no{font-size:10px;opacity:.6;margin-right:4px;text-decoration:none;display:inline-block}
+
+  /* answer sheet */
+  .sheet{position:fixed;left:50%;transform:translateX(-50%) translateY(140%);bottom:16px;width:calc(100% - 28px);max-width:520px;background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow-lift);z-index:50;padding:16px 16px 14px;transition:transform .28s cubic-bezier(.4,0,.2,1)}
+  .sheet.show{transform:translateX(-50%) translateY(0)}
+  .sheet-head{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+  .sheet-head h3{font-size:15px;font-weight:800}
+  .sheet-head .x{margin-left:auto;border:none;background:#f1ece2;width:30px;height:30px;border-radius:50%;cursor:pointer;color:var(--ink-soft);font-size:16px;line-height:1}
+  .sheet-head .x:hover{background:#e8e1d3}
+  .opts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  @media (max-width:420px){.opts{grid-template-columns:1fr}}
+  .opt{display:flex;align-items:center;gap:9px;border:1.5px solid var(--line);background:var(--card);border-radius:11px;padding:10px 12px;cursor:pointer;font-family:var(--en);font-size:16px;color:var(--ink);transition:.13s;text-align:left}
+  .opt:hover{border-color:var(--gold);background:#fffdf7}
+  .opt .ltr{flex:0 0 auto;width:22px;height:22px;border-radius:6px;background:#f1ece2;color:var(--ink-soft);font-family:var(--ui);font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center}
+  .opt.sel{border-color:var(--ink);background:#f6f4ef}
+  .opt.sel .ltr{background:var(--ink);color:#fff}
+  .opt.correct{border-color:var(--ok);background:var(--ok-soft)}
+  .opt.correct .ltr{background:var(--ok);color:#fff}
+  .opt.wrong{border-color:var(--bad);background:var(--bad-soft)}
+  .opt.wrong .ltr{background:var(--bad);color:#fff}
+  .sheet-foot{margin-top:12px;display:flex;gap:9px;align-items:center}
+  .hintbtn{font-family:var(--ui);font-size:13.5px;font-weight:700;border:none;border-radius:11px;padding:10px 14px;cursor:pointer;background:var(--cause);color:#fff;transition:.15s}
+  .hintbtn:hover{filter:brightness(1.05)}
+  .hint-box{margin-top:11px;border-radius:12px;padding:12px 14px;font-family:var(--ui);font-size:13.5px;line-height:1.65;background:var(--b);color:var(--ink);border-left:3px solid var(--c)}
+  .hint-box .ht{font-size:11.5px;font-weight:800;letter-spacing:.4px;color:var(--c);margin-bottom:5px;display:inline-flex;align-items:center;gap:6px}
+  .hint-box.cat-contrast{--c:var(--c-contrast);--b:var(--b-contrast)}
+  .hint-box.cat-cause{--c:var(--c-cause);--b:var(--b-cause)}
+  .hint-box.cat-progress{--c:var(--c-progress);--b:var(--b-progress)}
+  .hint-box.cat-parallel{--c:var(--c-parallel);--b:var(--b-parallel)}
+  .hint-box.cat-repeat{--c:var(--c-repeat);--b:var(--b-repeat)}
+  .hint-box.cat-condition{--c:var(--c-condition);--b:var(--b-condition)}
+  .hint-box.cat-concession{--c:var(--c-concession);--b:var(--b-concession)}
+  .hint-box.cat-time{--c:var(--c-time);--b:var(--b-time)}
+  .hint-box.cat-other{--c:var(--c-other);--b:var(--b-other)}
+
+  /* import */
+  .modal-bg{position:fixed;inset:0;background:rgba(31,42,68,.45);z-index:60;display:none;align-items:center;justify-content:center;padding:18px}
+  .modal-bg.show{display:flex}
+  .modal{background:var(--card);border-radius:18px;width:100%;max-width:600px;max-height:88vh;overflow:auto;padding:22px}
+  .modal h2{font-size:17px;font-weight:800;margin-bottom:6px}
+  .modal p{font-size:13px;color:var(--ink-soft);margin-bottom:12px}
+  .modal textarea{width:100%;height:230px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12.5px;line-height:1.55;color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:12px;outline:none;resize:vertical;background:#fcfbf8}
+  .modal textarea:focus{border-color:var(--gold)}
+  .modal .err{font-size:13px;color:var(--bad);background:var(--bad-soft);border-radius:9px;padding:9px 12px;margin-top:10px;display:none}
+  .modal .mfoot{display:flex;gap:9px;justify-content:flex-end;margin-top:14px}
+  .modal details{margin-top:12px;font-size:12.5px;color:var(--ink-soft)}
+  .modal details summary{cursor:pointer;font-weight:700;color:var(--ink)}
+  .modal pre{background:#f6f4ef;border-radius:10px;padding:12px;font-size:11.5px;overflow:auto;margin-top:8px;line-height:1.5}
+
+  /* —— 近7天可视化 —— */
+  .viz{margin-top:16px;padding-top:15px;border-top:1px dashed var(--line)}
+  .viz h4{font-size:13.5px;font-weight:800;color:var(--ink);margin-bottom:3px;display:flex;align-items:center;gap:7px}
+  .viz .vsub{font-size:11.5px;color:var(--muted);margin-bottom:12px;line-height:1.5}
+  .vrow{display:flex;align-items:center;gap:10px;font-size:13px;margin-bottom:9px}
+  .vrow.flag{background:var(--bad-soft);border-radius:9px;padding:7px 9px;margin:0 -9px 9px}
+  .vtag{font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:6px;min-width:40px;text-align:center;flex:0 0 auto}
+  .vbar{flex:1;height:9px;border-radius:99px;background:var(--line);overflow:hidden}
+  .vbar > i{display:block;height:100%;border-radius:99px;transition:width .6s cubic-bezier(.4,0,.2,1)}
+  .vnum{font-variant-numeric:tabular-nums;font-weight:700;color:var(--ink-soft);min-width:104px;text-align:right;font-size:11.5px}
+  .vflag{font-size:11px;font-weight:800;color:#fff;background:var(--bad);border-radius:6px;padding:2px 7px;flex:0 0 auto}
+  .blindspot{margin-top:11px;font-size:13px;color:#a82e38;background:var(--bad-soft);border-left:3px solid var(--bad);border-radius:9px;padding:11px 13px;line-height:1.65}
+  .blindspot b{color:#8f1f29}
+
+  /* —— 我的路标(收藏信号词)蓝色底标 —— */
+  .mysign{background:#dbeafe;color:#1d4ed8;border-radius:5px;padding:1px 4px;font-weight:700;box-shadow:inset 0 0 0 1.5px #3b82f6;cursor:help}
+
+  /* —— 路标库 modal —— */
+  .sp-add{display:grid;grid-template-columns:1fr 132px;gap:8px;margin-bottom:8px}
+  @media (max-width:480px){.sp-add{grid-template-columns:1fr}}
+  .sp-add input,.sp-add select,.sp-sent{font-family:var(--ui);font-size:13.5px;color:var(--ink);padding:9px 11px;border:1px solid var(--line);border-radius:10px;outline:none;background:var(--card);width:100%}
+  .sp-add input:focus,.sp-add select:focus,.sp-sent:focus{border-color:var(--gold)}
+  .sp-add select{cursor:pointer}
+  .sp-sent{margin-bottom:10px;resize:vertical;min-height:46px;font-family:var(--en);font-size:14px}
+  .sp-list{display:flex;flex-direction:column;gap:8px;margin-top:14px;max-height:300px;overflow:auto}
+  .sp-item{border:1px solid var(--line);border-radius:11px;padding:10px 12px;display:flex;gap:10px;align-items:flex-start}
+  .sp-item .spw{font-family:var(--en);font-weight:700;color:var(--ink);font-size:15px}
+  .sp-item .spbody{flex:1;min-width:0}
+  .sp-item .spsent{font-family:var(--en);font-size:13px;color:var(--ink-soft);margin-top:4px;line-height:1.5}
+  .sp-item .spdel{flex:0 0 auto;border:none;background:#f1ece2;color:var(--ink-soft);width:26px;height:26px;border-radius:7px;cursor:pointer;font-size:13px}
+  .sp-item .spdel:hover{background:var(--bad-soft);color:var(--bad)}
+  .sp-empty{text-align:center;color:var(--muted);font-size:13px;padding:24px 0}
+  .data-row{display:flex;gap:9px;justify-content:space-between;align-items:center;margin-top:14px;padding-top:13px;border-top:1px dashed var(--line);flex-wrap:wrap}
+  .data-row .dl{font-size:12px;color:var(--muted);flex:1;min-width:160px}
+
+  footer{max-width:820px;margin:30px auto 0;padding:0 18px;font-size:12px;color:var(--muted);text-align:center;line-height:1.7}
+  @media (max-width:560px){.passage{font-size:16.5px;line-height:2.05;padding:18px 18px}.brand h1{font-size:17px}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hi">
+    <div class="brand"><h1>完形填空 · 逻辑链追踪器</h1><span class="seal">Trace the logic, derive the word</span></div>
+    <div class="sub">完形考的是逻辑推理,不是翻译。点「提示」不给中文 — 只高亮信号词,让你像解推导题一样推出答案。</div>
+    <div class="bar">
+      <select id="passSel" aria-label="选择文章"></select>
+      <span class="toggle" id="scanToggle"><span class="dot"></span>信号词扫描</span>
+      <button class="btn gold" id="checkBtn">对答案</button>
+      <button class="btn" id="resetBtn">重做</button>
+      <button class="btn" id="signBtn">🚩 我的路标库</button>
+      <button class="btn" id="importBtn">＋ 导入真题</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <details class="guide">
+    <summary>🧭 怎么用 · 把完形当推导题做（点开）<svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></summary>
+    <div class="gb">
+      <p><span class="step">1</span><b>先通读全文</b>,抓住故事的「情绪走向」和「事件因果」,不要急着逐空翻译。</p>
+      <p><span class="step">2</span><b>点空格选答案</b>。底部弹出 A–D 四个选项,选你推出来的那个。</p>
+      <p><span class="step">3</span><b>卡住时点「💡 提示」</b>。工具<b>不会给中文翻译</b>,而是把文中和这个空相关的<b>逻辑信号词</b>(however / because / not only…)或<b>复现的同义词</b>高亮出来,并告诉你这是哪一类逻辑(转折?因果?复现?)。你的任务:根据这些「已知条件」推出空格该填哪一<b>类</b>词,再回选项里找。</p>
+      <p><span class="step">4</span>想看全文有哪些逻辑路标,打开右上角<b>「信号词扫描」</b>,所有连接词会按颜色亮起。</p>
+      <p><span class="step">5</span><b>对答案</b>后会按逻辑类型统计对错,并汇总<b>近 7 天失分率</b> — 让你知道自己是栽在「转折」还是「复现」上,针对性补。某类逻辑连续 3 次以上失分,会被标红提醒为「逻辑盲区」。</p>
+      <p><span class="step">6</span>做真题时发现的高价值信号词,随手存进<b>「🚩 我的路标库」</b>。之后任何文章里出现它,都会自动加<b>蓝色底标</b>提醒你注意。数据保存在本机,可一键导出备份。</p>
+    </div>
+  </details>
+
+  <div class="legend" id="legend"></div>
+  <div id="resultsHost"></div>
+  <div class="passage" id="passage"></div>
+</main>
+
+<footer>本工具为家庭学习自制 · 内置文章为按高考难度原创编写,可点「导入真题」加入历年真题练习</footer>
+
+<!-- 答题卡 -->
+<div class="sheet" id="sheet">
+  <div class="sheet-head"><h3 id="sheetTitle">第 1 空</h3><button class="x" id="sheetClose" aria-label="关闭">×</button></div>
+  <div class="opts" id="sheetOpts"></div>
+  <div class="sheet-foot"><button class="hintbtn" id="hintBtn">💡 提示（看信号词，不翻译）</button></div>
+  <div id="hintHost"></div>
+</div>
+
+<!-- 导入 -->
+<div class="modal-bg" id="modalBg">
+  <div class="modal">
+    <h2>导入完形真题</h2>
+    <p>按下面的 JSON 格式粘贴一篇真题即可生成练习。把它交给我(在对话里),我也可以帮你把任意一篇真题自动转成这个格式。</p>
+    <textarea id="importArea" spellcheck="false"></textarea>
+    <div class="err" id="importErr"></div>
+    <details>
+      <summary>格式说明 / 示例</summary>
+      <pre>{
+  "title": "标题(可选)",
+  "text": "正文，每个空写成 [[1]] [[2]] … 按顺序",
+  "blanks": [
+    {
+      "n": 1,
+      "options": ["A选项","B选项","C选项","D选项"],
+      "answer": 0,                // 正确项：0–3 或 "A"
+      "logic": "转折",            // 转折/因果/递进/并列/复现/条件/让步/时间/搭配
+      "clue": ["however","glad"],// 文中要高亮的信号词/复现词(精确片段)
+      "hint": "前句…后句…→ 该填一个表示…的词"  // 引导推理，不要翻译
+    }
+  ]
+}</pre>
+    </details>
+    <div class="mfoot">
+      <button class="btn" id="importCancel">取消</button>
+      <button class="btn primary" id="importLoad">解析并加载</button>
+    </div>
+  </div>
+</div>
+
+<!-- 我的路标库 -->
+<div class="modal-bg" id="spBg">
+  <div class="modal">
+    <h2>🚩 我的逻辑路标库</h2>
+    <p>把做真题时发现的高价值信号词收进来。之后<b>任何文章</b>里出现它,都会自动加<b>蓝色底标</b>提醒你注意。数据保存在本机浏览器(下载到本地或放到服务器上使用时会持久保存)。</p>
+    <div class="sp-add">
+      <input id="spWord" type="text" placeholder="信号词 / 短语，如 However" spellcheck="false">
+      <select id="spLogic" aria-label="逻辑类型"></select>
+    </div>
+    <textarea id="spSent" class="sp-sent" placeholder="(可选) 录入一句你在真题里发现它的高价值例句" spellcheck="false"></textarea>
+    <div style="display:flex;justify-content:flex-end"><button class="btn primary" id="spAdd">＋ 收入路标库</button></div>
+    <div class="sp-list" id="spList"></div>
+    <div class="data-row">
+      <span class="dl">备份 / 换设备:可把全部路标与练习记录导出成文件,再导入</span>
+      <span style="display:flex;gap:8px">
+        <button class="btn" id="dataExport">导出数据</button>
+        <button class="btn" id="dataImportBtn">导入数据</button>
+        <input id="dataImportFile" type="file" accept="application/json" style="display:none">
+      </span>
+    </div>
+    <div class="mfoot"><button class="btn" id="spClose">关闭</button></div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   逻辑类型 → 颜色键 / 名称
+   ============================================================ */
+const CAT = {
+  "转折":"contrast","因果":"cause","递进":"progress","并列":"parallel",
+  "复现":"repeat","条件":"condition","让步":"concession","时间":"time",
+  "搭配":"other","语义":"other"
+};
+function catKey(c){ return CAT[c] || "other"; }
+function catColorVar(c){ return "var(--c-"+catKey(c)+")"; }
+
+/* 通用信号词词典（用于「信号词扫描」），按高频且少歧义挑选 */
+const SIGNALS = [
+  // 转折
+  ["however","转折"],["nevertheless","转折"],["nonetheless","转折"],["instead","转折"],
+  ["although","转折"],["though","转折"],["whereas","转折"],["despite","转折"],
+  ["in spite of","转折"],["on the contrary","转折"],["on the other hand","转折"],
+  ["in contrast","转折"],["unlike","转折"],["rather than","转折"],["otherwise","转折"],
+  ["yet","转折"],["but","转折"],
+  // 因果
+  ["because","因果"],["therefore","因果"],["thus","因果"],["consequently","因果"],
+  ["hence","因果"],["as a result","因果"],["due to","因果"],["owing to","因果"],["so","因果"],
+  // 递进
+  ["moreover","递进"],["furthermore","递进"],["besides","递进"],["in addition","递进"],
+  ["what's more","递进"],["not only","递进"],["but also","递进"],
+  // 并列/列举
+  ["for example","并列"],["for instance","并列"],["such as","并列"],
+  ["first","并列"],["second","并列"],["finally","并列"],
+  // 条件
+  ["if","条件"],["unless","条件"],["as long as","条件"],["in case","条件"],["once","条件"],
+  // 让步
+  ["even though","让步"],["even if","让步"],["no matter","让步"],
+  // 时间
+  ["when","时间"],["before","时间"],["after","时间"],["as soon as","时间"],
+  ["until","时间"],["meanwhile","时间"]
+];
+// 长短语优先匹配
+SIGNALS.sort((a,b)=>b[0].length-a[0].length);
+
+/* ============================================================
+   内置文章（原创，按高考完形难度；每空标注逻辑/信号词/推理提示）
+   answer 为正确选项下标(0–3)；clue 为文中精确片段；hint 引导推理不翻译
+   ============================================================ */
+const PASSAGES = [
+{
+  title:"原创·叙事篇：第一次演讲",
+  text:`When I was fifteen, my teacher asked me to give a speech at the school assembly. My first reaction was to [[1]] — the thought of standing before hundreds of students terrified me. I had always been a [[2]] boy who preferred the back of the classroom to the front of the stage.
+
+For days I tried to think of an [[3]] to avoid it. [[4]], no good reason came to mind, and the date drew closer. My friend Daniel noticed how worried I looked. [[5]] of laughing at me, he offered to help me practise every afternoon.
+
+At first my voice [[6]] and my hands wouldn't stop shaking. Daniel was patient. "The audience isn't your [[7]]," he said. "They want you to succeed." His words slowly gave me [[8]]. The more I practised, the more [[9]] I felt.
+
+On the big day, my heart was pounding as I walked to the microphone. Then I saw Daniel in the front row, smiling and giving me a thumbs-up. Suddenly the fear began to [[10]]. I took a deep breath and started to speak.
+
+To my [[11]], the words came out clearly. The students listened, and some even nodded. When I finished, the hall filled with [[12]]. I had done it.
+
+That experience [[13]] me an important lesson. Fear grows when we run from it, but it [[14]] when we face it. Now, whenever a challenge frightens me, I no longer hide. Instead, I [[15]] it head-on.`,
+  blanks:[
+    {n:1,options:["refuse","accept","smile","rest"],answer:0,logic:"因果",
+     clue:["terrified me","avoid it"],
+     hint:"破折号后的「terrified me」和下文的「avoid it」都说明他想逃开 → 第一反应该是一个表示「拒绝 / 退缩」的动词。"},
+    {n:2,options:["shy","brave","lazy","popular"],answer:0,logic:"复现",
+     clue:["preferred the back of the classroom"],
+     hint:"「宁愿坐教室后排、不愿上台」是在刻画性格,与「怕当众讲话」一致 → 填一个表示「内向 / 害羞」的词。"},
+    {n:3,options:["excuse","promise","answer","plan"],answer:0,logic:"语义",
+     clue:["avoid it","no good reason"],
+     hint:"目的是「avoid(逃避)」,下一句又出现「reason」呼应 → 他在找一个能搪塞用的「借口 / 理由」类名词。"},
+    {n:4,options:["However","Therefore","Besides","Finally"],answer:0,logic:"转折",
+     clue:["tried to think of an","no good reason came"],
+     hint:"前句「努力去想」,后句却「没想出来」→ 期望与结果相反,缺一个表示转折的连接词。"},
+    {n:5,options:["Instead","Afraid","Tired","Capable"],answer:0,logic:"转折",
+     clue:["laughing at me","offered to help"],
+     hint:"「嘲笑我」与「主动帮我」是两种相反的反应 → 需要「非但没……反而……」的转折结构。"},
+    {n:6,options:["trembled","rose","cleared","disappeared"],answer:0,logic:"并列",
+     clue:["hands wouldn't stop shaking","At first"],
+     hint:"与「双手发抖」并列,都在写一开始的紧张 → 声音也该是一个表「发抖 / 失常」的动词。"},
+    {n:7,options:["enemy","friend","teacher","guest"],answer:0,logic:"转折",
+     clue:["They want you to succeed"],
+     hint:"下一句「他们希望你成功」表明观众站在你这边 → 空格要填它的反面:观众「不是」什么。"},
+    {n:8,options:["confidence","trouble","fear","advice"],answer:0,logic:"因果",
+     clue:["want you to succeed","the more"],
+     hint:"鼓励的话 + 下文「越练越……」的正向变化 → 该填一个由鼓励带来的「积极心理」名词。"},
+    {n:9,options:["confident","nervous","tired","bored"],answer:0,logic:"复现",
+     clue:["The more I practised, the more"],
+     hint:"「练得越多,就越……」是正向递进,承接前面朋友的鼓励 → 填一个表示积极心态的形容词。"},
+    {n:10,options:["fade","grow","return","spread"],answer:0,logic:"因果",
+     clue:["smiling and giving me a thumbs-up","when we face it"],
+     hint:"看到朋友微笑、竖大拇指是积极信号,且结尾「面对时它会……」呼应 → 恐惧此刻应「减弱」。注意陷阱:grow 是反义。"},
+    {n:11,options:["surprise","regret","sorrow","disappointment"],answer:0,logic:"转折",
+     clue:["terrified me","came out clearly"],
+     hint:"他原本极度害怕,结果却「清晰说了出来」→ 与预期相反 → 该填一个表示「意外」的名词。"},
+    {n:12,options:["applause","silence","laughter","noise"],answer:0,logic:"因果",
+     clue:["some even nodded","I had done it"],
+     hint:"演讲成功、听众点头,结尾「I had done it」→ 全场该有的是一种「积极回应」。"},
+    {n:13,options:["taught","asked","told","made"],answer:0,logic:"搭配",
+     clue:["an important lesson"],
+     hint:"与后面的「lesson」搭配,「这段经历……我一课」→ 填表示「教给 / 给予」的动词。"},
+    {n:14,options:["shrinks","increases","remains","spreads"],answer:0,logic:"转折",
+     clue:["Fear grows when we run from it","but"],
+     hint:"前半句「逃避时 fear grows(增长)」+ but 转折 → 面对时恐惧应朝相反方向「变小」。注意陷阱:increases 是同义。"},
+    {n:15,options:["face","avoid","fear","ignore"],answer:0,logic:"复现",
+     clue:["no longer hide","Instead"],
+     hint:"「不再 hide(躲)」+ Instead → 与「躲」相反、与前文「face it」复现 → 填表示「正面应对」的动词。"}
+  ]
+},
+{
+  title:"原创·叙事篇：公交站旁的陌生人",
+  text:`Last winter, on my way home from school, I noticed an old man standing at a bus stop in the freezing cold. He looked [[1]], glancing again and again at the empty road. I guessed his bus was [[2]].
+
+Normally I would have walked past, [[3]] something made me stop. He was shivering, and his thin coat was clearly not [[4]] enough for such weather. [[5]], I walked over and asked if he needed help.
+
+He told me he had been waiting for nearly an hour, and the last bus had already [[6]]. He lived far away and had no way to get home. I could see the [[7]] in his eyes.
+
+I didn't have enough money for a taxi, so I called my father and explained the [[8]]. Without hesitation, Dad agreed to come and drive the old man home. While we waited, I gave the man my scarf to keep him [[9]].
+
+When my father arrived, the old man's face [[10]] with gratitude. During the drive, he kept thanking us, saying that few young people today would [[11]] a stranger.
+
+His words made me think. Helping him had cost me very little — only a bit of [[12]] and a warm scarf. [[13]], the joy I felt was greater than any I had known.
+
+That evening I [[14]] an important truth: kindness is never wasted. A small act can warm not only another person's heart, [[15]] your own.`,
+  blanks:[
+    {n:1,options:["anxious","cheerful","angry","proud"],answer:0,logic:"复现",
+     clue:["glancing again and again at the empty road"],
+     hint:"反复张望空荡的马路 → 填一个表示「焦急 / 不安」的词。"},
+    {n:2,options:["late","early","free","full"],answer:0,logic:"复现",
+     clue:["empty road","waiting for nearly an hour"],
+     hint:"路上空空、又等了近一小时 → 公交一定是「晚点」了。"},
+    {n:3,options:["but","so","and","for"],answer:0,logic:"转折",
+     clue:["walked past","made me stop"],
+     hint:"「本会径直走过去」与「停下脚步」相反 → 用一个转折连词。"},
+    {n:4,options:["warm","big","new","clean"],answer:0,logic:"因果",
+     clue:["thin coat","shivering","freezing cold"],
+     hint:"单薄外套 + 冻得发抖 + 严寒 → 衣服不够「保暖」。"},
+    {n:5,options:["So","Yet","Besides","Otherwise"],answer:0,logic:"因果",
+     clue:["shivering","needed help"],
+     hint:"他冷得发抖(原因)→「于是 / 因此」我走过去帮忙。"},
+    {n:6,options:["left","arrived","stopped","returned"],answer:0,logic:"复现",
+     clue:["waiting for nearly an hour","no way to get home"],
+     hint:"等了近一小时、又无法回家 → 末班车应已「开走」。"},
+    {n:7,options:["worry","joy","anger","pride"],answer:0,logic:"复现",
+     clue:["no way to get home"],
+     hint:"无法回家 → 眼里流露的是「忧虑」,与开头的焦急呼应。"},
+    {n:8,options:["situation","secret","plan","joke"],answer:0,logic:"搭配",
+     clue:["explained the","drive the old man home"],
+     hint:"向父亲「说明」正在发生的事 → 填「情况 / 处境」。"},
+    {n:9,options:["warm","awake","safe","calm"],answer:0,logic:"复现",
+     clue:["shivering","scarf","freezing cold"],
+     hint:"他冷得发抖,递围巾的目的 → 让他保持「温暖」。"},
+    {n:10,options:["lit up","turned away","broke down","gave in"],answer:0,logic:"因果",
+     clue:["gratitude","kept thanking us"],
+     hint:"救援赶到 + 满是「感激」→ 脸上该「亮 / 绽放」起来。"},
+    {n:11,options:["help","ignore","blame","avoid"],answer:0,logic:"复现",
+     clue:["kept thanking us","Helping him"],
+     hint:"老人在称赞,且「help a stranger」主题在下文复现 → 填「帮助」。注意:ignore/avoid 与称赞的语气矛盾。"},
+    {n:12,options:["time","money","luck","space"],answer:0,logic:"语义",
+     clue:["While we waited","enough money for a taxi"],
+     hint:"打车钱其实没花(爸爸开车送),真正付出的是「等候」→ 填「时间」。money 是干扰项。"},
+    {n:13,options:["Yet","So","Besides","Otherwise"],answer:0,logic:"转折",
+     clue:["cost me very little","greater than any"],
+     hint:"「付出很小」与「喜悦极大」形成反差 → 用转折词。"},
+    {n:14,options:["learned","taught","asked","lost"],answer:0,logic:"搭配",
+     clue:["an important truth","kindness is never wasted"],
+     hint:"与「truth」搭配,「我……到一个道理」→ 填「领悟 / 学到」。"},
+    {n:15,options:["but also","and also","or even","as well"],answer:0,logic:"递进",
+     clue:["not only"],
+     hint:"句首是「not only」→ 必跟固定搭配,「不仅……而且……」。"}
+  ]
+}
+];
+
+/* ============================================================
+   状态
+   ============================================================ */
+let curIdx = 0;
+let answers = {};        // n -> 选项下标
+let activeBlank = null;  // 当前打开答题卡的空
+let clueBlank = null;    // 当前高亮线索的空
+let scanOn = false;
+let checked = false;
+
+const $=s=>document.querySelector(s);
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+function escAttr(s){return esc(s).replace(/"/g,"&quot;");}
+function cur(){return PASSAGES[curIdx];}
+function blankByN(n){return cur().blanks.find(b=>b.n===n);}
+
+/* ---------- 文本高亮 ---------- */
+function reg(phrase){
+  const e=phrase.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
+  const head=/^[A-Za-z]/.test(phrase)?"\\b":"";
+  const tail=/[A-Za-z]$/.test(phrase)?"\\b":"";
+  return new RegExp(head+e+tail,"gi");
+}
+function collectMatches(text){
+  let clueM=[], myM=[], sigM=[];
+  if(clueBlank!=null){
+    const b=blankByN(clueBlank);
+    (b.clue||[]).forEach(ph=>{
+      let m,r=reg(ph);
+      while((m=r.exec(text))){clueM.push({s:m.index,e:m.index+m[0].length,type:"clue",cat:b.logic});}
+    });
+  }
+  // 我的路标：始终高亮（蓝色底标），不受扫描开关或提示状态影响
+  signposts.forEach(sp=>{
+    if(!sp.word) return;
+    let m,r=reg(sp.word);
+    while((m=r.exec(text))){
+      myM.push({s:m.index,e:m.index+m[0].length,type:"mysign",cat:sp.logic,
+        title:"你的路标 · "+sp.logic+(sp.sentence?(" · "+sp.sentence):"")});
+    }
+  });
+  if(scanOn){
+    SIGNALS.forEach(([ph,cat])=>{
+      let m,r=reg(ph);
+      while((m=r.exec(text))){sigM.push({s:m.index,e:m.index+m[0].length,type:"sig",cat});}
+    });
+  }
+  // 优先级：线索(提示) > 我的路标 > 通用信号词；逐层剔除重叠
+  const dedup=arr=>{arr.sort((a,b)=>a.s-b.s||(b.e-b.s)-(a.e-a.s));const out=[];let end=-1;for(const x of arr){if(x.s>=end){out.push(x);end=x.e;}}return out;};
+  const overlaps=(x,occ)=>occ.some(([s,e])=>x.s<e&&x.e>s);
+  clueM=dedup(clueM);
+  let occ=clueM.map(m=>[m.s,m.e]);
+  myM=dedup(myM).filter(m=>!overlaps(m,occ)); occ=occ.concat(myM.map(m=>[m.s,m.e]));
+  sigM=dedup(sigM).filter(m=>!overlaps(m,occ));
+  return [...clueM,...myM,...sigM].sort((a,b)=>a.s-b.s);
+}
+function renderHL(text){
+  const ms=collectMatches(text);
+  let out="",pos=0;
+  for(const m of ms){
+    out+=esc(text.slice(pos,m.s));
+    if(m.type==="mysign"){
+      out+='<span class="mysign" title="'+escAttr(m.title||"")+'">'+esc(text.slice(m.s,m.e))+'</span>';
+    } else {
+      out+='<span class="'+m.type+' cat-'+catKey(m.cat)+'">'+esc(text.slice(m.s,m.e))+'</span>';
+    }
+    pos=m.e;
+  }
+  out+=esc(text.slice(pos));
+  return out;
+}
+function blankChip(n){
+  const b=blankByN(n);
+  const a=answers[n];
+  let cls="blank";
+  let label='<span class="no">'+n+'</span>____';
+  if(a!=null){cls+=" filled";label='<span class="no">'+n+'</span>'+esc(b.options[a]);}
+  if(activeBlank===n) cls+=" active";
+  if(checked && a!=null){ cls += (a===b.answer ? " correct" : " wrong"); }
+  return '<span class="'+cls+'" data-blank="'+n+'" role="button" tabindex="0">'+label+'</span>';
+}
+function renderPassage(){
+  const p=cur();
+  const parts=p.text.split(/\[\[(\d+)\]\]/);
+  let body='';
+  for(let i=0;i<parts.length;i++){
+    if(i%2===0) body+=renderHL(parts[i]);
+    else body+=blankChip(parseInt(parts[i],10));
+  }
+  body=body.replace(/\n\n/g,'</p><p>').replace(/\n/g,' ');
+  $("#passage").innerHTML='<div class="ptitle">'+esc(p.title)+'</div><p>'+body+'</p>';
+  $("#passage").querySelectorAll("[data-blank]").forEach(el=>{
+    const n=parseInt(el.dataset.blank,10);
+    el.onclick=()=>openSheet(n);
+    el.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();openSheet(n);}};
+  });
+}
+
+/* ---------- 答题卡 ---------- */
+function openSheet(n){
+  activeBlank=n;
+  const b=blankByN(n);
+  $("#sheetTitle").textContent="第 "+n+" 空";
+  const letters=["A","B","C","D"];
+  $("#sheetOpts").innerHTML=b.options.map((o,i)=>{
+    let cls="opt";
+    if(answers[n]===i) cls+=" sel";
+    if(checked){ if(i===b.answer) cls+=" correct"; else if(answers[n]===i) cls+=" wrong"; }
+    return '<button class="'+cls+'" data-opt="'+i+'"><span class="ltr">'+letters[i]+'</span>'+esc(o)+'</button>';
+  }).join("");
+  $("#sheetOpts").querySelectorAll("[data-opt]").forEach(el=>{
+    el.onclick=()=>{ answers[n]=parseInt(el.dataset.opt,10); renderPassage(); openSheet(n); };
+  });
+  // 已对答案时自动展示提示，否则清空
+  $("#hintHost").innerHTML="";
+  if(checked) showHint(n); else { clueBlank=null; renderPassage(); }
+  $("#sheet").classList.add("show");
+}
+function closeSheet(){
+  $("#sheet").classList.remove("show");
+  activeBlank=null; clueBlank=null;
+  $("#hintHost").innerHTML="";
+  renderPassage();
+}
+function showHint(n){
+  const b=blankByN(n);
+  clueBlank=n;
+  renderPassage();
+  const k=catKey(b.logic);
+  $("#hintHost").innerHTML='<div class="hint-box cat-'+k+'">'+
+    '<span class="ht">◆ 逻辑类型：'+esc(b.logic)+'</span>'+
+    '<div>'+esc(b.hint)+'</div></div>';
+  // 滚动首个线索到可见区
+  setTimeout(()=>{
+    const mark=$("#passage").querySelector(".clue");
+    if(mark) mark.scrollIntoView({behavior:"smooth",block:"center"});
+  },60);
+}
+
+/* ---------- 对答案 / 统计 ---------- */
+function checkAll(){
+  checked=true;
+  const blanks=cur().blanks;
+  let correct=0; const byCat={}; const wrong=[];
+  blanks.forEach(b=>{
+    const a=answers[b.n];
+    const ok=a===b.answer;
+    if(ok) correct++; else wrong.push(b.n);
+    const c=b.logic;
+    byCat[c]=byCat[c]||{ok:0,total:0};
+    byCat[c].total++; if(ok) byCat[c].ok++;
+  });
+  recordHistory({t:Date.now(),passage:cur().title,score:correct,total:blanks.length,byCat,wrong});
+  renderResults(correct,blanks.length,byCat);
+  renderPassage();
+  $("#resultsHost").scrollIntoView({behavior:"smooth",block:"start"});
+}
+function renderResults(correct,total,byCat){
+  const cats=Object.keys(byCat);
+  const rows=cats.map(c=>{
+    const {ok,total:t}=byCat[c];
+    const pct=Math.round(ok/t*100);
+    const k=catKey(c);
+    return '<div class="bd-row">'+
+      '<span class="bd-tag" style="background:var(--b-'+k+');color:var(--c-'+k+')">'+esc(c)+'</span>'+
+      '<div class="bd-bar"><i style="width:'+pct+'%;background:var(--c-'+k+')"></i></div>'+
+      '<span class="bd-num">'+ok+' / '+t+'</span></div>';
+  }).join("");
+
+  // —— 近 7 天失分率（跨练习汇总，已含本次）——
+  const wk=getWeeklyStats();
+  const blind=getBlindSpots();
+  let vizHtml="";
+  if(wk.count>0){
+    const vrows=wk.cats.map(o=>{
+      const k=catKey(o.cat);
+      const errPct=Math.round(o.errRate*100);
+      const isBlind=blind.includes(o.cat);
+      return '<div class="vrow'+(isBlind?' flag':'')+'">'+
+        '<span class="vtag" style="background:var(--b-'+k+');color:var(--c-'+k+')">'+esc(o.cat)+'</span>'+
+        '<div class="vbar"><i style="width:'+errPct+'%;background:'+(isBlind?'var(--bad)':'var(--c-'+k+')')+'"></i></div>'+
+        '<span class="vnum">失分 '+errPct+'%（错 '+(o.total-o.ok)+'/'+o.total+'）</span>'+
+        (isBlind?'<span class="vflag">🚩 盲区</span>':'')+
+      '</div>';
+    }).join("");
+    vizHtml='<div class="viz"><h4>📊 近 7 天逻辑类型失分率</h4>'+
+      '<div class="vsub">汇总最近 7 天 '+wk.count+' 次练习 · 条越长越薄弱（已按薄弱程度排序）</div>'+
+      vrows+'</div>';
+  }
+
+  // —— 盲区提醒（连续 3 次以上失分）/ 否则给本次最弱项 ——
+  let tailHtml="";
+  if(blind.length){
+    tailHtml='<div class="blindspot">🚩 <b>'+blind.map(esc).join("、")+'</b> 已连续 3 次以上练习失分 — 这是你目前的<b>逻辑盲区</b>。'+
+      '建议先别急着刷新题,去翻你关于「'+esc(blind[0])+'」这一类逻辑词的笔记,把这类的判断规则吃透(它是相同、相反还是因果?),再回来练。</div>';
+  } else {
+    let weak=null,worst=1;
+    cats.forEach(c=>{const r=byCat[c];const rate=r.ok/r.total;if(r.total-r.ok>0&&rate<=worst){worst=rate;weak=c;}});
+    tailHtml = weak ?
+      '<div class="weak">📌 本次在「<b>'+esc(weak)+'</b>」类失分最多。这类题的钥匙:先找信号词,再判断空格与上下文是「相同」「相反」还是「因果」关系。</div>' :
+      '<div class="weak" style="background:var(--ok-soft);border-color:var(--ok);color:#1c6f63">🎉 本次全对!逻辑链追得很稳。</div>';
+  }
+
+  $("#resultsHost").innerHTML='<div class="results">'+
+    '<div class="score"><b>'+correct+' / '+total+'</b><span>答对 '+correct+' 空（每空 1.5 分，约 '+(correct*1.5)+' 分）</span></div>'+
+    '<div class="hint-line">本次按「逻辑类型」拆解（点任意空格可重看推理提示）。</div>'+
+    '<div class="breakdown">'+rows+'</div>'+
+    vizHtml+tailHtml+'</div>';
+}
+
+/* ---------- 切换 / 重做 ---------- */
+function loadPassage(i){
+  curIdx=i; answers={}; activeBlank=null; clueBlank=null; checked=false;
+  $("#resultsHost").innerHTML="";
+  closeSheet();
+  renderPassage();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+function resetCur(){
+  answers={}; checked=false; clueBlank=null;
+  $("#resultsHost").innerHTML="";
+  closeSheet();
+  renderPassage();
+}
+
+/* ---------- 图例 ---------- */
+function renderLegend(){
+  const used=["转折","因果","递进","并列","复现","条件","让步","时间","搭配"];
+  $("#legend").innerHTML='<span style="font-size:11.5px;color:var(--muted);font-weight:700;align-self:center;margin-right:2px">逻辑配色:</span>'+
+    used.map(c=>'<span class="lg cat-'+catKey(c)+'">'+esc(c)+'</span>').join("");
+}
+
+/* ---------- 选择器 ---------- */
+function renderSelect(){
+  $("#passSel").innerHTML=PASSAGES.map((p,i)=>'<option value="'+i+'"'+(i===curIdx?" selected":"")+'>'+esc(p.title)+'</option>').join("");
+}
+
+/* ============================================================
+   导入
+   ============================================================ */
+const DEMO_IMPORT = JSON.stringify({
+  title:"我的真题·示例",
+  text:"He failed the first time, [[1]] he never gave up. [[2]], he tried again and finally succeeded.",
+  blanks:[
+    {n:1,options:["but","so","and","or"],answer:"A",logic:"转折",clue:["failed","never gave up"],hint:"「失败」与「绝不放弃」相反 → 转折。"},
+    {n:2,options:["Instead","Therefore","However","Otherwise"],answer:"B",logic:"因果",clue:["tried again","succeeded"],hint:"坚持的结果是成功 → 因果。"}
+  ]
+},null,2);
+
+function openImport(){ $("#importArea").value=$("#importArea").value||DEMO_IMPORT; $("#importErr").style.display="none"; $("#modalBg").classList.add("show"); }
+function closeImport(){ $("#modalBg").classList.remove("show"); }
+function normAnswer(a){
+  if(typeof a==="number") return a;
+  if(typeof a==="string"){
+    const m="ABCD".indexOf(a.trim().toUpperCase());
+    if(m>=0) return m;
+    const n=parseInt(a,10);
+    if(!isNaN(n)) return n;
+  }
+  return a;
+}
+function doImport(){
+  const raw=$("#importArea").value.trim();
+  const err=$("#importErr");
+  let data;
+  try{ data=JSON.parse(raw); }
+  catch(e){ err.textContent="JSON 格式有误,无法解析。检查是否漏了逗号、引号或括号。"; err.style.display="block"; return; }
+  if(!data.text || !Array.isArray(data.blanks) || data.blanks.length===0){
+    err.textContent="缺少 text 正文 或 blanks 题目数组。"; err.style.display="block"; return;
+  }
+  const nums=(data.text.match(/\[\[(\d+)\]\]/g)||[]).length;
+  if(nums!==data.blanks.length){
+    err.textContent="正文里的空格数("+nums+")与 blanks 题目数("+data.blanks.length+")不一致。"; err.style.display="block"; return;
+  }
+  // 规范化
+  try{
+    data.blanks.forEach((b,i)=>{
+      b.n = b.n || (i+1);
+      if(!Array.isArray(b.options)||b.options.length<2) throw 0;
+      let ans=normAnswer(b.answer);
+      if(typeof ans!=="number"||ans<0||ans>=b.options.length){ans=0;}
+      b.answer=ans;
+      b.logic=b.logic||"搭配";
+      b.clue=Array.isArray(b.clue)?b.clue:(b.clue?[b.clue]:[]);
+      b.hint=b.hint||"先找出文中相关的信号词,判断此空与上下文是相同、相反还是因果关系。";
+    });
+  }catch(e){ err.textContent="某道题的 options 至少要有 2 个选项,请检查。"; err.style.display="block"; return; }
+  data.title=data.title||"导入的真题";
+  PASSAGES.push(data);
+  curIdx=PASSAGES.length-1;
+  renderSelect();
+  closeImport();
+  loadPassage(curIdx);
+}
+
+/* ============================================================
+   本地存储（localStorage，带 try-catch 兜底）
+   预览沙箱中 localStorage 被禁用 → 自动降级为「仅本次会话」，不会报错；
+   下载到本地双击打开 / 放到服务器访问时 → 正常持久保存。
+   ============================================================ */
+const Store={
+  mem:{},
+  ok:(function(){try{const k="__clt_test";localStorage.setItem(k,"1");localStorage.removeItem(k);return true;}catch(e){return false;}})(),
+  get(key){
+    try{ if(this.ok){ const v=localStorage.getItem(key); return v?JSON.parse(v):null; } }catch(e){}
+    return this.mem[key]!==undefined?this.mem[key]:null;
+  },
+  set(key,val){
+    this.mem[key]=val;
+    try{ if(this.ok) localStorage.setItem(key,JSON.stringify(val)); }catch(e){}
+  }
+};
+const K_HISTORY="clt_history", K_SIGNS="clt_signposts";
+
+/* ---------- 练习历史 ---------- */
+let history=Store.get(K_HISTORY)||[];
+function recordHistory(rec){
+  history.push(rec);
+  if(history.length>300) history=history.slice(-300);
+  Store.set(K_HISTORY,history);
+}
+function getWeeklyStats(){
+  const since=Date.now()-7*24*3600*1000;
+  const recent=history.filter(h=>h.t>=since);
+  const agg={};
+  recent.forEach(h=>{ Object.keys(h.byCat||{}).forEach(c=>{ agg[c]=agg[c]||{ok:0,total:0}; agg[c].ok+=h.byCat[c].ok; agg[c].total+=h.byCat[c].total; }); });
+  const cats=Object.keys(agg).map(c=>({cat:c,ok:agg[c].ok,total:agg[c].total,errRate:(agg[c].total-agg[c].ok)/agg[c].total}));
+  cats.sort((a,b)=>b.errRate-a.errRate || b.total-a.total);
+  return {count:recent.length,cats};
+}
+function getBlindSpots(){
+  // 每个逻辑类型：从最近往前，统计「涉及该类型且有错」的连续次数；≥3 即判为盲区
+  const cats=new Set(); history.forEach(h=>Object.keys(h.byCat||{}).forEach(c=>cats.add(c)));
+  const blind=[];
+  cats.forEach(c=>{
+    let streak=0;
+    for(let i=history.length-1;i>=0;i--){
+      const bc=history[i].byCat && history[i].byCat[c];
+      if(!bc) continue;             // 该次未涉及此类型 → 跳过
+      if(bc.ok<bc.total) streak++;  // 有错 → 连续 +1
+      else break;                   // 全对 → 中断
+    }
+    if(streak>=3) blind.push(c);
+  });
+  return blind;
+}
+
+/* ============================================================
+   我的路标库（收藏信号词）
+   ============================================================ */
+let signposts=Store.get(K_SIGNS)||[];
+const LOGIC_TYPES=["转折","因果","递进","并列","复现","条件","让步","时间","搭配"];
+function saveSigns(){ Store.set(K_SIGNS,signposts); }
+function renderSignSelect(){
+  $("#spLogic").innerHTML=LOGIC_TYPES.map(c=>'<option value="'+c+'">'+c+'</option>').join("");
+}
+function renderSignList(){
+  if(signposts.length===0){ $("#spList").innerHTML='<div class="sp-empty">还没有收藏。做真题时遇到关键信号词,随手存进来吧。</div>'; return; }
+  $("#spList").innerHTML=signposts.map((sp,i)=>{
+    const k=catKey(sp.logic);
+    return '<div class="sp-item">'+
+      '<span class="vtag" style="background:var(--b-'+k+');color:var(--c-'+k+');margin-top:2px">'+esc(sp.logic)+'</span>'+
+      '<div class="spbody"><span class="spw">'+esc(sp.word)+'</span>'+
+        (sp.sentence?'<div class="spsent">“'+esc(sp.sentence)+'”</div>':'')+
+      '</div>'+
+      '<button class="spdel" data-del="'+i+'" title="删除">✕</button></div>';
+  }).join("");
+  $("#spList").querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>{
+    signposts.splice(parseInt(b.dataset.del,10),1); saveSigns(); renderSignList(); renderPassage();
+  });
+}
+function addSign(){
+  const word=$("#spWord").value.trim();
+  const logic=$("#spLogic").value;
+  const sentence=$("#spSent").value.trim();
+  if(!word) return;
+  if(!signposts.some(s=>s.word.toLowerCase()===word.toLowerCase()&&s.logic===logic)){
+    signposts.push({word,logic,sentence});
+    saveSigns();
+  }
+  $("#spWord").value=""; $("#spSent").value=""; $("#spWord").focus();
+  renderSignList(); renderPassage();
+}
+function openSign(){ renderSignList(); $("#spBg").classList.add("show"); setTimeout(()=>$("#spWord").focus(),100); }
+function closeSign(){ $("#spBg").classList.remove("show"); }
+
+/* ---------- 数据导出 / 导入（备份与迁移） ---------- */
+function exportData(){
+  const blob=new Blob([JSON.stringify({signposts,history},null,2)],{type:"application/json"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download="完形逻辑追踪器_数据备份.json";
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+}
+function importData(file){
+  const r=new FileReader();
+  r.onload=()=>{
+    try{
+      const d=JSON.parse(r.result);
+      if(Array.isArray(d.signposts)) signposts=d.signposts;
+      if(Array.isArray(d.history)) history=d.history;
+      saveSigns(); Store.set(K_HISTORY,history);
+      renderSignList(); renderPassage();
+      alert("数据已导入成功。");
+    }catch(e){ alert("文件格式有误,无法导入。"); }
+  };
+  r.readAsText(file);
+}
+
+/* ============================================================
+   初始化 & 事件
+   ============================================================ */
+$("#passSel").onchange=e=>loadPassage(parseInt(e.target.value,10));
+$("#checkBtn").onclick=checkAll;
+$("#resetBtn").onclick=resetCur;
+$("#scanToggle").onclick=()=>{ scanOn=!scanOn; $("#scanToggle").classList.toggle("on",scanOn); renderPassage(); };
+$("#sheetClose").onclick=closeSheet;
+$("#hintBtn").onclick=()=>{ if(activeBlank!=null) showHint(activeBlank); };
+$("#importBtn").onclick=openImport;
+$("#importCancel").onclick=closeImport;
+$("#importLoad").onclick=doImport;
+$("#modalBg").onclick=e=>{ if(e.target===$("#modalBg")) closeImport(); };
+
+$("#signBtn").onclick=openSign;
+$("#spClose").onclick=closeSign;
+$("#spAdd").onclick=addSign;
+$("#spWord").onkeydown=e=>{ if(e.key==="Enter"){ e.preventDefault(); addSign(); } };
+$("#spBg").onclick=e=>{ if(e.target===$("#spBg")) closeSign(); };
+$("#dataExport").onclick=exportData;
+$("#dataImportBtn").onclick=()=>$("#dataImportFile").click();
+$("#dataImportFile").onchange=e=>{ if(e.target.files[0]) importData(e.target.files[0]); e.target.value=""; };
+
+renderSelect();
+renderLegend();
+renderSignSelect();
+renderPassage();
+</script>
+
+<style>
+.rtf{background:#f8fafc;border-top:2px solid #e2e8f0;padding:20px 16px 28px;margin-top:32px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.rtf-hd{font-size:.72rem;font-weight:700;color:#64748b;letter-spacing:1.5px;text-transform:uppercase;text-align:center;margin-bottom:14px}
+.rtf-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px;max-width:860px;margin:0 auto 14px}
+.rtf-ch{font-size:.68rem;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px}
+.rtf-links{display:flex;flex-direction:column;gap:3px}
+.rtf-links a{font-size:.8rem;color:#2563eb;text-decoration:none;line-height:1.4}
+.rtf-links a:hover{text-decoration:underline}
+.rtf-links a.rtf-cur{color:#cbd5e0;pointer-events:none;cursor:default;font-weight:600}
+.rtf-home{display:block;text-align:center;font-size:.8rem;color:#64748b;text-decoration:none;margin-top:4px}
+.rtf-home:hover{color:#1e40af}
+</style>
+<div class="rtf">
+  <div class="rtf-hd">🔗 高考工具合集 · 快速跳转</div>
+  <div class="rtf-grid">
+<div><div class="rtf-ch">📖 阅读 · 完形真题</div><div class="rtf-links"><a href="english-reading.html">高考阅读理解真题 (441题)</a>
+<a href="english-cloze.html">高考完形填空真题 (1276题)</a>
+<a href="cloze-practice.html">完形填空专练</a>
+<a class="rtf-cur" href="cloze-logic-tracker.html">逻辑链追踪器 ✦</a>
+</div></div>
+<div><div class="rtf-ch">🔠 词汇</div><div class="rtf-links"><a href="vocab-match.html">连连看闯关</a>
+<a href="vocab-3500.html">3500词 · 词根版</a>
+<a href="vocab-3500-stories.html">3500词 · 故事版</a>
+<a href="850-english-practice.html">850核心词表达</a>
+</div></div>
+<div><div class="rtf-ch">📐 语法</div><div class="rtf-links"><a href="grammar-master.html">语法神器 · 闯关版</a>
+<a href="grammar-mcq.html">语法填空选择题</a>
+<a href="grammar-cloze.html">语法填空手填版</a>
+<a href="grammar-breakdown.html">长难句拆解器</a>
+<a href="gaokao-grammar.html">高考语法通</a>
+</div></div>
+<div><div class="rtf-ch">✍️ 写作</div><div class="rtf-links"><a href="gaokao-writing.html">写作神器</a>
+<a href="gaokao-golden.html">金句闪卡 · 50句</a>
+<a href="gaokao-english-templates.html">万能句背诵库</a>
+</div></div>
+<div><div class="rtf-ch">🔢 数学 · 物理</div><div class="rtf-links"><a href="math-formula-cards.html">数学公式闪卡</a>
+<a href="physics-challenge.html">物理公式闯关 60题</a>
+</div></div>
+<div><div class="rtf-ch">🧬 生物</div><div class="rtf-links">
+<a href="shengwu/index.html">生物选择题真题 (380套)</a>
+<a href="shengwu/duiduipeng.html">生物填空对对碰</a>
+<a href="shengwu/zhishi.html">生物考点速查</a>
+</div></div>
+<div><div class="rtf-ch">📚 语文 · 物理 · 化学</div><div class="rtf-links">
+<a href="yuwen/zhishi.html">语文考点速查</a>
+<a href="wuli/zhishi.html">物理考点速查</a>
+<a href="huaxue/zhishi.html">化学考点速查</a>
+</div></div>
+  </div>
+  <a class="rtf-home" href="index.html">← 高考工具箱 · 全部工具</a>
+</div>
+</body>
+</html>

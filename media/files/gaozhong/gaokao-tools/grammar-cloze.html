@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>高考英语语法填空专练 · 20套真题风格</title>
+<style>
+:root{
+  --brand:#574AE2;--brand-deep:#3f34c0;--brand-soft:#ECEAFB;--brand-line:#CFC9F4;
+  --bg:#EEF1F6;--card:#FFF;--ink:#1E2330;--ink-soft:#556;--faint:#8A93A6;
+  --line:#E6E9F0;--ok:#1E9E6A;--ok-soft:#E6F6EE;--err:#D6455D;--err-soft:#FCEBEE;
+  --warn:#E8930A;--warn-soft:#FFF3E0;
+  --shadow:0 2px 10px rgba(30,35,48,.08);
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.hd{background:var(--brand);color:#fff;padding:14px 15px 12px}
+.hd h1{font-size:1.1rem;font-weight:700}
+.hd p{font-size:.74rem;opacity:.75;margin-top:2px}
+.wrap{max-width:720px;margin:0 auto;padding:14px 15px 80px}
+
+/* Passage selector */
+.ps-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-bottom:16px}
+@media(max-width:400px){.ps-grid{grid-template-columns:repeat(4,1fr)}}
+.ps-btn{padding:8px 4px;border:1.5px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink-soft);font-family:var(--sans);font-size:.8rem;font-weight:600;cursor:pointer;text-align:center;transition:all .15s}
+.ps-btn:hover{border-color:var(--brand);color:var(--brand-deep)}
+.ps-btn.active{background:var(--brand);color:#fff;border-color:var(--brand)}
+.ps-btn.done{border-color:var(--ok);color:var(--ok)}
+.ps-btn.done.active{background:var(--ok);color:#fff}
+.ps-num{display:block;font-size:1rem;font-weight:800}
+.ps-sc{display:block;font-size:.65rem;margin-top:1px}
+
+/* Passage */
+.passage-meta{display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.p-title{font-size:1rem;font-weight:700}
+.p-tag{font-size:.72rem;background:var(--brand-soft);color:var(--brand-deep);border-radius:5px;padding:2px 8px;font-weight:600}
+.p-score{font-size:.78rem;color:var(--faint);margin-left:auto}
+
+.passage-text{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 16px;line-height:2.1;font-size:.95rem;color:var(--ink);box-shadow:var(--shadow)}
+.blank-wrap{display:inline-flex;align-items:center;gap:3px;vertical-align:middle;margin:0 2px}
+.blank-num{font-size:.68rem;color:var(--brand-deep);font-weight:700;vertical-align:super;line-height:1}
+.blank-input{
+  border:none;border-bottom:2px solid var(--brand-line);background:transparent;
+  font-family:var(--sans);font-size:.93rem;color:var(--ink);padding:0 4px;
+  min-width:70px;max-width:120px;width:auto;text-align:center;outline:none;
+  transition:border-color .15s
+}
+.blank-input:focus{border-color:var(--brand)}
+.blank-input.correct{border-color:var(--ok);background:var(--ok-soft);border-radius:4px}
+.blank-input.wrong{border-color:var(--err);background:var(--err-soft);border-radius:4px}
+.hint-word{font-size:.72rem;color:var(--faint);font-style:italic}
+
+/* Actions */
+.actions{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+.btn{padding:10px 20px;border-radius:10px;border:1.5px solid var(--brand);background:none;color:var(--brand-deep);font-family:var(--sans);font-size:.88rem;font-weight:600;cursor:pointer}
+.btn.pri{background:var(--brand);color:#fff}
+.btn:hover{opacity:.85}
+
+/* Results */
+.result-bar{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px 16px;margin-top:14px;box-shadow:var(--shadow);flex-wrap:wrap}
+.r-score{font-size:1.4rem;font-weight:800;color:var(--brand-deep)}
+.r-label{font-size:.8rem;color:var(--faint)}
+.r-chips{display:flex;gap:6px;margin-left:auto;flex-wrap:wrap}
+.rchip{font-size:.75rem;padding:3px 10px;border-radius:999px;font-weight:600}
+.rchip.ok{background:var(--ok-soft);color:var(--ok)}
+.rchip.err{background:var(--err-soft);color:var(--err)}
+
+/* Explanation cards */
+.exps{margin-top:14px;display:flex;flex-direction:column;gap:8px}
+.exp-card{border-radius:11px;padding:11px 13px;border:1px solid}
+.exp-card.ok{background:var(--ok-soft);border-color:#a8dfc7}
+.exp-card.err{background:var(--err-soft);border-color:#f0b8c0}
+.exp-head{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.exp-n{font-size:.72rem;font-weight:800;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.exp-card.ok .exp-n{background:var(--ok);color:#fff}
+.exp-card.err .exp-n{background:var(--err);color:#fff}
+.exp-ans{font-size:.88rem;font-weight:700}
+.exp-your{font-size:.78rem;color:var(--err)}
+.exp-rule{font-size:.82rem;color:var(--ink-soft);margin-top:3px;line-height:1.5}
+
+/* Nav buttons */
+.passage-nav{display:flex;gap:8px;margin-top:16px;justify-content:space-between}
+.passage-nav button{padding:9px 18px;border:1.5px solid var(--brand-line);border-radius:10px;background:var(--card);color:var(--brand-deep);font-family:var(--sans);font-size:.85rem;cursor:pointer;font-weight:600}
+.passage-nav button:hover{border-color:var(--brand)}
+.passage-nav button:disabled{opacity:.35;cursor:default}
+
+/* Total progress */
+.total-bar{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin-bottom:14px;box-shadow:var(--shadow)}
+.total-bar .tl{display:flex;justify-content:space-between;font-size:.78rem;color:var(--faint);margin-bottom:6px}
+.pbar{height:7px;background:var(--line);border-radius:4px;overflow:hidden}
+.pfill{height:100%;background:var(--brand);border-radius:4px;transition:width .4s}
+</style>
+</head>
+<body>
+<div class="hd">
+  <h1>📝 高考英语语法填空专练</h1>
+  <p>20套真题风格 · 每套10空 · 自动判分+语法解析</p>
+</div>
+
+<div class="wrap">
+  <div id="total-area"></div>
+  <div class="ps-grid" id="ps-grid"></div>
+  <div id="passage-area"></div>
+</div>
+
+<script>
+// ============================================================
+// PASSAGE DATA — 20套，每套10空
+// parts数组：字符串 = 正文，对象 = 空格
+// hint: 给出的词（需变形），ans: 正确答案，rule: 语法解析
+// type: 'form'=词形变化，'free'=自填
+// ============================================================
+const P=[
+{id:1,title:'Sleep and Teenagers',topic:'健康',
+   parts:[
+    'Most teenagers do not get ',{n:1,hint:'',ans:'the',rule:'the sleep they need — 特指他们所需要的睡眠，用定冠词 the'},
+    ' sleep they need. Experts recommend that young people sleep ',{n:2,hint:'',ans:'at',rule:'at least = 至少，固定搭配'},
+    ' least eight hours per night. ',{n:3,hint:'',ans:'However',rule:'上文说应睡8小时，下文说实际不足7小时，转折用 However'},
+    ', studies show that the average teenager gets less than seven hours.\n\nSleep deprivation affects students seriously. Those ',{n:4,hint:'',ans:'who',rule:'定语从句修饰Those，指人，用关系代词 who'},
+    ' do not sleep enough find it hard to concentrate in class. Their ability ',{n:5,hint:'learn',ans:'to learn',rule:'ability to do sth — 不定式作定语，hint: learn → to learn'},
+    ' new information is greatly reduced. In fact, sleeping after ',{n:6,hint:'study',ans:'studying',rule:'after + doing — 介词后接动名词，hint: study → studying'},
+    ' helps the brain store memories more ',{n:7,hint:'effect',ans:'effectively',rule:'修饰动词store，需用副词，hint: effect → effectively'},
+    ' effectively.\n\nAnother problem is that many teenagers stay up late ',{n:8,hint:'look',ans:'looking',rule:'spend/stay up late + doing — 伴随状语，hint: look → looking'},
+    ' at their phones. The blue light from screens can prevent the brain ',{n:9,hint:'',ans:'from',rule:'prevent sb from doing — 固定搭配，用介词 from'},
+    ' ',{n:10,hint:'produce',ans:'producing',rule:'prevent from + doing，hint: produce → producing'},
+    ' melatonin, the chemical that helps us fall asleep.'
+   ]},
+
+  // ── P2 社交媒体 ──,
+{id:2,title:'The Double-Edged Sword of Social Media',topic:'科技',
+   parts:[
+    'Social media has completely ',{n:1,hint:'change',ans:'changed',rule:'has + 过去分词 — 现在完成时，hint: change → changed'},
+    ' the way people communicate. Billions of people now use platforms such ',{n:2,hint:'',ans:'as',rule:'such as = 例如，固定搭配，引出举例'},
+    ' Facebook and WeChat. These tools make it ',{n:3,hint:'easy',ans:'easier',rule:'与 than before 呼应，用比较级，hint: easy → easier'},
+    ' to stay in touch with others than ever before.\n\n',{n:4,hint:'',ans:'However',rule:'转折：上文说优点，下文讲缺点，用 However'},
+    ', social media also has its disadvantages. Many people spend too much time scrolling instead of ',{n:5,hint:'focus',ans:'focusing',rule:'instead of + doing，hint: focus → focusing'},
+    ' on real-life activities. Heavy social media use is linked ',{n:6,hint:'',ans:'to',rule:'be linked to = 与……有关，固定搭配'},
+    ' loneliness and depression.\n\nAnother concern is privacy. Personal information may be ',{n:7,hint:'collect',ans:'collected',rule:'被动语态 may be + 过去分词，hint: collect → collected'},
+    ' by companies without your knowledge. This is why you should think carefully about what you ',{n:8,hint:'post',ans:'post',rule:'you post — 主语you是第二人称，一般现在时动词原形，hint: post → post（无变化）'},
+    ' online.\n\n',{n:9,hint:'Find',ans:'Finding',rule:'动名词作主语，hint: Find → Finding'},
+    ' the right balance is key. Social media can be a wonderful tool as long as it does not take over our ',{n:10,hint:'',ans:'lives',rule:'our lives — 泛指生活，用复数 lives'},
+    '.'
+   ]},
+{id:3,title:'Thomas Edison: A Man of Perseverance',topic:'人物传记',
+   parts:[
+    'Thomas Edison is one of the ',{n:1,hint:'great',ans:'greatest',rule:'one of the + 最高级 + 复数名词，hint: great → greatest'},
+    ' inventors in history. Born in 1847 in Ohio, Edison showed strong curiosity from an early age. ',{n:2,hint:'',ans:'However',rule:'转折：爱好学习，却几乎没有正规教育，用 However'},
+    ', he had very little formal schooling. His mother, ',{n:3,hint:'',ans:'who',rule:'非限制性定语从句，修饰His mother，指人用 who'},
+    ' was a teacher, educated him at home.\n\nEdison\'s most famous invention is the electric light bulb, ',{n:4,hint:'develop',ans:'developed',rule:'过去分词作定语（=which was developed），hint: develop → developed'},
+    ' in 1879. He also contributed greatly to the ',{n:5,hint:'develop',ans:'development',rule:'to是介词，后接名词，hint: develop → development'},
+    ' of the motion picture camera. In total, he held over 1,000 ',{n:6,hint:'patent',ans:'patents',rule:'over 1,000后接复数，hint: patent → patents'},
+    ' in his lifetime.\n\nEdison was famous for his incredible work ethic. He believed success comes not from ',{n:7,hint:'be',ans:'being',rule:'not from + doing，介词后接动名词，hint: be → being'},
+    ' talented, but from working hard. He once said that genius is one percent inspiration and ',{n:8,hint:'nine',ans:'ninety-nine',rule:'他的名言：天才是1%灵感加99%汗水，hint: nine → ninety-nine'},
+    ' percent perspiration.\n\nEdison\'s inventions have had a lasting ',{n:9,hint:'impact',ans:'impact',rule:'have a lasting impact on — 固定搭配，impact前已有a lasting，无需变形'},
+    ' on the world. Today, it is very hard to imagine life without ',{n:10,hint:'',ans:'electricity',rule:'没有电 — 自填 electricity（与发明电灯泡呼应）'},
+    '.'
+   ]},
+
+  // ── P4 中国春节 ──,
+{id:4,title:'The Chinese Spring Festival',topic:'传统文化',
+   parts:[
+    'Chinese New Year, also ',{n:1,hint:'know',ans:'known',rule:'also known as — 固定短语，过去分词，hint: know → known'},
+    ' as the Spring Festival, is the most important holiday in China. It falls on the first day of the Chinese lunar calendar, ',{n:2,hint:'',ans:'which',rule:'非限制性定语从句，修饰calendar（物），用 which'},
+    ' usually falls between January and February.\n\nPreparations begin weeks in ',{n:3,hint:'',ans:'advance',rule:'in advance = 提前，固定短语'},
+    '. Families clean their houses to sweep away bad luck. Windows and doors are ',{n:4,hint:'decorate',ans:'decorated',rule:'被动语态 are + 过去分词，hint: decorate → decorated'},
+    ' with red paper cutouts ',{n:5,hint:'bear',ans:'bearing',rule:'现在分词作定语（修饰paper cutouts），hint: bear → bearing'},
+    ' phrases such as "福" (fortune).\n\nOn New Year\'s Eve, families gather ',{n:6,hint:'share',ans:'to share',rule:'目的状语 to do，gather to do = 聚在一起分享，hint: share → to share'},
+    ' a special dinner. Traditional foods include fish, ',{n:7,hint:'',ans:'which',rule:'非限制性定语从句修饰fish（物），用which'},
+    ' represents abundance, and dumplings.\n\nThe festival lasts for fifteen days and ends ',{n:8,hint:'',ans:'with',rule:'end with = 以……结束，固定搭配'},
+    ' the Lantern Festival. On that night, people carry colorful lanterns and ',{n:9,hint:'enjoy',ans:'enjoy',rule:'并列谓语 carry and enjoy，主语people是复数，enjoy无需变形'},
+    ' fireworks. The Spring Festival is not just a holiday — it is a time for ',{n:10,hint:'',ans:'family',rule:'春节最核心的主题是family reunion，自填 family'},
+    ' reunion.'
+   ]},
+
+  // ── P5 阅读的益处 ──,
+{id:5,title:'The Benefits of Reading',topic:'教育',
+   parts:[
+    'Reading is one of the most ',{n:1,hint:'value',ans:'valuable',rule:'修饰名词habits，需用形容词，hint: value → valuable'},
+    ' habits a person can develop. Unlike watching television, reading requires ',{n:2,hint:'act',ans:'active',rule:'修饰名词engagement，需形容词，hint: act → active'},
+    ' mental engagement. It forces the brain to process information deeply.\n\nResearch shows that people ',{n:3,hint:'',ans:'who',rule:'定语从句修饰people（指人），用关系代词 who'},
+    ' read regularly have better memory and lower stress levels. Reading also improves vocabulary; in fact, students who read for thirty minutes a day know far more words ',{n:4,hint:'',ans:'than',rule:'far more...than...比较结构，用than'},
+    ' those who do not.\n\nBooks also provide a window into worlds beyond our own. By ',{n:5,hint:'read',ans:'reading',rule:'by + doing，介词后接动名词，hint: read → reading'},
+    ' fiction, we can develop empathy by ',{n:6,hint:'see',ans:'seeing',rule:'by + doing，hint: see → seeing'},
+    ' life through different eyes.\n\nDespite the rise of digital media, books remain important. Many experts argue that physical books are ',{n:7,hint:'',ans:'better',rule:'better than e-books — 比较级，自填 better'},
+    ' than e-books for deep reading, as screens can cause eye strain. ',{n:8,hint:'',ans:'Whether',rule:'Whether you prefer...or... — 无论……都……，引导让步状语从句'},
+    ' you prefer fiction or non-fiction, making reading a daily ',{n:9,hint:'',ans:'habit',rule:'a daily habit = 每日习惯，habit是可数名词，前有a，填单数'},
+    ' is one of the best investments you can make ',{n:10,hint:'',ans:'in',rule:'invest in yourself — 固定搭配，make an investment in'},
+    ' yourself.'
+   ]},
+
+  // ── P6 志愿服务 ──,
+{id:6,title:'The Value of Volunteering',topic:'社会',
+   parts:[
+    'Volunteering means giving your time to help others ',{n:1,hint:'',ans:'without',rule:'without receiving payment = 不领报酬，固定搭配'},
+    ' receiving payment. Millions of people volunteer for a wide range of ',{n:2,hint:'cause',ans:'causes',rule:'a wide range of后接复数名词，hint: cause → causes'},
+    '.\n\n',{n:3,hint:'Volunteer',ans:'Volunteering',rule:'动名词作主语，hint: Volunteer → Volunteering'},
+    ' benefits not only the community but also the volunteers themselves. Studies show that people who regularly volunteer report higher levels of ',{n:4,hint:'happy',ans:'happiness',rule:'levels of后接名词，hint: happy → happiness'},
+    ' and life satisfaction ',{n:5,hint:'',ans:'than',rule:'higher...than...比较结构，用than'},
+    ' those who do not.\n\nFor young people, volunteering is a great way to develop skills ',{n:6,hint:'',ans:'such as',rule:'such as = 例如，引出具体技能列举'},
+    ' teamwork and communication. These skills are very ',{n:7,hint:'use',ans:'useful',rule:'修饰skills，需形容词，hint: use → useful'},
+    ' in future careers.\n\nIf you are thinking about ',{n:8,hint:'start',ans:'starting',rule:'think about + doing，hint: start → starting'},
+    ' to volunteer, start small. Choose a cause you feel ',{n:9,hint:'passion',ans:'passionate',rule:'feel passionate about = 对……充满热情，hint: passion → passionate'},
+    ' about. Even a few hours a week can make a ',{n:10,hint:'',ans:'difference',rule:'make a difference = 产生影响/有所不同，固定搭配'},
+    '.'
+   ]},
+
+  // ── P7 网购 ──,
+{id:7,title:'The Rise of Online Shopping',topic:'科技与消费',
+   parts:[
+    'Online shopping has ',{n:1,hint:'transform',ans:'transformed',rule:'has + 过去分词，现在完成时，hint: transform → transformed'},
+    ' the retail industry over the past two decades. Today, people can buy almost anything from the comfort of their own homes.\n\nThe ',{n:2,hint:'convenient',ans:'convenience',rule:'定冠词The后接名词，hint: convenient → convenience'},
+    ' of online shopping is its biggest advantage. Customers can compare prices and have items ',{n:3,hint:'deliver',ans:'delivered',rule:'have sth done = 使役结构（物品被送到），hint: deliver → delivered'},
+    ' directly to their doors.\n\n',{n:4,hint:'',ans:'However',rule:'转折：上文讲优点，下文讲缺点，用 However'},
+    ', online shopping also has drawbacks. It is difficult to judge the ',{n:5,hint:'',ans:'quality',rule:'judge the quality of a product — 判断商品质量，自填 quality'},
+    ' of a product just by looking at pictures. Items may look different ',{n:6,hint:'',ans:'when',rule:'when they arrive — 时间状语从句，自填 when'},
+    ' they arrive. Furthermore, returning ',{n:7,hint:'',ans:'an',rule:'an item — item是可数名词单数，元音开头用 an'},
+    ' item can be time-consuming.\n\nThere is also the issue of overspending. Online stores show targeted advertisements ',{n:8,hint:'design',ans:'designed',rule:'过去分词作定语（=which are designed），hint: design → designed'},
+    ' to tempt shoppers. It is important ',{n:9,hint:'',ans:'for',rule:'It is important for sb to do — 固定句型，用 for'},
+    ' consumers to develop self-control. If in doubt, wait 24 hours before ',{n:10,hint:'make',ans:'making',rule:'before + doing，介词后动名词，hint: make → making'},
+    ' a purchase.'
+   ]},
+
+  // ── P8 音乐与大脑 ──,
+{id:8,title:'Music and the Brain',topic:'科学',
+   parts:[
+    'Music has a powerful effect on the human brain. ',{n:1,hint:'',ans:'When',rule:'When we listen...时间状语从句，引导词 When'},
+    ' we listen to music, our brains release dopamine, a chemical ',{n:2,hint:'associate',ans:'associated',rule:'过去分词作定语（=which is associated with），hint: associate → associated'},
+    ' with pleasure. This is why music can make us feel happy, sad, or ',{n:3,hint:'excite',ans:'excited',rule:'make us feel + 形容词（表感受），hint: excite → excited'},
+    '.\n\nLearning to play an instrument has many benefits. Playing music requires ',{n:4,hint:'',ans:'both',rule:'both...and... — 固定结构，requires both hands and...'},
+    ' hands simultaneously, which stimulates both sides of the brain. This can improve ',{n:5,hint:'',ans:'concentration',rule:'improve concentration = 提高注意力，自填 concentration'},
+    ' and even mathematical ability.\n\nMusic can also help people deal ',{n:6,hint:'',ans:'with',rule:'deal with = 应对/处理，固定搭配'},
+    ' stress and anxiety. Many hospitals now use music therapy to help patients recover from ',{n:7,hint:'ill',ans:'illness',rule:'recover from illness，hint: ill → illness（名词）'},
+    ' more quickly. The soothing effect of calm music has ',{n:8,hint:'prove',ans:'been proved',rule:'现在完成时被动：has been proved，hint: prove → been proved'},
+    ' to lower blood pressure.\n\n',{n:9,hint:'',ans:'However',rule:'转折：上文说益处，下文提出不同看法'},
+    ', not everyone agrees on what type of music is best. Some studies suggest that classical music is particularly ',{n:10,hint:'benefit',ans:'beneficial',rule:'修饰music，需形容词，hint: benefit → beneficial'},
+    ' for concentration.'
+   ]},
+
+  // ── P9 志愿者故事（记叙文） ──,
+{id:9,title:'A Summer to Remember',topic:'记叙文',
+   parts:[
+    'Last summer, Li Ming decided ',{n:1,hint:'join',ans:'to join',rule:'decide to do sth — 不定式，hint: join → to join'},
+    ' a volunteer program at a local hospital. He had always wanted to do something ',{n:2,hint:'meaning',ans:'meaningful',rule:'修饰something，需形容词，hint: meaning → meaningful'},
+    ' during his vacation.\n\nOn his first day, Li Ming felt nervous. He was ',{n:3,hint:'assign',ans:'assigned',rule:'被动语态 was + 过去分词，hint: assign → assigned'},
+    ' to the children\'s ward, ',{n:4,hint:'',ans:'where',rule:'关系副词where修饰地点先行词the children\'s ward'},
+    ' he helped nurses and spent time reading stories to young patients.\n\n',{n:5,hint:'',ans:'Gradually',rule:'随着时间推移他逐渐喜欢上了工作，自填 Gradually（逐渐地）'},
+    ', Li Ming began to enjoy the work. He discovered that a simple smile could make a huge difference to a child ',{n:6,hint:'',ans:'who',rule:'定语从句修饰a child（指人），用 who'},
+    ' was feeling lonely. ',{n:7,hint:'see',ans:'Seeing',rule:'现在分词作主语（动名词形式更自然），hint: see → Seeing'},
+    ' the children\'s faces light up when he arrived gave him a great sense of ',{n:8,hint:'satisfy',ans:'satisfaction',rule:'a sense of后接名词，hint: satisfy → satisfaction'},
+    '.\n\nBy the end of summer, Li Ming had ',{n:9,hint:'spend',ans:'spent',rule:'过去完成时 had + 过去分词，hint: spend → spent'},
+    ' over 200 hours volunteering. The experience taught him that helping others is one of the most ',{n:10,hint:'reward',ans:'rewarding',rule:'最高级修饰things，需形容词，hint: reward → rewarding'},
+    ' things a person can do.'
+   ]},
+
+  // ── P10 太空探索 ──,
+{id:10,title:'Exploring the Final Frontier',topic:'科学与探索',
+   parts:[
+    'Space exploration has ',{n:1,hint:'fascinate',ans:'fascinated',rule:'has + 过去分词，现在完成时，hint: fascinate → fascinated'},
+    ' humans for centuries. In 1957, the Soviet Union launched Sputnik, the world\'s first artificial satellite. This marked the beginning of the Space Age and sparked a fierce competition between the USA and the Soviet Union ',{n:2,hint:'know',ans:'known',rule:'过去分词作定语（=which was known as），hint: know → known'},
+    ' as the Space Race.\n\nIn 1969, astronaut Neil Armstrong became the first person ',{n:3,hint:'walk',ans:'to walk',rule:'the first person to do — 不定式作定语，hint: walk → to walk'},
+    ' on the Moon. His famous words were broadcast to millions of people ',{n:4,hint:'',ans:'around',rule:'around the world = 全世界，固定短语'},
+    ' the world.\n\nToday, space technology continues ',{n:5,hint:'advance',ans:'to advance',rule:'continue to do sth，hint: advance → to advance'},
+    ' rapidly. Private companies have developed reusable rockets, ',{n:6,hint:'',ans:'which',rule:'非限制性定语从句，指代reusable rockets（物），用which'},
+    ' has greatly reduced the cost of reaching space. Scientists are now planning ',{n:7,hint:'send',ans:'to send',rule:'plan to do sth，hint: send → to send'},
+    ' humans to Mars within ',{n:8,hint:'',ans:'the',rule:'within the next few decades — 特指将来那几十年，加定冠词the'},
+    ' next few decades.\n\nMars is extremely harsh. Temperatures can ',{n:9,hint:'',ans:'drop',rule:'can drop — 情态动词后接动词原形，自填 drop'},
+    ' as low as -80°C. ',{n:10,hint:'',ans:'Nevertheless',rule:'转折：环境虽恶劣，但研究者仍乐观，用 Nevertheless（尽管如此）'},
+    ', researchers believe it is possible for humans to live there one day with the right technology.'
+   ]},
+
+  // ── P11 语言学习 ──,
+{id:11,title:'Learning a Foreign Language',topic:'教育',
+   parts:[
+    'Learning a foreign language is one of the most ',{n:1,hint:'reward',ans:'rewarding',rule:'修饰experiences，需形容词，hint: reward → rewarding'},
+    ' experiences a person can have. It opens doors to new cultures, friendships, and career ',{n:2,hint:'opportune',ans:'opportunities',rule:'复数名词，hint: opportune → opportunities'},
+    '.\n\nMany people worry that they are too old ',{n:3,hint:'learn',ans:'to learn',rule:'too...to do — 太……而不能……，hint: learn → to learn'},
+    ' a new language. ',{n:4,hint:'',ans:'However',rule:'上文说担心太老，下文说研究表明成人也能学，转折用 However'},
+    ', research shows that adults can learn languages effectively, although they may use different strategies ',{n:5,hint:'',ans:'from',rule:'different from — 与……不同，固定搭配'},
+    ' children.\n\nThe key to success is consistent practice. It is better to study thirty minutes every day ',{n:6,hint:'',ans:'than',rule:'It is better to do A than to do B，than引出比较'},
+    ' to study for long hours once a week. ',{n:7,hint:'listen',ans:'Listening',rule:'动名词作主语，hint: listen → Listening'},
+    ' to music and watching films in the target language can also help.\n\nTechnology has made language learning more accessible. Apps allow people to practice ',{n:8,hint:'',ans:'anywhere',rule:'anywhere, at any time — 自填 anywhere（任何地方）'},
+    ', at any time. Online calls make it easy to find a native speaker ',{n:9,hint:'',ans:'with whom',rule:'a native speaker with whom to have a conversation，介词+关系代词'},
+    ' to have a conversation.\n\nUltimately, attitude matters most. Those who approach language learning with ',{n:10,hint:'patient',ans:'patience',rule:'with后接名词，hint: patient → patience'},
+    ' and persistence always make the most progress.'
+   ]},
+
+  // ── P12 健康饮食 ──,
+{id:12,title:'Eating for a Healthier Life',topic:'健康',
+   parts:[
+    'A ',{n:1,hint:'health',ans:'healthy',rule:'修饰名词diet，需形容词，hint: health → healthy'},
+    ' diet is essential for both physical and mental wellbeing. Experts recommend eating a variety of foods, ',{n:2,hint:'include',ans:'including',rule:'现在分词作介词（including = such as），hint: include → including'},
+    ' fruits, vegetables, and lean proteins.\n\nOne common mistake is ',{n:3,hint:'skip',ans:'skipping',rule:'is + doing（动名词作表语），hint: skip → skipping'},
+    ' breakfast. People who eat breakfast regularly tend to perform better at school and are ',{n:4,hint:'like',ans:'less likely',rule:'are less likely to = 较不可能……，hint: like → less likely'},
+    ' to overeat later in the day.\n\nAnother issue is the excessive ',{n:5,hint:'consume',ans:'consumption',rule:'the + 名词，hint: consume → consumption'},
+    ' of sugar. Soft drinks and processed foods are high in sugar, which can lead ',{n:6,hint:'',ans:'to',rule:'lead to = 导致，固定搭配'},
+    ' weight gain and other health problems.\n\nThe good news is that healthy eating habits can be developed ',{n:7,hint:'',ans:'at',rule:'at any age = 在任何年龄，固定搭配'},
+    ' any age. Small changes, such ',{n:8,hint:'',ans:'as',rule:'such as = 例如，引出举例'},
+    ' swapping white bread for wholegrain, can make a big difference. ',{n:9,hint:'pay',ans:'Paying',rule:'动名词作主语（By paying = 通过关注），hint: pay → Paying'},
+    ' attention to what you eat can significantly improve your overall quality of ',{n:10,hint:'',ans:'life',rule:'quality of life = 生活质量，固定搭配'},
+    '.'
+   ]},
+
+  // ── P13 气候变化 ──,
+{id:13,title:'The Challenge of Climate Change',topic:'环境',
+   parts:[
+    'Climate change is one of the greatest ',{n:1,hint:'challenge',ans:'challenges',rule:'one of the greatest + 复数名词，hint: challenge → challenges'},
+    ' facing humanity today. ',{n:2,hint:'cause',ans:'Caused',rule:'过去分词短语作原因状语（=Because it is caused by...），hint: cause → Caused'},
+    ' primarily by the burning of fossil fuels, it is leading to rising temperatures and more extreme weather events.\n\nScientists have ',{n:3,hint:'warn',ans:'warned',rule:'现在完成时 have + 过去分词，hint: warn → warned'},
+    ' for decades that greenhouse gases are trapping heat ',{n:4,hint:'',ans:'in',rule:'trap heat in the atmosphere — 困住热量在大气层内，介词 in'},
+    ' the Earth\'s atmosphere. As a result, global temperatures have risen by about 1.1°C ',{n:5,hint:'',ans:'since',rule:'since the pre-industrial era — 自从……时期，用 since'},
+    ' the pre-industrial era.\n\nThe effects are already being ',{n:6,hint:'feel',ans:'felt',rule:'现在进行时被动 being + 过去分词，hint: feel → felt'},
+    ' around the world. Coastal cities face flooding, while coral reefs, ',{n:7,hint:'',ans:'which',rule:'非限制性定语从句修饰coral reefs（物），用 which'},
+    ' are home to thousands of species, are dying due to warming oceans.\n\n',{n:8,hint:'',ans:'Nevertheless',rule:'转折：形势虽严峻，但仍有希望，用 Nevertheless'},
+    ', there is still time to act. By ',{n:9,hint:'switch',ans:'switching',rule:'by + doing，hint: switch → switching'},
+    ' to renewable energy and ',{n:10,hint:'protect',ans:'protecting',rule:'and后并列动名词，hint: protect → protecting'},
+    ' forests, we can slow down climate change.'
+   ]},
+
+  // ── P14 人工智能 ──,
+{id:14,title:'Artificial Intelligence: Friend or Foe?',topic:'科技',
+   parts:[
+    'Artificial intelligence, also known as AI, has ',{n:1,hint:'become',ans:'become',rule:'has become — 现在完成时，become的过去分词仍是become，hint: become → become（不变）'},
+    ' one of the most talked-about topics in recent years. AI systems are now able to recognize speech, ',{n:2,hint:'translate',ans:'translate',rule:'be able to + 动词原形，与recognize并列，hint: translate → translate（不变）'},
+    ' languages, and even compose music.\n\nThe potential benefits are ',{n:3,hint:'number',ans:'numerous',rule:'形容词作表语，hint: number → numerous'},
+    '. In medicine, AI can analyze medical images more ',{n:4,hint:'accurate',ans:'accurately',rule:'修饰动词analyze，需副词，hint: accurate → accurately'},
+    ' than human doctors. This helps ',{n:5,hint:'detect',ans:'detect',rule:'help sb do，动词原形，hint: detect → detect（不变）'},
+    ' diseases at an earlier stage.\n\n',{n:6,hint:'',ans:'However',rule:'上文说优点，下文讲担忧，转折用 However'},
+    ', AI also raises important ethical questions. Many workers fear that their jobs may be ',{n:7,hint:'replace',ans:'replaced',rule:'被动语态 be + 过去分词，hint: replace → replaced'},
+    ' by intelligent machines.\n\nExperts argue that AI is more likely to change the ',{n:8,hint:'nature',ans:'nature',rule:'the nature of work = 工作的本质，nature不需变形，固定搭配'},
+    ' of work rather than eliminate jobs entirely. New types of jobs will be ',{n:9,hint:'create',ans:'created',rule:'被动语态 will be + 过去分词，hint: create → created'},
+    ' that we cannot yet imagine. The key is to ',{n:10,hint:'',ans:'ensure',rule:'The key is to ensure that... — 不定式作表语，自填 ensure（确保）'},
+    ' that workers have the training they need to adapt.'
+   ]},
+
+  // ── P15 茶的历史 ──,
+{id:15,title:'The History of Tea',topic:'文化历史',
+   parts:[
+    'Tea is the most ',{n:1,hint:'wide',ans:'widely',rule:'修饰动词consumed，需副词，hint: wide → widely'},
+    ' consumed drink in the world after water. Its history stretches back nearly 5,000 years to ancient China, ',{n:2,hint:'',ans:'where',rule:'关系副词where修饰地点先行词ancient China'},
+    ' it is said to have been discovered by Emperor Shen Nong.\n\nAccording to legend, in 2737 BC, some tea leaves ',{n:3,hint:'',ans:'accidentally',rule:'fell accidentally into his boiling water — 意外地落入，自填 accidentally'},
+    ' fell into the emperor\'s boiling water. After ',{n:4,hint:'drink',ans:'drinking',rule:'after + doing，hint: drink → drinking'},
+    ' the resulting liquid, he found it both ',{n:5,hint:'',ans:'refreshing',rule:'both refreshing and medicinal — 既提神又有药效，自填 refreshing（提神的）'},
+    ' and medicinal.\n\nTea ',{n:6,hint:'introduce',ans:'was introduced',rule:'被动语态，一般过去时，hint: introduce → was introduced'},
+    ' to Japan in the 9th century by Buddhist monks. By the 16th century, it had ',{n:7,hint:'reach',ans:'reached',rule:'过去完成时 had + 过去分词，hint: reach → reached'},
+    ' Europe. The British developed a strong love for tea, and at one point it was ',{n:8,hint:'tax',ans:'taxed',rule:'被动语态 was + 过去分词，hint: tax → taxed'},
+    ' so heavily that smuggling became widespread.\n\nToday, China, India, and Kenya are the world\'s largest tea ',{n:9,hint:'produce',ans:'producers',rule:'名词复数，hint: produce → producers'},
+    '. ',{n:10,hint:'',ans:'Despite',rule:'Despite its ancient origins... — 尽管……，介词Despite引出让步'},
+    ' its ancient origins, tea remains one of the world\'s most beloved beverages.'
+   ]},
+
+  // ── P16 善意的力量（记叙文） ──,
+{id:16,title:'A Small Act of Kindness',topic:'记叙文',
+   parts:[
+    'One cold winter morning, Wang Fang was rushing to catch the bus to school. She noticed an elderly man ',{n:1,hint:'struggle',ans:'struggling',rule:'notice sb doing — 感官动词后接现在分词（表进行状态），hint: struggle → struggling'},
+    ' to carry a heavy bag of groceries.\n\nAlthough she was ',{n:2,hint:'',ans:'afraid',rule:'although she was afraid of being late — 担心迟到，自填 afraid（of）'},
+    ' of being late, Wang Fang stopped to help him. She helped him carry the bags all the way ',{n:3,hint:'',ans:'to',rule:'all the way to his home — 一路到他家，介词 to'},
+    ' his home, which was several streets away.\n\nThe old man was deeply ',{n:4,hint:'move',ans:'moved',rule:'被动含义，feel + 过去分词，hint: move → moved'},
+    ' by her kindness. He told her that very few young people ',{n:5,hint:'',ans:'nowadays',rule:'很少有年轻人nowadays这样做 — 如今，自填 nowadays'},
+    ' would stop to help a stranger. Wang Fang felt a warm glow of happiness as she walked away.\n\nShe arrived at school ten minutes late. ',{n:6,hint:'',ans:'To her surprise',rule:'出乎意料的是... — 固定短语 To her surprise'},
+    ', her teacher had heard what had happened and praised her in front of the class. The whole class ',{n:7,hint:'',ans:'applauded',rule:'全班鼓掌 — 自填 applauded（applaud的过去时）'},
+    '.\n\nThat day, Wang Fang realized that ',{n:8,hint:'',ans:'helping',rule:'realized that helping others... 动名词作主语'},
+    ' others, even at some cost to yourself, brings rewards that far outweigh the sacrifice. She made a ',{n:9,hint:'',ans:'decision',rule:'made a decision to... — 下定决心，固定搭配'},
+    ' to look for opportunities to help others every day. Her act of kindness also ',{n:10,hint:'inspire',ans:'inspired',rule:'一般过去时，hint: inspire → inspired'},
+    ' many of her classmates to do the same.'
+   ]},
+
+  // ── P17 城市绿地 ──,
+{id:17,title:'The Importance of Urban Green Spaces',topic:'城市规划',
+   parts:[
+    'As cities grow larger and more crowded, the importance of green spaces such as parks and gardens is ',{n:1,hint:'increase',ans:'increasingly',rule:'修饰形容词recognized，需副词，hint: increase → increasingly'},
+    ' recognized. These natural areas provide essential benefits for city ',{n:2,hint:'dwell',ans:'dwellers',rule:'city dwellers = 城市居民，hint: dwell → dwellers'},
+    '.\n\nFirst, green spaces improve mental health. Studies show that spending time in nature reduces stress and helps people feel more ',{n:3,hint:'',ans:'relaxed',rule:'feel more relaxed — 感觉更放松，自填 relaxed（形容词）'},
+    '. Even a short walk in a park can significantly lift a person\'s mood.\n\nSecond, urban parks help reduce ',{n:4,hint:'pollute',ans:'pollution',rule:'reduce pollution，hint: pollute → pollution（名词）'},
+    '. Trees and plants absorb carbon dioxide and release oxygen, ',{n:5,hint:'',ans:'which',rule:'非限制性定语从句，指代上文整个情况（树木吸收CO2），用 which'},
+    ' helps clean the air. They also reduce the "heat island" effect that makes cities ',{n:6,hint:'',ans:'much',rule:'makes cities much hotter — 比较级强调用 much'},
+    ' hotter than surrounding rural areas.\n\nThird, parks provide space for ',{n:7,hint:'',ans:'physical',rule:'space for physical activity — 体育活动，自填 physical'},
+    ' activity. Regular outdoor exercise is one of the most ',{n:8,hint:'effect',ans:'effective',rule:'the most + 形容词，hint: effect → effective'},
+    ' ways to maintain good health.\n\nDespite these benefits, green spaces are often the first things ',{n:9,hint:'',ans:'to be cut',rule:'the first things to be cut — 不定式被动作定语，自填 to be cut（被削减）'},
+    ' when city budgets are tight. ',{n:10,hint:'',ans:'Fortunately',rule:'转折/递进：然而幸运的是，越来越多的城市意识到这个问题，自填 Fortunately'},
+    ', more and more city governments are recognizing that investing in green spaces is investing in people\'s wellbeing.'
+   ]},
+
+  // ── P18 快时尚 ──,
+{id:18,title:'The Dark Side of Fast Fashion',topic:'环境与消费',
+   parts:[
+    'Fast fashion refers to the rapid production of cheap, trendy clothing ',{n:1,hint:'design',ans:'designed',rule:'过去分词作定语（=which is designed to），hint: design → designed'},
+    ' to be worn only a few times and then thrown away. The industry has grown ',{n:2,hint:'drama',ans:'dramatically',rule:'修饰动词has grown，需副词，hint: drama → dramatically'},
+    ' over the past twenty years, with new styles appearing in stores every few weeks.\n\nThe environmental cost is enormous. ',{n:3,hint:'produce',ans:'Producing',rule:'动名词作主语，hint: produce → Producing'},
+    ' a single cotton T-shirt requires around 2,700 liters of water. In addition, synthetic fabrics ',{n:4,hint:'',ans:'such as',rule:'such as polyester = 例如涤纶，引出举例'},
+    ' polyester release tiny plastic particles when ',{n:5,hint:'wash',ans:'washed',rule:'when washed = 当被清洗时，被动省略形式，hint: wash → washed'},
+    ', polluting rivers and oceans.\n\nThe human cost is also significant. Many garments are made by workers in developing countries who are paid very ',{n:6,hint:'',ans:'low',rule:'paid very low wages — 工资极低，自填 low（低的）'},
+    ' wages and work in unsafe conditions.\n\n',{n:7,hint:'',ans:'What',rule:'What can consumers do? — 名词性从句/疑问句，自填 What'},
+    ' can consumers do? Buying ',{n:8,hint:'',ans:'fewer',rule:'buying fewer clothes — 比较级，few的比较级 fewer，少买衣服'},
+    ' but better quality clothes is a good start. ',{n:9,hint:'',ans:'Choosing',rule:'动名词作主语，Choosing second-hand clothing — 选购二手衣物'},
+    ' second-hand clothing is another option. If the fashion industry is to become truly ',{n:10,hint:'sustain',ans:'sustainable',rule:'形容词，hint: sustain → sustainable'},
+    ', both businesses and consumers must change their habits.'
+   ]},
+
+  // ── P19 动物智慧（海豚） ──,
+{id:19,title:'The Intelligence of Dolphins',topic:'科学与自然',
+   parts:[
+    'Dolphins are considered to be one of the most ',{n:1,hint:'intelligence',ans:'intelligent',rule:'修饰名词animals，需形容词，hint: intelligence → intelligent'},
+    ' animals on Earth. They live in social groups called pods and communicate with each other through a complex system of ',{n:2,hint:'',ans:'clicks',rule:'clicks and whistles = 点击声和哨声，海豚的交流方式，自填 clicks'},
+    ' and whistles.\n\nScientists have discovered that dolphins can recognize themselves in mirrors, an ability ',{n:3,hint:'',ans:'that',rule:'an ability that only a few animals possess — 定语从句，先行词ability用 that'},
+    ' only a few animals possess. This suggests a high level of self-',{n:4,hint:'aware',ans:'awareness',rule:'self-awareness = 自我意识，hint: aware → awareness'},
+    '.\n\nDolphins also display remarkable problem-',{n:5,hint:'solve',ans:'solving',rule:'problem-solving = 解决问题的（复合形容词），hint: solve → solving'},
+    ' abilities. In experiments, they have been shown ',{n:6,hint:'',ans:'to',rule:'have been shown to + 动词原形，固定结构：be shown to do'},
+    ' use tools such as sea sponges to protect their noses while searching the seafloor for food.\n\nPerhaps most impressively, dolphins appear to have names. Each dolphin ',{n:7,hint:'develop',ans:'develops',rule:'一般现在时，三单+s，hint: develop → develops'},
+    ' a unique whistle that acts as a personal identifier. Other dolphins can use this whistle ',{n:8,hint:'',ans:'to',rule:'use this to call = 用来呼叫，不定式表目的，to'},
+    ' call a specific individual by name.\n\nGiven their intelligence, many people argue that dolphins ',{n:9,hint:'',ans:'should',rule:'many argue that dolphins should not be... — 情态动词表观点，自填 should'},
+    ' not be kept in captivity. ',{n:10,hint:'',ans:'Instead',rule:'Instead, they should be protected... — 转折副词，自填 Instead（相反，应该……）'},
+    ', they should be protected in their natural ocean environment.'
+   ]},
+
+  // ── P20 习惯的力量 ──,
+{id:20,title:'The Power of Habit',topic:'心理学',
+   parts:[
+    'Scientists who study human behavior have found that about 40 percent of our daily actions are not conscious decisions, but ',{n:1,hint:'',ans:'habits',rule:'not decisions but habits — 习惯，与decisions对应，自填 habits'},
+    '. A habit is a behavior that has been repeated so many times that it becomes ',{n:2,hint:'automatic',ans:'automatic',rule:'becomes automatic = 变成自动行为，形容词作表语，无需变形'},
+    ', requiring little or no conscious thought.\n\nHabits are formed through a process called the "habit loop." This loop has three parts: a cue, a routine, and a reward. The cue ',{n:3,hint:'trigger',ans:'triggers',rule:'一般现在时，主语The cue是单数，hint: trigger → triggers'},
+    ' the behavior, the routine is the behavior itself, and the reward is the positive feeling that ',{n:4,hint:'follow',ans:'follows',rule:'一般现在时三单，hint: follow → follows'},
+    ' it.\n\nUnderstanding this loop is the key to ',{n:5,hint:'change',ans:'changing',rule:'the key to + doing，介词to后接动名词，hint: change → changing'},
+    ' bad habits. If you want to stop eating junk food, for example, you can try to identify ',{n:6,hint:'',ans:'what',rule:'identify what triggers your cravings — 宾语从句引导词 what'},
+    ' triggers your cravings and replace the routine with a healthier one.\n\nGood habits, once ',{n:7,hint:'form',ans:'formed',rule:'once formed = 一旦养成，过去分词作时间状语（被动），hint: form → formed'},
+    ', can be incredibly powerful. Research shows that people who exercise regularly do not just build ',{n:8,hint:'physical',ans:'physical',rule:'physical fitness = 体能，形容词，无需变形'},
+    ' fitness; they also develop mental strength and ',{n:9,hint:'',ans:'discipline',rule:'mental strength and discipline = 意志力和自律，自填 discipline'},
+    '.\n\nThe good news is that it is never too late to build better habits. Start small, be consistent, and in time, good choices will become second ',{n:10,hint:'',ans:'nature',rule:'become second nature = 成为第二天性（习惯成自然），固定搭配'},
+    '.'
+   ]},
+{id:21,title:'Cuyahoga River Revival (2014全国Ⅰ)',topic:'环境保护',year:'2014',vol:'全国Ⅰ',
+   parts:[
+    'Are you facing a situation that looks impossible to fix? In 1969,the pollution was terrible along the Cuyahoga River Cleveland, Ohio. It',
+    {n:61,hint:'be',ans:'was',rule:'',type:'form'},
+    'unimaginable that it could ever be cleaned up. The river was so polluted that it',
+    {n:62,hint:'actual',ans:'actually',rule:'',type:'form'},
+    'caught fire and burned. Now, ears later, this river is one of most outstanding examples of environmental cleanup. But the river wasn\'t changed in a few days',
+    {n:64,hint:'',ans:'or',rule:'',type:'free'},
+    'even a few months. It took years of work',
+    {n:65,hint:'reduce',ans:'to reduce',rule:'',type:'form'},
+    'the industrial pollution and clean the water. Finally, that hard work paid off and now the water in the river is',
+    {n:66,hint:'clean',ans:'cleaner',rule:'',type:'form'},
+    'than ever. Maybe you are facing an impossible situation. Maybe you leave a habit',
+    {n:67,hint:'',ans:'That/which',rule:'',type:'free'},
+    'is driving your family crazy. Possibly you drink too much or don\'t know how to control your credit card use. When you face such an impossible situation ,don\'t you want a quick fix and something to change immediately? While there are',
+    {n:68,hint:'amaze',ans:'amazing',rule:'',type:'form'},
+    'stories of instant transformation, for most of us the',
+    {n:69,hint:'change',ans:'changes',rule:'',type:'form'},
+    'are gradual and require a lot of effort and work, like cleaning up a polluted river. Just be 70 (patience) 假段定英语课上老师要求同桌之间交换修改作文，请你修改你同桌写的以下作文。文中共有 10处语言错误，每句中最多有两处。错误仅涉及一个单词的增加、删除或修改。增加：在缺词处 加一个漏字符号()，并在其下面写出该加的词。删除：把多余的词用(＼)划掉。 修改：在错的词下画一横线，并在该词下'
+   ]},
+{id:22,title:'Pueblo Adobe Houses (2015全国Ⅱ)',topic:'建筑文化',year:'2015',vol:'全国Ⅱ',
+   parts:[
+    'The adobe dwellings(土坯房）',
+    {n:61,hint:'build',ans:'built',rule:'过去分词做定语',type:'form'},
+    'by the Pueblo Indiansof the American Southwest are admired by even',
+    {n:62,hint:'',ans:'the',rule:'最高级前加the',type:'free'},
+    'most modern of architects and engineers. In addition to their simple beauty, what makes the adobe dwellings admirable is their',
+    {n:63,hint:'able',ans:'ability',rule:'their后接名词，able名词形式ability.',type:'form'},
+    'to "air condition"a house wathout',
+    {n:64,hint:'use',ans:'using',rule:'介词后接动名词',type:'form'},
+    'exectic equipment.Walls made of adobe take in the heat from the sun on hot days and give out that hert',
+    {n:65,hint:'slow',ans:'slowly',rule:'副词修饰动词give out.',type:'form'},
+    'during cool nights，thus warning the house. When a new day breaks, the walls have given up their heat and arenow cold enough',
+    {n:66,hint:'',ans:'to cool',rule:'形容词加enough后接不定式。',type:'free'},
+    '_ (cool) the house during the hot day:',
+    {n:67,hint:'',ans:'at',rule:'at the same time',type:'free'},
+    'the same time, theywarm up again for the night This cycle',
+    {n:68,hint:'',ans:'goes',rule:'根据上下文，此处用一般现在时态。',type:'free'},
+    '__ (go) day after day: The walls warm upDuring the day and cool off during the night and thus always a timely offset（抵消）for theoutside temperatures. As',
+    {n:69,hint:'nature',ans:'natural',rule:'形容词做定语修饰名词。',type:'form'},
+    'architects, the Pueblo Indians figured out exactly',
+    {n:70,hint:'',ans:'how',rule:'根据句意，应用how连接宾语从句。',type:'free'},
+    'thick the adobe walls needed to be to make the cycle work on most days.'
+   ]},
+{id:23,title:'Chengdu Panda Lovers (2016全国Ⅰ)',topic:'城市发展',year:'2016',vol:'全国Ⅰ',
+   parts:[
+    'Chengdu has dozens of new millionaires, Asia\'s biggest building, and fancy new hotels. But for tourists like me, pandas are its top',
+    {n:61,hint:'attract',ans:'attraction',rule:'',type:'form'},
+    '. So it was a great honour to be invited backstage at the not-for-profit Panda Base, where ticket money helps pay for research, I',
+    {n:62,hint:'arrow',ans:'was allowed',rule:'',type:'form'},
+    'to get up close to these cute animals at the 600-acre centre. From tomorrow, I will be their UK ambassador. The title will be',
+    {n:63,hint:'official',ans:'officially',rule:'',type:'form'},
+    'given to me at a ceremony in London.But my connection with pandas goes back',
+    {n:64,hint:'',ans:'to',rule:'',type:'free'},
+    'my days on a TV show in the mid-1980s,',
+    {n:65,hint:'',ans:'when',rule:'',type:'free'},
+    'I was the first Western TV reporter',
+    {n:66,hint:'permit',ans:'permitted',rule:'',type:'form'},
+    'to film a special unit caring for pandas rescued from starvation in the wild. My ambassadorial duties will include',
+    {n:67,hint:'introduce',ans:'introducing',rule:'',type:'form'},
+    'British visitors to the 120-plus pandas at Chengdu and others at a research in the misty mountains of Bifengxia. On mu recent visit, I help a lively three-month-old twin that had been rejected by',
+    {n:68,hint:'it',ans:'its',rule:'',type:'form'},
+    'mother. The nursery team switches him every few',
+    {n:69,hint:'day',ans:'days',rule:'',type:'form'},
+    'with his sister so that while one is being bottle-fed,',
+    {n:70,hint:'',ans:'the',rule:'',type:'free'},
+    'other is with mum-she never suspects.'
+   ]},
+{id:24,title:'London Underground (2017全国Ⅱ)',topic:'交通历史',year:'2017',vol:'全国Ⅱ',
+   parts:[
+    'In 1863the first underground passenger railway in the world opened in London. It ran for just under seven kilometers and allowed people to avoid terrible',
+    {n:61,hint:'crowd',ans:'',rule:'',type:'form'},
+    'on the roads above as they travelled to and',
+    {n:62,hint:'',ans:'',rule:'',type:'free'},
+    'work. It took three years to complete and was built using an interesting method. This included digging up the road,',
+    {n:63,hint:'lay',ans:'',rule:'',type:'form'},
+    'the track and then building a strong roof over',
+    {n:64,hint:'',ans:'',rule:'',type:'free'},
+    'top. When all those had been done, the road surface was replaced. Steam engines',
+    {n:65,hint:'use',ans:'',rule:'',type:'form'},
+    'to pull the carriages and it must have been',
+    {n:66,hint:'fair',ans:'',rule:'',type:'form'},
+    'unpleasant for the passengers, with all the smoke and noise. However, the railway quickly proved to be a great success and within six months, more than 25,000 people were using',
+    {n:67,hint:'',ans:'it',rule:'考查代词，这里用it指代前句的railway,故填it',type:'free'},
+    'every day. Later, engineers',
+    {n:68,hint:'manage',ans:'managed',rule:'考查动词，此处表示过去的情况，所以这里也应用一般过去时，故填managed',type:'form'},
+    'to construct railways in a system of deep tunnels (隧道）, which became known to the tube. This development was only possible with the',
+    {n:69,hint:'introduce',ans:'introduction',rule:'考查词性转换，空格前是the,后面应该是名词，故填名词introduction',type:'form'},
+    'of electric-powered engines and lifts. The central London Railway was one of the most',
+    {n:70,hint:'success',ans:'successful',rule:'考查形容词，空格前是most,其后要跟形容词构成最高级，故填successful',type:'form'},
+    'of these new lines, and was opened in 1900. It had white-painted tunnels and bright red carriages, and proved extremely popular with the public.'
+   ]},
+{id:25,title:'Gorilla Encounter (2018全国Ⅲ)',topic:'野生动物',year:'2018',vol:'全国Ⅲ',
+   parts:[
+    'I\'m not sure',
+    {n:61,hint:'',ans:'which',rule:'',type:'free'},
+    'is more frightened, me or the female gorilla(大猩猩）that suddenly appears out of nowhere. I\'m walking on a path in the forest in the Central African Republic. Unexpectedly, I\'m face-to-face with the gorilla, who begins screaming at',
+    {n:62,hint:'',ans:'the',rule:'',type:'free'},
+    'top of her lungs. That makes her baby scream, and then a 400-pound male appears. He screams the',
+    {n:63,hint:'loud',ans:'loudest',rule:'',type:'form'},
+    'of all. The noise shakes the trees as the male beats his chest and charges toward me. I quickly lower myself, ducking my head to avoid',
+    {n:64,hint:'look',ans:'looking',rule:'',type:'form'},
+    'directly into his eyes so he doesn\'t feel',
+    {n:65,hint:'challenge',ans:'challenged',rule:'',type:'form'},
+    '. My name is Mireya Mayor. I\'m a',
+    {n:66,hint:'science',ans:'scientist',rule:'',type:'form'},
+    'who studies animals such as apes and monkeys. I was searching',
+    {n:67,hint:'',ans:'for',rule:'',type:'free'},
+    'these three western lowland gorillas I\'d been observing. No one had seen them for hours, and my colleagues and I were worried. When the gorillas and I frightened each other, I was just glad to find',
+    {n:68,hint:'they',ans:'them',rule:'',type:'form'},
+    'alive. True to a gorilla\'s unaggressive nature, the huge animal',
+    {n:69,hint:'mean',ans:'meant',rule:'',type:'form'},
+    'me no real harm. He was just saying: "I\'m king of this forest, and here is your reminder!" Once his message was delivered, he allowed me',
+    {n:70,hint:'stay',ans:'to stay',rule:'',type:'form'},
+    'and watch.'
+   ]},
+{id:26,title:'Britain Oldest Worker (2019全国Ⅱ)',topic:'人物事迹',year:'2019',vol:'全国Ⅱ',
+   parts:[
+    'A 90-year-old has been awarded"Woman Of The Year"for',
+    {n:61,hint:'be',ans:'being',rule:'考查非谓语动词。根据其前介词for可知，此处用动名词形式作宾语，故填being。',type:'form'},
+    'Britain\'s oldest full-time employee-still working 40 hours a week. Now Irene Astbury works from 9am to 5pm daily at the pet shop in Macclesfield，',
+    {n:62,hint:'',ans:'which',rule:'考查非限制性定语从句。分析句子结构可知，先行词为the pet shop，在非限制性定语从句中作opened一词的宾语，',type:'free'},
+    'she opened with her late husband Les. Her years of hard work have',
+    {n:63,hint:'final',ans:'finally',rule:'考查副词用法。根据空格所处位置可知，此处应用副词形式作状语，修饰谓语动词have been acknowledged，意',type:'form'},
+    'been acknowledged after a customer nominated(提名)her to be Cheshire\'s Woman Of The Year. Picking up her"Lifetime Achievement"award，proud Irene',
+    {n:64,hint:'declare',ans:'declared',rule:'考查谓语动词。根据上下文可知，该句主语为Irene，此处为谓语成分，根据后文had 以及said 可知用一般过去时态，故',type:'form'},
+    'she had no plans',
+    {n:65,hint:'retire',ans:'to retire',rule:'考查不定式作定语。此处用to do sth做后置定语,用来修饰前面的名词plan,表示"…的计划"，故填to retir',type:'form'},
+    'from her 36-year-old business. Irene said，"I don\'t see any reason to give up work. I love coming here and seeing my family and all the friends I',
+    {n:66,hint:'make',ans:'have made',rule:'考查动词时态。根据该定于从句中时间状语"over the years"可知，此处用现在完成时态，句意：我喜欢到这里来看看',type:'form'},
+    'over the years. I work not because I have to,',
+    {n:67,hint:'',ans:'but',rule:'考查并列连词。根据句意逻辑可知，此处为转折关系，句意：我工作不是因为我不得不做，而是因为我想做。此处用but与前文not',type:'free'},
+    'because I want to." Granddaughter Gayle Parks，31-who works alongside her in the family business-said it remained unknown as to who nominated Irene for the award. She said，"We don\'t have any idea who put grandma forward. When we got a call',
+    {n:68,hint:'say',ans:'saying',rule:'考查非谓语动词。根据其后所接的宾语从句可知，此处用现在分词形式saying作后置定语，解释名词call的内容，call与',type:'form'},
+    'she was short-listed，we thought it was',
+    {n:69,hint:'',ans:'a',rule:'考查冠词用法。根据句意"我们还以为这是一个玩笑" 可知，此处joke为泛指，故填a。',type:'free'},
+    'joke. But then we got an official letter and we were blown away. We are so proud of her. It\'s',
+    {n:70,hint:'wonder',ans:'wonderful',rule:'考查形容词作表语。根据句子结构可知，在系动词is之后用形容词形式作表语，故填wonderful。',type:'form'},
+    '."'
+   ]},
+{id:27,title:'Road Trip Discovery (2019全国Ⅲ)',topic:'乡村旅行',year:'2019',vol:'全国Ⅲ',
+   parts:[
+    'On our way to the house，it was raining',
+    {n:61,hint:'',ans:'so',rule:'考查副词。句意：在我们去那座房子的路上，雨下得如此大以至于我们不能不想还要多久才能到达那里。"so…that…"意为"如',type:'free'},
+    'hard that we couldn\'t help wondering how long it would take',
+    {n:62,hint:'get',ans:'to get',rule:'考查不定式。句中的would提示我们作者还没有到达那座房子，wondering后的句子不缺谓语，此处应填非谓语动词，故填',type:'form'},
+    'there. It was in the middle of Pearl City. We were first greeted with the barking by a pack',
+    {n:63,hint:'',ans:'of',rule:'考查介词。"a pack of"意为"一群"。故填of。',type:'free'},
+    'dogs，seven to be exact. They were well trained by their masters',
+    {n:64,hint:'',ans:'who',rule:'考查定语从句。句意：它们被他们的主人训练地很好，它们的主人在照顾这些动物方面很有经验。先行词为masters（主人），且',type:'free'},
+    'had great experience with caring for these animals. Our hosts shared many of their experiences and',
+    {n:65,hint:'recommend',ans:'recommended',rule:'考查一般过去时。句意：我们的主人跟我们分享了很多他们的经历并推荐了一些很好的吃饭、购物和参观的地方。"and"前后两个动',type:'form'},
+    'wonderful places to eat，shop，and visit. For breakfast，we were able to eat papaya(木瓜)and other fruits from their trees in the backyard. When they were free from work，they invited us to local events and let us know of an interesting',
+    {n:66,hint:'compete',ans:'competition',rule:'考查名词。由空格前的不定冠词an与空格后的不定式to watch可以确定空格处应该填名词形式。故填competition',type:'form'},
+    'to watch，together with the story behind it. They also shared with us many',
+    {n:67,hint:'tradition',ans:'traditional',rule:'考查形容词。空格修饰名词stories，应用形容词形式，tradition的形容词为traditional，故填trad',type:'form'},
+    'stories about Hawaii that were',
+    {n:68,hint:'huge',ans:'hugely',rule:'考查副词。空格处单词修饰形容词popular，应用副词形式，huge的副词为hugely，故填hugely。',type:'form'},
+    'popular with tourists. On the last day of our week-long stay，we',
+    {n:69,hint:'invite',ans:'were',rule:'考查一般过去时的被动语态。由"on the last day of our week-long stay"可知，句子时态',type:'form'},
+    'to attend a private concert on a beautiful farm on the North Shore under the stars，',
+    {n:70,hint:'listen',ans:'listening',rule:'考查分词。本句谓语动词为"were invited"，所以70题空格处动词listen应用非谓语动词形式。听音乐这个动作',type:'form'},
+    'to musicians and meeting interesting locals.'
+   ]},
+{id:28,title:'Polar Bear Research (2019新课标Ⅰ)',topic:'科学研究',year:'2019',vol:'新课标Ⅰ',
+   parts:[
+    'The polar bear is found in the Arctic Circle and some big land masses as far south as Newfoundland. While they are rare north of 88°,there is evidence',
+    {n:61,hint:'',ans:'that',rule:'考查同位语从句。根据句子结构分析可知，主句为there be句型，且结构完整，空格后为同位语从句，解释说明中心词evid',type:'free'},
+    'they range all the way across the Arctic, and as far south as James Bay in Canada. It is difficult to figure out a global population of polar bears as much of the range has been',
+    {n:62,hint:'poor',ans:'poorly',rule:'考查副词用法。根据句意和结构分析可知，此处用副词poorly修饰谓语动词has been studied，意为"研究很少',type:'form'},
+    'studied; however, biologists calculate that there are about 20,000-25,000 polar bears worldwide. Modem methods',
+    {n:63,hint:'',ans:'of/for',rule:'考查介词用法。此处tracking polar bear populations作Modern methods的定语，用',type:'free'},
+    'tracking polar bear populations have been employed only since the mid-1980s, and are expensive',
+    {n:64,hint:'perform',ans:'to perform',rule:'考查非谓语动词。主系表结构之后，常用不定式作原因或目的状语，句意：跟踪北极熊的现代方法只是在二十世纪八十年代以来开始采用',type:'form'},
+    'consistently over a large area. In recent years some Inuit people in Nunayut',
+    {n:65,hint:'report',ans:'have report',rule:'考查时态。根据上下文语境，尤其是时间状语in recent years可知，主句用现在完成时态，故填have repor',type:'form'},
+    'increases in bear sightings around human settlements, leading to a',
+    {n:66,hint:'believe',ans:'belief',rule:'考查名词。根据其前不定冠词和其后的同位语从句可知，空格处为名词形式，故填belief。',type:'form'},
+    'that populations are increasing. Scientists have responded by',
+    {n:67,hint:'note',ans:'noting',rule:'考查非谓语动词。根据其前介词by可知，此处用动名词主动形式，故填noting。',type:'form'},
+    'that hungry bears may be congregating(聚集) around human settlements, leading to the illusion(错觉) that populations are',
+    {n:68,hint:'high',ans:'higher',rule:'考查形容词比较级。根据其后than they actually are可知，此处为形容词的比较级，故填higher。',type:'form'},
+    'than they actually are. Of',
+    {n:69,hint:'',ans:'the',rule:'考查定冠词。此处为特指，意为"在已知的19个北极熊亚种群中"，故填the。',type:'free'},
+    'nineteen recognized polar bear subpopulations, three are declining, six',
+    {n:70,hint:'be',ans:'are',rule:'考查主谓一致。根据three are declining，此处数词six作主语，代指前文中的"polar bear su',type:'form'},
+    'stable, one is increasing, and nine lack enough data.'
+   ]},
+{id:29,title:'China Moon Landing (2020新课标Ⅰ)',topic:'航天探索',year:'2020',vol:'新课标Ⅰ',
+   parts:[
+    'China has become the first country to land a spacecraft on the far side of the moon. The unmanned Chang\'e-4 probe (探测器) - the name was inspired by an ancient Chinese moon goddess',
+    {n:61,hint:'touch',ans:'touched',rule:'',type:'form'},
+    'down last week in the South Pole-Aitken basin. Landing on the moon\'s far side is',
+    {n:62,hint:'extreme',ans:'extremely',rule:'考查副词。句意：登录月球的背面是极其有挑战性的。空处修饰形容词challenging，应使用extreme的副词形式，故',type:'form'},
+    'challenging. Because the moon\'s body blocks direct radio communication with a probe, China first had to put a satellite in orbit above the moon in a spot',
+    {n:63,hint:'',ans:'where',rule:'考查定语从句。句意：中国首先必须把一颗人造卫星送入月球轨道上的一个点，人造卫星可以在这个点向航天器和地球发射信号。分析句',type:'free'},
+    'it could send signals to the spacecraft and to Earth. The far side of the moon is of particular',
+    {n:64,hint:'interesting',ans:'interest',rule:'考查名词。句意：月球背面让科学家尤其感兴趣。根据空前的形容词particular可知，空处应填名词，interest是不',type:'form'},
+    'to scientists because it has a lot of deep craters (环形山)， more so',
+    {n:65,hint:'',ans:'than',rule:'考查介词。句意：因为它比熟悉的一面有更多的深环形山。根据空前的比较级more so可知，此处填介词than，表示"比……',type:'free'},
+    'the familiar near side. Chinese researchers hope to use the instruments onboard Chang\'e-4',
+    {n:66,hint:'find',ans:'to find',rule:'考查非谓语动词。句意：中国的研究者希望使用嫦娥四号上的设备来发现和研究南极艾特肯盆地。此处表示目的，应使用不定式作目的状',type:'form'},
+    'and study areas of the South Pole-Aitken basin. ＂This really excites scientists,＂ Carle Pieters, a scientist at Brown University, says, ＂because it',
+    {n:67,hint:'mean',ans:'means',rule:'考查时态和主谓一致。句意："这真的使科学家们激动，"布朗大学的一位科学家Carle Pieters说："因为它意味着我们',type:'form'},
+    'we have the chance to obtain information about how the moon',
+    {n:68,hint:'construct',ans:'is constructed',rule:'考查时态、语态和主谓一致。句意同上。分析句子可知，此处是宾语从句谓语动词，谓语construct与主语the moon之',type:'form'},
+    '＂ Data about the moon\'s composition, such as how',
+    {n:69,hint:'',ans:'much',rule:'考查形容词。句意：关于月亮构成的数据，比如它含有多少水和其他财富，可以帮助中国决定它未来月球基地的计划是否实用。ice是',type:'free'},
+    'ice and other treasures it contains, could help China decide whether',
+    {n:70,hint:'it',ans:'its',rule:'考查代词。句意同上。根据空后的名词plans可知，此处应使用形容词性物主代词its，故填its。',type:'form'},
+    'plans for a future lunar (月球的) base are practical.'
+   ]},
+{id:30,title:'Xi\'an City Wall (2021甲卷)',topic:'历史古迹',year:'2021',vol:'甲卷',
+   parts:[
+    'The Xi\'an City Wall is the most complete city wall that has survived China\'s long history. It',
+    {n:41,hint:'build',ans:'was built',rule:'',type:'form'},
+    'originally to protect the city',
+    {n:42,hint:'',ans:'in',rule:'',type:'free'},
+    'the Tang dynasty and has now been completely restored (修复). It is possible',
+    {n:43,hint:'walk',ans:'to walk',rule:'',type:'form'},
+    'or bike the entire 14 kilometers. We accessed the wall through the South Gate. The wall is 12 meters high and from here you can see streams of people moving inside and outside the City Wall. After',
+    {n:44,hint:'spend',ans:'spending',rule:'',type:'form'},
+    'some time looking at all the defensive equipment at the wall, we decided it was time for some action and what',
+    {n:45,hint:'good',ans:'better',rule:'',type:'form'},
+    'than to ride on a piece of history! We',
+    {n:46,hint:'hire',ans:'hired',rule:'',type:'form'},
+    'our bikes from the rental place at the South Gate. My bike was old and shaky',
+    {n:47,hint:'',ans:'but',rule:'',type:'free'},
+    'did the job. It took us about 3 hours to go all',
+    {n:48,hint:'',ans:'the',rule:'',type:'free'},
+    'way around the Xi\'an City Wall. Supposedly you can do it in two hours, but we stopped at the different gates and',
+    {n:49,hint:'watchtower',ans:'watchtowers',rule:'',type:'form'},
+    'to fake pictures or just to watch the local people going about their',
+    {n:50,hint:'day',ans:'daily',rule:'',type:'form'},
+    'routines.'
+   ]},
+{id:31,title:'Blind Hiker Cao (2022甲卷)',topic:'励志人物',year:'2022',vol:'甲卷',
+   parts:[
+    'A visually-challenged man from Beijing recently hiked (徒步) 40 days to Xi\'an, as a first step',
+    {n:41,hint:'journey',ans:'to journey',rule:'考查非谓语动词。句意：近日，一名来自北京的盲人徒步40天来到西安，作为"一带一路"徒步旅行的第一步。分析句子结合句意可知',type:'form'},
+    'the Belt and Road route (路线) by foot. On the 1,100. Kilometer journey, the man Cao Shengkang,',
+    {n:42,hint:'',ans:'who',rule:'考查定语从句。句意：在1100公里的旅程中，8岁时因一次车祸失明的男子曹盛康穿过了三个省的40个城市和县。分析句子结合句',type:'free'},
+    'lost his eyesight at the age of eight in a car accident, crossed 40 cities and counties in three province. Inspired by the Belt and Road Forum for International Cooperation',
+    {n:43,hint:'bold',ans:'held',rule:'考查非谓语动词。句意：受到在北京举行的"一带一路"国际合作高峰论坛的启发，曹决定徒步穿越这条路线，以向古代丝绸之路致敬。',type:'form'},
+    'in Beijing, Cao decided to cover the route by hiking as a tribute (致敬) to the ancient Silk Road.',
+    {n:44,hint:'',ans:'A',rule:'考查冠词。句意：他的一位朋友吴凡在旅行中自愿成为他的同伴。根据句意可知，此处泛指"他的一个朋友"，应用不定冠词，frie',type:'free'},
+    'friend of his, Wu Fan, volunteered to be his companion during the trip. Cao and Wu also collected garbage along the road, in order to promote environmental',
+    {n:45,hint:'protect',ans:'protection',rule:'考查名词。句意：曹和吴还沿路收集垃圾，以促进环境保护。根据句意和空前的形容词environmental可知，此处应用名词',type:'form'},
+    '. Cao believes this will make the hiking trip even more',
+    {n:46,hint:'meaning',ans:'meaningful',rule:'考查形容词。句意：曹认为这将使这次徒步旅行更加有意义。此处是make复合结构，应用形容词meaningful，作宾语补足',type:'form'},
+    '. The two of them collected more than 1,000 plastic bottles along the 40-day journey. In the last five cars. Cao',
+    {n:47,hint:'walk',ans:'has walked',rule:'考查动词时态。句意：在过去的五年中，曹操穿越了六大洲的34个国家，2016年，他到达了乞力马扎罗山顶，这是非洲最高的山峰',type:'form'},
+    'through 34 countries in six continents, and in 2016, he reached the top of Kilimanjaro, Africa\'s',
+    {n:48,hint:'high',ans:'highest',rule:'考查形容词最高级。句意：在过去的五年中，曹穿越了六大洲的34个国家，2016年，他到达了乞力马扎罗山顶，这是非洲最高的山',type:'form'},
+    'mountain. Now, Cao has started the second part of his dream to walk along the Belt and Road route. He flew 4, 700 kilometers',
+    {n:49,hint:'',ans:'from',rule:'考查介词。句意：9月20日，他从4700公里外的西安飞到了喀什，计划在五个月内徒步回到西安。根据句意和Xi\'an to',type:'free'},
+    'Xi\'an to Kashgar on seat. 20,',
+    {n:50,hint:'plan',ans:'planning',rule:'考查非谓语动词。句意：9月20日，他从4700公里外的西安飞到了喀什，计划在五个月内徒步回到西安。分析句子可知，已有谓语',type:'form'},
+    'to hike back to Xi\'an in five months.'
+   ]},
+
+  // ── P3 爱迪生 ──
+];
+
+// ============================================================
+// APP STATE
+// ============================================================
+const LS='gcloze_scores_v1';
+let cur=0; // current passage index
+
+function loadScores(){try{return JSON.parse(localStorage.getItem(LS))||{}}catch(e){return{}}}
+function saveScore(pid,score){const s=loadScores();s[pid]=score;try{localStorage.setItem(LS,JSON.stringify(s))}catch(e){}}
+
+// ============================================================
+// RENDER
+// ============================================================
+function render(){
+  renderTotal();
+  renderGrid();
+  renderPassage();
+}
+
+function renderTotal(){
+  const scores=loadScores();
+  const done=Object.keys(scores).length;
+  const total=P.length;
+  const pct=done===0?0:Math.round(done/total*100);
+  document.getElementById('total-area').innerHTML=`
+    <div class="total-bar">
+      <div class="tl"><span>总进度：已完成 ${done}/${total} 套</span><span>${pct}%</span></div>
+      <div class="pbar"><div class="pfill" style="width:${pct}%"></div></div>
+    </div>`;
+}
+
+function renderGrid(){
+  const scores=loadScores();
+  document.getElementById('ps-grid').innerHTML=P.map((p,i)=>{
+    const sc=scores[p.id];
+    const isDone=sc!=null;
+    const isActive=i===cur;
+    return `<button class="ps-btn${isActive?' active':''}${isDone&&!isActive?' done':''}" onclick="goTo(${i})">
+      <span class="ps-num">${p.id}</span>
+      <span class="ps-sc">${isDone?sc+'/10':'未做'}</span>
+    </button>`;
+  }).join('');
+}
+
+function renderPassage(){
+  const p=P[cur];
+  const area=document.getElementById('passage-area');
+  const scores=loadScores();
+  const sc=scores[p.id];
+
+  // Build passage HTML
+  let html=`<div class="passage-meta">
+    <span class="p-title">第${p.id}套 · ${p.title}</span>
+    <span class="p-tag">${p.topic}</span>
+    ${sc!=null?`<span class="p-score">上次得分：${sc}/10</span>`:''}
+  </div>
+  <div class="passage-text" id="ptext">`;
+
+  p.parts.forEach(part=>{
+    if(typeof part==='string'){
+      html+=part.replace(/\n/g,'<br>');
+    } else {
+      const hintHtml=part.hint?`<span class="hint-word">(${part.hint})</span>`:'';
+      html+=`<span class="blank-wrap"><sup class="blank-num">${part.n}</sup><input class="blank-input" id="b${part.n}" type="text" placeholder="    " autocomplete="off" autocorrect="off" spellcheck="false">${hintHtml}</span>`;
+    }
+  });
+
+  html+=`</div>
+  <div class="actions">
+    <button class="btn pri" onclick="checkAll()">✓ 核对答案</button>
+    <button class="btn" onclick="clearAll()">↺ 清除重写</button>
+  </div>
+  <div id="result-area"></div>
+  <div class="passage-nav">
+    <button onclick="goTo(${cur-1})" ${cur===0?'disabled':''}>← 上一套</button>
+    <button onclick="goTo(${cur+1})" ${cur===P.length-1?'disabled':''}>下一套 →</button>
+  </div>`;
+
+  area.innerHTML=html;
+
+  // Auto-size inputs
+  document.querySelectorAll('.blank-input').forEach(inp=>{
+    inp.addEventListener('input',()=>{
+      inp.style.width=Math.max(60,inp.value.length*11+16)+'px';
+    });
+    inp.addEventListener('keydown',e=>{
+      if(e.key==='Enter'){
+        const n=parseInt(inp.id.slice(1));
+        const next=document.getElementById('b'+(n+1));
+        if(next)next.focus();
+      }
+    });
+  });
+}
+
+function checkAll(){
+  const p=P[cur];
+  const blanks=p.parts.filter(x=>typeof x==='object');
+  let correct=0;
+  const results=[];
+
+  blanks.forEach(b=>{
+    const inp=document.getElementById('b'+b.n);
+    if(!inp)return;
+    const user=inp.value.trim().toLowerCase();
+    const ans=b.ans.toLowerCase();
+    // Accept multiple acceptable answers (separated by /)
+    const accepted=ans.split('/').map(x=>x.trim());
+    const isOk=accepted.some(a=>user===a||user.replace(/\s+/g,' ')===a.replace(/\s+/g,' '));
+    if(isOk){correct++;inp.classList.add('correct');inp.classList.remove('wrong');}
+    else{inp.classList.add('wrong');inp.classList.remove('correct');}
+    results.push({n:b.n,ok:isOk,ans:b.ans,user:inp.value.trim(),rule:b.rule});
+  });
+
+  saveScore(p.id,correct);
+  renderGrid();
+  renderTotal();
+
+  // Show result bar
+  const pct=Math.round(correct/10*100);
+  const emoji=correct>=9?'🏆':correct>=7?'👍':correct>=5?'📚':'💪';
+  let resHtml=`<div class="result-bar">
+    <div>
+      <div class="r-score">${correct}/10</div>
+      <div class="r-label">正确率 ${pct}% ${emoji}</div>
+    </div>
+    <div class="r-chips">
+      <span class="rchip ok">✅ 正确 ${correct}</span>
+      <span class="rchip err">❌ 错误 ${10-correct}</span>
+    </div>
+  </div>
+  <div class="exps">`;
+
+  results.forEach(r=>{
+    resHtml+=`<div class="exp-card ${r.ok?'ok':'err'}">
+      <div class="exp-head">
+        <div class="exp-n">${r.n}</div>
+        <div>
+          <div class="exp-ans">${r.ok?'✓':'✗'} 答案：${r.ans}</div>
+          ${!r.ok&&r.user?`<div class="exp-your">你的答案：${r.user}</div>`:''}
+        </div>
+      </div>
+      <div class="exp-rule">${r.rule}</div>
+    </div>`;
+  });
+  resHtml+='</div>';
+
+  document.getElementById('result-area').innerHTML=resHtml;
+  document.getElementById('result-area').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function clearAll(){
+  document.querySelectorAll('.blank-input').forEach(inp=>{
+    inp.value='';inp.style.width='';
+    inp.classList.remove('correct','wrong');
+  });
+  document.getElementById('result-area').innerHTML='';
+}
+
+function goTo(i){
+  if(i<0||i>=P.length)return;
+  cur=i;render();
+  document.querySelector('.wrap').scrollIntoView({behavior:'smooth'});
+}
+
+// ============================================================
+// INIT
+// ============================================================
+render();
+</script>
+
+<style>
+.rtf{background:#f8fafc;border-top:2px solid #e2e8f0;padding:20px 16px 28px;margin-top:32px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.rtf-hd{font-size:.72rem;font-weight:700;color:#64748b;letter-spacing:1.5px;text-transform:uppercase;text-align:center;margin-bottom:14px}
+.rtf-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px;max-width:860px;margin:0 auto 14px}
+.rtf-ch{font-size:.68rem;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px}
+.rtf-links{display:flex;flex-direction:column;gap:3px}
+.rtf-links a{font-size:.8rem;color:#2563eb;text-decoration:none;line-height:1.4}
+.rtf-links a:hover{text-decoration:underline}
+.rtf-links a.rtf-cur{color:#cbd5e0;pointer-events:none;cursor:default;font-weight:600}
+.rtf-home{display:block;text-align:center;font-size:.8rem;color:#64748b;text-decoration:none;margin-top:4px}
+.rtf-home:hover{color:#1e40af}
+</style>
+<div class="rtf">
+  <div class="rtf-hd">🔗 高考工具合集 · 快速跳转</div>
+  <div class="rtf-grid">
+<div><div class="rtf-ch">📖 阅读 · 完形真题</div><div class="rtf-links"><a href="english-reading.html">高考阅读理解真题 (441题)</a>
+<a href="english-cloze.html">高考完形填空真题 (1276题)</a>
+<a href="cloze-practice.html">完形填空专练</a>
+<a href="cloze-logic-tracker.html">逻辑链追踪器</a>
+</div></div>
+<div><div class="rtf-ch">🔠 词汇</div><div class="rtf-links"><a href="vocab-match.html">连连看闯关</a>
+<a href="vocab-3500.html">3500词 · 词根版</a>
+<a href="vocab-3500-stories.html">3500词 · 故事版</a>
+<a href="850-english-practice.html">850核心词表达</a>
+</div></div>
+<div><div class="rtf-ch">📐 语法</div><div class="rtf-links"><a href="grammar-master.html">语法神器 · 闯关版</a>
+<a href="grammar-mcq.html">语法填空选择题</a>
+<a class="rtf-cur" href="grammar-cloze.html">语法填空手填版 ✦</a>
+<a href="grammar-breakdown.html">长难句拆解器</a>
+<a href="gaokao-grammar.html">高考语法通</a>
+</div></div>
+<div><div class="rtf-ch">✍️ 写作</div><div class="rtf-links"><a href="gaokao-writing.html">写作神器</a>
+<a href="gaokao-golden.html">金句闪卡 · 50句</a>
+<a href="gaokao-english-templates.html">万能句背诵库</a>
+</div></div>
+<div><div class="rtf-ch">🔢 数学 · 物理</div><div class="rtf-links"><a href="math-formula-cards.html">数学公式闪卡</a>
+<a href="physics-challenge.html">物理公式闯关 60题</a>
+</div></div>
+<div><div class="rtf-ch">🧬 生物</div><div class="rtf-links">
+<a href="shengwu/index.html">生物选择题真题 (380套)</a>
+<a href="shengwu/duiduipeng.html">生物填空对对碰</a>
+<a href="shengwu/zhishi.html">生物考点速查</a>
+</div></div>
+<div><div class="rtf-ch">📚 语文 · 物理 · 化学</div><div class="rtf-links">
+<a href="yuwen/zhishi.html">语文考点速查</a>
+<a href="wuli/zhishi.html">物理考点速查</a>
+<a href="huaxue/zhishi.html">化学考点速查</a>
+</div></div>
+  </div>
+  <a class="rtf-home" href="index.html">← 高考工具箱 · 全部工具</a>
+</div>
+</body>
+</html>

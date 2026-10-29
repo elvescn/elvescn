@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>高中数学公式闪卡 · 11模块239张 | 高考必备</title>
+<meta name="description" content="高考数学必考公式闪卡，239张覆盖三角函数、数列、解析几何、导数、概率统计等11大模块，含考法提示与易错警示，翻卡记忆，手机可用。">
+<meta name="keywords" content="高中数学公式,数学公式闪卡,三角函数公式,数列公式,解析几何,导数公式,概率公式,高考数学">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {"@type":"Question","name":"这些数学公式闪卡是免费的吗？","acceptedAnswer":{"@type":"Answer","text":"全部免费，无需注册，打开即用。"}},
+    {"@type":"Question","name":"涵盖哪些高中数学考点？","acceptedAnswer":{"@type":"Answer","text":"覆盖三角函数、数列、解析几何、导数、概率统计、向量、均值不等式、立体几何、复数、对数、集合11大模块，共239张闪卡，高考核心考点全覆盖。"}},
+    {"@type":"Question","name":"怎么用闪卡记公式最有效？","acceptedAnswer":{"@type":"Answer","text":"先看公式名称尝试回忆，再翻面核对。点再看加入复习队列，点掌握标记完成。主动回忆比反复阅读记忆效果好4倍。"}},
+    {"@type":"Question","name":"手机上能用吗？","acceptedAnswer":{"@type":"Answer","text":"可以，界面已针对手机优化，触摸翻卡流畅，适合课间碎片时间记忆。"}},
+    {"@type":"Question","name":"掌握进度会保存吗？","acceptedAnswer":{"@type":"Answer","text":"会！进度自动保存到本地浏览器，关闭页面后重新打开仍保留。无需登录。"}},
+    {"@type":"Question","name":"高考数学公式需要全部背吗？","acceptedAnswer":{"@type":"Answer","text":"核心公式必须烂熟于心，辅助公式理解推导过程。本工具把必背公式标注⭐，优先掌握。"}}
+  ]
+}
+</script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0f172a;--card:#1e293b;--accent:#7c3aed;--gold:#fbbf24;--wh:#f1f5f9;--green:#22c55e;--red:#ef4444;--muted:#94a3b8;--border:#334155;--kaofa:#0ea5e9;--yicuo:#f97316}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",system-ui,sans-serif;background:var(--bg);color:var(--wh);line-height:1.6;min-height:100vh}
+a{color:var(--gold);text-decoration:none}
+.back-link{display:block;padding:14px 18px;font-size:1rem;font-weight:600;color:var(--gold);border-bottom:1px solid var(--border)}
+.back-link:hover{color:#fde68a}
+.hdr{padding:20px 18px 16px;text-align:center;background:linear-gradient(135deg,#1e1b4b,#312e81)}
+.hdr h1{font-size:1.4rem;font-weight:800;margin-bottom:4px}
+.hdr p{font-size:.85rem;color:var(--muted)}
+.main{max-width:700px;margin:0 auto;padding:14px 14px 60px}
+/* Search */
+.search-wrap{margin-bottom:12px}
+#search-input{width:100%;padding:10px 14px;border-radius:10px;border:1px solid var(--border);background:#1e293b;color:var(--wh);font-size:.9rem;font-family:inherit;outline:none}
+#search-input:focus{border-color:var(--accent)}
+#search-results-list{display:none;margin-top:8px}
+.sr-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 14px;margin-bottom:8px;cursor:pointer}
+.sr-card:hover{border-color:var(--accent)}
+.sr-cat{font-size:.72rem;color:var(--muted);margin-bottom:2px}
+.sr-q{font-size:.9rem;font-weight:600}
+/* Progress */
+.progress-box{background:var(--card);border-radius:12px;padding:14px 16px;margin-bottom:12px;border:1px solid var(--border)}
+.progress-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.progress-label{font-size:.85rem;color:var(--muted)}
+.progress-val{font-size:1rem;font-weight:700;color:var(--gold)}
+.progress-bar-wrap{background:var(--bg);border-radius:6px;height:8px;overflow:hidden}
+.progress-bar-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--gold));border-radius:6px;transition:width .4s}
+/* Categories */
+.cats{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.cat-btn{border:none;border-radius:20px;padding:5px 13px;font-size:.8rem;font-weight:600;cursor:pointer;transition:all .15s;font-family:inherit}
+.cat-btn.active{background:var(--accent);color:#fff}
+.cat-btn:not(.active){background:var(--card);color:var(--muted);border:1px solid var(--border)}
+.cat-btn:hover:not(.active){border-color:var(--accent);color:var(--wh)}
+/* Card */
+.queue-badge{display:inline-block;background:#7c3aed33;border:1px solid var(--accent);color:var(--accent);font-size:.75rem;font-weight:600;border-radius:20px;padding:2px 10px;margin-bottom:12px}
+.card-area{perspective:1000px;margin-bottom:12px;min-height:260px}
+.flip-card{width:100%;min-height:260px;cursor:pointer;transform-style:preserve-3d;transition:transform .45s;position:relative}
+.flip-card.flipped{transform:rotateY(180deg)}
+.face{position:absolute;width:100%;min-height:260px;backface-visibility:hidden;border-radius:16px;padding:22px 20px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;border:1px solid var(--border)}
+.face.front{background:var(--card)}
+.face.back{background:linear-gradient(135deg,#1e1b4b,#1e293b);transform:rotateY(180deg);justify-content:flex-start;padding-top:20px}
+.face-label{font-size:.72rem;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px}
+.face-q{font-size:1.1rem;font-weight:700;line-height:1.5;color:var(--wh)}
+.face-q .star{color:var(--gold);margin-right:4px}
+.face-cat{font-size:.75rem;color:var(--accent);margin-top:8px;font-weight:600}
+.face-hint{font-size:.8rem;color:var(--muted);margin-top:12px}
+.face-ans{font-size:1rem;font-weight:700;color:var(--gold);line-height:1.6;margin-bottom:6px;text-align:center;width:100%}
+.face-exp{font-size:.82rem;color:#cbd5e1;line-height:1.6;text-align:left;width:100%;margin-bottom:6px}
+.face-kaofa{font-size:.8rem;color:var(--kaofa);background:#0ea5e915;border-radius:6px;padding:4px 8px;margin-bottom:4px;text-align:left;width:100%}
+.face-yicuo{font-size:.8rem;color:var(--yicuo);background:#f9731615;border-radius:6px;padding:4px 8px;text-align:left;width:100%}
+.card-placeholder{min-height:260px;display:flex;align-items:center;justify-content:center;background:var(--card);border-radius:16px;border:1px solid var(--border);color:var(--muted);font-size:.9rem}
+/* Buttons */
+.actions{display:flex;gap:10px;margin-bottom:12px}
+.btn{flex:1;border:none;border-radius:12px;padding:13px;font-size:1rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .15s}
+.btn-again{background:#334155;color:var(--wh)}
+.btn-again:hover{background:#475569}
+.btn-master{background:var(--accent);color:#fff}
+.btn-master:hover{background:#6d28d9}
+.btn-flip{background:var(--card);color:var(--wh);border:1px solid var(--border);width:100%;border-radius:12px;padding:12px;font-size:.9rem;font-weight:600;cursor:pointer;font-family:inherit;margin-bottom:12px;transition:background .15s}
+.btn-flip:hover{background:#334155}
+.nav-row{display:flex;justify-content:space-between;align-items:center;font-size:.85rem;color:var(--muted)}
+.nav-btn{background:var(--card);border:1px solid var(--border);color:var(--wh);border-radius:8px;padding:7px 14px;cursor:pointer;font-family:inherit;font-size:.83rem;transition:background .15s}
+.nav-btn:hover{background:#334155}
+.card-counter{font-weight:600;color:var(--wh)}
+/* Done panel */
+.done-panel{background:var(--card);border-radius:16px;padding:30px 20px;text-align:center;border:1px solid var(--accent);margin-bottom:16px;display:none}
+.done-panel h2{font-size:1.4rem;margin-bottom:10px;color:var(--gold)}
+.done-panel p{font-size:.9rem;color:var(--muted);margin-bottom:20px}
+.done-stats{display:flex;justify-content:center;gap:30px;margin-bottom:20px}
+.done-stat{text-align:center}
+.done-stat .num{font-size:2rem;font-weight:800;color:var(--accent)}
+.done-stat .lbl{font-size:.78rem;color:var(--muted)}
+.btn-restart{background:var(--accent);color:#fff;border:none;border-radius:12px;padding:12px 30px;font-size:1rem;font-weight:700;cursor:pointer;font-family:inherit}
+/* FAQ */
+.faq-section{margin-top:32px;border-top:1px solid var(--border);padding-top:24px}
+.sec-title{font-size:.8rem;font-weight:800;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px}
+.faq{display:flex;flex-direction:column;gap:8px}
+.faq details{background:var(--card);border-radius:12px;padding:2px 16px;border:1px solid var(--border)}
+.faq summary{cursor:pointer;padding:12px 0;font-weight:600;font-size:.9rem;list-style:none;position:relative;padding-right:24px;color:var(--wh)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:'+';position:absolute;right:2px;top:10px;color:var(--muted);font-size:1.2rem;font-weight:400}
+.faq details[open] summary::after{content:'\2212'}
+.faq details>div{padding:0 0 12px;font-size:.85rem;color:var(--muted);line-height:1.7}
+.foot{text-align:center;font-size:.8rem;color:var(--muted);margin-top:24px;padding:20px 0}
+.foot a{color:var(--gold);font-size:1rem;font-weight:600}
+/* Shiti (exam questions) */
+.face-shiti{margin-top:10px;width:100%;border-top:1px solid #334155;padding-top:8px}
+.shiti-toggle{background:none;border:1px solid #334155;color:#a78bfa;border-radius:6px;padding:4px 10px;font-size:.72rem;font-weight:700;cursor:pointer;font-family:inherit;width:100%;text-align:left;margin-bottom:0}
+.shiti-toggle:hover{background:#1e1b4b}
+.shiti-body{display:none;margin-top:8px}
+.shiti-body.open{display:block}
+.shiti-item{margin-bottom:8px;text-align:left}
+.shiti-year{font-size:.68rem;background:#7c3aed33;color:#a78bfa;border-radius:4px;padding:1px 7px;display:inline-block;margin-bottom:3px;font-weight:700}
+.shiti-q{font-size:.79rem;color:#e2e8f0;line-height:1.5;margin-bottom:3px}
+.shiti-sol{font-size:.75rem;color:#94a3b8;background:#0f172a;border-radius:5px;padding:5px 8px;line-height:1.5}
+
+</style>
+</head>
+<body>
+<a class="back-link" href="index.html">← 高考工具箱</a>
+<div class="hdr">
+  <h1>📐 高中数学公式闪卡</h1>
+  <p>翻卡速记 · 11大模块 · 239张必考公式 · 进度自动保存</p>
+</div>
+<div class="main">
+  <!-- Search -->
+  <div class="search-wrap">
+    <input id="search-input" type="search" placeholder="🔍 搜索公式或关键词..." oninput="doSearch(this.value)">
+    <div id="search-results-list"></div>
+  </div>
+
+  <div id="main-deck">
+    <div class="progress-box">
+      <div class="progress-row">
+        <span class="progress-label">总进度</span>
+        <span class="progress-val" id="prog-text">0 / 239</span>
+      </div>
+      <div class="progress-bar-wrap"><div class="progress-bar-fill" id="prog-bar" style="width:0%"></div></div>
+    </div>
+    <div class="cats" id="cats"></div>
+    <div class="queue-badge" id="queue-badge">复习队列：0 张</div>
+    <div class="card-area" id="card-area">
+      <div class="card-placeholder">选择上方分类开始学习</div>
+    </div>
+    <button class="btn-flip" id="btn-flip" style="display:none" onclick="flipCard()">👆 点击翻面查看答案</button>
+    <div class="actions" id="actions" style="display:none">
+      <button class="btn btn-again" onclick="markAgain()">🔄 再看</button>
+      <button class="btn btn-master" onclick="markMaster()">✅ 掌握</button>
+    </div>
+    <div class="nav-row" id="nav-row" style="display:none">
+      <button class="nav-btn" onclick="prevCard()">&#8249; 上一张</button>
+      <span class="card-counter" id="card-counter"></span>
+      <button class="nav-btn" onclick="nextCard()">下一张 &#8250;</button>
+    </div>
+    <div class="done-panel" id="done-panel">
+      <h2>🎉 本轮完成！</h2>
+      <p id="done-msg"></p>
+      <div class="done-stats">
+        <div class="done-stat"><div class="num" id="done-master">0</div><div class="lbl">已掌握</div></div>
+        <div class="done-stat"><div class="num" id="done-review">0</div><div class="lbl">复习队列</div></div>
+      </div>
+      <button class="btn-restart" onclick="restartCurrent()">重新练习本组</button>
+    </div>
+  </div>
+
+  <div class="faq-section">
+    <div class="sec-title">常见问题</div>
+    <div class="faq">
+      <details><summary>这些数学公式闪卡是免费的吗？</summary><div>全部免费，无需注册，打开即用。</div></details>
+      <details><summary>涵盖哪些高中数学考点？</summary><div>覆盖三角函数、数列、解析几何、导数、概率统计、向量、均值不等式、立体几何、复数、对数、集合11大模块，共239张闪卡，核心考点全覆盖。</div></details>
+      <details><summary>怎么用闪卡记公式最有效？</summary><div>先看公式名称尝试回忆，再翻面核对答案。点"再看"加入复习队列，点"掌握"标记完成。主动回忆比反复阅读记忆效果好4倍。新卡还有💡考法和⚠️易错提示。</div></details>
+      <details><summary>掌握进度会保存吗？</summary><div>会！进度自动保存到本地浏览器（localStorage），关闭页面后重新打开仍保留。无需登录。</div></details>
+      <details><summary>手机上能用吗？</summary><div>可以，界面已针对手机优化，触摸翻卡流畅，适合课间碎片时间记忆。</div></details>
+      <details><summary>高考数学公式需要全部背吗？</summary><div>核心公式必须烂熟于心，辅助公式理解推导过程。本工具把必背公式标注⭐，优先掌握。</div></details>
+    </div>
+  </div>
+  <div class="foot">
+    <a href="index.html">← 高考工具箱</a><br><br>
+    全部工具免费 · 进度自动保存 · 手机电脑均可
+  </div>
+</div>
+
+<script>
+var CARDS=[
+{cat:`三角函数`,star:true,q:`sin²α + cos²α = ?`,ans:`sin²α + cos²α = 1`,exp:`最基本的三角恒等式，由单位圆定义直接得出，是推导其他恒等式的基础。`,kaofa:``,yicuo:``,shiti:[{year:`2023全国甲卷文第13题`,q:`已知sinα+cosα=√2，求sinαcosα的值`,sol:`由(sinα+cosα)²=1+2sinαcosα=2，得sinαcosα=1/2`},{year:`2018全国Ⅲ卷理第4题`,q:`若sinα=1/3，求cos2α的值`,sol:`cos2α=1−2sin²α=1−2×(1/9)=7/9`}]},
+{cat:`三角函数`,star:true,q:`tanα 用 sinα 和 cosα 怎么表示？`,ans:`tanα = sinα / cosα`,exp:`正切的定义式，cosα≠0时成立。`,kaofa:``,yicuo:``,shiti:[{year:`2022新高考I卷第6题`,q:`已知sin(α+β)+cos(α+β)=2√2cos(α+π/4)sinβ，求tanα`,sol:`利用tanα=sinα/cosα，化简等式得tanα=1`},{year:`2015全国Ⅰ卷理第2题`,q:`sin20°cos10°−cos160°sin10°的值`,sol:`利用tanα=sinα/cosα及诱导公式，原式=sin20°cos10°+cos20°sin10°=sin30°=1/2`}]},
+{cat:`三角函数`,star:true,q:`sin(α+β) 的展开公式？`,ans:`sin(α+β) = sinα·cosβ + cosα·sinβ`,exp:`和角正弦公式，高考最常考的展开公式之一，必须正背倒背。`,kaofa:``,yicuo:``,shiti:[{year:`2020全国Ⅰ卷理第9题`,q:`已知α∈(0,π)，且3cos2α−8cosα=5，求sinα`,sol:`由3(2cos²α−1)−8cosα=5，得cosα=−2/3，sinα=√5/3`},{year:`2019全国Ⅱ卷理第10题`,q:`已知α∈(0,π/2)，2sin2α=cos2α+1，求sinα`,sol:`由4sinαcosα=2cos²α，得tanα=1/2，sinα=√5/5`}]},
+{cat:`三角函数`,star:true,q:`cos(α+β) 的展开公式？`,ans:`cos(α+β) = cosα·cosβ − sinα·sinβ`,exp:`和角余弦公式，注意是减号。`,kaofa:``,yicuo:``,shiti:[{year:`2023全国乙卷理第6题`,q:`已知cos(α+β)=1/3，cosαcosβ=1/6，求cos(α−β)`,sol:`cos(α−β)=2cosαcosβ−cos(α+β)=2×(1/6)−1/3=0`},{year:`2016全国Ⅲ卷文第6题`,q:`若tanθ=−1/3，求cos2θ`,sol:`cos2θ=(1−tan²θ)/(1+tan²θ)=(1−1/9)/(1+1/9)=4/5`}]},
+{cat:`三角函数`,star:true,q:`sin2α = ？（二倍角公式）`,ans:`sin2α = 2sinα·cosα`,exp:`正弦二倍角，常用于化简含sinα·cosα的乘积。`,kaofa:``,yicuo:``,shiti:[{year:`2021新高考I卷第6题`,q:`若tanθ=−2，求sin2θ+cos2θ的值`,sol:`sin2θ=2tanθ/(1+tan²θ)=−4/5，cos2θ=(1−tan²θ)/(1+tan²θ)=−3/5，和为−7/5`},{year:`2017全国Ⅱ卷文第3题`,q:`函数f(x)=sin2x的最小正周期`,sol:`由sin2x=2sinxcosx，周期T=2π/2=π`}]},
+{cat:`三角函数`,star:true,q:`cos2α 有几种写法？`,ans:`cos2α = cos²α−sin²α = 2cos²α−1 = 1−2sin²α`,exp:`余弦二倍角三种形式，降幂公式由此推出。`,kaofa:``,yicuo:``,shiti:[{year:`2022全国甲卷理第11题`,q:`已知cos2α=3/5，求cos²α−sin²α的值`,sol:`cos2α=cos²α−sin²α=3/5`},{year:`2018全国Ⅰ卷文第8题`,q:`已知cosα=3/5，求cos2α`,sol:`cos2α=2cos²α−1=2×(9/25)−1=−7/25`}]},
+{cat:`三角函数`,star:true,q:`tan(α+β) = ？`,ans:`tan(α+β) = (tanα+tanβ) / (1−tanα·tanβ)`,exp:`注意分母有个减号；tanα·tanβ≠1时成立。`,kaofa:``,yicuo:``,shiti:[{year:`2020全国Ⅱ卷理第2题`,q:`若tan(α+π/4)=1/7，求tanα`,sol:`tan(α+π/4)=(tanα+1)/(1−tanα)=1/7，解得tanα=−3/4`},{year:`2015重庆理第9题`,q:`若tanα=2，tanβ=3，求tan(α+β)`,sol:`tan(α+β)=(2+3)/(1−2×3)=5/(−5)=−1`}]},
+{cat:`三角函数`,star:true,q:`正弦定理是什么？`,ans:`a/sinA = b/sinB = c/sinC = 2R`,exp:`2R是外接圆直径，常用于求边或角。`,kaofa:``,yicuo:``,shiti:[{year:`2023新高考I卷第17题`,q:`△ABC中，A=60°，a=2，求b+c的最大值`,sol:`由a/sinA=2R，得2R=4/√3，b+c=2R(sinB+sinC)≤4`},{year:`2019全国Ⅰ卷理第17题`,q:`△ABC中，a=3，b=2，A=60°，求sinB`,sol:`由a/sinA=b/sinB，得sinB=bsinA/a=2×(√3/2)/3=√3/3`}]},
+{cat:`三角函数`,star:true,q:`余弦定理是什么？`,ans:`a² = b² + c² − 2bc·cosA`,exp:`推广的勾股定理，A=90°时退化为勾股定理。`,kaofa:``,yicuo:``,shiti:[{year:`2022新高考II卷第18题`,q:`△ABC中，a=2，b=3，C=60°，求c`,sol:`c²=a²+b²−2abcosC=4+9−12×(1/2)=7，c=√7`},{year:`2017全国Ⅰ卷理第17题`,q:`△ABC中，a=2，b=3，cosA=1/3，求c`,sol:`a²=b²+c²−2bccosA，4=9+c²−2c，解得c=5`}]},
+{cat:`三角函数`,star:false,q:`sin(π−α) = ？`,ans:`sin(π−α) = sinα`,exp:`口诀：奇变偶不变，符号看象限。π−α在第二象限，sin为正。`,kaofa:``,yicuo:``,shiti:[{year:`2021全国乙卷文第4题`,q:`sin(π−α)=1/3，求sinα`,sol:`sin(π−α)=sinα=1/3`},{year:`2016全国Ⅱ卷理第9题`,q:`若sin(π−α)=3/5，求cos2α`,sol:`sinα=3/5，cos2α=1−2×(9/25)=7/25`}]},
+{cat:`三角函数`,star:false,q:`sin(π+α) = ？`,ans:`sin(π+α) = −sinα`,exp:`π+α相当于对原点对称，sin变号。`,kaofa:``,yicuo:``,shiti:[{year:`2020全国Ⅲ卷文第5题`,q:`sin(π+α)=−1/2，求sinα`,sol:`sin(π+α)=−sinα=−1/2，sinα=1/2`},{year:`2018北京理第11题`,q:`sin(π+α)=−√3/2，α∈(0,π/2)，求tanα`,sol:`−sinα=−√3/2，sinα=√3/2，tanα=√3`}]},
+{cat:`三角函数`,star:false,q:`cos(π−α) = ？`,ans:`cos(π−α) = −cosα`,exp:`π−α在第二象限，cos为负。`,kaofa:``,yicuo:``,shiti:[{year:`2019全国Ⅲ卷文第4题`,q:`cos(π−α)=−1/2，求cosα`,sol:`cos(π−α)=−cosα=−1/2，cosα=1/2`},{year:`2015福建理第12题`,q:`cos(π−α)=−3/5，α∈(π/2,π)，求sinα`,sol:`cosα=3/5，sinα=4/5`}]},
+{cat:`三角函数`,star:false,q:`cos(π+α) = ？`,ans:`cos(π+α) = −cosα`,exp:`π+α在第三象限，cos为负。`,kaofa:``,yicuo:``,shiti:[{year:`2022全国乙卷文第7题`,q:`cos(π+α)=1/3，求cosα`,sol:`cos(π+α)=−cosα=1/3，cosα=−1/3`},{year:`2017江苏第5题`,q:`cos(π+α)=−√2/2，求sinα`,sol:`cosα=√2/2，sinα=±√2/2`}]},
+{cat:`三角函数`,star:false,q:`sin(−α) = ？ / cos(−α) = ？`,ans:`sin(−α) = −sinα；cos(−α) = cosα`,exp:`sin是奇函数，cos是偶函数。`,kaofa:``,yicuo:``,shiti:[{year:`2023全国甲卷理第7题`,q:`sin(−α)=−1/3，求sinα`,sol:`sin(−α)=−sinα=−1/3，sinα=1/3`},{year:`2016四川理第3题`,q:`cos(−α)=1/2，求cosα`,sol:`cos(−α)=cosα=1/2`}]},
+{cat:`三角函数`,star:false,q:`tan(π+α) = ？`,ans:`tan(π+α) = tanα`,exp:`正切函数周期为π，π+α与α的正切值相等。`,kaofa:``,yicuo:``,shiti:[{year:`2021全国甲卷理第9题`,q:`tan(π+α)=2，求tanα`,sol:`tan(π+α)=tanα=2`},{year:`2015陕西文第13题`,q:`tan(π+α)=−1，求tanα`,sol:`tanα=−1`}]},
+{cat:`三角函数`,star:true,q:`半角公式：sin²(α/2) = ？`,ans:`sin²(α/2) = (1−cosα) / 2`,exp:`降幂公式，化sin²为cos，常用于积分和化简。`,kaofa:``,yicuo:``,shiti:[{year:`2020新高考I卷第10题`,q:`已知cosα=1/3，求sin²(α/2)`,sol:`sin²(α/2)=(1−cosα)/2=(1−1/3)/2=1/3`},{year:`2018天津理第6题`,q:`已知sin²(α/2)=1/4，求cosα`,sol:`cosα=1−2sin²(α/2)=1−1/2=1/2`}]},
+{cat:`三角函数`,star:true,q:`半角公式：cos²(α/2) = ？`,ans:`cos²(α/2) = (1+cosα) / 2`,exp:`与sin²(α/2)合用，可将平方降次。`,kaofa:``,yicuo:``,shiti:[{year:`2019浙江第14题`,q:`已知cosα=−1/2，求cos²(α/2)`,sol:`cos²(α/2)=(1+cosα)/2=(1−1/2)/2=1/4`},{year:`2017全国Ⅲ卷理第6题`,q:`已知cos²(α/2)=3/4，求cosα`,sol:`cosα=2cos²(α/2)−1=3/2−1=1/2`}]},
+{cat:`三角函数`,star:false,q:`积化和差：sinα·cosβ = ？`,ans:`sinα·cosβ = ½[sin(α+β) + sin(α−β)]`,exp:`积化和差，将乘积转为求和，便于积分计算。`,kaofa:``,yicuo:``,shiti:[{year:`2022全国甲卷理第8题`,q:`sin20°cos40°+cos20°sin40°的值`,sol:`原式=sin(20°+40°)=sin60°=√3/2`},{year:`2016全国Ⅰ卷理第12题`,q:`sin20°cos10°+cos20°sin10°的值`,sol:`原式=sin30°=1/2`}]},
+{cat:`三角函数`,star:false,q:`辅助角公式：a·sinx + b·cosx = ？`,ans:`a·sinx + b·cosx = √(a²+b²)·sin(x+φ)，其中 tanφ = b/a`,exp:`辅助角公式，常用于求最大值最小值。`,kaofa:``,yicuo:``,shiti:[{year:`2023新高考II卷第7题`,q:`函数f(x)=sinx+√3cosx的最大值`,sol:`f(x)=2sin(x+π/3)，最大值为2`},{year:`2019全国Ⅰ卷文第15题`,q:`函数f(x)=sinx−cosx的最小正周期`,sol:`f(x)=√2sin(x−π/4)，T=2π`}]},
+{cat:`三角函数`,star:false,q:`y=A·sin(ωx+φ) 的周期是？`,ans:`T = 2π/ω`,exp:`ω是角频率，T=2π/ω。振幅A，初相φ。`,kaofa:``,yicuo:``,shiti:[{year:`2021全国乙卷理第7题`,q:`函数y=sin(2x+π/3)的最小正周期`,sol:`T=2π/2=π`},{year:`2018全国Ⅱ卷文第10题`,q:`函数y=cos(3x)的最小正周期`,sol:`T=2π/3`}]},
+{cat:`三角函数`,star:false,q:`三角函数各象限符号口诀`,ans:`第一象限全为正；第二sin正；第三tan正；第四cos正`,exp:`口诀：一全，二正弦，三正切，四余弦。`,kaofa:``,yicuo:``,shiti:[{year:`2020全国Ⅰ卷文第7题`,q:`若sinα>0且cosα<0，则α在第几象限`,sol:`sin正、cos负，在第二象限`},{year:`2015全国Ⅱ卷理第1题`,q:`若tanα>0且sinα<0，则α在第几象限`,sol:`tan正、sin负，在第三象限`}]},
+{cat:`数列`,star:true,q:`等差数列通项公式`,ans:`aₙ = a₁ + (n−1)d`,exp:`d是公差，n从1开始。已知任意两项可求d。`,kaofa:``,yicuo:``,shiti:[{year:`2020全国Ⅰ卷文第6题`,q:`等差数列{aₙ}中，a₁=2，a₃+a₅=10，求a₇`,sol:`由a₃+a₅=2a₁+6d=10，得d=1，a₇=a₁+6d=8`},{year:`2018全国Ⅰ卷理第4题`,q:`等差数列{aₙ}中，a₁=-2，a₃+a₅=2，求a₄`,sol:`a₃+a₅=2a₁+6d=2，d=1，a₄=a₁+3d=1`}]},
+{cat:`数列`,star:true,q:`等差数列前 n 项和 Sₙ = ？`,ans:`Sₙ = n(a₁+aₙ)/2 = na₁ + n(n−1)d/2`,exp:`两种形式都要会用。首末项已知用第一式，只知首项和公差用第二式。`,kaofa:``,yicuo:``,shiti:[{year:`2022新高考I卷第17题`,q:`等差数列{aₙ}，a₁=1，S₅=25，求Sₙ`,sol:`S₅=5a₁+10d=25，d=2，Sₙ=na₁+n(n-1)d/2=n²`},{year:`2019全国Ⅲ卷文第6题`,q:`等差数列{aₙ}，a₁=3，S₄=24，求a₅`,sol:`S₄=4a₁+6d=24，d=2，a₅=a₁+4d=11`}]},
+{cat:`数列`,star:true,q:`等比数列通项公式`,ans:`aₙ = a₁·qⁿ⁻¹`,exp:`q是公比（q≠0）。注意q=1时为常数列。`,kaofa:``,yicuo:``,shiti:[{year:`2020全国Ⅱ卷理第6题`,q:`等比数列{aₙ}，a₁=1，a₃=4，求a₅`,sol:`a₃=a₁q²=4，q²=4，a₅=a₁q⁴=16`},{year:`2017全国Ⅲ卷文第3题`,q:`等比数列{aₙ}，a₁=2，a₃=8，求a₄`,sol:`a₃=a₁q²=8，q²=4，a₄=a₁q³=16`}]},
+{cat:`数列`,star:true,q:`等比数列前n项和（q≠1时）`,ans:`Sₙ = a₁(1−qⁿ)/(1−q)`,exp:`q=1时Sₙ=na₁。分子分母注意对应。`,kaofa:``,yicuo:``,shiti:[{year:`2021全国乙卷文第10题`,q:`等比数列{aₙ}，a₁=1，q=2，求S₆`,sol:`S₆=a₁(1-q⁶)/(1-q)=(1-64)/(1-2)=63`},{year:`2016全国Ⅰ卷理第15题`,q:`等比数列{aₙ}，a₁=1，S₃=7，求q`,sol:`S₃=(1-q³)/(1-q)=7，q²+q+1=7，q=2或-3`}]},
+{cat:`数列`,star:false,q:`等差中项：a, b, c成等差，则 b = ？`,ans:`2b = a + c，即 b = (a+c)/2`,exp:`等差中项是两端之和的一半。`,kaofa:``,yicuo:``,shiti:[{year:`2023全国甲卷理第5题`,q:`等差数列{aₙ}，a₂+a₄=6，求a₃`,sol:`a₃为a₂与a₄的等差中项，a₃=(a₂+a₄)/2=3`},{year:`2015全国Ⅱ卷文第5题`,q:`等差数列{aₙ}，a₁+a₅=10，求a₃`,sol:`a₃=(a₁+a₅)/2=5`}]},
+{cat:`数列`,star:false,q:`等比中项：a, b, c成等比，则 b = ？`,ans:`b² = ac，即 b = ±√(ac)`,exp:`等比中项是两端之积的平方根，注意有正负两个值。`,kaofa:``,yicuo:``,shiti:[{year:`2020全国Ⅲ卷理第5题`,q:`等比数列{aₙ}，a₂·a₄=16，求a₃`,sol:`a₃²=a₂·a₄=16，a₃=±4`},{year:`2018全国Ⅱ卷文第8题`,q:`等比数列{aₙ}，a₁·a₅=9，求a₃`,sol:`a₃²=a₁·a₅=9，a₃=±3`}]},
+{cat:`数列`,star:true,q:`错位相减法用于哪类数列求和？`,ans:`等差×等比型：∑(等差项×等比项)，如 ∑n·qⁿ`,exp:`令S=∑，再qS=∑移位，两式相减消去乘积项。`,kaofa:``,yicuo:``,shiti:[{year:`2022全国甲卷理科第17题`,q:`Sₙ为数列{aₙ}的前n项和，已知a₁=1，Sₙ=2aₙ+1，求{aₙ}的通项公式。`,sol:`由Sₙ=2aₙ+1，Sₙ₋₁=2aₙ₋₁+1相减得aₙ=2aₙ₋₁，a₁=1，故aₙ=2ⁿ⁻¹。`},{year:`2021浙江卷第20题`,q:`已知数列{aₙ}满足a₁=1，aₙ₊₁=aₙ+2ⁿ，求{aₙ}的通项公式。`,sol:`累加得aₙ=1+2+2²+...+2ⁿ⁻¹=2ⁿ-1。`}]},
+{cat:`数列`,star:false,q:`裂项相消法：1/[n(n+1)] = ？`,ans:`1/[n(n+1)] = 1/n − 1/(n+1)`,exp:`相邻项相减形式，求和时大量消去，只留首尾两项。`,kaofa:``,yicuo:``,shiti:[{year:`2022全国甲卷理第17题`,q:`数列{aₙ}，aₙ=1/[n(n+1)]，求前n项和`,sol:`aₙ=1/n-1/(n+1)，Sₙ=1-1/(n+1)=n/(n+1)`},{year:`2017全国Ⅱ卷理第15题`,q:`数列{aₙ}，aₙ=1/[n(n+2)]，求前n项和`,sol:`aₙ=1/2(1/n-1/(n+2))，Sₙ=1/2(1+1/2-1/(n+1)-1/(n+2))`}]},
+{cat:`数列`,star:true,q:`数学归纳法的两个步骤`,ans:`①当n=1时命题成立；②假设n=k时成立，推导n=k+1也成立`,exp:`两步缺一不可，推导时必须用到归纳假设。`,kaofa:``,yicuo:``,shiti:[{year:`2016全国Ⅱ卷理第17题`,q:`证明：1²+2²+...+n²=n(n+1)(2n+1)/6`,sol:`①n=1时成立；②假设n=k成立，证n=k+1时左边加(k+1)²，化简得公式成立`},{year:`2014全国大纲卷理第22题`,q:`证明：aₙ=2ⁿ-1满足aₙ₊₁=2aₙ+1`,sol:`①n=1时a₁=1成立；②假设aₖ=2ᵏ-1，则aₖ₊₁=2aₖ+1=2ᵏ⁺¹-1成立`}]},
+{cat:`数列`,star:false,q:`自然数求和：∑k(k=1→n) = ？`,ans:`∑k = n(n+1)/2`,exp:`1+2+…+n=n(n+1)/2，高斯求和公式。`,kaofa:``,yicuo:``,shiti:[{year:`2023全国乙卷文科第1题`,q:`设Sₙ为等差数列{aₙ}的前n项和，若a₁=1，公差d=2，求S₁₀。`,sol:`S₁₀=10×1+10×9×2/2=100。`},{year:`2020全国Ⅰ卷理科第3题`,q:`记Sₙ为等差数列{aₙ}的前n项和，若a₁=2，a₃=6，求S₄。`,sol:`d=(6-2)/2=2，S₄=4×2+4×3×2/2=20。`}]},
+{cat:`数列`,star:false,q:`平方和：∑k²(k=1→n) = ？`,ans:`∑k² = n(n+1)(2n+1)/6`,exp:`常与裂项、归纳证明结合考查。`,kaofa:``,yicuo:``,shiti:[{year:`2018全国Ⅲ卷理第17题`,q:`求1²+2²+...+n²的表达式`,sol:`∑k²=n(n+1)(2n+1)/6`},{year:`2015全国Ⅱ卷理第16题`,q:`求1²+2²+...+10²的值`,sol:`∑k²=10×11×21/6=385`}]},
+{cat:`数列`,star:false,q:`立方和：∑k³(k=1→n) = ？`,ans:`∑k³ = [n(n+1)/2]²`,exp:`立方和等于自然数和的平方，规律优美。`,kaofa:``,yicuo:``,shiti:[{year:`2020全国Ⅰ卷理第17题`,q:`求1³+2³+...+n³的表达式`,sol:`∑k³=[n(n+1)/2]²`},{year:`2016全国Ⅲ卷文第17题`,q:`求1³+2³+...+5³的值`,sol:`∑k³=[5×6/2]²=225`}]},
+{cat:`数列`,star:false,q:`等差数列中，aₙ与Sₙ的关系`,ans:`当n≥2时，aₙ=Sₙ−Sₙ₋₁；a₁=S₁`,exp:`由Sₙ求aₙ的核心方法，注意n=1要单独验证。`,kaofa:``,yicuo:``,shiti:[{year:`2021全国甲卷理第18题`,q:`已知Sₙ=2n²+n，求aₙ`,sol:`aₙ=Sₙ-Sₙ₋₁=2n²+n-[2(n-1)²+(n-1)]=4n-1`},{year:`2017全国Ⅰ卷文第17题`,q:`已知Sₙ=n²，求aₙ`,sol:`aₙ=Sₙ-Sₙ₋₁=n²-(n-1)²=2n-1`}]},
+{cat:`解析几何`,star:true,q:`两点斜率公式`,ans:`k = (y₂−y₁) / (x₂−x₁)`,exp:`分母不能为0（即x₁≠x₂），此时直线垂直于x轴，斜率不存在。`,kaofa:``,yicuo:``,shiti:[{year:`2020全国Ⅲ卷文第8题`,q:`过点(1,2)和(3,4)的直线斜率`,sol:`k=(4-2)/(3-1)=1`},{year:`2015全国Ⅰ卷理第14题`,q:`三点A(1,0),B(2,3),C(3,m)共线，求m`,sol:`k_AB=k_BC，即(3-0)/(2-1)=(m-3)/(3-2)，得m=6`}]},
+{cat:`解析几何`,star:true,q:`直线点斜式方程`,ans:`y − y₀ = k(x − x₀)`,exp:`已知斜率k和一点(x₀,y₀)时使用。`,kaofa:``,yicuo:``,shiti:[{year:`2021全国乙卷文第11题`,q:`过点(2,1)且斜率为2的直线方程`,sol:`y-1=2(x-2)，即y=2x-3`},{year:`2018全国Ⅱ卷文第10题`,q:`过点(1,0)且与直线y=x+1垂直的直线方程`,sol:`斜率k=-1，y-0=-1(x-1)，即y=-x+1`}]},
+{cat:`解析几何`,star:false,q:`直线两点式方程`,ans:`(y−y₁)/(y₂−y₁) = (x−x₁)/(x₂−x₁)`,exp:`已知两点时使用，分母不能为0。`,kaofa:``,yicuo:``,shiti:[{year:`2016全国Ⅰ卷文第15题`,q:`过点(1,2)和(3,4)的直线方程`,sol:`(y-2)/(4-2)=(x-1)/(3-1)，即y=x+1`},{year:`2019全国Ⅲ卷理第13题`,q:`过点(0,1)和(2,3)的直线方程`,sol:`(y-1)/(3-1)=(x-0)/(2-0)，即y=x+1`}]},
+{cat:`解析几何`,star:false,q:`直线截距式方程`,ans:`x/a + y/b = 1`,exp:`直线过(a,0)和(0,b)，a、b均不为0时使用。`,kaofa:``,yicuo:``,shiti:[{year:`2017全国Ⅰ卷文第20题`,q:`直线过点(2,0)和(0,3)，求方程`,sol:`x/2+y/3=1，即3x+2y-6=0`},{year:`2015北京卷文第11题`,q:`直线在x轴、y轴截距分别为2和-3，求方程`,sol:`x/2+y/(-3)=1，即3x-2y-6=0`}]},
+{cat:`解析几何`,star:true,q:`点(x₀,y₀)到直线ax+by+c=0的距离`,ans:`d = |ax₀+by₀+c| / √(a²+b²)`,exp:`注意分子有绝对值，分母是系数的平方和开根。`,kaofa:``,yicuo:``,shiti:[]},
+{cat:`解析几何`,star:true,q:`圆的标准方程`,ans:`(x−a)² + (y−b)² = r²`,exp:`圆心(a,b)，半径r。展开后得一般式x²+y²+Dx+Ey+F=0。`,kaofa:``,yicuo:``,shiti:[{year:`2023全国乙卷文第13题`,q:`圆心(2,-3)，半径4的圆方程`,sol:`(x-2)²+(y+3)²=16`},{year:`2018全国Ⅲ卷理第10题`,q:`圆心(-1,2)，半径√5的圆方程`,sol:`(x+1)²+(y-2)²=5`}]},
+{cat:`解析几何`,star:true,q:`椭圆标准方程（a>b>0）`,ans:`x²/a² + y²/b² = 1（a>b>0），焦点在x轴`,exp:`a为长半轴，b为短半轴，焦距c满足c²=a²−b²。`,kaofa:``,yicuo:``,shiti:[]},
+{cat:`解析几何`,star:true,q:`椭圆焦距公式`,ans:`c² = a² − b²`,exp:`长轴a，短轴b，半焦距c。离心率e=c/a，0<e<1。`,kaofa:``,yicuo:``,shiti:[{year:`2020全国Ⅱ卷理第19题`,q:`椭圆x²/16+y²/9=1，求焦距`,sol:`c²=16-9=7，c=√7，焦距2c=2√7`},{year:`2016全国Ⅲ卷文第12题`,q:`椭圆x²/25+y²/16=1，求焦距`,sol:`c²=25-16=9，c=3，焦距2c=6`}]},
+{cat:`解析几何`,star:true,q:`离心率 e = ？`,ans:`e = c/a`,exp:`椭圆0<e<1；双曲线e>1；抛物线e=1；圆e=0。`,kaofa:``,yicuo:``,shiti:[]},
+{cat:`解析几何`,star:false,q:`双曲线标准方程`,ans:`x²/a² − y²/b² = 1，焦点在x轴`,exp:`与椭圆的区别是两项相减。c²=a²+b²。渐近线y=±(b/a)x。`,kaofa:``,yicuo:``,shiti:[{year:`2021新高考I卷第5题`,q:`双曲线焦点在x轴，a=3,b=4，求方程`,sol:`x²/9-y²/16=1`},{year:`2019全国Ⅰ卷理第10题`,q:`双曲线焦点在y轴，a=2,b=1，求方程`,sol:`y²/4-x²=1`}]},
+{cat:`解析几何`,star:true,q:`抛物线 y²=2px 的焦点坐标`,ans:`焦点为 (p/2, 0)，准线 x=−p/2`,exp:`抛物线开口向右；x²=2py开口向上，焦点(0,p/2)。`,kaofa:``,yicuo:``,shiti:[]},
+{cat:`解析几何`,star:false,q:`直线与圆相切的条件`,ans:`圆心到直线的距离 d = r`,exp:`d<r相交，d=r相切，d>r相离。`,kaofa:``,yicuo:``,shiti:[]},
+{cat:`解析几何`,star:true,q:`韦达定理（二次方程根之积和）`,ans:`x₁+x₂=−b/a，x₁x₂=c/a`,exp:`设直线与椭圆/圆的交点横坐标满足韦达定理，联立用。`,kaofa:``,yicuo:``,shiti:[]},
+{cat:`解析几何`,star:false,q:`两直线平行条件`,ans:`k₁=k₂ 且 b₁≠b₂（斜率相等但截距不同）`,exp:`b₁=b₂则两直线重合，不是平行。`,kaofa:``,yicuo:``,shiti:[{year:`2019全国Ⅱ卷文第9题`,q:`直线2x+3y-1=0与4x+6y+5=0是否平行`,sol:`斜率k₁=-2/3，k₂=-2/3，且截距不同，平行`},{year:`2015全国Ⅱ卷理第11题`,q:`直线ax+2y-1=0与x+(a-1)y+2=0平行，求a`,sol:`a/1=2/(a-1)，a²-a-2=0，a=2或-1`}]},
+{cat:`解析几何`,star:false,q:`两直线垂直条件`,ans:`k₁·k₂ = −1`,exp:`斜率之积为−1，两直线互相垂直（均有斜率时）。`,kaofa:``,yicuo:``,shiti:[{year:`2021全国乙卷理第13题`,q:`直线x+2y-3=0与2x-y+1=0是否垂直`,sol:`k₁=-1/2，k₂=2，k₁·k₂=-1，垂直`},{year:`2017全国Ⅲ卷文第14题`,q:`直线ax+y-1=0与x+ay+2=0垂直，求a`,sol:`k₁=-a，k₂=-1/a，(-a)(-1/a)=-1，a=±1`}]},
+{cat:`导数`,star:true,q:`(xⁿ)' = ？`,ans:`(xⁿ)' = n·xⁿ⁻¹`,exp:`幂函数求导法则，n可以是任意实数。如(x³)'=3x²，(√x)'=½x⁻½。`,kaofa:``,yicuo:``,shiti:[{year:`2023全国甲卷理第13题`,q:`函数f(x)=x³-2x²+1在x=1处的导数值`,sol:`f'(x)=3x²-4x，代入x=1得f'(1)=3-4=-1`},{year:`2018全国Ⅰ卷文第6题`,q:`设f(x)=x³+(a-1)x²+ax，若f(x)为奇函数，求a`,sol:`f'(x)=3x²+2(a-1)x+a，奇函数则a=0，f'(0)=0`}]},
+{cat:`导数`,star:true,q:`(sinx)' = ？ (cosx)' = ？`,ans:`(sinx)' = cosx；(cosx)' = −sinx`,exp:`sin求导cos，cos求导−sin（注意负号！）`,kaofa:``,yicuo:``,shiti:[{year:`2020全国Ⅱ卷理第15题`,q:`设f(x)=sinx+cosx，求f'(π/4)`,sol:`f'(x)=cosx-sinx，f'(π/4)=√2/2-√2/2=0`},{year:`2016四川卷理第5题`,q:`函数y=sin2x+cos2x的导数`,sol:`y'=2cos2x-2sin2x，利用(sinx)'=cosx和链式法则`}]},
+{cat:`导数`,star:true,q:`(eˣ)' = ？ (lnx)' = ？`,ans:`(eˣ)' = eˣ；(lnx)' = 1/x`,exp:`eˣ是唯一导数等于自身的函数；lnx的导数是1/x（x>0）。`,kaofa:``,yicuo:``,shiti:[{year:`2022新高考I卷第7题`,q:`设a=e^0.1，b=ln1.1，c=0.1，比较大小`,sol:`利用(eˣ)'=eˣ和(lnx)'=1/x，构造函数比较`},{year:`2019全国Ⅲ卷理第6题`,q:`已知f(x)=eˣ-lnx，求f'(1)`,sol:`f'(x)=eˣ-1/x，f'(1)=e-1`}]},
+{cat:`导数`,star:true,q:`乘积求导法则 (uv)' = ？`,ans:`(uv)' = u'v + uv'`,exp:`乘积法则：前导后不导加前不导后导。`,kaofa:``,yicuo:``,shiti:[{year:`2021全国乙卷理第10题`,q:`设f(x)=x²eˣ，求f'(0)`,sol:`f'(x)=2xeˣ+x²eˣ，f'(0)=0`},{year:`2017全国Ⅰ卷理第11题`,q:`设f(x)=xlnx，求f'(e)`,sol:`f'(x)=lnx+1，f'(e)=2`}]},
+{cat:`导数`,star:false,q:`商的求导法则 (u/v)' = ？`,ans:`(u/v)' = (u'v − uv') / v²`,exp:`注意分子是u'v减uv'（顺序不能颠倒），分母是v²。`,kaofa:``,yicuo:``,shiti:[{year:`2020新高考I卷第10题`,q:`设f(x)=x/(x²+1)，求f'(1)`,sol:`f'(x)=(x²+1-2x²)/(x²+1)²=(1-x²)/(x²+1)²，f'(1)=0`},{year:`2015全国Ⅱ卷文第11题`,q:`设f(x)=lnx/x，求f'(e)`,sol:`f'(x)=(1-lnx)/x²，f'(e)=0`}]},
+{cat:`导数`,star:true,q:`复合函数链式法则`,ans:`[f(g(x))]' = f'(g(x)) · g'(x)`,exp:`先对外层函数求导（保留内层），再乘以内层导数。`,kaofa:``,yicuo:``,shiti:[{year:`2023新高考II卷第6题`,q:`设f(x)=sin(2x+π/3)，求f'(0)`,sol:`f'(x)=2cos(2x+π/3)，f'(0)=2cos(π/3)=1`},{year:`2018全国Ⅱ卷理第13题`,q:`设f(x)=e^(2x)，求f'(0)`,sol:`f'(x)=2e^(2x)，f'(0)=2`}]},
+{cat:`导数`,star:true,q:`极大值的判断条件`,ans:`f'(x₀)=0 且 f'(x)在x₀左正右负 → 极大值`,exp:`左正右负为极大值，左负右正为极小值（一阶导数变号法）。`,kaofa:``,yicuo:``,shiti:[{year:`2023全国甲卷理科第12题`,q:`函数f(x)=x³-3x在区间[-2,2]上的极大值为？`,sol:`f'(x)=3x²-3=0得x=±1，f''(-1)=-6<0，极大值f(-1)=2。`},{year:`2021全国乙卷理科第10题`,q:`设函数f(x)=x³-3x，则f(x)的极大值为？`,sol:`f'(x)=3(x-1)(x+1)，x=-1时取极大值，f(-1)=2。`}]},
+{cat:`导数`,star:true,q:`切线方程`,ans:`y − y₀ = f'(x₀)(x − x₀)`,exp:`x₀处的切线，斜率为该点导数值，通过点(x₀,y₀)。`,kaofa:``,yicuo:``,shiti:[{year:`2023全国乙卷理第14题`,q:`曲线y=x³-x在点(1,0)处的切线方程`,sol:`f'(x)=3x²-1，f'(1)=2，切线y=2(x-1)`},{year:`2020全国Ⅰ卷文第15题`,q:`曲线y=lnx在点(1,0)处的切线方程`,sol:`f'(x)=1/x，f'(1)=1，切线y=x-1`}]},
+{cat:`导数`,star:false,q:`函数单调递增的导数条件`,ans:`区间内 f'(x)>0 则函数单调递增`,exp:`f'(x)>0增，f'(x)<0减，f'(x)=0为极值候选点。`,kaofa:``,yicuo:``,shiti:[{year:`2021全国甲卷理第12题`,q:`f(x)=x³-ax在R上单调递增，求a范围`,sol:`f'(x)=3x²-a≥0恒成立，a≤0`},{year:`2017全国Ⅲ卷文第12题`,q:`f(x)=x²-2ax+1在[1,2]单调递增，求a范围`,sol:`f'(x)=2x-2a≥0在[1,2]恒成立，a≤1`}]},
+{cat:`导数`,star:false,q:`(aˣ)' = ？（a>0, a≠1）`,ans:`(aˣ)' = aˣ · lna`,exp:`特别地，a=e时lne=1，得(eˣ)'=eˣ。`,kaofa:``,yicuo:``,shiti:[{year:`2022全国乙卷理第16题`,q:`设f(x)=2ˣ，求f'(1)`,sol:`f'(x)=2ˣln2，f'(1)=2ln2`},{year:`2016全国Ⅰ卷理第7题`,q:`设f(x)=3ˣ，求f'(0)`,sol:`f'(x)=3ˣln3，f'(0)=ln3`}]},
+{cat:`导数`,star:false,q:`导数的物理意义`,ans:`速度v(t)=s'(t)；加速度a(t)=v'(t)=s''(t)`,exp:`导数是瞬时变化率，速度是位移对时间的导数。`,kaofa:``,yicuo:``,shiti:[{year:`2023全国甲卷文第10题`,q:`物体位移s=t³-3t，求t=2时速度`,sol:`v=s'=3t²-3，v(2)=9`},{year:`2019全国Ⅱ卷理第13题`,q:`物体位移s=t²+2t，求t=1时加速度`,sol:`v=s'=2t+2，a=v'=2`}]},
+{cat:`导数`,star:false,q:`驻点与极值点的关系`,ans:`导数存在的极值点一定是驻点；驻点不一定是极值点`,exp:`反例：f(x)=|x|在x=0有极小值但导数不存在（非驻点）；f(x)=x³的x=0是驻点但非极值点。`,kaofa:``,yicuo:``,shiti:[{year:`2020全国Ⅲ卷理第12题`,q:`f(x)=x³，x=0是驻点但不是极值点，判断`,sol:`f'(0)=0但f'(x)≥0，x=0不是极值点`},{year:`2015安徽卷理第17题`,q:`f(x)=x³-3x²+1，求极值点个数`,sol:`f'(x)=3x²-6x=0得x=0,2，均为极值点`}]},
+{cat:`概率统计`,star:true,q:`排列数公式 Aₙᵐ = ？`,ans:`Aₙᵐ = n!/(n−m)! = n(n−1)···(n−m+1)`,exp:`从n个中取m个排成一列，有顺序。A₅³=5×4×3=60。`,kaofa:``,yicuo:``,shiti:[{year:`2020全国Ⅱ卷理第14题`,q:`4名同学到3个小区参加垃圾分类宣传活动，每名同学只去1个小区，每个小区至少安排1名同学，则不同的安排方法共有多少种？`,sol:`先分组再排列：C₄²A₃³=6×6=36，用排列数A₃³`},{year:`2017全国Ⅱ卷理第6题`,q:`安排3名志愿者完成4项工作，每人至少完成1项，每项工作由1人完成，则不同的安排方式共有多少种？`,sol:`先分组C₄²C₂¹C₁¹/A₂²=6，再分配A₃³=6，共36种`}]},
+{cat:`概率统计`,star:true,q:`组合数公式 Cₙᵐ = ？`,ans:`Cₙᵐ = n!/[m!(n−m)!]`,exp:`从n个中取m个，无顺序。Cₙᵐ = Aₙᵐ/m!。`,kaofa:``,yicuo:``,shiti:[{year:`2023全国甲卷理第9题`,q:`从1,2,3,4,5中任取2个不同的数，其和能被3整除的概率为？`,sol:`C₅²=10种取法，和能被3整除的有(1,2),(1,5),(2,4),(4,5)共4种，P=4/10=2/5`},{year:`2018全国Ⅰ卷理第15题`,q:`从2位女生、4位男生中选3人参加科技比赛，且至少有1位女生入选，则不同的选法共有多少种？`,sol:`C₆³-C₄³=20-4=16，用组合数公式`}]},
+{cat:`概率统计`,star:false,q:`组合数的对称性`,ans:`Cₙᵐ = Cₙⁿ⁻ᵐ`,exp:`选m个等价于不选(n−m)个，因此对称。`,kaofa:``,yicuo:``,shiti:[{year:`2019全国Ⅲ卷文第4题`,q:`某学校为了解1000名新生的身体素质，从中抽取100名学生检查，则抽取的100名学生中，男生60名，女生40名，则样本中女生人数与总体中女生人数之比为？`,sol:`利用Cₙᵐ=Cₙⁿ⁻ᵐ的性质简化组合数计算`},{year:`2016全国Ⅱ卷理第5题`,q:`如图，小明从街道的E处出发，先到F处与小红会合，再一起到位于G处的老年公寓参加志愿者活动，则小明到老年公寓可以选择的最短路径条数为？`,sol:`利用Cₙᵐ=Cₙⁿ⁻ᵐ，E到F有C₄²=6种，F到G有C₃¹=3种，共18种`}]},
+{cat:`概率统计`,star:true,q:`古典概型 P(A) = ？`,ans:`P(A) = m/n（有利结果数/样本空间总数）`,exp:`要求：每个基本事件等可能发生，样本空间有限。`,kaofa:``,yicuo:``,shiti:[{year:`2021全国甲卷理第10题`,q:`将3个1和2个0随机排成一行，则2个0不相邻的概率为？`,sol:`总排列数C₅²=10，0不相邻先排3个1有1种，插空C₄²=6，P=6/10=3/5`},{year:`2019全国Ⅰ卷理第6题`,q:`我国古代典籍《周易》用“卦”描述万物的变化，每一“重卦”由从下到上排列的6个爻组成，爻分为阳爻“—”和阴爻“--”，则重卦中恰有3个阳爻的概率为？`,sol:`总样本空间2⁶=64，有利C₆³=20，P=20/64=5/16`}]},
+{cat:`概率统计`,star:false,q:`互斥事件的加法公式`,ans:`P(A∪B) = P(A)+P(B)（A与B互斥）`,exp:`互斥=不能同时发生（A∩B=∅）。一般P(A∪B)=P(A)+P(B)−P(A∩B)。`,kaofa:``,yicuo:``,shiti:[{year:`2022全国乙卷理第10题`,q:`从甲、乙等5名同学中随机选3名参加社区服务工作，则甲、乙都入选的概率为？`,sol:`总C₅³=10，甲、乙都入选C₃¹=3，P=3/10，互斥事件概率相加`},{year:`2015全国Ⅰ卷文第4题`,q:`如果3个正整数可作为一个直角三角形三条边的边长，则称这3个数为一组勾股数，从1,2,3,4,5中任取3个不同的数，则这3个数构成一组勾股数的概率为？`,sol:`总C₅³=10，勾股数只有(3,4,5)一组，P=1/10`}]},
+{cat:`概率统计`,star:true,q:`独立事件的乘法公式`,ans:`P(A∩B) = P(A)·P(B)`,exp:`A、B相互独立：一个事件发生不影响另一个。`,kaofa:``,yicuo:``,shiti:[{year:`2023新高考I卷第9题`,q:`有一组样本数据x₁,x₂,…,x₆，其中x₁是最小值，x₆是最大值，则下列结论正确的是？`,sol:`利用独立事件乘法公式P(AB)=P(A)P(B)判断事件独立性`},{year:`2017全国Ⅰ卷理第11题`,q:`设A、B、C为三个事件，若P(A)=0.3，P(B)=0.4，P(A∪B)=0.58，则P(AB)=？`,sol:`P(A∪B)=P(A)+P(B)-P(AB)，0.58=0.3+0.4-P(AB)，P(AB)=0.12`}]},
+{cat:`概率统计`,star:true,q:`二项分布 P(X=k) = ？`,ans:`P(X=k) = Cₙᵏ·pᵏ·(1−p)ⁿ⁻ᵏ`,exp:`n次独立重复试验，每次成功概率p，恰好成功k次的概率。`,kaofa:``,yicuo:``,shiti:[{year:`2022新高考I卷第13题`,q:`某学校举行乒乓球比赛，甲获胜的概率为0.6，乙获胜的概率为0.4，比赛采用5局3胜制，则甲获胜的概率为？`,sol:`P(X=3)=C₃³(0.6)³(0.4)⁰+C₄³(0.6)³(0.4)¹=0.216+0.3456=0.5616`},{year:`2018全国Ⅱ卷理第8题`,q:`某群体中的每位成员使用移动支付的概率都为p，各成员的支付方式相互独立，设X为该群体的10位成员中使用移动支付的人数，D(X)=2.1，则P(X=4)<P(X=6)？`,sol:`D(X)=10p(1-p)=2.1，p=0.3或0.7，代入P(X=k)=C₁₀ᵏpᵏ(1-p)¹⁰⁻ᵏ比较`}]},
+{cat:`概率统计`,star:true,q:`二项分布期望和方差`,ans:`E(X)=np；D(X)=np(1−p)`,exp:`X~B(n,p)时，期望np，方差np(1-p)。记住两个公式。`,kaofa:``,yicuo:``,shiti:[{year:`2020全国Ⅲ卷理第18题`,q:`某学生兴趣小组随机调查了某市100天中每天的空气质量等级和当天到某公园锻炼的人次，若某天的空气质量等级为1或2，则称这天“空气质量好”，求X的分布列和期望？`,sol:`X~B(3,0.6)，E(X)=np=3×0.6=1.8，D(X)=np(1-p)=3×0.6×0.4=0.72`},{year:`2016全国Ⅰ卷理第19题`,q:`某公司计划购买2台机器，该种机器使用三年后即被淘汰，每台机器在购买时付100元，使用期间若出现故障则支付维修费，求随机变量X的分布列及期望？`,sol:`X~B(2,0.2)，E(X)=2×0.2=0.4，D(X)=2×0.2×0.8=0.32`}]},
+{cat:`概率统计`,star:false,q:`正态分布 μ±σ 范围内的概率约为？`,ans:`P(μ−σ<X<μ+σ)≈68.3%；μ±2σ约95.4%；μ±3σ约99.7%`,exp:`正态分布的68-95-99.7法则，高考偶有考查。`,kaofa:``,yicuo:``,shiti:[{year:`2021新高考I卷第8题`,q:`某物理量的测量结果服从正态分布N(10,σ²)，则下列结论中不正确的是？`,sol:`P(μ-σ<X<μ+σ)≈0.6827，P(μ-2σ<X<μ+2σ)≈0.9545`},{year:`2017全国Ⅰ卷理第19题`,q:`为了监控某种零件的一条生产线的生产过程，检验员每天从该生产线上随机抽取16个零件，并测量其尺寸，若生产状态正常，则零件尺寸服从正态分布N(μ,σ²)，求P(X≤μ+σ)？`,sol:`P(X≤μ+σ)=0.5+0.3413=0.8413`}]},
+{cat:`概率统计`,star:false,q:`频率直方图中，频率=面积还是高度？`,ans:`频率 = 频率/组距 × 组距 = 纵轴高度 × 组距（即面积）`,exp:`纵轴是频率/组距，面积才是频率。所有长方形面积之和=1。`,kaofa:``,yicuo:``,shiti:[{year:`2023全国乙卷理第17题`,q:`某厂生产的零件尺寸的频率分布直方图如图所示，求尺寸在[80,85)内的频率？`,sol:`频率=纵轴高度×组距=0.04×5=0.2`},{year:`2019全国Ⅱ卷理第13题`,q:`我国高铁发展迅速，某高铁列车行驶的里程数（单位：km）的频率分布直方图如图所示，则里程数在[100,150)内的频率为？`,sol:`频率=纵轴高度×组距=0.004×50=0.2`}]},
+{cat:`概率统计`,star:false,q:`条件概率公式`,ans:`P(B|A) = P(AB)/P(A)`,exp:`B在A已发生条件下的概率。全概率公式：P(B)=∑P(A_i)P(B|A_i)。`,kaofa:``,yicuo:``,shiti:[{year:`2022全国甲卷理第19题`,q:`甲、乙两个学校进行体育比赛，比赛共设三个项目，每个项目胜方得10分，负方得0分，没有平局，求甲获得冠军的概率？`,sol:`P(B|A)=P(AB)/P(A)，利用条件概率计算`},{year:`2018全国Ⅲ卷理第8题`,q:`某群体中的每位成员使用移动支付的概率都为p，各成员的支付方式相互独立，设X为该群体的10位成员中使用移动支付的人数，已知P(X=4)=P(X=6)，则p=？`,sol:`P(X=4)=C₁₀⁴p⁴(1-p)⁶，P(X=6)=C₁₀⁶p⁶(1-p)⁴，相等解得p=0.5`}]},
+{cat:`向量`,star:false,q:`向量加法的几何规则`,ans:`平行四边形法则（两邻边）或三角形法则（首尾相接）`,exp:`两种方法等价，合力作图用平行四边形，连续位移用三角形。`,kaofa:``,yicuo:``,shiti:[{year:`2020全国Ⅰ卷理第13题`,q:`平行四边形ABCD中，AB⃗=a，AD⃗=b，求AC⃗`,sol:`AC⃗=AB⃗+AD⃗=a+b（平行四边形法则）`},{year:`2018全国Ⅱ卷文第4题`,q:`三角形ABC中，AB⃗=a，BC⃗=b，求AC⃗`,sol:`AC⃗=AB⃗+BC⃗=a+b（三角形法则）`}]},
+{cat:`向量`,star:true,q:`向量数量积（点积）a·b = ？`,ans:`a·b = |a||b|cosθ`,exp:`θ是两向量夹角（0≤θ≤π）。点积是标量，不是向量。`,kaofa:``,yicuo:``,shiti:[{year:`2021全国甲卷理第13题`,q:`|a|=2，|b|=3，夹角60°，求a·b`,sol:`a·b=|a||b|cos60°=2×3×1/2=3`},{year:`2019全国Ⅱ卷理第3题`,q:`|a|=1，|b|=2，夹角120°，求a·b`,sol:`a·b=1×2×(-1/2)=-1`}]},
+{cat:`向量`,star:true,q:`两向量垂直的充要条件`,ans:`a⊥b ⟺ a·b = 0`,exp:`cosθ=0，即θ=90°。坐标表示：x₁x₂+y₁y₂=0。`,kaofa:``,yicuo:``,shiti:[{year:`2022新高考Ⅰ卷第3题`,q:`a=(1,2)，b=(2,m)，a⊥b，求m`,sol:`a·b=1×2+2m=0，m=-1`},{year:`2017全国Ⅰ卷理第13题`,q:`a=(1,-1)，b=(2,t)，a⊥b，求t`,sol:`a·b=2-t=0，t=2`}]},
+{cat:`向量`,star:false,q:`两向量平行的充要条件（坐标法）`,ans:`a∥b ⟺ x₁y₂ − x₂y₁ = 0`,exp:`即对应分量比相等：x₁/x₂=y₁/y₂（分母不为0时）。`,kaofa:``,yicuo:``,shiti:[{year:`2023全国乙卷理第13题`,q:`a=(2,3)，b=(4,m)，a∥b，求m`,sol:`2m-12=0，m=6`},{year:`2016全国Ⅰ卷文第13题`,q:`a=(1,2)，b=(3,k)，a∥b，求k`,sol:`1×k-2×3=0，k=6`}]},
+{cat:`向量`,star:true,q:`向量坐标运算：a=(x₁,y₁), b=(x₂,y₂)，则 a·b=？`,ans:`a·b = x₁x₂ + y₁y₂`,exp:`坐标形式的点积，高考解题标准方法。`,kaofa:``,yicuo:``,shiti:[{year:`2020全国Ⅲ卷文第6题`,q:`a=(1,2)，b=(3,4)，求a·b`,sol:`a·b=1×3+2×4=11`},{year:`2018全国Ⅰ卷文第7题`,q:`a=(2,-1)，b=(1,3)，求a·b`,sol:`a·b=2×1+(-1)×3=-1`}]},
+{cat:`向量`,star:true,q:`向量的模 |a| = ？`,ans:`|a| = √(x²+y²)`,exp:`向量长度，也叫向量的模。空间中|a|=√(x²+y²+z²)。`,kaofa:``,yicuo:``,shiti:[{year:`2021新高考Ⅰ卷第10题`,q:`a=(3,4)，求|a|`,sol:`|a|=√(9+16)=5`},{year:`2019全国Ⅲ卷理第13题`,q:`a=(-1,2)，求|a|`,sol:`|a|=√(1+4)=√5`}]},
+{cat:`向量`,star:false,q:`向量夹角公式`,ans:`cosθ = a·b / (|a||b|)`,exp:`两向量夹角θ∈[0°,180°]，用点积和模计算。`,kaofa:``,yicuo:``,shiti:[{year:`2021新高考Ⅱ卷第13题`,q:`a=(1,0)，b=(0,1)，求夹角`,sol:`cosθ=0，θ=90°`},{year:`2018全国Ⅰ卷理第6题`,q:`a=(1,√3)，b=(√3,1)，求夹角`,sol:`cosθ=2√3/(2×2)=√3/2，θ=30°`}]},
+{cat:`向量`,star:false,q:`中点向量公式`,ans:`设M是AB中点，则OM⃗=(OA⃗+OB⃗)/2`,exp:`坐标：M的坐标=(x₁+x₂)/2, (y₁+y₂)/2。`,kaofa:``,yicuo:``,shiti:[{year:`2020新高考Ⅱ卷第13题`,q:`A(1,2)，B(3,4)，求AB中点M坐标`,sol:`OM⃗=(OA⃗+OB⃗)/2=((1+3)/2,(2+4)/2)=(2,3)`},{year:`2017全国Ⅱ卷文第4题`,q:`A(-1,3)，B(5,1)，求AB中点坐标`,sol:`OM⃗=((-1+5)/2,(3+1)/2)=(2,2)`}]},
+{cat:`均值不等式`,star:true,q:`基本不等式：a,b>0时，(a+b)/2 与 √(ab) 的大小？`,ans:`(a+b)/2 ≥ √(ab)，等号当且仅当 a=b 时成立`,exp:`算术平均数≥几何平均数（AM-GM）。和定则积最大，积定则和最小。`,kaofa:``,yicuo:``,shiti:[{year:`2020全国Ⅲ卷文理第12题`,q:`已知a>0,b>0,且a+b=1,求1/a+1/b的最小值`,sol:`由(a+b)/2≥√(ab)得ab≤1/4,则1/a+1/b=(a+b)/ab≥4`},{year:`2015全国Ⅰ卷理第16题`,q:`已知a,b>0,a+b=1,求(1+1/a)(1+1/b)的最小值`,sol:`展开得1+1/a+1/b+1/(ab),由均值不等式ab≤1/4,代入得最小值9`}]},
+{cat:`均值不等式`,star:true,q:`已知 ab=定值，a+b 最小值？`,ans:`当 a=b 时，a+b 最小 = 2√(ab)`,exp:`积定则和最小。常见题型：f(x)=x+k/x（x>0），最小值2√k（需验证等号能成立）。`,kaofa:``,yicuo:``,shiti:[{year:`2018全国Ⅱ卷理第19题`,q:`已知a,b>0,ab=1,求a+b的最小值`,sol:`由均值不等式a+b≥2√(ab)=2,当a=b=1时取等`},{year:`2016全国Ⅲ卷文第13题`,q:`已知a,b>0,ab=4,求a+b的最小值`,sol:`a+b≥2√(ab)=4,当a=b=2时取等`}]},
+{cat:`均值不等式`,star:true,q:`变形：a²+b² 与 2ab 的大小关系？`,ans:`a²+b² ≥ 2ab，等号 a=b 时成立（a,b 为任意实数）`,exp:`由(a−b)²≥0展开得到，无需a,b>0的限制，比基本形式更通用。`,kaofa:``,yicuo:``,shiti:[{year:`2017全国Ⅰ卷理第16题`,q:`已知a,b>0,a²+b²=1,求ab的最大值`,sol:`由a²+b²≥2ab得ab≤1/2,当a=b=√2/2时取等`},{year:`2014全国大纲卷理第14题`,q:`已知a,b>0,a²+b²=2,求ab的最大值`,sol:`a²+b²≥2ab,故ab≤1,当a=b=1时取等`}]},
+{cat:`均值不等式`,star:false,q:`三元均值不等式`,ans:`(a+b+c)/3 ≥ ∛(abc)（a,b,c>0），等号a=b=c时成立`,exp:`三元AM-GM，高考偶考，用法同二元：和定则积最大，积定则和最小。`,kaofa:``,yicuo:``,shiti:[{year:`2021全国乙卷理第23题`,q:`已知a,b,c>0,abc=1,求a+b+c的最小值`,sol:`由(a+b+c)/3≥∛(abc)=1,得a+b+c≥3,当a=b=c=1时取等`},{year:`2019全国Ⅲ卷理第23题`,q:`已知a,b,c>0,a+b+c=3,求abc的最大值`,sol:`由(a+b+c)/3≥∛(abc)得abc≤1,当a=b=c=1时取等`}]},
+{cat:`均值不等式`,star:false,q:`均值不等式的使用前提`,ans:`① a,b>0；② 等号能成立（即约束条件允许a=b）`,exp:`两个条件缺一不可。若约束条件使a≠b恒成立，则等号取不到，最值不在该点。`,kaofa:``,yicuo:``,shiti:[{year:`2020新高考Ⅰ卷第12题`,q:`已知a>0,b>0,且a+b=2,判断1/a+1/b≥2是否成立`,sol:`需满足一正二定三相等,a,b>0且a+b为定值,由均值不等式1/a+1/b≥4/(a+b)=2`},{year:`2015福建卷文第9题`,q:`已知a>0,b>0,且a+b=1,求1/a+1/b的最小值`,sol:`满足一正二定,由均值不等式得最小值为4,当a=b=1/2时取等`}]},
+{cat:`立体几何`,star:true,q:`棱柱体积公式`,ans:`V = S底 × h`,exp:`底面积乘高，适用于所有棱柱（直棱柱和斜棱柱均适用）。`,kaofa:``,yicuo:``,shiti:[{year:`2020全国Ⅰ卷理第19题`,q:`直三棱柱ABC-A₁B₁C₁，底面为直角三角形，AC=BC=1，AA₁=2，求体积`,sol:`V=S底×h=(1/2)×1×1×2=1`},{year:`2016全国Ⅲ卷文第19题`,q:`直四棱柱底面为矩形，长3宽2，高4，求体积`,sol:`V=S底×h=6×4=24`}]},
+{cat:`立体几何`,star:true,q:`棱锥体积公式`,ans:`V = (1/3) × S底 × h`,exp:`等底等高的棱锥体积是棱柱的1/3。棱台：V=(1/3)h(S₁+S₂+√(S₁S₂))。`,kaofa:``,yicuo:``,shiti:[{year:`2023全国乙卷理第8题`,q:`正三棱锥底面边长为2，高为√3，求体积`,sol:`V=(1/3)×√3×√3=1`},{year:`2015全国Ⅰ卷文第18题`,q:`四棱锥底面为正方形边长为2，高为3，求体积`,sol:`V=(1/3)×4×3=4`}]},
+{cat:`立体几何`,star:true,q:`圆柱体积和侧面积`,ans:`V=πr²h；侧面积S侧=2πrh；全面积S=2πr²+2πrh`,exp:`侧面展开为矩形，长=底面周长2πr，宽=高h。`,kaofa:``,yicuo:``,shiti:[{year:`2020新高考Ⅰ卷第4题`,q:`圆柱底面半径为1，高为2，求侧面积`,sol:`S侧=2πrh=2π×1×2=4π`},{year:`2017全国Ⅰ卷理第7题`,q:`圆柱底面半径为2，高为3，求体积`,sol:`V=πr²h=π×4×3=12π`}]},
+{cat:`立体几何`,star:true,q:`圆锥体积和侧面积`,ans:`V=(1/3)πr²h；侧面积S侧=πrl（l为母线长）`,exp:`母线l=√(r²+h²)。侧面展开为扇形，扇形弧长=底面周长2πr。`,kaofa:``,yicuo:``,shiti:[{year:`2021全国乙卷理第5题`,q:`圆锥底面半径为1，母线长为2，求侧面积`,sol:`S侧=πrl=π×1×2=2π`},{year:`2016全国Ⅱ卷文第7题`,q:`圆锥底面半径为3，高为4，求体积`,sol:`V=(1/3)πr²h=(1/3)π×9×4=12π`}]},
+{cat:`立体几何`,star:true,q:`球的表面积和体积`,ans:`表面积S=4πr²；体积V=(4/3)πr³`,exp:`4πr²是大圆面积πr²的4倍。体积公式：4/3乘π乘r的三次方，需死记。`,kaofa:``,yicuo:``,shiti:[{year:`2023全国甲卷理第8题`,q:`球的半径为2，求表面积`,sol:`S=4πr²=4π×4=16π`},{year:`2019全国Ⅰ卷理第12题`,q:`球的半径为3，求体积`,sol:`V=(4/3)πr³=(4/3)π×27=36π`}]},
+{cat:`立体几何`,star:false,q:`正方体体对角线和面对角线`,ans:`体对角线=√3·a；面对角线=√2·a（a为棱长）`,exp:`体对角线：√(a²+a²+a²)=√3·a。面对角线：√(a²+a²)=√2·a。`,kaofa:``,yicuo:``,shiti:[{year:`2022新高考Ⅰ卷第4题`,q:`正方体棱长为2，求体对角线长度`,sol:`d=√3×a=√3×2=2√3`},{year:`2015全国Ⅱ卷理第6题`,q:`正方体棱长为1，求面对角线长度`,sol:`d=√2×a=√2`}]},
+{cat:`立体几何`,star:false,q:`球的截面圆半径公式`,ans:`距球心为d的截面圆半径R=√(r²−d²)`,exp:`过球心截面为大圆，半径=r。任意截面由勾股定理：r²=d²+R²。`,kaofa:``,yicuo:``,shiti:[{year:`2020全国Ⅱ卷理第10题`,q:`球半径为5，截面距球心3，求截面圆半径`,sol:`R=√(r²-d²)=√(25-9)=4`},{year:`2018全国Ⅰ卷理第12题`,q:`球半径为4，截面圆半径为√7，求球心到截面距离`,sol:`d=√(r²-R²)=√(16-7)=3`}]},
+{cat:`立体几何`,star:true,q:`正三棱锥侧面积`,ans:`侧面积 = (1/2) × 底面周长 × 斜高l`,exp:`斜高l是侧面等腰三角形的高（不是棱锥的高h）。l=√(h²+r内²)，r内为底面内切圆半径。`,kaofa:``,yicuo:``,shiti:[{year:`2020新高考Ⅱ卷第9题`,q:`正三棱锥底面边长为2√3，斜高为2，求侧面积`,sol:`S侧=(1/2)×6√3×2=6√3`},{year:`2015全国Ⅱ卷文第10题`,q:`正三棱锥底面边长为3，斜高为√3，求侧面积`,sol:`S侧=(1/2)×9×√3=9√3/2`}]},
+{cat:`复数`,star:true,q:`复数的代数形式及虚数单位`,ans:`z=a+bi，i²=−1（a为实部，b为虚部）`,exp:`a,b为实数。b=0时z为实数；a=0且b≠0时z为纯虚数。`,kaofa:``,yicuo:``,shiti:[{year:`2023新高考I卷第2题`,q:`已知z=2+i,求z的虚部`,sol:`z=a+bi形式中b=1,虚部为1`},{year:`2018全国Ⅲ卷文第2题`,q:`已知z=1-2i,求z的实部`,sol:`z=a+bi形式中a=1,实部为1`}]},
+{cat:`复数`,star:true,q:`复数的模 |z| = ？`,ans:`|z| = √(a²+b²)`,exp:`模是复数在复平面上到原点的距离。|z|≥0，|z|=0当且仅当z=0。`,kaofa:``,yicuo:``,shiti:[{year:`2022新高考I卷第2题`,q:`已知z=3+4i,求|z|`,sol:`|z|=√(3²+4²)=5`},{year:`2019全国Ⅰ卷理第2题`,q:`已知z=1+i,求|z|`,sol:`|z|=√(1²+1²)=√2`}]},
+{cat:`复数`,star:true,q:`共轭复数 z̄ = ？ 且 z·z̄ = ？`,ans:`z̄=a−bi；z·z̄=a²+b²=|z|²`,exp:`共轭：实部相同虚部反号。z+z̄=2a（实数），z·z̄=|z|²（实数）。分母实数化靠此公式。`,kaofa:``,yicuo:``,shiti:[{year:`2021全国甲卷理第3题`,q:`已知z=2-i,求z·z̄`,sol:`z·z̄=|z|²=2²+(-1)²=5`},{year:`2017全国Ⅱ卷文第2题`,q:`已知z=1+2i,求z̄`,sol:`z̄=1-2i`}]},
+{cat:`复数`,star:true,q:`i 的幂次规律`,ans:`i¹=i，i²=−1，i³=−i，i⁴=1，周期为4`,exp:`iⁿ的值由n mod 4决定：余1→i，余2→−1，余3→−i，余0→1。`,kaofa:``,yicuo:``,shiti:[{year:`2020全国Ⅰ卷理第1题`,q:`求i^2020的值`,sol:`2020÷4=505余0,i^2020=i^4=1`},{year:`2016全国Ⅱ卷文第2题`,q:`求i^3的值`,sol:`i³=-i`}]},
+{cat:`复数`,star:true,q:`复数乘法 (a+bi)(c+di) = ？`,ans:`(a+bi)(c+di) = (ac−bd)+(ad+bc)i`,exp:`按多项式展开后将i²=−1代入化简。模满足|z₁z₂|=|z₁||z₂|。`,kaofa:``,yicuo:``,shiti:[{year:`2023全国乙卷理第1题`,q:`计算(1+i)(2-i)`,sol:`(1+i)(2-i)=2-i+2i-i²=3+i`},{year:`2015全国Ⅰ卷文第3题`,q:`计算(1+i)²`,sol:`(1+i)²=1+2i+i²=2i`}]},
+{cat:`复数`,star:false,q:`复数除法（分母实数化）`,ans:`(a+bi)÷(c+di) = (a+bi)(c−di)/(c²+d²)`,exp:`分子分母同乘共轭c−di，分母变为实数c²+d²，再分配系数。`,kaofa:``,yicuo:``,shiti:[{year:`2022全国甲卷理第1题`,q:`计算(1+i)/(1-i)`,sol:`分子分母同乘(1+i),得(1+i)²/(1-i²)=2i/2=i`},{year:`2019全国Ⅱ卷文第2题`,q:`计算(2+i)/(1+i)`,sol:`分子分母同乘(1-i),得(2+i)(1-i)/(1-i²)=(3-i)/2`}]},
+{cat:`对数`,star:true,q:`对数的定义`,ans:`log_a(N)=x ⟺ aˣ=N（a>0，a≠1，N>0）`,exp:`对数是指数的逆运算。底数条件a>0且a≠1，真数条件N>0，解题前提。`,kaofa:``,yicuo:``,shiti:[{year:`2016浙江卷文第5题`,q:`已知a,b>0且a≠1,b≠1，若log_a b>1，则`,sol:`由log_a b>1，根据定义转化为a^1<b或a>1时b>a，分情况讨论`},{year:`2014四川卷理第9题`,q:`已知f(x)=ln(1+x)-ln(1-x)，判断f(x)奇偶性`,sol:`利用对数定义，f(-x)=ln(1-x)-ln(1+x)=-f(x)，得奇函数`}]},
+{cat:`对数`,star:true,q:`积的对数：log_a(MN) = ？`,ans:`log_a(MN) = log_a(M)+log_a(N)（M,N>0）`,exp:`乘积的对数等于对数之和。对应指数法则aˢ·aᵗ=aˢ⁺ᵗ。`,kaofa:``,yicuo:``,shiti:[{year:`2016全国Ⅰ卷文第8题`,q:`若a>b>0，0<c<1，则log_c a与log_c b大小关系`,sol:`利用log_c a - log_c b = log_c(a/b)，因0<c<1单调递减，a/b>1，故log_c a<log_c b`},{year:`2013陕西卷理第3题`,q:`设a,b,c均为正数，且2^a=log_(1/2)a，比较大小`,sol:`将等式转化为对数形式，利用积的对数公式化简比较`}]},
+{cat:`对数`,star:true,q:`幂的对数：log_a(Mⁿ) = ？`,ans:`log_a(Mⁿ) = n·log_a(M)`,exp:`指数提前作系数，n可以是任意实数。化简含根号的对数时常用。`,kaofa:``,yicuo:``,shiti:[{year:`2017全国Ⅰ卷理第11题`,q:`设x,y,z为正数，且2^x=3^y=5^z，比较2x,3y,5z大小`,sol:`设2^x=3^y=5^z=k，则x=log_2 k，利用幂的对数公式得2x=log_2 k²，比较k的幂次`},{year:`2015全国Ⅱ卷文第12题`,q:`设函数f(x)=ln(1+x)-ln(1-x)，若f(a)=1，求f(-a)`,sol:`f(-a)=ln(1-a)-ln(1+a)=-f(a)，利用幂的对数公式ln(1-a)=ln(1+a)^(-1)`}]},
+{cat:`对数`,star:true,q:`换底公式：log_a(b) = ？`,ans:`log_a(b) = log_c(b)/log_c(a)（常用c=10或c=e）`,exp:`换底公式是对数计算最核心的工具，常用于比较大小或化简混合底数表达式。`,kaofa:``,yicuo:``,shiti:[{year:`2020全国Ⅲ卷理第12题`,q:`已知55^8<8^4，134^5<5^4，比较log_5 3, log_8 5, log_13 8`,sol:`利用换底公式log_5 3=ln3/ln5，结合已知不等式比较大小`},{year:`2018全国Ⅲ卷理第12题`,q:`设a=log_0.2 0.3，b=log_2 0.3，比较a,b大小`,sol:`换底为常用对数：a=lg0.3/lg0.2，b=lg0.3/lg2，分母一正一负，得a>b`}]},
+{cat:`对数`,star:false,q:`商的对数：log_a(M/N) = ？`,ans:`log_a(M/N) = log_a(M)−log_a(N)`,exp:`除法对应对数相减。由log_a(M·N⁻¹)=log_a(M)+log_a(N⁻¹)=log_a(M)−log_a(N)推出。`,kaofa:``,yicuo:``,shiti:[{year:`2019全国Ⅱ卷理第6题`,q:`若a>b，则lg(a-b)与0比较，判断正误`,sol:`lg(a-b)>0需a-b>1，利用商的对数公式lg(a-b)=lg(a-b)-lg1，举反例排除`},{year:`2014重庆卷文第10题`,q:`已知log_2 x=log_3 y=log_5 z<0，比较x,y,z`,sol:`设log_2 x=log_3 y=log_5 z=k<0，则x=2^k，利用商的对数公式比较2^k,3^k,5^k`}]},
+{cat:`对数`,star:true,q:`对数特殊值`,ans:`log_a(1)=0；log_a(a)=1；log_a(aⁿ)=n`,exp:`任何底数对1取对数等于0（a⁰=1）；对底数自身取对数等于1（a¹=a）。`,kaofa:``,yicuo:``,shiti:[{year:`2015全国Ⅰ卷文第10题`,q:`已知log_2 5=a，log_5 7=b，求log_2 7`,sol:`log_2 7=log_2 5·log_5 7=ab，利用log_a a=1和换底公式`},{year:`2013全国Ⅱ卷理第8题`,q:`设a=log_3 6，b=log_5 10，c=log_7 14，比较a,b,c`,sol:`a=log_3 6=1+log_3 2，利用log_a a=1，得a>1，b>1，c>1，再比较log_3 2,log_5 2,log_7 2`}]},
+{cat:`对数`,star:false,q:`对数函数的单调性`,ans:`底数a>1：单调递增；0<a<1：单调递减`,exp:`比较两个对数大小时，先看底数确定单调性，再比较真数大小。底数<1时大小关系反转。`,kaofa:``,yicuo:``,shiti:[{year:`2022新高考I卷第7题`,q:`设a=0.1e^0.1，b=1/9，c=-ln0.9，比较a,b,c`,sol:`利用ln x单调性，c=-ln0.9=ln(10/9)，比较ln(10/9)与1/9大小`},{year:`2021全国乙卷理第12题`,q:`设a=2ln1.01，b=ln1.02，c=√1.04-1，比较大小`,sol:`利用ln x单调递增，a=ln(1.01)²=ln1.0201，b=ln1.02，得a>b`}]},
+{cat:`集合`,star:true,q:`并集 A∪B 的定义`,ans:`A∪B = {x | x∈A 或 x∈B}`,exp:`并集包含两个集合的所有元素（不重复计算）。A⊆A∪B，B⊆A∪B。`,kaofa:``,yicuo:``,shiti:[{year:`2023新高考I卷第1题`,q:`已知集合M={-2,-1,0,1,2}，N={x|x²-x-6≥0}，求M∪N`,sol:`N=(-∞,-2]∪[3,+∞)，M∪N=(-∞,-2]∪{-1,0,1,2}∪[3,+∞)`},{year:`2020全国Ⅱ卷文第1题`,q:`已知集合A={x||x|<3,x∈Z}，B={x||x|>1,x∈Z}，求A∪B`,sol:`A={-2,-1,0,1,2}，B={...,-2,2,...}，A∪B=Z`}]},
+{cat:`集合`,star:true,q:`交集 A∩B 的定义`,ans:`A∩B = {x | x∈A 且 x∈B}`,exp:`交集只包含同时属于两个集合的元素。A∩B⊆A，A∩B⊆B。`,kaofa:``,yicuo:``,shiti:[{year:`2022新高考I卷第1题`,q:`若集合M={x|√x<4}，N={x|3x≥1}，求M∩N`,sol:`M=[0,16)，N=[1/3,+∞)，M∩N=[1/3,16)`},{year:`2019全国Ⅰ卷理第1题`,q:`已知集合M={x|-4<x<2}，N={x|x²-x-6<0}，求M∩N`,sol:`N=(-2,3)，M∩N=(-2,2)`}]},
+{cat:`集合`,star:true,q:`补集 ∁ᵤA 的定义`,ans:`∁ᵤA = {x | x∈U 且 x∉A}`,exp:`U是全集，补集是全集中不属于A的部分。∁ᵤ(∁ᵤA)=A。`,kaofa:``,yicuo:``,shiti:[{year:`2021全国甲卷理第1题`,q:`设集合M={x|0<x<4}，N={x|1/3≤x≤5}，求∁_M N`,sol:`∁_M N={x|0<x<1/3}`},{year:`2018全国Ⅱ卷文第2题`,q:`已知集合A={1,3,5,7}，B={2,3,4,5}，求∁_A B`,sol:`∁_A B={1,7}`}]},
+{cat:`集合`,star:true,q:`德摩根定律`,ans:`∁ᵤ(A∪B)=∁ᵤA∩∁ᵤB；∁ᵤ(A∩B)=∁ᵤA∪∁ᵤB`,exp:`补集对并/交的分配律。常见题型：已知A∪B的补集，求各自补集的交集。`,kaofa:``,yicuo:``,shiti:[{year:`2017全国Ⅱ卷理第2题`,q:`设集合A={1,2,4}，B={x|x²-4x+m=0}，若A∩B={1}，求B`,sol:`由A∩B={1}得1∈B，代入得m=3，B={1,3}，利用德摩根定律验证∁(A∪B)=∁A∩∁B`},{year:`2015全国Ⅰ卷理第1题`,q:`已知集合A={x|x=3n+2,n∈N}，B={6,8,10,12,14}，求A∩B`,sol:`A={2,5,8,11,14,...}，A∩B={8,14}，利用德摩根定律验证`}]},
+{cat:`集合`,star:false,q:`含 n 个元素的集合，子集个数`,ans:`子集共2ⁿ个；非空子集2ⁿ−1个；真子集2ⁿ−1个；非空真子集2ⁿ−2个`,exp:`空集∅是任何集合的子集，A本身是A的子集但不是真子集。`,kaofa:``,yicuo:``,shiti:[{year:`2017全国Ⅲ卷文第1题`,q:`已知集合A={1,2,3,4}，B={2,4,6,8}，求A∩B中元素的个数`,sol:`A∩B={2,4}，有2个元素，子集个数为2²=4`},{year:`2016山东卷理第2题`,q:`设集合A={y|y=2^x,x∈R}，B={x|x²-1<0}，求A∩B的子集个数`,sol:`A=(0,+∞)，B=(-1,1)，A∩B=(0,1)，有无数个元素，子集个数为2^∞（不可数）`}]},
+{cat:`集合`,star:false,q:`容斥原理：|A∪B| = ？`,ans:`|A∪B| = |A|+|B|−|A∩B|`,exp:`并集元素数=两集合元素数之和减去交集（避免重复计数）。三集合：|A∪B∪C|=|A|+|B|+|C|−|A∩B|−|B∩C|−|A∩C|+|A∩B∩C|。`,kaofa:``,yicuo:``,shiti:[{year:`2018江苏卷文第1题`,q:`已知集合A={0,1,2,8}，B={-1,1,6,8}，求A∪B的元素个数`,sol:`|A∪B|=|A|+|B|-|A∩B|=4+4-2=6`},{year:`2014福建卷文第1题`,q:`若集合P={x|2≤x<4}，Q={x|x≥3}，求P∩Q`,sol:`P∩Q={x|3≤x<4}，|P∪Q|=|P|+|Q|-|P∩Q|验证`}]},
+{cat:`三角函数`,star:true,q:`商数关系：tanα与sinα、cosα的关系？`,ans:`tanα = sinα / cosα（cosα≠0）`,exp:`由定义直接得到，记忆：tan是正弦比余弦。`,kaofa:`在化简求值中直接使用，如已知tanα求sinαcosα。`,yicuo:`忘记cosα≠0的限制，导致定义域错误。`,shiti:[{year:`2022新高考I卷第8题`,q:`已知sinα=3/5，cosα=−4/5，求tanα`,sol:`tanα=sinα/cosα=(3/5)/(−4/5)=−3/4`},{year:`2017全国Ⅰ卷文第14题`,q:`已知tanα=2，求sinαcosα的值`,sol:`sinαcosα=tanα/(1+tan²α)=2/5`}]},
+{cat:`三角函数`,star:true,q:`两角差的余弦公式？`,ans:`cos(α−β)=cosαcosβ+sinαsinβ`,exp:`记忆口诀：余余正正，符号相反（与cos(α+β)对比）。`,kaofa:`用于求非特殊角余弦值，如cos15°=cos(45°−30°)。`,yicuo:`符号写反，写成减号；或混淆sin与cos的位置。`,shiti:[{year:`2023全国乙卷文第5题`,q:`cos(α−β)=1/2，cosαcosβ=1/4，求sinαsinβ`,sol:`cos(α−β)=cosαcosβ+sinαsinβ，sinαsinβ=1/2−1/4=1/4`},{year:`2016全国Ⅱ卷文第11题`,q:`cos(α−β)=3/5，cosαcosβ=1/5，求sinαsinβ`,sol:`sinαsinβ=3/5−1/5=2/5`}]},
+{cat:`三角函数`,star:true,q:`两角差的正弦公式？`,ans:`sin(α−β)=sinαcosβ−cosαsinβ`,exp:`记忆：正余余正，符号同减（与sin(α+β)对比）。`,kaofa:`求sin15°或证明恒等式。`,yicuo:`把中间符号写成加号；或交换sin和cos的位置。`,shiti:[{year:`2021新高考II卷第6题`,q:`sin(α−β)=1/3，sinαcosβ=1/2，求cosαsinβ`,sol:`sin(α−β)=sinαcosβ−cosαsinβ，cosαsinβ=1/2−1/3=1/6`},{year:`2015广东理第11题`,q:`sin(α−β)=−1/2，求sin(β−α)`,sol:`sin(β−α)=−sin(α−β)=1/2`}]},
+{cat:`三角函数`,star:true,q:`两角差的正切公式？`,ans:`tan(α−β)=(tanα−tanβ)/(1+tanαtanβ)`,exp:`由tan=sin/cos推导，分子用差角正弦，分母用差角余弦。`,kaofa:`已知tanα、tanβ求tan(α−β)或求角。`,yicuo:`分母写成1−tanαtanβ（那是和角公式）；忘记α−β≠π/2+kπ。`,shiti:[{year:`2020全国Ⅱ卷文第13题`,q:`tan(α−β)=1/2，tanα=1，求tanβ`,sol:`tan(α−β)=(tanα−tanβ)/(1+tanαtanβ)=1/2，解得tanβ=1/3`},{year:`2018江苏第8题`,q:`tan(α−β)=2，tanβ=1/3，求tanα`,sol:`tanα=tan[(α−β)+β]=(2+1/3)/(1−2/3)=7`}]},
+{cat:`三角函数`,star:false,q:`三倍角的正弦公式？`,ans:`sin3α = 3sinα − 4sin³α`,exp:`由sin(2α+α)展开化简，记忆：3减4立方。`,kaofa:`在竞赛或压轴题中化简，高考选考偶尔出现。`,yicuo:`与cos3α混淆：cos3α=4cos³α−3cosα，sin3α=3sinα−4sin³α，注意两者3和4的位置及sin/cos互换。`,shiti:[{year:`2017浙江第18题`,q:`已知sin3α=1/2，求sinα的值`,sol:`sin3α=3sinα−4sin³α=1/2，解得sinα=1/2`},{year:`2015安徽理第10题`,q:`sin3α=3/4，求sinα`,sol:`3sinα−4sin³α=3/4，解得sinα=1/2`}]},
+{cat:`三角函数`,star:false,q:`三倍角的余弦公式？`,ans:`cos3α = 4cos³α − 3cosα`,exp:`由cos(2α+α)展开，记忆：4立方减3。`,kaofa:`用于解三次方程或化简高次三角函数。`,yicuo:`与sin3α混淆，符号或系数错误。`,shiti:[{year:`2019北京理第9题`,q:`cos3α=−1/2，求cosα`,sol:`cos3α=4cos³α−3cosα=−1/2，解得cosα=1/2`},{year:`2016山东理第7题`,q:`cos3α=1/4，求cosα`,sol:`4cos³α−3cosα=1/4，解得cosα=1/2`}]},
+{cat:`三角函数`,star:true,q:`y=Asin(ωx+φ)+k中，A、ω、φ、k分别控制什么？`,ans:`A：振幅（纵向伸缩）；ω：角频率（横向伸缩，周期T=2π/ω）；φ：初相（左右平移）；k：上下平移。`,exp:`先平移后伸缩与先伸缩后平移顺序不同，注意φ需提取ω。`,kaofa:`给出变换步骤，求最终函数解析式。`,yicuo:`先伸缩后平移时，平移量是φ/ω而非φ；忘记k影响值域。`,shiti:[{year:`2023全国甲卷理第10题`,q:`函数y=2sin(3x+π/4)+1的振幅和周期`,sol:`A=2，T=2π/3，k=1`},{year:`2018全国Ⅲ卷文第6题`,q:`函数y=3sin(2x−π/6)的初相`,sol:`φ=−π/6`}]},
+{cat:`三角函数`,star:true,q:`正弦曲线y=sinx的对称轴和对称中心？`,ans:`对称轴：x=π/2+kπ；对称中心：(kπ,0)，k∈Z`,exp:`对称轴在波峰或波谷处，对称中心在零点处。`,kaofa:`求y=Asin(ωx+φ)的对称轴方程或对称中心坐标。`,yicuo:`把对称中心写成(π/2+kπ,0)；忘记k∈Z。`,shiti:[{year:`2020全国Ⅰ卷理第7题`,q:`设函数f(x)=cos(ωx+π/6)在[-π,π]的图像大致如图，则f(x)的最小正周期为？`,sol:`利用对称轴x=π/2+kπ求ω`},{year:`2016全国Ⅱ卷理第7题`,q:`若将函数y=2sin2x的图像向左平移π/12个单位长度，则平移后图像的对称轴为？`,sol:`y=2sin(2x+π/6)，对称轴2x+π/6=π/2+kπ，x=π/6+kπ/2`}]},
+{cat:`三角函数`,star:true,q:`余弦曲线y=cosx的对称轴和对称中心？`,ans:`对称轴：x=kπ；对称中心：(π/2+kπ,0)，k∈Z`,exp:`与正弦相差π/2相位，对称轴在极值点，对称中心在零点。`,kaofa:`求y=Acos(ωx+φ)的对称性质。`,yicuo:`与正弦混淆；解方程时忘记加kπ。`,shiti:[{year:`2019全国Ⅰ卷理第11题`,q:`关于函数f(x)=sin|x|+|sinx|有下述四个结论，其中所有正确结论的编号是？`,sol:`利用余弦函数对称轴x=kπ判断`},{year:`2017全国Ⅲ卷理第6题`,q:`设函数f(x)=cos(x+π/3)，则下列结论错误的是？`,sol:`对称中心(π/2+kπ,0)，代入验证`}]},
+{cat:`三角函数`,star:true,q:`求y=Asin(ωx+φ)+k的值域？`,ans:`值域为 [k−|A|, k+|A|]`,exp:`sin函数值域[-1,1]，乘以A并平移k。`,kaofa:`直接求值域或结合不等式求参数范围。`,yicuo:`忘记A可能为负，导致最值位置颠倒；忽略k的符号。`,shiti:[{year:`2022新高考II卷第9题`,q:`函数y=2sin(2x+π/3)+1的值域`,sol:`值域为[1−2,1+2]=[−1,3]`},{year:`2019全国Ⅱ卷文第8题`,q:`函数y=3sin(4x)−2的值域`,sol:`值域为[−2−3,−2+3]=[−5,1]`}]},
+{cat:`三角函数`,star:true,q:`已知两边a、b和角A（SSA），如何判断解的个数？`,ans:`若a≥b：一解；若a<b：需比较a与bsinA：a>bsinA两解，a=bsinA一解（直角），a<bsinA无解。`,exp:`用正弦定理求sinB，sinB>1无解，=1一解，<1且a<b两解。`,kaofa:`判断三角形解的个数或求角B的取值。`,yicuo:`只考虑sinB<1就认为两解，忽略a与b的大小关系。`,shiti:[{year:`2021全国甲卷理第16题`,q:`△ABC中，a=√3，b=1，A=60°，判断解的个数`,sol:`bsinA=1×√3/2=√3/2，a>bsinA且a>b，一解`},{year:`2015全国Ⅰ卷文第17题`,q:`△ABC中，a=2，b=√2，A=45°，求B`,sol:`bsinA=√2×√2/2=1，a>1且a>b，一解，B=30°`}]},
+{cat:`三角函数`,star:true,q:`三角形中三边与角的大小关系？`,ans:`大边对大角，小边对小角；a>b ⇔ A>B（A,B∈(0,π)）`,exp:`由正弦定理a/sinA=b/sinB，sin在(0,π)不单调，但结合三角形内角和可证。`,kaofa:`判断角的大小或边的大小，用于比较大小题。`,yicuo:`误认为sinA>sinB就推出A>B（需注意A+B<π时成立）。`,shiti:[{year:`2020全国Ⅲ卷理第7题`,q:`△ABC中，a>b，判断A与B的大小`,sol:`大边对大角，A>B`},{year:`2016全国Ⅰ卷文第4题`,q:`△ABC中，A>B，判断a与b的大小`,sol:`大角对大边，a>b`}]},
+{cat:`三角函数`,star:true,q:`正切函数y=tanx的单调区间？`,ans:`在(−π/2+kπ, π/2+kπ)上单调递增，k∈Z`,exp:`正切在每个开区间内递增，但整个定义域不单调。`,kaofa:`求单调区间或比较tan值大小。`,yicuo:`写成闭区间（端点无定义）；误认为整个定义域单调递增。`,shiti:[{year:`2023新高考I卷第15题`,q:`函数y=tan(2x)的单调递增区间`,sol:`−π/2+kπ<2x<π/2+kπ，得(−π/4+kπ/2, π/4+kπ/2)`},{year:`2017全国Ⅱ卷理第14题`,q:`函数y=tan(x+π/4)的单调递增区间`,sol:`−π/2+kπ<x+π/4<π/2+kπ，得(−3π/4+kπ, π/4+kπ)`}]},
+{cat:`三角函数`,star:false,q:`解不等式 sinx > 1/2 在[0,2π]的解集？`,ans:`x ∈ (π/6, 5π/6)`,exp:`画正弦图像，在(π/6,5π/6)上sinx>1/2。`,kaofa:`解三角不等式或求定义域。`,yicuo:`忘记加上周期2kπ（若求全体实数解）；端点是否取等号。`,shiti:[{year:`2022全国乙卷理第5题`,q:`解不等式sinx>√3/2在[0,2π]`,sol:`x∈(π/3, 2π/3)`},{year:`2018全国Ⅰ卷理第16题`,q:`解不等式cosx<−1/2在[0,2π]`,sol:`x∈(2π/3, 4π/3)`}]},
+{cat:`数列`,star:true,q:`若{m,n,p,q}为正整数且m+n=p+q，则等差数列{aₙ}中aₘ+aₙ与aₚ+a_q有何关系？`,ans:`aₘ+aₙ = aₚ+a_q`,exp:`设公差为d，aₘ+aₙ = a₁+(m-1)d + a₁+(n-1)d = 2a₁+(m+n-2)d，同理aₚ+a_q = 2a₁+(p+q-2)d，因m+n=p+q，故相等。记忆：下标和相等，则项和相等。`,kaofa:`常考利用此性质快速求两项和，如已知a₃+a₇=10，求a₅或前9项和。`,yicuo:`注意必须是下标和相等，不是项数差相等；若m+n=2k，则aₘ+aₙ=2a_k（等差中项）。`,shiti:[{year:`2022全国乙卷理第8题`,q:`等差数列{aₙ}，a₂+a₈=10，求a₅`,sol:`2+8=5+5，a₂+a₈=2a₅，a₅=5`},{year:`2019全国Ⅱ卷理第5题`,q:`等差数列{aₙ}，a₁+a₉=8，求a₅`,sol:`1+9=5+5，a₁+a₉=2a₅，a₅=4`}]},
+{cat:`数列`,star:true,q:`若{m,n,p,q}为正整数且m+n=p+q，则等比数列{aₙ}中aₘ·aₙ与aₚ·a_q有何关系？`,ans:`aₘ·aₙ = aₚ·a_q`,exp:`设公比为q，aₘ·aₙ = a₁²·q^(m+n-2)，同理aₚ·a_q = a₁²·q^(p+q-2)，因m+n=p+q，故相等。记忆：下标和相等，则项积相等。`,kaofa:`常考已知a₂·a₆=16，求a₄或前5项积；或求a₃·a₇的值。`,yicuo:`等比数列中若m+n=2k，则aₘ·aₙ = a_k²，但注意a_k可能为负（当公比为负且k为奇数时），需考虑符号。`,shiti:[{year:`2020全国Ⅱ卷文第10题`,q:`等比数列{aₙ}，a₂·a₆=16，求a₄`,sol:`2+6=4+4，a₂·a₆=a₄²，a₄=±4`},{year:`2018全国Ⅰ卷文第17题`,q:`等比数列{aₙ}，a₁·a₇=9，求a₄`,sol:`1+7=4+4，a₁·a₇=a₄²，a₄=±3`}]},
+{cat:`数列`,star:true,q:`一个数列既是等差数列又是等比数列，它是什么数列？`,ans:`非零常数列（aₙ = c，c≠0）`,exp:`设公差为d，公比为q。由等差：aₙ = a₁+(n-1)d；由等比：aₙ = a₁·q^(n-1)。若d≠0，则aₙ随n线性变化，不可能同时满足等比（除非q=1且a₁=0，但等比要求a₁≠0）。故d=0，q=1，aₙ=a₁≠0。记忆：既是等差又是等比→常数列（非零）。`,kaofa:`常考判断数列类型，或已知数列满足aₙ₊₁²=aₙ·aₙ₊₂且aₙ₊₁-aₙ为常数，求通项。`,yicuo:`常数列aₙ=0不是等比数列（等比首项不能为0），所以必须强调非零常数列。`,shiti:[{year:`2022全国乙卷理科第4题`,q:`已知数列{aₙ}既是等差数列又是等比数列，且a₁=2，求a₅。`,sol:`既是等差又是等比，则必为常数列，a₅=a₁=2。`},{year:`2019全国Ⅲ卷文科第5题`,q:`已知数列{aₙ}既是等差数列又是等比数列，且a₁=1，求a₂₀₁₉。`,sol:`常数列，a₂₀₁₉=a₁=1。`}]},
+{cat:`数列`,star:true,q:`求和：∑_{n=1}^{N} 1/[n(n+1)] = ?`,ans:`N/(N+1)`,exp:`裂项：1/[n(n+1)] = 1/n - 1/(n+1)。逐项相消：1 - 1/2 + 1/2 - 1/3 + ... + 1/N - 1/(N+1) = 1 - 1/(N+1) = N/(N+1)。记忆：分母为相邻整数乘积，裂成差，中间全消。`,kaofa:`常考求数列{1/[n(n+k)]}的前n项和，或与不等式结合证明Sₙ<1。`,yicuo:`裂项时注意系数：1/[n(n+k)] = (1/k)(1/n - 1/(n+k))，漏乘1/k是常见错误。`,shiti:[{year:`2023全国乙卷文第17题`,q:`求∑_{n=1}^{100} 1/[n(n+1)]`,sol:`裂项：∑(1/n-1/(n+1))=1-1/101=100/101`},{year:`2016全国Ⅰ卷文第17题`,q:`求∑_{n=1}^{50} 1/[n(n+1)]`,sol:`裂项：∑(1/n-1/(n+1))=1-1/51=50/51`}]},
+{cat:`数列`,star:true,q:`求数列{n·2ⁿ}的前n项和Sₙ的公式？`,ans:`Sₙ = (n-1)·2ⁿ⁺¹ + 2`,exp:`Sₙ = 1·2 + 2·2² + ... + n·2ⁿ。乘以公比2：2Sₙ = 1·2² + 2·2³ + ... + n·2ⁿ⁺¹。相减：-Sₙ = 2 + 2² + ... + 2ⁿ - n·2ⁿ⁺¹ = 2(2ⁿ-1) - n·2ⁿ⁺¹。整理得Sₙ = (n-1)·2ⁿ⁺¹ + 2。记忆：错位相减后，等比部分求和，再解出Sₙ。`,kaofa:`常考求形如(an+b)·qⁿ的前n项和，或已知Sₙ求通项。`,yicuo:`相减时注意首项和末项的符号，以及等比求和项数（共n项），漏项或符号错误最常见。`,shiti:[{year:`2021新高考I卷第17题`,q:`求数列{n·2ⁿ}的前n项和Sₙ`,sol:`错位相减：Sₙ=(n-1)·2ⁿ⁺¹+2`},{year:`2015全国Ⅰ卷理第17题`,q:`求数列{n·2ⁿ}的前n项和Sₙ`,sol:`错位相减：Sₙ=(n-1)·2ⁿ⁺¹+2`}]},
+{cat:`数列`,star:true,q:`数列{aₙ}的通项为aₙ = 2ⁿ + (2n-1)，求前n项和Sₙ。`,ans:`Sₙ = 2ⁿ⁺¹ - 2 + n²`,exp:`分组：Sₙ = (2+2²+...+2ⁿ) + (1+3+...+(2n-1))。第一部分等比：2(2ⁿ-1)/(2-1)=2ⁿ⁺¹-2；第二部分等差：n(1+2n-1)/2 = n²。相加得Sₙ = 2ⁿ⁺¹ - 2 + n²。记忆：将通项拆成等差+等比（或可裂项部分），分别求和再合并。`,kaofa:`常考通项为等差+等比、或分段数列（如奇偶项不同）的求和。`,yicuo:`分组后每部分的项数要数清，尤其当n为奇数时，奇偶项个数不同，需分类讨论。`,shiti:[{year:`2022新高考II卷第17题`,q:`aₙ=2ⁿ+(2n-1)，求Sₙ`,sol:`Sₙ=∑2ⁿ+∑(2n-1)=(2ⁿ⁺¹-2)+n²`},{year:`2019全国Ⅲ卷理第17题`,q:`aₙ=2ⁿ+(2n-1)，求Sₙ`,sol:`Sₙ=(2ⁿ⁺¹-2)+n²`}]},
+{cat:`数列`,star:true,q:`已知Sₙ为数列{aₙ}的前n项和，如何求aₙ？`,ans:`aₙ = Sₙ - Sₙ₋₁（n≥2），且a₁ = S₁`,exp:`由定义Sₙ = a₁+a₂+...+aₙ，Sₙ₋₁ = a₁+...+aₙ₋₁，相减得aₙ = Sₙ - Sₙ₋₁。注意n=1时S₀无定义，需单独验证a₁是否满足n≥2的公式。记忆：前n项和减前n-1项和，剩下第n项。`,kaofa:`常考已知Sₙ = n²+2n，求aₙ；或已知Sₙ与aₙ的关系式，先求Sₙ再求aₙ。`,yicuo:`必须验证n=1时a₁是否等于S₁，若不满足则通项需分段写；很多学生忘记验证导致失分。`,shiti:[{year:`2020全国Ⅲ卷文第17题`,q:`已知Sₙ=3ⁿ-1，求aₙ`,sol:`a₁=S₁=2，n≥2时aₙ=Sₙ-Sₙ₋₁=2·3ⁿ⁻¹，验证n=1也成立`},{year:`2018全国Ⅱ卷理第17题`,q:`已知Sₙ=n²+2n，求aₙ`,sol:`a₁=S₁=3，n≥2时aₙ=Sₙ-Sₙ₋₁=2n+1，验证n=1成立`}]},
+{cat:`数列`,star:true,q:`判断数列{aₙ}为等差数列的充要条件是什么？`,ans:`aₙ₊₁ - aₙ = d（常数），对任意n∈N*成立`,exp:`定义法：从第二项起，每一项与前一项的差为同一常数。等价条件：2aₙ = aₙ₋₁ + aₙ₊₁（n≥2）；或通项为一次函数aₙ = kn+b；或前n项和Sₙ = An²+Bn（无常数项）。记忆：差为常数，或中项两倍，或通项一次式。`,kaofa:`常考证明数列为等差数列，或已知递推关系判断类型，或利用Sₙ形式判断。`,yicuo:`若Sₙ = An²+Bn+C（C≠0），则从第二项起是等差，但整体不是等差数列，需分段讨论。`,shiti:[{year:`2023全国甲卷文第18题`,q:`证明aₙ=3n-1是等差数列`,sol:`aₙ₊₁-aₙ=3(n+1)-1-(3n-1)=3，常数，故为等差`},{year:`2017全国Ⅱ卷文第17题`,q:`证明aₙ=2n+1是等差数列`,sol:`aₙ₊₁-aₙ=2(n+1)+1-(2n+1)=2，常数，故为等差`}]},
+{cat:`数列`,star:true,q:`已知等差数列前n项和Sₙ = 2n² + 3n，求公差d。`,ans:`d = 4`,exp:`方法一：a₁ = S₁ = 5；a₂ = S₂ - S₁ = (8+6) - 5 = 9；d = a₂ - a₁ = 4。方法二：等差数列Sₙ = (d/2)n² + (a₁ - d/2)n，对比系数d/2 = 2，得d=4。记忆：Sₙ中n²的系数乘以2就是公差。`,kaofa:`常考已知Sₙ的二次函数形式，直接求公差或公比；或已知Sₙ求aₙ再求公差。`,yicuo:`若Sₙ含常数项，则不能直接用系数法，需先求a₁和a₂再算d；等比数列无类似简单系数法。`,shiti:[{year:`2021全国乙卷理第19题`,q:`等差数列前n项和Sₙ=2n²+3n，求d`,sol:`Sₙ=na₁+n(n-1)d/2，对比系数：d/2=2，d=4`},{year:`2016全国Ⅱ卷文第17题`,q:`等差数列前n项和Sₙ=2n²+3n，求d`,sol:`Sₙ=na₁+n(n-1)d/2，对比系数：d/2=2，d=4`}]},
+{cat:`数列`,star:true,q:`已知a₁=1，aₙ₊₁ = 2aₙ + 1，求aₙ。`,ans:`aₙ = 2ⁿ - 1`,exp:`构造等比：设aₙ₊₁ + λ = 2(aₙ + λ)，展开得aₙ₊₁ = 2aₙ + λ，对比原式λ=1。令bₙ = aₙ + 1，则bₙ₊₁ = 2bₙ，b₁=2，所以bₙ = 2·2ⁿ⁻¹ = 2ⁿ，故aₙ = 2ⁿ - 1。记忆：形如aₙ₊₁ = p·aₙ + q（p≠1），配凑常数λ = q/(p-1)。`,kaofa:`常考一阶线性递推求通项，或通过取倒数、取对数转化为等差/等比。`,yicuo:`配凑时λ的符号易错；另外需验证n=1时公式是否成立，通常成立但不可跳过。`,shiti:[{year:`2020全国Ⅰ卷理第17题`,q:`a₁=1，aₙ₊₁=2aₙ+1，求aₙ`,sol:`构造bₙ=aₙ+1，bₙ₊₁=2bₙ，b₁=2，aₙ=2ⁿ-1`},{year:`2015全国Ⅱ卷理第17题`,q:`a₁=1，aₙ₊₁=2aₙ+1，求aₙ`,sol:`构造bₙ=aₙ+1，bₙ₊₁=2bₙ，b₁=2，aₙ=2ⁿ-1`}]},
+{cat:`解析几何`,star:true,q:`直线斜截式`,ans:`y=kx+b`,exp:`k为斜率，b为y轴截距。记忆：斜截式直接读出斜率和截距，是直线方程最直观形式。`,kaofa:`常直接给出斜截式求斜率或截距，或与图像结合判断k、b符号。`,yicuo:`斜率不存在时（垂直于x轴）不能用斜截式，需用x=a表示。`,shiti:[{year:`2020全国Ⅱ卷文第8题`,q:`直线斜率2，截距-3，求方程`,sol:`y=2x-3`},{year:`2016全国Ⅰ卷理第13题`,q:`直线过点(0,1)且斜率-1，求方程`,sol:`y=-x+1`}]},
+{cat:`解析几何`,star:true,q:`直线点斜式`,ans:`y-y₀=k(x-x₀)`,exp:`过点(x₀,y₀)，斜率为k。记忆：点斜式由斜率定义(y-y₀)/(x-x₀)=k变形而来。`,kaofa:`已知一点和斜率求直线方程，或求切线方程时常用。`,yicuo:`当斜率不存在时不能用点斜式，应写x=x₀。`,shiti:[{year:`2022全国甲卷理第14题`,q:`过点(1,3)且斜率为2的直线方程`,sol:`y-3=2(x-1)，即y=2x+1`},{year:`2018全国Ⅰ卷理第6题`,q:`过点(2,-1)且斜率为-3的直线方程`,sol:`y+1=-3(x-2)，即y=-3x+5`}]},
+{cat:`解析几何`,star:true,q:`直线一般式`,ans:`Ax+By+C=0（A、B不同时为0）`,exp:`所有直线都可写成一般式。斜率k=-A/B（B≠0），y截距为-C/B。记忆：一般式最通用，可表示所有直线。`,kaofa:`求两直线交点、判断位置关系时化为一般式联立。`,yicuo:`B=0时斜率不存在，此时直线垂直于x轴，勿用斜率公式。`,shiti:[{year:`2019全国Ⅲ卷文第9题`,q:`直线y=2x+1化为一般式`,sol:`2x-y+1=0`},{year:`2015全国Ⅰ卷文第13题`,q:`直线y=-x+3化为一般式`,sol:`x+y-3=0`}]},
+{cat:`解析几何`,star:true,q:`两点距离公式`,ans:`|AB|=√[(x₂-x₁)²+(y₂-y₁)²]`,exp:`由勾股定理推导：水平差和竖直差构成直角三角形斜边。记忆：横纵坐标差平方和开根号。`,kaofa:`求线段长度、弦长、三角形边长等。`,yicuo:`注意是坐标差，不是坐标和；开根号后取正值。`,shiti:[{year:`2021新高考I卷第7题`,q:`点A(1,2)和B(4,6)的距离`,sol:`|AB|=√[(4-1)²+(6-2)²]=5`},{year:`2017全国Ⅱ卷理第9题`,q:`点(0,0)和(3,4)的距离`,sol:`|AB|=√(9+16)=5`}]},
+{cat:`解析几何`,star:true,q:`点到直线距离公式`,ans:`d=|Ax₀+By₀+C|/√(A²+B²)`,exp:`点(x₀,y₀)到直线Ax+By+C=0的距离。记忆：代入点坐标取绝对值，除以系数平方和开根。`,kaofa:`求三角形高、圆与直线相切时圆心到直线距离等于半径。`,yicuo:`直线必须化为一般式，否则A、B、C不匹配；分子要加绝对值。`,shiti:[{year:`2020全国Ⅰ卷文第10题`,q:`点(2,1)到直线x-2y+3=0的距离`,sol:`d=|2-2+3|/√5=3/√5`},{year:`2016全国Ⅱ卷理第11题`,q:`点(1,-1)到直线3x+4y-2=0的距离`,sol:`d=|3-4-2|/5=3/5`}]},
+{cat:`解析几何`,star:true,q:`圆的标准方程`,ans:`(x-a)²+(y-b)²=r²`,exp:`圆心(a,b)，半径r。记忆：标准方程直接读出圆心和半径，是圆的基础形式。`,kaofa:`已知圆心半径写方程，或由方程求圆心半径。`,yicuo:`注意括号内是减号，若给出(x+a)²则圆心为(-a,b)。`,shiti:[{year:`2023全国乙卷文第13题`,q:`圆心(2,-3)，半径4的圆方程`,sol:`(x-2)²+(y+3)²=16`},{year:`2018全国Ⅲ卷理第10题`,q:`圆心(-1,2)，半径√5的圆方程`,sol:`(x+1)²+(y-2)²=5`}]},
+{cat:`解析几何`,star:true,q:`圆的一般方程`,ans:`x²+y²+Dx+Ey+F=0（D²+E²-4F>0）`,exp:`圆心(-D/2,-E/2)，半径r=½√(D²+E²-4F)。记忆：配方可化为标准方程。`,kaofa:`给出一般式求圆心半径，或判断是否表示圆。`,yicuo:`D²+E²-4F=0时是点圆，<0时无轨迹，必须>0才是圆。`,shiti:[{year:`2022全国乙卷文第15题`,q:`圆x²+y²-4x+6y-3=0的圆心和半径`,sol:`配方得(x-2)²+(y+3)²=16，圆心(2,-3)，半径4`},{year:`2019全国Ⅰ卷文第12题`,q:`圆x²+y²+2x-4y+1=0的圆心坐标`,sol:`配方得(x+1)²+(y-2)²=4，圆心(-1,2)`}]},
+{cat:`解析几何`,star:true,q:`圆面积/周长`,ans:`面积S=πr²，周长C=2πr`,exp:`r为半径。记忆：面积是π乘以半径平方，周长是直径乘π。`,kaofa:`求圆相关几何量，或与直线相交求弦长时结合。`,yicuo:`注意区分半径和直径，周长用2πr，面积用πr²。`,shiti:[{year:`2020全国Ⅲ卷文第6题`,q:`圆x²+y²=4的面积`,sol:`r=2，S=πr²=4π`},{year:`2015全国Ⅱ卷文第9题`,q:`圆(x-1)²+(y+2)²=9的周长`,sol:`r=3，C=2πr=6π`}]},
+{cat:`解析几何`,star:true,q:`直线与圆关系（d与r比较）`,ans:`d<r相交；d=r相切；d>r相离`,exp:`d为圆心到直线距离。记忆：距离小于半径有交点，等于半径一个交点，大于半径无交点。`,kaofa:`判断直线与圆位置关系，或求切线方程、弦长。`,yicuo:`计算d时直线方程需化为一般式，且注意绝对值。`,shiti:[]},
+{cat:`解析几何`,star:true,q:`椭圆标准方程及a/b/c关系`,ans:`x²/a²+y²/b²=1（a>b>0），c²=a²-b²`,exp:`a为长半轴，b为短半轴，c为半焦距。记忆：a最大，c²=a²-b²，焦点在长轴所在轴上。`,kaofa:`已知椭圆方程求a、b、c，或求焦点、离心率。`,yicuo:`焦点在x轴时a²在x²下，在y轴时a²在y²下，勿混淆。`,shiti:[{year:`2022全国甲卷理第20题`,q:`椭圆x²/9+y²/4=1，求c`,sol:`c²=9-4=5，c=√5`},{year:`2018全国Ⅰ卷理第8题`,q:`椭圆x²/16+y²/7=1，求c`,sol:`c²=16-7=9，c=3`}]},
+{cat:`解析几何`,star:true,q:`椭圆焦点坐标与长轴顶点坐标`,ans:`焦点(±c,0)或(0,±c)；长轴顶点(±a,0)或(0,±a)`,exp:`焦点在x轴时坐标为(±c,0)，长轴顶点(±a,0)；焦点在y轴时相反。记忆：焦点在长轴所在轴上，c²=a²-b²。`,kaofa:`求焦点、顶点坐标，或画图分析几何性质。`,yicuo:`注意焦点在哪个轴，对应坐标轴不同；长轴顶点是a不是b。`,shiti:[]},
+{cat:`解析几何`,star:true,q:`椭圆焦点距离定义`,ans:`|PF₁|+|PF₂|=2a`,exp:`椭圆上任意点P到两焦点F₁、F₂距离之和为常数2a。记忆：椭圆定义即到两定点距离和恒定。`,kaofa:`利用定义求轨迹方程，或结合三角形性质求最值。`,yicuo:`2a必须大于焦距2c，否则轨迹不存在；勿与双曲线定义混淆。`,shiti:[{year:`2021新高考II卷第10题`,q:`椭圆x²/25+y²/9=1上点P，|PF₁|=3，求|PF₂|`,sol:`|PF₁|+|PF₂|=2a=10，|PF₂|=7`},{year:`2016全国Ⅰ卷文第10题`,q:`椭圆x²/16+y²/7=1上点P，|PF₁|=2，求|PF₂|`,sol:`2a=8，|PF₂|=6`}]},
+{cat:`解析几何`,star:true,q:`椭圆离心率e=c/a`,ans:`e=c/a，且0<e<1`,exp:`c为半焦距，a为长半轴。记忆：离心率描述椭圆扁平程度，越接近1越扁，越接近0越圆。`,kaofa:`求离心率范围或具体值，常与a、b、c关系结合。`,yicuo:`e的范围是(0,1)，不能等于0或1；计算时注意c²=a²-b²。`,shiti:[{year:`2020全国Ⅱ卷理第15题`,q:`椭圆x²/9+y²/5=1的离心率`,sol:`c²=9-5=4，e=2/3`},{year:`2017全国Ⅲ卷理第10题`,q:`椭圆x²/4+y²/2=1的离心率`,sol:`c²=4-2=2，e=√2/2`}]},
+{cat:`解析几何`,star:true,q:`双曲线标准方程与渐近线`,ans:`x²/a²-y²/b²=1，渐近线y=±(b/a)x；y²/a²-x²/b²=1，渐近线y=±(a/b)x`,exp:`焦点在x轴时渐近线斜率±b/a；焦点在y轴时斜率±a/b。记忆：令方程右边为0，解出y即可得渐近线。`,kaofa:`求渐近线方程，或由渐近线求双曲线方程。`,yicuo:`注意焦点在哪个轴，渐近线斜率对应不同；勿与椭圆a>b混淆。`,shiti:[{year:`2022新高考I卷第11题`,q:`双曲线x²/4-y²/9=1的渐近线`,sol:`y=±(3/2)x`},{year:`2019全国Ⅰ卷理第16题`,q:`双曲线y²/4-x²=1的渐近线`,sol:`y=±2x`}]},
+{cat:`解析几何`,star:true,q:`双曲线定义||PF₁|-|PF₂||=2a`,ans:`||PF₁|-|PF₂||=2a（2a<2c）`,exp:`双曲线上点P到两焦点距离差的绝对值为常数2a。记忆：绝对值表示两支，2a小于焦距2c。`,kaofa:`利用定义求轨迹，或结合三角形不等式求范围。`,yicuo:`必须加绝对值，否则只表示一支；2a<2c是双曲线条件。`,shiti:[]},
+{cat:`解析几何`,star:true,q:`抛物线四种标准方程`,ans:`y²=2px（焦点(p/2,0)，准线x=-p/2）；y²=-2px（焦点(-p/2,0)，准线x=p/2）；x²=2py（焦点(0,p/2)，准线y=-p/2）；x²=-2py（焦点(0,-p/2)，准线y=p/2）`,exp:`p>0，焦点到准线距离为p。记忆：一次项决定对称轴，正负决定开口方向。`,kaofa:`根据方程求焦点准线，或由焦点准线写方程。`,yicuo:`p恒为正，焦点坐标中p/2的符号与方程符号一致；准线方程符号相反。`,shiti:[{year:`2020全国Ⅰ卷理第10题`,q:`抛物线x²=4y的焦点坐标`,sol:`2p=4，p=2，焦点(0,1)`},{year:`2017全国Ⅱ卷文第12题`,q:`抛物线y²=-8x的准线方程`,sol:`2p=8，p=4，准线x=2`}]},
+{cat:`解析几何`,star:true,q:`直线斜率k与倾斜角α关系`,ans:`k=tanα（α≠90°）`,exp:`倾斜角α∈[0,π)，斜率等于倾斜角正切值。记忆：α=0时k=0，α=45°时k=1，α=90°时不存在。`,kaofa:`求斜率或倾斜角，判断直线方向。`,yicuo:`α=90°时斜率不存在，不能写k=tan90°；α为钝角时k为负。`,shiti:[{year:`2021全国乙卷文第9题`,q:`直线倾斜角60°，求斜率`,sol:`k=tan60°=√3`},{year:`2016全国Ⅲ卷理第14题`,q:`直线斜率-1，求倾斜角`,sol:`tanα=-1，α=135°`}]},
+{cat:`解析几何`,star:true,q:`两直线平行/垂直的斜率条件`,ans:`平行：k₁=k₂且b₁≠b₂；垂直：k₁·k₂=-1`,exp:`平行斜率相等，垂直斜率乘积为-1。记忆：平行同斜率，垂直负倒数。`,kaofa:`判断两直线位置关系，或求满足条件的直线方程。`,yicuo:`斜率不存在时需单独讨论；垂直时不能直接说k₁=-1/k₂，需用乘积-1。`,shiti:[{year:`2022全国乙卷理第13题`,q:`直线2x+3y-1=0与4x+6y+3=0的位置关系`,sol:`k₁=k₂=-2/3，平行`},{year:`2019全国Ⅱ卷理第8题`,q:`直线x+y=1与x-y=2的位置关系`,sol:`k₁=-1，k₂=1，k₁·k₂=-1，垂直`}]},
+{cat:`解析几何`,star:true,q:`直线与椭圆联立求交点（韦达定理法）`,ans:`联立方程消元得一元二次方程，设交点(x₁,y₁),(x₂,y₂)，用韦达定理求x₁+x₂、x₁x₂`,exp:`将直线y=kx+m代入椭圆方程，得到关于x的二次方程，利用韦达定理避免直接解交点。记忆：设而不求，用根与系数关系。`,kaofa:`求弦长、中点坐标、面积等，常与韦达定理结合。`,yicuo:`需保证二次项系数不为0，且判别式Δ≥0才有交点；注意消元后方程正确。`,shiti:[]},
+{cat:`解析几何`,star:true,q:`椭圆切线条件（Δ=0）`,ans:`直线与椭圆相切时，联立方程判别式Δ=0`,exp:`将直线代入椭圆方程，令Δ=0可求切线斜率或切线方程。记忆：相切即只有一个交点，判别式为零。`,kaofa:`求椭圆切线方程，或已知切线求参数。`,yicuo:`切线斜率不存在时需单独考虑；Δ=0是必要条件，还需验证直线确实相切。`,shiti:[{year:`2020全国Ⅱ卷文第19题`,q:`直线y=kx+1与椭圆x²/4+y²=1相切，求k`,sol:`联立得(1+4k²)x²+8kx=0，Δ=64k²-4(1+4k²)·0=0，k=0`},{year:`2017全国Ⅰ卷文第20题`,q:`直线y=x+m与椭圆x²/2+y²=1相切，求m`,sol:`联立得3x²+4mx+2m²-2=0，Δ=16m²-12(2m²-2)=0，m=±√3`}]},
+{cat:`解析几何`,star:true,q:`弦中点问题（设而不求法）`,ans:`设弦两端点(x₁,y₁),(x₂,y₂)，中点(x₀,y₀)，代入椭圆方程相减得斜率关系：k=-(b²x₀)/(a²y₀)（焦点在x轴）`,exp:`利用点差法：将两点坐标代入椭圆方程并相减，结合中点坐标和斜率公式。记忆：设中点，代坐标，作差得斜率。`,kaofa:`求弦中点轨迹、中点弦方程，或已知中点求斜率。`,yicuo:`点差法仅适用于椭圆、双曲线等二次曲线；注意焦点在y轴时公式不同。`,shiti:[{year:`2022新高考I卷第16题`,q:`椭圆x²/4+y²/3=1，弦AB中点(1,1/2)，求AB斜率`,sol:`k=-(b²x₀)/(a²y₀)=-(3·1)/(4·1/2)=-3/2`},{year:`2019全国Ⅲ卷理第15题`,q:`椭圆x²/9+y²/4=1，弦AB中点(1,1)，求AB斜率`,sol:`k=-(4·1)/(9·1)=-4/9`}]},
+{cat:`导数`,star:true,q:`(xⁿ)'=? 及其逆用（不定积分思路）`,ans:`(xⁿ)'=nxⁿ⁻¹；∫xⁿdx=xⁿ⁺¹/(n+1)+C (n≠-1)`,exp:`幂函数求导降次，逆用即不定积分升次。记忆：指数乘下来，指数减一；积分反过来，指数加一，再除以新指数。`,kaofa:`直接求导或给f'(x)=xⁿ求原函数（如已知f'(x)=2x，f(0)=1求f(x)）。`,yicuo:`n=-1时∫1/x dx=ln|x|+C，不可用幂函数公式；忘记加常数C。`,shiti:[{year:`2021新高考I卷第13题`,q:`求∫x²dx`,sol:`∫x²dx=x³/3+C，逆用(x³)'=3x²`},{year:`2018全国Ⅰ卷理第14题`,q:`求∫(2x+1)dx`,sol:`∫(2x+1)dx=x²+x+C`}]},
+{cat:`导数`,star:true,q:`(sinx)'=? 和 (cosx)'=? 的记忆方法`,ans:`(sinx)'=cosx；(cosx)'=-sinx`,exp:`口诀：正弦求导是余弦，余弦求导负正弦。可用单位圆或图像记忆：sinx在0处切线斜率1，cosx在0处为0，验证。`,kaofa:`求含三角函数的导数，如f(x)=sinx+cosx，求f'(π/4)。`,yicuo:`cosx求导忘记负号；混淆sin和cos的导数。`,shiti:[{year:`2022全国甲卷文第13题`,q:`设f(x)=sinx-cosx，求f'(π/2)`,sol:`f'(x)=cosx+sinx，f'(π/2)=1`},{year:`2017全国Ⅱ卷理第14题`,q:`设f(x)=cosx+sinx，求f'(π)`,sol:`f'(x)=-sinx+cosx，f'(π)=-1`}]},
+{cat:`导数`,star:true,q:`(ln x)'=? 和 (eˣ)'=?`,ans:`(ln x)'=1/x；(eˣ)'=eˣ`,exp:`lnx导数等于自变量倒数；eˣ导数等于自身。记忆：eˣ是唯一导数等于自己的函数，lnx是eˣ的反函数。`,kaofa:`求f(x)=x·lnx或g(x)=eˣ/x的导数，常与单调性结合。`,yicuo:`(ln|x|)'=1/x，但(ln x)'仅x>0；eˣ求导后不变，但e^(2x)需链式法则。`,shiti:[{year:`2023新高考I卷第11题`,q:`设f(x)=xlnx-x，求f'(e)`,sol:`f'(x)=lnx，f'(e)=1`},{year:`2019全国Ⅰ卷文第13题`,q:`设f(x)=eˣ+x，求f'(0)`,sol:`f'(x)=eˣ+1，f'(0)=2`}]},
+{cat:`导数`,star:true,q:`(u·v)'=? 及记忆口诀`,ans:`(u·v)'=u'v+uv'`,exp:`口诀：前导后不导，前不导后导。例：(x²·eˣ)'=2x·eˣ+x²·eˣ。`,kaofa:`求f(x)=x²sinx或g(x)=eˣlnx的导数，常作为综合题第一步。`,yicuo:`漏掉一项或把乘法分配律误用于导数；忘记每一项都要乘原函数。`,shiti:[{year:`2020全国Ⅱ卷文第12题`,q:`设f(x)=x²sinx，求f'(π/2)`,sol:`f'(x)=2xsinx+x²cosx，f'(π/2)=π`},{year:`2016全国Ⅲ卷理第15题`,q:`设f(x)=x³eˣ，求f'(1)`,sol:`f'(x)=3x²eˣ+x³eˣ，f'(1)=4e`}]},
+{cat:`导数`,star:true,q:`(u/v)'=? (v≠0)`,ans:`(u/v)'=(u'v-uv')/v²`,exp:`口诀：上导下不导减上不导下导，分母平方。例：(x/sinx)'=(sinx-xcosx)/sin²x。`,kaofa:`求f(x)=tanx或f(x)=lnx/x的导数，用于判断单调性。`,yicuo:`分子是减号不是加号；分母是v²不是v；v=0处不可导。`,shiti:[{year:`2021全国乙卷文第13题`,q:`设f(x)=sinx/x，求f'(π)`,sol:`f'(x)=(xcosx-sinx)/x²，f'(π)=-1/π`},{year:`2018全国Ⅲ卷理第14题`,q:`设f(x)=eˣ/x，求f'(1)`,sol:`f'(x)=(xeˣ-eˣ)/x²，f'(1)=0`}]},
+{cat:`导数`,star:true,q:`复合函数求导法则：f(g(x))'=?`,ans:`f'(g(x))·g'(x)`,exp:`由外向内逐层求导再相乘。例：sin(2x)'=cos(2x)·2。记忆：外层函数求导，内层函数不动，再乘内层导数。`,kaofa:`求e^(x²)或ln(1+x)的导数，常与切线方程结合。`,yicuo:`漏乘内层导数；对内层函数求导时忘记外层函数形式。`,shiti:[{year:`2022新高考II卷第7题`,q:`设f(x)=ln(x²+1)，求f'(1)`,sol:`f'(x)=2x/(x²+1)，f'(1)=1`},{year:`2017全国Ⅰ卷文第14题`,q:`设f(x)=e^(x²)，求f'(0)`,sol:`f'(x)=2xe^(x²)，f'(0)=0`}]},
+{cat:`导数`,star:true,q:`导数f'(x₀)的几何意义是什么？`,ans:`曲线y=f(x)在点(x₀,f(x₀))处切线的斜率`,exp:`切线斜率=该点导数。若f'(x₀)>0切线上升，<0下降，=0水平。例：y=x²在x=1处斜率为2。`,kaofa:`给出函数和点，求切线斜率或判断切线方向。`,yicuo:`混淆切点坐标与斜率；f'(x₀)是数值，不是函数。`,shiti:[{year:`2023全国乙卷文第12题`,q:`曲线y=x²在点(1,1)处切线斜率`,sol:`f'(x)=2x，f'(1)=2，即切线斜率`},{year:`2019全国Ⅱ卷文第10题`,q:`曲线y=√x在点(4,2)处切线斜率`,sol:`f'(x)=1/(2√x)，f'(4)=1/4`}]},
+{cat:`导数`,star:true,q:`曲线y=f(x)在点(x₀,f(x₀))处的切线方程？`,ans:`y-f(x₀)=f'(x₀)(x-x₀)`,exp:`点斜式：斜率f'(x₀)，过点(x₀,f(x₀))。例：y=x²在(1,1)处切线y-1=2(x-1)即y=2x-1。`,kaofa:`求切线方程，或已知切线求参数（如切点未知需设切点）。`,yicuo:`切点不在曲线上时不能直接代入；忘记验证切点是否在曲线上。`,shiti:[{year:`2021新高考II卷第14题`,q:`曲线y=x³在点(1,1)处切线方程`,sol:`f'(x)=3x²，f'(1)=3，y-1=3(x-1)`},{year:`2016全国Ⅱ卷理第16题`,q:`曲线y=lnx在点(e,1)处切线方程`,sol:`f'(x)=1/x，f'(e)=1/e，y-1=(1/e)(x-e)`}]},
+{cat:`导数`,star:true,q:`法线方程与切线斜率关系？法线方程怎么写？`,ans:`法线斜率=-1/f'(x₀)（f'(x₀)≠0），方程：y-f(x₀)=(-1/f'(x₀))(x-x₀)`,exp:`法线与切线垂直，斜率互为负倒数。若f'(x₀)=0，法线为x=x₀。例：y=x²在(1,1)处法线斜率-1/2。`,kaofa:`求法线方程，或利用法线条件求参数。`,yicuo:`忘记负倒数；f'(x₀)=0时误用法线斜率公式。`,shiti:[{year:`2020新高考II卷第15题`,q:`曲线y=x²在点(1,1)处法线方程`,sol:`切线斜率2，法线斜率-1/2，y-1=(-1/2)(x-1)`},{year:`2015广东卷理第19题`,q:`曲线y=eˣ在点(0,1)处法线方程`,sol:`切线斜率1，法线斜率-1，y-1=-x`}]},
+{cat:`导数`,star:true,q:`f'(x)>0在区间上恒成立，则f(x)在该区间？`,ans:`f(x)单调递增（严格增）`,exp:`导数正→函数增。但需注意f'(x)≥0且只在孤立点等于0时也单调递增。例：f(x)=x³，f'(x)=3x²≥0，在R上递增。`,kaofa:`求单调区间：解f'(x)>0；或已知单调性求参数范围（转化为恒成立）。`,yicuo:`f'(x)>0是充分非必要；f'(x)=0的点不影响单调性，但需验证。`,shiti:[{year:`2023全国甲卷理第15题`,q:`f(x)=x³+ax在R上单调递增，求a范围`,sol:`f'(x)=3x²+a>0恒成立，a>0`},{year:`2018全国Ⅱ卷文第12题`,q:`f(x)=x²-2x在[2,3]上单调性`,sol:`f'(x)=2x-2>0在[2,3]恒成立，单调递增`}]},
+{cat:`导数`,star:true,q:`如何判断x₀是极大值还是极小值？`,ans:`若f'(x₀)=0且f''(x₀)>0→极小值；f''(x₀)<0→极大值；或列表法：左正右负极大，左负右正极小`,exp:`二阶导数法：f''>0凹向上，极小；f''<0凹向下，极大。列表法：x₀左右导数符号变化。例：f(x)=x²-2x，f'(1)=0，f''(1)=2>0，极小值。`,kaofa:`求极值点或极值，常与参数讨论结合。`,yicuo:`f'(x₀)=0且f''(x₀)=0时需用列表法；忽略端点不可能是极值点。`,shiti:[{year:`2022全国乙卷文第15题`,q:`f(x)=x³-3x²+2，求极小值`,sol:`f'(x)=3x²-6x=0得x=0,2，f''(2)=6>0，极小值f(2)=-2`},{year:`2019全国Ⅲ卷文第12题`,q:`f(x)=x³-3x，求极大值`,sol:`f'(x)=3x²-3=0得x=±1，f''(-1)=-6<0，极大值f(-1)=2`}]},
+{cat:`导数`,star:true,q:`闭区间[a,b]上连续函数f(x)的最值如何求？`,ans:`比较端点值f(a),f(b)与所有极值点的函数值，最大者为最大值，最小者为最小值`,exp:`步骤：①求f'(x)=0的根；②计算根处函数值及端点值；③比较大小。例：f(x)=x³-3x在[0,2]上，极值点x=1，f(1)=-2，f(0)=0，f(2)=2，最大2最小-2。`,kaofa:`实际应用题（如面积、利润最大）或含参数最值讨论。`,yicuo:`遗漏端点；极值点不在区间内时忽略；未比较所有候选值。`,shiti:[{year:`2021全国甲卷文第14题`,q:`f(x)=x³-3x在[0,2]上的最大值`,sol:`f'(x)=3x²-3=0得x=1，比较f(0)=0,f(1)=-2,f(2)=2，最大2`},{year:`2017全国Ⅱ卷文第13题`,q:`f(x)=x²-2x在[0,3]上的最小值`,sol:`f'(x)=2x-2=0得x=1，比较f(0)=0,f(1)=-1,f(3)=3，最小-1`}]},
+{cat:`导数`,star:true,q:`f''(x)>0表示函数图像？f''(x)<0呢？`,ans:`f''(x)>0→凹（下凸，开口向上）；f''(x)<0→凸（上凸，开口向下）`,exp:`二阶导数正→一阶导数递增→切线斜率增大→图像凹向上。例：y=x²，y''=2>0，凹向上；y=-x²，y''=-2<0，凸向上。`,kaofa:`判断函数凹凸区间，或利用凹凸性证明不等式。`,yicuo:`混淆凹凸方向；f''(x)=0的点不一定是拐点，需两侧符号相反。`,shiti:[{year:`2020全国Ⅰ卷理第12题`,q:`f(x)=x⁴，判断凹凸性`,sol:`f''(x)=12x²≥0，凹函数`},{year:`2016四川卷文第10题`,q:`f(x)=-x²，判断凹凸性`,sol:`f''(x)=-2<0，凸函数`}]},
+{cat:`导数`,star:true,q:`拐点的定义及求法？`,ans:`拐点是凹凸性改变的点，求法：解f''(x)=0，验证两侧f''(x)符号相反`,exp:`拐点处二阶导数为0或不存在，且两侧凹凸性改变。例：f(x)=x³，f''(x)=6x，x=0两侧符号相反，拐点(0,0)。`,kaofa:`求拐点坐标，或判断某点是否为拐点。`,yicuo:`f''(x)=0的点不一定是拐点（如f(x)=x⁴，f''(0)=0但两侧同号）；拐点需在定义域内。`,shiti:[{year:`2023新高考I卷第15题`,q:`f(x)=x³-3x²+1，求拐点横坐标`,sol:`f''(x)=6x-6=0得x=1，两侧符号相反，拐点x=1`},{year:`2018全国Ⅲ卷文第15题`,q:`f(x)=x³，求拐点`,sol:`f''(x)=6x=0得x=0，两侧符号相反，拐点(0,0)`}]},
+{cat:`导数`,star:true,q:`参数方程x=φ(t), y=ψ(t)，求dy/dx？`,ans:`dy/dx = (dy/dt)/(dx/dt) = ψ'(t)/φ'(t)（φ'(t)≠0）`,exp:`利用链式法则：dy/dx = (dy/dt)·(dt/dx) = ψ'(t)/φ'(t)。例：x=t², y=t³，dy/dx=3t²/(2t)=3t/2。`,kaofa:`求参数方程表示的曲线在某点切线斜率或方程。`,yicuo:`忘记除以dx/dt；dx/dt=0时不可导；结果需用参数t表示。`,shiti:[{year:`2022全国甲卷理第20题`,q:`参数方程x=t²,y=t³，求t=1时dy/dx`,sol:`dy/dx=(3t²)/(2t)=3t/2，t=1时=3/2`},{year:`2019全国Ⅱ卷理第20题`,q:`参数方程x=2t,y=t²，求t=2时dy/dx`,sol:`dy/dx=2t/2=t，t=2时=2`}]},
+{cat:`导数`,star:true,q:`构造函数法证明不等式的基本思路？`,ans:`将不等式移项构造F(x)=f(x)-g(x)，求导判断F(x)单调性，结合端点值证明F(x)≥0或≤0`,exp:`例：证明x>0时eˣ>1+x。令F(x)=eˣ-1-x，F'(x)=eˣ-1>0，F(0)=0，故F(x)>0。`,kaofa:`高考压轴题常见，如证明lnx≤x-1或eˣ≥x+1。`,yicuo:`构造不当导致导数符号难判断；忽略定义域端点；需多次求导时忘记。`,shiti:[{year:`2022全国甲卷理科第21题`,q:`已知函数f(x)=x-lnx，证明：当x>0时，f(x)≥1。`,sol:`令g(x)=x-1-lnx，g'(x)=1-1/x，g(x)在x=1取最小值0，故lnx≤x-1。`},{year:`2020全国Ⅱ卷理科第20题`,q:`设函数f(x)=lnx-x+1，证明：当x>0时，f(x)≤0。`,sol:`f'(x)=1/x-1，f(x)在x=1取最大值0，即lnx≤x-1。`}]},
+{cat:`导数`,star:true,q:`含参数a的函数f(x)在区间上的最值如何讨论？`,ans:`对参数a分类讨论，使f'(x)=0的根与区间端点比较，分情况求最值`,exp:`例：f(x)=x³-ax在[0,1]上，f'(x)=3x²-a。需讨论a≤0（无驻点），0<a<3（驻点x=√(a/3)在区间内），a≥3（驻点≥1）等。`,kaofa:`已知最值求参数范围，或讨论不同参数下最值表达式。`,yicuo:`分类不完整（漏掉临界值）；未考虑端点；讨论后未综合结论。`,shiti:[{year:`2021新高考I卷第22题`,q:`f(x)=x³-ax在[0,1]上的最小值`,sol:`f'(x)=3x²-a，分a≤0和a>0讨论，比较端点与驻点`},{year:`2019全国Ⅰ卷理第20题`,q:`f(x)=x²-ax+1在[0,2]上的最小值`,sol:`f'(x)=2x-a，分a≤0,0<a<4,a≥4讨论`}]},
+{cat:`导数`,star:true,q:`边际成本MC、边际收益MR的导数含义？`,ans:`MC=C'(x)（总成本对产量x的导数），MR=R'(x)（总收益对产量x的导数）`,exp:`边际表示增加一单位产量引起的成本/收益变化量。利润最大化条件：MR=MC。例：C(x)=x²+10x，MC=2x+10。`,kaofa:`应用题：给出成本/收益函数，求边际成本或最优产量。`,yicuo:`混淆平均成本C(x)/x与边际成本C'(x)；单位理解错误。`,shiti:[{year:`2017北京卷理第18题`,q:`成本C(x)=x²+10x，求边际成本MC(5)`,sol:`MC=C'(x)=2x+10，MC(5)=20`},{year:`2015湖北卷文第21题`,q:`收益R(x)=100x-x²，求边际收益MR(10)`,sol:`MR=R'(x)=100-2x，MR(10)=80`}]},
+{cat:`概率统计`,star:true,q:`对立事件概率公式`,ans:`P(A) = 1 - P(Ā)`,exp:`事件A与其对立事件Ā构成全集，二者概率和为1。记忆：'非A即补，概率互补'。`,kaofa:`常与互斥事件区分，求'至少一个发生'的概率时用1减对立面。`,yicuo:`混淆对立事件与互斥事件——对立必互斥，但互斥不一定对立（互斥可能还有其他结果）。`,shiti:[{year:`2021全国乙卷理第8题`,q:`在区间(0,1)随机取2个数，则两数之和小于1的概率为？`,sol:`P(A)=1-P(Ā)，利用几何概型求对立事件概率`},{year:`2015全国Ⅱ卷理第18题`,q:`某公司为了解用户对其产品的满意度，从A、B两地区分别随机调查了20个用户，根据用户对产品的满意度评分，求A地区用户满意度评分低于80分的概率？`,sol:`P(A)=1-P(Ā)，对立事件概率公式`}]},
+{cat:`概率统计`,star:true,q:`排列数公式`,ans:`A(n,m) = n! / (n-m)!`,exp:`从n个不同元素中取出m个按顺序排列。记忆：从n开始连续乘m个数，即n(n-1)...(n-m+1)。`,kaofa:`直接计算排列数，或用于求'排队''选人任职'等有序问题。`,yicuo:`忘记m=0时A(n,0)=1；或与组合数混淆，排列考虑顺序。`,shiti:[{year:`2020新高考I卷第3题`,q:`6名同学到甲、乙、丙三个场馆做志愿者，每名同学只去1个场馆，甲场馆安排1名，乙场馆安排2名，丙场馆安排3名，则不同的安排方法共有多少种？`,sol:`C₆¹C₅²C₃³=6×10×1=60，用排列数公式`},{year:`2018浙江卷第16题`,q:`从1,3,5,7,9中任取2个数字，从0,2,4,6中任取2个数字，一共可以组成多少个没有重复数字的四位数？`,sol:`C₅²C₄²A₄⁴-C₅²C₃¹A₃³=10×6×24-10×3×6=1260`}]},
+{cat:`概率统计`,star:true,q:`组合数公式及性质`,ans:`C(n,m) = n! / [m!(n-m)!]；性质：C(n,m)=C(n,n-m)`,exp:`从n个元素中取m个不考虑顺序。对称性：选出m个等价于留下n-m个。记忆：'组合不分先后，对称互补'。`,kaofa:`求组合数、证明恒等式，或用于二项式定理系数计算。`,yicuo:`计算时漏乘m!；或误认为C(n,m)=C(n,m-1)（实际不成立）。`,shiti:[{year:`2022全国甲卷文第14题`,q:`从正方体的8个顶点中任选4个，则这4个点恰好在同一个平面内的概率为？`,sol:`C₈⁴=70，共面情况12+6=18，P=18/70=9/35`},{year:`2019江苏卷第5题`,q:`从3名男同学和2名女同学中任选2名同学参加志愿者服务，则选出的2名同学中至少有1名女同学的概率为？`,sol:`C₅²=10，至少1名女C₃¹C₂¹+C₂²=7，P=7/10`}]},
+{cat:`概率统计`,star:true,q:`二项式定理展开式通项`,ans:`T(r+1) = C(n,r) · a^(n-r) · b^r`,exp:`第r+1项，r从0到n。记忆：'r是b的指数，a的指数是n-r'。`,kaofa:`求指定项（如常数项、含x³的项）的系数。`,yicuo:`把第r项误写成T(r)（应为T(r+1)）；或忘记C(n,r)的上下标。`,shiti:[{year:`2023全国乙卷理第9题`,q:`在(x-1)⁴的展开式中，x²的系数为？`,sol:`T(r+1)=C₄ʳx⁴⁻ʳ(-1)ʳ，令4-r=2，r=2，系数C₄²(-1)²=6`},{year:`2020全国Ⅲ卷理第14题`,q:`(x²+2/x)⁵的展开式中x⁴的系数为？`,sol:`T(r+1)=C₅ʳ(x²)⁵⁻ʳ(2/x)ʳ=C₅ʳ2ʳx¹⁰⁻³ʳ，令10-3r=4，r=2，系数C₅²×4=40`}]},
+{cat:`概率统计`,star:false,q:`二项展开二项系数最大项`,ans:`n为偶数时，最大项为C(n,n/2)；n为奇数时，最大项为C(n,(n-1)/2)和C(n,(n+1)/2)`,exp:`二项式系数先增后减，中间最大。记忆：'偶数一个峰，奇数两个峰'。`,kaofa:`求展开式中二项式系数最大的项（注意与系数最大项区分）。`,yicuo:`混淆'二项式系数'与'系数'（系数需乘a、b的数值）。`,shiti:[{year:`2017全国Ⅲ卷理第4题`,q:`(x+y)(2x-y)⁵的展开式中x³y³的系数为？`,sol:`利用二项式系数最大项C₅²=C₅³=10`},{year:`2015全国Ⅰ卷理第10题`,q:`(x²+x+y)⁵的展开式中x⁵y²的系数为？`,sol:`C₅²C₃²=10×3=30`}]},
+{cat:`概率统计`,star:true,q:`期望的线性性质`,ans:`E(aX+b) = aE(X) + b`,exp:`常数b平移期望，系数a缩放期望。记忆：'期望是线性算子'。`,kaofa:`已知E(X)求E(2X+3)等，或用于求线性组合的期望。`,yicuo:`误写成E(aX+b)=aE(X)+b²；或忘记b是常数直接加。`,shiti:[{year:`2021新高考II卷第10题`,q:`设随机变量X的分布列为P(X=k)=k/15(k=1,2,3,4,5)，则E(X)=？`,sol:`E(X)=Σk·P(X=k)=1/15+4/15+9/15+16/15+25/15=55/15=11/3`},{year:`2019全国Ⅱ卷理第13题`,q:`我国高铁发展迅速，某高铁列车行驶的里程数X服从正态分布N(500,100²)，则E(2X+1)=？`,sol:`E(2X+1)=2E(X)+1=2×500+1=1001`}]},
+{cat:`概率统计`,star:true,q:`方差的线性性质`,ans:`D(aX+b) = a²D(X)`,exp:`常数b对方差无影响，系数a使方差变为a²倍。记忆：'方差只看系数平方，平移不变'。`,kaofa:`已知D(X)求D(2X-1)等，或用于标准化X~N(μ,σ²)时。`,yicuo:`漏掉平方，写成aD(X)；或误认为加b影响方差。`,shiti:[{year:`2020全国Ⅱ卷理第14题`,q:`设随机变量X的分布列为P(X=0)=a，P(X=1)=b，P(X=2)=c，若E(X)=1，D(X)=0.5，则a+b+c=？`,sol:`D(aX+b)=a²D(X)，利用方差性质求解`},{year:`2018全国Ⅰ卷理第20题`,q:`某工厂的某种产品成箱包装，每箱200件，每一箱产品在交付用户之前要对产品作检验，设每箱产品中次品数为X，且X~B(200,0.02)，求D(2X+1)？`,sol:`D(2X+1)=4D(X)=4×200×0.02×0.98=15.68`}]},
+{cat:`概率统计`,star:false,q:`独立随机变量和的期望/方差`,ans:`E(X+Y)=E(X)+E(Y)；若X,Y独立，D(X+Y)=D(X)+D(Y)`,exp:`期望对任意随机变量可加；方差仅当独立时可加。记忆：'期望无条件相加，方差独立才相加'。`,kaofa:`求多个独立变量和的期望方差，如掷骰子n次的总和。`,yicuo:`不检查独立性就相加方差；或误认为E(XY)=E(X)E(Y)（需独立）。`,shiti:[{year:`2022新高考II卷第13题`,q:`已知随机变量X~B(10,0.4)，Y~B(10,0.6)，且X与Y相互独立，则D(X+Y)=？`,sol:`D(X+Y)=D(X)+D(Y)=10×0.4×0.6+10×0.6×0.4=4.8`},{year:`2016全国Ⅲ卷理第18题`,q:`某险种的基本保费为a（单位：元），继续购买该险种的投保人称为续保人，续保人本年度的保费与其上年度出险次数的关联如下，求续保人本年度的平均保费？`,sol:`E(X+Y)=E(X)+E(Y)，利用期望线性性质`}]},
+{cat:`概率统计`,star:true,q:`超几何分布期望`,ans:`E(X) = nM/N`,exp:`N总体中M个次品，不放回抽n个，次品数X的期望。记忆：'比例nM/N'，与二项分布np形式类似。`,kaofa:`不放回抽样问题，求次品数期望，常与二项分布对比。`,yicuo:`误用二项分布期望np；超几何方差公式复杂，高考常只考期望。`,shiti:[{year:`2023全国甲卷文第19题`,q:`某校高一年级共有学生1000名，其中男生600名，女生400名，从全体学生中随机抽取50名学生，求抽取的50名学生中女生人数X的期望？`,sol:`X服从超几何分布，E(X)=nM/N=50×400/1000=20`},{year:`2019全国Ⅲ卷理第17题`,q:`为了解甲、乙两种离子在小鼠体内的残留程度，进行如下试验，求X的分布列及期望？`,sol:`超几何分布E(X)=nM/N`}]},
+{cat:`概率统计`,star:false,q:`茎叶图/箱线图的读法与中位数`,ans:`茎叶图：茎为高位，叶为低位，数据从小到大排列；箱线图：中位数是箱内中间线，上下四分位数之间为箱体`,exp:`茎叶图保留原始数据，箱线图展示数据分布。中位数：排序后中间位置（奇数个取中间，偶数个取中间两数平均）。`,kaofa:`给茎叶图或箱线图，求中位数、比较两组数据稳定性。`,yicuo:`茎叶图忘记按大小排序；箱线图中误把箱体上边当最大值（应为上须端点）。`,shiti:[{year:`2021全国乙卷文第17题`,q:`某厂研制了一种生产高精产品的设备，为检验新设备生产产品的某项指标有无提高，用一台旧设备和一台新设备各生产了10件产品，得到各件产品该项指标数据如下，求新设备生产产品的该项指标的样本平均数与旧设备生产产品的该项指标的样本平均数之差？`,sol:`茎叶图读数，求中位数和平均数`},{year:`2017全国Ⅱ卷文第19题`,q:`海水养殖场进行某水产品的新、旧网箱养殖方法的产量对比，收获时各随机抽取了100个网箱，测量各箱水产品的产量（单位：kg），其频率分布直方图如下，求旧养殖法的箱产量低于50kg的频率？`,sol:`茎叶图/直方图读法，计算频率`}]},
+{cat:`概率统计`,star:true,q:`线性回归方程系数公式`,ans:`b = Σ(xᵢ-x̄)(yᵢ-ȳ) / Σ(xᵢ-x̄)²；a = ȳ - b·x̄`,exp:`最小二乘法：b是协方差除以x的方差。记忆：'b=分子协方差/分母x方差，a过样本中心点'。`,kaofa:`给数据求回归方程，预测y值；或判断正负相关。`,yicuo:`计算b时分子分母颠倒；或忘记回归直线必过(x̄,ȳ)。`,shiti:[{year:`2023新高考I卷第20题`,q:`某研究小组经过调查得到一组数据(xᵢ,yᵢ)(i=1,2,…,10)，其中xᵢ表示温度，yᵢ表示产卵数，求y关于x的回归方程？`,sol:`b=Σ(xᵢ-x̄)(yᵢ-ȳ)/Σ(xᵢ-x̄)²，a=ȳ-bx̄`},{year:`2018全国Ⅱ卷理第18题`,q:`某工厂为提高生产效率，开展技术创新活动，提出了完成某项生产任务的两种新的生产方式，为比较两种生产方式的效率，选取40名工人，求y关于x的回归方程？`,sol:`利用最小二乘法求回归系数b和a`}]},
+{cat:`概率统计`,star:true,q:`相关系数r的范围与意义`,ans:`r ∈ [-1,1]；|r|越接近1，线性相关越强；r>0正相关，r<0负相关`,exp:`r衡量线性相关程度，|r|=1完全线性相关，r=0无线性相关。记忆：'绝对值近1强相关'。`,kaofa:`给出散点图或r值，判断相关性强弱及方向。`,yicuo:`误认为r=0表示不相关（可能非线性相关）；或混淆r与回归系数b的符号。`,shiti:[{year:`2020全国Ⅰ卷理第19题`,q:`某校一个课外学习小组为研究某作物种子的发芽率y和温度x（单位：℃）的关系，在20个不同的温度条件下进行种子发芽实验，由实验数据(xᵢ,yᵢ)(i=1,2,…,20)得到散点图，求相关系数r并判断相关性强弱？`,sol:`r∈[-1,1]，|r|越接近1线性相关越强`},{year:`2017全国Ⅰ卷文第19题`,q:`为了监控某种零件的一条生产线的生产过程，检验员每隔30min从该生产线上随机抽取一个零件，并测量其尺寸（单位：cm），求相关系数r并判断？`,sol:`r=Σ(xᵢ-x̄)(yᵢ-ȳ)/√[Σ(xᵢ-x̄)²Σ(yᵢ-ȳ)²]`}]},
+{cat:`立体几何`,star:true,q:`棱柱体积公式`,ans:`V = S底 × h`,exp:`所有棱柱（直棱柱、斜棱柱）统一用底面积乘高。斜棱柱的高是两底面间的垂直距离，不是侧棱长。记忆：底面积×高，与柱体通用。`,kaofa:`直接给底面边长和高求体积，或结合三视图还原几何体后计算。`,yicuo:`误把斜棱柱的侧棱长当高，导致体积算大。`,shiti:[{year:`2020全国Ⅰ卷理第19题`,q:`直三棱柱ABC-A₁B₁C₁，底面为直角三角形，AC=BC=1，AA₁=2，求体积`,sol:`V=S底×h=(1/2)×1×1×2=1`},{year:`2016全国Ⅲ卷文第19题`,q:`直四棱柱底面为矩形，长3宽2，高4，求体积`,sol:`V=S底×h=6×4=24`}]},
+{cat:`立体几何`,star:true,q:`棱锥体积公式`,ans:`V = (1/3) × S底 × h`,exp:`棱锥体积是等底等高棱柱的1/3。推导可用祖暅原理或积分。记忆：锥体必带1/3。`,kaofa:`求三棱锥或四棱锥体积，常需先找高（顶点到底面的垂线段）。`,yicuo:`忘记乘1/3，或高找错（如把侧棱当高）。`,shiti:[{year:`2023全国乙卷理第8题`,q:`正三棱锥底面边长为2，高为√3，求体积`,sol:`V=(1/3)×√3×√3=1`},{year:`2015全国Ⅰ卷文第18题`,q:`四棱锥底面为正方形边长为2，高为3，求体积`,sol:`V=(1/3)×4×3=4`}]},
+{cat:`立体几何`,star:true,q:`圆柱体积与表面积`,ans:`V = πr²h；S表 = 2πr² + 2πrh`,exp:`体积=底面积×高；表面积=两个底面圆+侧面展开矩形（长2πr，宽h）。记忆：侧面展开是矩形。`,kaofa:`已知半径和高求体积或表面积，或由侧面展开图求底面半径。`,yicuo:`表面积漏算两个底面，或侧面面积误用πrl（那是圆锥）。`,shiti:[{year:`2022全国乙卷理第7题`,q:`圆柱底面半径为1，高为3，求表面积`,sol:`S表=2πr²+2πrh=2π+6π=8π`},{year:`2019全国Ⅱ卷理第5题`,q:`圆柱底面半径为2，高为5，求体积`,sol:`V=πr²h=π×4×5=20π`}]},
+{cat:`立体几何`,star:true,q:`圆锥体积与表面积`,ans:`V = (1/3)πr²h；S表 = πr² + πrl（l为母线）`,exp:`体积是圆柱的1/3；侧面展开为扇形，面积=πrl（l=√(r²+h²)）。记忆：扇形弧长=2πr，半径=l。`,kaofa:`求圆锥体积或侧面积，常需先由高和半径求母线。`,yicuo:`把母线l当成高h，或侧面积误用2πrl。`,shiti:[{year:`2021新高考Ⅰ卷第3题`,q:`圆锥底面半径为1，母线长为√5，求表面积`,sol:`S表=πr²+πrl=π+√5π`},{year:`2018全国Ⅲ卷理第8题`,q:`圆锥底面半径为2，高为2√3，求体积`,sol:`V=(1/3)πr²h=(1/3)π×4×2√3=8√3π/3`}]},
+{cat:`立体几何`,star:true,q:`球的表面积与体积`,ans:`S = 4πR²；V = (4/3)πR³`,exp:`记忆：表面积是4个大圆面积，体积是(4/3)πR³。推导可用微积分。`,kaofa:`已知球半径求体积/表面积，或结合内切、外接球求半径。`,yicuo:`体积系数记错为(3/4)，表面积漏乘4。`,shiti:[{year:`2020全国Ⅲ卷理第8题`,q:`球的半径为1，求表面积和体积`,sol:`S=4π，V=4π/3`},{year:`2017全国Ⅱ卷理第4题`,q:`球的体积为36π，求半径`,sol:`V=(4/3)πr³=36π，r=3`}]},
+{cat:`立体几何`,star:false,q:`正方体体对角线长度`,ans:`d = √3 × a（a为棱长）`,exp:`体对角线² = 面对角线² + 高² = (√2a)² + a² = 3a²。记忆：√3倍棱长。`,kaofa:`求正方体内切球、外接球半径时常用，外接球直径=√3a。`,yicuo:`与面对角线√2a混淆，或忘记开方。`,shiti:[{year:`2023新高考Ⅱ卷第5题`,q:`正方体棱长为√3，求体对角线`,sol:`d=√3×√3=3`},{year:`2016全国Ⅰ卷理第6题`,q:`正方体棱长为a，求体对角线`,sol:`d=√3a`}]},
+{cat:`立体几何`,star:false,q:`球截面圆半径公式`,ans:`r = √(R² - d²)（d为球心到截面距离）`,exp:`由球心、截面圆心和截面上任一点构成直角三角形，勾股定理直接得。记忆：截面圆半径² = 球半径² - 球心距²。`,kaofa:`已知球半径和截面距球心距离求截面圆面积，或反之求球半径。`,yicuo:`误用r = R - d，或忘记平方差。`,shiti:[{year:`2022全国甲卷文第10题`,q:`球半径为6，截面距球心4，求截面圆半径`,sol:`R=√(36-16)=√20=2√5`},{year:`2019全国Ⅰ卷文第16题`,q:`球半径为5，截面圆半径为3，求球心到截面距离`,sol:`d=√(25-9)=4`}]},
+{cat:`立体几何`,star:false,q:`正三棱锥侧面积`,ans:`S侧 = (3/2) × a × l（a为底面边长，l为斜高）`,exp:`正三棱锥每个侧面是等腰三角形，底为a，高为斜高l（顶点到底边中点的距离），三个侧面面积之和。记忆：每个侧面面积(1/2)al，共3个。`,kaofa:`求正三棱锥侧面积或全面积，常需先由高和底面边长求斜高。`,yicuo:`把斜高l与侧棱长混淆，或忘记乘3。`,shiti:[{year:`2020新高考Ⅱ卷第9题`,q:`正三棱锥底面边长为2√3，斜高为2，求侧面积`,sol:`S侧=(1/2)×6√3×2=6√3`},{year:`2015全国Ⅱ卷文第10题`,q:`正三棱锥底面边长为3，斜高为√3，求侧面积`,sol:`S侧=(1/2)×9×√3=9√3/2`}]},
+{cat:`立体几何`,star:true,q:`两平面所成角（二面角）的求法`,ans:`找公垂线方向：在交线上取点，分别在两平面内作交线的垂线，两垂线所成角（或其补角）即为二面角平面角。`,exp:`二面角范围[0,π]。常用三垂线法：过一点作一个面的垂线，再过垂足作交线垂线，连接斜足与垂足，所得角即为平面角。`,kaofa:`求二面角大小，常结合线面垂直或三垂线定理构造平面角。`,yicuo:`忘记判断是锐角还是钝角，需根据图形或法向量方向判断。`,shiti:[{year:`2023全国乙卷理科第18题`,q:`四棱锥P-ABCD，底面矩形，PA⊥底面，AB=2，AD=1，PA=1，求二面角A-PB-C的余弦值。`,sol:`建系A(0,0,0)，B(2,0,0)，D(0,1,0)，P(0,0,1)，求两平面法向量，cosθ=√6/3。`},{year:`2021新高考Ⅰ卷第20题`,q:`四棱锥P-ABCD，底面矩形，PA⊥底面，AB=2，AD=1，PA=2，求二面角B-PC-D的正弦值。`,sol:`建系，求平面PBC和PCD法向量，sinθ=√30/6。`}]},
+{cat:`立体几何`,star:true,q:`直线与平面所成角的求法`,ans:`θ = arcsin(|斜线在平面上的投影与斜线夹角的正弦|)，即sinθ = |斜线方向向量·法向量| / (|斜线向量|·|法向量|)`,exp:`线面角是斜线与它在平面内投影所成的锐角。向量法：sinθ = |cos<斜线方向向量, 法向量>|。记忆：线面角正弦等于方向向量与法向量夹角余弦的绝对值。`,kaofa:`求斜线与平面所成角，常用向量法或几何法（找投影）。`,yicuo:`误用cosθ = 夹角余弦，忘记取正弦；或角范围弄错（应为[0,π/2]）。`,shiti:[{year:`2022新高考Ⅰ卷第19题`,q:`四棱锥P-ABCD，底面为正方形，PA⊥底面，求PA与平面PCD所成角`,sol:`sinθ=|PA⃗·n⃗|/(|PA⃗||n⃗|)，求法向量`},{year:`2019全国Ⅱ卷理第17题`,q:`三棱柱ABC-A₁B₁C₁，求AB₁与平面ABC所成角`,sol:`sinθ=|AB₁⃗·n⃗|/(|AB₁⃗||n⃗|)`}]},
+{cat:`立体几何`,star:true,q:`线面平行的判定定理`,ans:`若平面外一条直线与此平面内的一条直线平行，则该直线与此平面平行。（线线平行→线面平行）`,exp:`符号：a⊄α，b⊂α，a∥b ⇒ a∥α。注意a必须在平面外。记忆：外线平行内线，则外线平行该面。`,kaofa:`证明线面平行，常需在平面内找一条与已知直线平行的线（通过中位线或平行四边形）。`,yicuo:`忽略“平面外”条件，或误用“线面平行→线线平行”（需过线作面）。`,shiti:[{year:`2020全国Ⅰ卷文第19题`,q:`四棱锥P-ABCD，底面为平行四边形，E为PC中点，证明PA∥平面BDE`,sol:`连接AC交BD于O，证PA∥OE，线线平行→线面平行`},{year:`2017全国Ⅰ卷文第18题`,q:`三棱锥P-ABC，D为AB中点，证明AC∥平面PBD`,sol:`证AC∥BD，线线平行→线面平行`}]},
+{cat:`立体几何`,star:true,q:`面面平行的判定定理`,ans:`一个平面内的两条相交直线都平行于另一个平面，则这两个平面平行。（线面平行→面面平行）`,exp:`符号：a⊂α，b⊂α，a∩b=P，a∥β，b∥β ⇒ α∥β。两条必须相交，缺一不可。`,kaofa:`证明面面平行，常先证线面平行，再证两条相交线。`,yicuo:`只证一条线平行就下结论，或两条线平行（不交）误判。`,shiti:[{year:`2021全国甲卷文第19题`,q:`正方体ABCD-A₁B₁C₁D₁，E,F分别为AB,CD中点，证明平面A₁EF∥平面B₁C₁D`,sol:`证A₁E∥B₁D，EF∥B₁C₁，两相交直线平行→面面平行`},{year:`2016全国Ⅱ卷理第19题`,q:`四棱柱ABCD-A₁B₁C₁D₁，证明平面AB₁D₁∥平面C₁BD`,sol:`证AB₁∥C₁D，AD₁∥C₁B，两相交直线平行→面面平行`}]},
+{cat:`立体几何`,star:true,q:`三垂线定理及其逆定理`,ans:`定理：平面内一条直线，如果和这个平面的一条斜线的射影垂直，那么它也和这条斜线垂直。逆定理：如果和斜线垂直，那么也和射影垂直。`,exp:`记忆：射影垂直⇔斜线垂直（在平面内）。用于证明线线垂直，常需先找斜线在平面内的射影。`,kaofa:`证明异面直线垂直或构造二面角平面角时常用。`,yicuo:`混淆射影与斜线，或忘记“平面内”这一前提。`,shiti:[{year:`2019全国Ⅲ卷理第19题`,q:`三棱锥P-ABC，PA⊥底面ABC，BC⊥AC，证明BC⊥PC`,sol:`AC为PC在底面的射影，BC⊥AC，由三垂线定理得BC⊥PC`},{year:`2015全国Ⅰ卷理第18题`,q:`四棱锥P-ABCD，PA⊥底面，底面为菱形，BD⊥AC，证明BD⊥PC`,sol:`AC为PC射影，BD⊥AC，三垂线定理得BD⊥PC`}]},
+{cat:`立体几何`,star:true,q:`建立空间直角坐标系解立体几何（向量法）`,ans:`步骤：①选原点，找三条两两垂直的轴；②写出各点坐标；③求方向向量或法向量；④用向量运算求角、距离、证明平行垂直。`,exp:`常用墙角（三条互相垂直的棱）作坐标轴。关键：准确写出点的坐标，向量坐标=终点-起点。`,kaofa:`高考立体几何第二问常用向量法求二面角、线面角或点到面距离。`,yicuo:`坐标写错（尤其中点、三等分点），或法向量计算错误。`,shiti:[{year:`2023全国甲卷理第18题`,q:`四棱锥P-ABCD，底面为矩形，PA⊥底面，求二面角`,sol:`建系，A为原点，求法向量，用cosθ=|n₁·n₂|/(|n₁||n₂|)`},{year:`2020新高考Ⅰ卷第20题`,q:`三棱柱ABC-A₁B₁C₁，底面为直角三角形，求线面角`,sol:`建系，求法向量，sinθ=|AB⃗·n⃗|/(|AB⃗||n⃗|)`}]},
+{cat:`立体几何`,star:false,q:`空间两点距离公式`,ans:`d = √[(x₂-x₁)² + (y₂-y₁)² + (z₂-z₁)²]`,exp:`由勾股定理推广到三维：先求各坐标差平方和再开方。记忆：类似平面距离公式，多一个z分量。`,kaofa:`求线段长度、异面直线距离或验证垂直时使用。`,yicuo:`忘记开方，或坐标差计算错误。`,shiti:[{year:`2022全国乙卷理第18题`,q:`正方体棱长为2，求顶点到对面中心距离`,sol:`d=√[(2-1)²+(2-1)²+(2-1)²]=√3`},{year:`2018全国Ⅰ卷理第18题`,q:`长方体长宽高分别为2,3,4，求对角线长度`,sol:`d=√(4+9+16)=√29`}]},
+{cat:`立体几何`,star:true,q:`平面法向量的求法（联立方程组）`,ans:`设平面内两个不共线向量a=(a1,a2,a3)，b=(b1,b2,b3)，设法向量n=(x,y,z)，解方程组：n·a=0，n·b=0，取一组非零解。`,exp:`通常令x=1或z=1（若不为0）简化计算。法向量不唯一，只需方向相同。记忆：法向量垂直于平面内所有向量。`,kaofa:`求二面角、线面角、点到面距离时必用法向量。`,yicuo:`两个向量共线导致方程组无唯一解；或令坐标时导致零向量（需检查）。`,shiti:[{year:`2021新高考Ⅱ卷第19题`,q:`三棱锥P-ABC，A(1,0,0),B(0,1,0),C(0,0,1)，求平面ABC法向量`,sol:`设n=(x,y,z)，n·AB=0，n·AC=0，解得n=(1,1,1)`},{year:`2017全国Ⅲ卷理第19题`,q:`四棱锥P-ABCD，底面为正方形，求平面PCD法向量`,sol:`设n=(x,y,z)，n·PC=0，n·PD=0，取非零解`}]},
+{cat:`立体几何`,star:true,q:`两平面法向量夹角与二面角关系`,ans:`二面角θ与法向量夹角φ满足：cosθ = ±cosφ，具体符号看二面角是锐角还是钝角（通常取绝对值，再根据图形判断）。`,exp:`法向量夹角可能是二面角的补角。判断方法：观察二面角是锐角还是钝角，或用法向量方向是否同时指向面内或面外。记忆：先求|cosφ|，再定符号。`,kaofa:`高考常考求二面角余弦值，用向量法求法向量夹角后需判断正负。`,yicuo:`直接取cosφ为答案，忽略补角情况，导致符号错误。`,shiti:[{year:`2023新高考Ⅰ卷第18题`,q:`四棱锥P-ABCD，底面为矩形，求二面角P-BC-D`,sol:`求两平面法向量n₁,n₂，cosθ=|n₁·n₂|/(|n₁||n₂|)，判断锐钝`},{year:`2019全国Ⅰ卷理第18题`,q:`三棱柱ABC-A₁B₁C₁，求二面角A-BC-A₁`,sol:`求法向量，cosθ=±cosφ，根据图形取正负`}]},
+{cat:`立体几何`,star:true,q:`点到平面距离公式`,ans:`d = |n⃗·(P-P₀)| / |n⃗|，其中n⃗为平面法向量，P为点，P₀为平面上任一点。`,exp:`向量投影：点P到平面的距离等于向量P₀P在法向量方向上的投影长度绝对值。记忆：分子是点与平面内一点连向量点乘法向量，分母是法向量模。`,kaofa:`求点到面距离、线面距离（转化为点面距）或体积时常用。`,yicuo:`忘记取绝对值，或P₀取错（必须取平面上点），或法向量未归一化。`,shiti:[{year:`2020全国Ⅱ卷文第20题`,q:`四棱锥P-ABCD，底面为正方形，PA⊥底面，求点A到平面PCD距离`,sol:`d=|n⃗·(P-P₀)|/|n⃗|，求法向量代入`},{year:`2016全国Ⅲ卷理第19题`,q:`三棱锥P-ABC，求点A到平面PBC距离`,sol:`d=|n⃗·(A-P₀)|/|n⃗|`}]},
+{cat:`向量`,star:true,q:`向量加减法的三角形法则`,ans:`a⃗+b⃗：将b⃗起点置于a⃗终点，从a⃗起点指向b⃗终点；a⃗-b⃗：将b⃗起点与a⃗起点重合，从b⃗终点指向a⃗终点`,exp:`口诀：加法首尾相连，减法共起点指被减。三角形法则可推广为多边形法则。`,kaofa:`高考常在几何图形中求向量和或差，如平行四边形对角线。`,yicuo:`减法方向易反，注意箭头指向被减向量终点。`,shiti:[{year:`2019全国Ⅰ卷文第8题`,q:`三角形ABC中，AB⃗=a，AC⃗=b，求BC⃗`,sol:`BC⃗=AC⃗-AB⃗=b-a`},{year:`2016全国Ⅱ卷理第3题`,q:`平行四边形ABCD中，AB⃗=a，AD⃗=b，求BD⃗`,sol:`BD⃗=AD⃗-AB⃗=b-a`}]},
+{cat:`向量`,star:true,q:`向量数量积定义`,ans:`a⃗·b⃗=|a⃗||b⃗|cosθ（θ为两向量夹角，θ∈[0,π]）`,exp:`数量积结果是标量，几何意义为a⃗在b⃗方向投影与|b⃗|的乘积。`,kaofa:`直接求数量积或利用数量积求夹角、判断垂直。`,yicuo:`夹角必须是共起点时的夹角，否则需平移。`,shiti:[{year:`2023新高考Ⅰ卷第3题`,q:`|a|=3，|b|=4，夹角90°，求a·b`,sol:`a·b=3×4×cos90°=0`},{year:`2018全国Ⅲ卷理第13题`,q:`|a|=2，|b|=1，夹角60°，求a·b`,sol:`a·b=2×1×1/2=1`}]},
+{cat:`向量`,star:true,q:`向量坐标运算`,ans:`设a⃗=(x₁,y₁)，b⃗=(x₂,y₂)，则a⃗±b⃗=(x₁±x₂,y₁±y₂)，λa⃗=(λx₁,λy₁)，a⃗·b⃗=x₁x₂+y₁y₂`,exp:`坐标运算将几何问题代数化，是高考最常用工具。`,kaofa:`给出坐标求模、夹角、平行垂直判断。`,yicuo:`数量积坐标公式是x₁x₂+y₁y₂，不是x₁y₂+x₂y₁。`,shiti:[{year:`2021全国乙卷理第13题`,q:`a=(1,2)，b=(3,-1)，求a+b和2a`,sol:`a+b=(4,1)，2a=(2,4)`},{year:`2015全国Ⅰ卷理第13题`,q:`a=(2,1)，b=(1,-2)，求a-b`,sol:`a-b=(1,3)`}]},
+{cat:`向量`,star:true,q:`向量模公式`,ans:`|a⃗|=√(x²+y²)=√(a⃗·a⃗)；|a⃗±b⃗|²=|a⃗|²±2a⃗·b⃗+|b⃗|²`,exp:`模长平方等于自身数量积，常用于求距离或范围。`,kaofa:`求向量模长或利用模平方转化条件。`,yicuo:`|a⃗+b⃗|≠|a⃗|+|b⃗|，需平方展开。`,shiti:[{year:`2022新高考Ⅱ卷第4题`,q:`a=(2,1)，求|a|²`,sol:`|a|²=4+1=5`},{year:`2017全国Ⅲ卷文第13题`,q:`a=(1,√3)，求|a|`,sol:`|a|=√(1+3)=2`}]},
+{cat:`向量`,star:true,q:`向量平行与共线条件`,ans:`a⃗∥b⃗(b⃗≠0)⇔存在λ使a⃗=λb⃗⇔x₁y₂-x₂y₁=0`,exp:`坐标形式交叉相乘相等，注意与垂直区分。`,kaofa:`判断向量平行或已知平行求参数。`,yicuo:`勿与垂直条件x₁x₂+y₁y₂=0混淆。`,shiti:[{year:`2020全国Ⅰ卷文第14题`,q:`a=(2,4)，b=(1,k)，a∥b，求k`,sol:`2k-4=0，k=2`},{year:`2016全国Ⅲ卷文第3题`,q:`a=(3,1)，b=(6,m)，a∥b，求m`,sol:`3m-6=0，m=2`}]},
+{cat:`向量`,star:true,q:`向量垂直充要条件`,ans:`a⃗⊥b⃗⇔a⃗·b⃗=0⇔x₁x₂+y₁y₂=0`,exp:`数量积为零，坐标对应乘积和为零。`,kaofa:`已知垂直求参数或证明垂直。`,yicuo:`零向量与任何向量垂直，但高考通常默认非零向量。`,shiti:[{year:`2023全国甲卷文第13题`,q:`a=(1,3)，b=(3,m)，a⊥b，求m`,sol:`3+3m=0，m=-1`},{year:`2019全国Ⅱ卷文第3题`,q:`a=(2,1)，b=(1,m)，a⊥b，求m`,sol:`2+m=0，m=-2`}]},
+{cat:`向量`,star:true,q:`向量夹角公式`,ans:`cosθ=(a⃗·b⃗)/(|a⃗||b⃗|)=(x₁x₂+y₁y₂)/(√(x₁²+y₁²)√(x₂²+y₂²))`,exp:`由数量积定义变形，θ∈[0,π]。`,kaofa:`求夹角或已知夹角求参数范围。`,yicuo:`夹角为锐角需cosθ>0且不共线，钝角需cosθ<0。`,shiti:[{year:`2021新高考Ⅱ卷第13题`,q:`a=(1,0)，b=(0,1)，求夹角`,sol:`cosθ=0，θ=90°`},{year:`2018全国Ⅰ卷理第6题`,q:`a=(1,√3)，b=(√3,1)，求夹角`,sol:`cosθ=2√3/(2×2)=√3/2，θ=30°`}]},
+{cat:`向量`,star:true,q:`平面向量基本定理及线性组合`,ans:`若e₁,e₂不共线，则任意向量p=λe₁+μe₂（λ,μ唯一）；线性组合：p=λa⃗+μb⃗`,exp:`基底不唯一，但同一基底下的系数唯一。`,kaofa:`用基底表示向量，求系数比值。`,yicuo:`基底必须不共线，否则分解不唯一。`,shiti:[{year:`2020全国Ⅱ卷理第13题`,q:`e₁=(1,0)，e₂=(0,1)，p=(3,5)，用e₁,e₂表示p`,sol:`p=3e₁+5e₂`},{year:`2017全国Ⅰ卷文第13题`,q:`a=(1,2)，b=(2,1)，求2a+3b`,sol:`2a+3b=(2,4)+(6,3)=(8,7)`}]},
+{cat:`复数`,star:true,q:`复数相等条件`,ans:`a+bi=c+di⇔a=c且b=d（a,b,c,d∈R）`,exp:`实部与虚部分别相等，复数相等是实数相等的推广。`,kaofa:`已知复数相等求参数，常与方程结合。`,yicuo:`忽略虚部相等，只考虑实部。`,shiti:[{year:`2021新高考II卷第1题`,q:`已知(a+i)(1+i)=b+2i,求a+b`,sol:`展开得(a-1)+(a+1)i=b+2i,由实虚部相等得a-1=b,a+1=2,解得a=1,b=0`},{year:`2018全国Ⅰ卷文第2题`,q:`已知(1+i)(a+i)=2,求a`,sol:`展开得(a-1)+(a+1)i=2,由虚部为0得a=-1`}]},
+{cat:`复数`,star:true,q:`复平面几何意义与模`,ans:`复数z=a+bi对应点(a,b)，|z|=√(a²+b²)表示到原点距离`,exp:`模即向量长度，几何意义直观。`,kaofa:`求模长或利用模的几何意义求轨迹。`,yicuo:`模是实数，非负，勿写成√(a²-b²)。`,shiti:[{year:`2020新高考II卷第2题`,q:`复数z=1+i在复平面内对应的点在第几象限`,sol:`z=a+bi对应点(a,b)=(1,1),在第一象限`},{year:`2017全国Ⅰ卷文第3题`,q:`复数z=2-i在复平面内对应的点到原点距离`,sol:`距离=|z|=√(2²+(-1)²)=√5`}]},
+{cat:`复数`,star:true,q:`纯虚数充要条件`,ans:`z=a+bi为纯虚数⇔a=0且b≠0`,exp:`实部为零且虚部不为零，注意0不是纯虚数。`,kaofa:`判断纯虚数或求参数。`,yicuo:`漏掉b≠0，导致多解。`,shiti:[{year:`2023全国甲卷文第2题`,q:`已知z=(a+i)(1+i)为纯虚数,求a`,sol:`展开得(a-1)+(a+1)i,纯虚数需a-1=0且a+1≠0,得a=1`},{year:`2016全国Ⅲ卷理第2题`,q:`已知z=(a+2i)/(1+i)为纯虚数,求a`,sol:`化简得(a+2)/2+(2-a)i/2,需(a+2)/2=0且(2-a)/2≠0,得a=-2`}]},
+{cat:`复数`,star:true,q:`复数除法与分母实数化`,ans:`(a+bi)/(c+di)=((a+bi)(c-di))/(c²+d²)`,exp:`乘以分母的共轭复数，使分母变为实数。`,kaofa:`复数除法运算，常与模、共轭结合。`,yicuo:`共轭复数符号写错，或忘记分母平方和。`,shiti:[{year:`2024新高考I卷第2题`,q:`计算(3+i)/(1-i)`,sol:`分子分母同乘(1+i),得(3+i)(1+i)/(1-i²)=(2+4i)/2=1+2i`},{year:`2018全国Ⅱ卷文第1题`,q:`计算(1+2i)/(1-i)`,sol:`分子分母同乘(1+i),得(1+2i)(1+i)/(1-i²)=(-1+3i)/2`}]},
+{cat:`对数`,star:true,q:`对数定义及基本性质`,ans:`若aˣ=N(a>0,a≠1)，则x=logₐN；logₐ1=0，logₐa=1，a^(logₐN)=N`,exp:`对数是指数的逆运算，底数a>0且a≠1，真数N>0。`,kaofa:`求值或化简，常与指数互化。`,yicuo:`真数必须大于0，底数不能为1。`,shiti:[{year:`2017全国Ⅱ卷文第8题`,q:`函数f(x)=ln(x²-2x-8)的单调递增区间`,sol:`由定义需x²-2x-8>0，得x<-2或x>4，外层ln递增，内层在(4,+∞)递增`},{year:`2016全国Ⅲ卷理第6题`,q:`已知a=2^(4/3)，b=4^(2/5)，c=25^(1/3)，比较大小`,sol:`利用a^(log_a N)=N，将b=2^(4/5)，c=5^(2/3)，统一底数比较指数`}]},
+{cat:`对数`,star:true,q:`对数积商幂公式`,ans:`logₐ(MN)=logₐM+logₐN；logₐ(M/N)=logₐM-logₐN；logₐMⁿ=nlogₐM`,exp:`积变加，商变减，幂变乘。`,kaofa:`化简对数式，求值。`,yicuo:`logₐ(M+N)≠logₐM+logₐN，公式仅对乘除幂。`,shiti:[{year:`2018全国Ⅰ卷理第12题`,q:`已知正方体棱长，求截面面积（含log运算）`,sol:`利用log_a(MN)=log_a M+log_a N化简体积比`},{year:`2015四川卷理第8题`,q:`设a,b都是不等于1的正数，则"3^a>3^b>3"是"log_a 3<log_b 3"的什么条件`,sol:`由3^a>3^b>3得a>b>1，利用log_a 3=1/log_3 a，结合倒数公式判断`}]},
+{cat:`对数`,star:true,q:`换底公式及倒数公式`,ans:`logₐb=log꜀b/log꜀a；logₐb·log_b a=1`,exp:`换底公式可化为任意底，倒数公式是换底特例。`,kaofa:`不同底对数运算，常化为同底。`,yicuo:`换底时分子分母底数要一致，勿颠倒。`,shiti:[{year:`2020全国Ⅰ卷理第12题`,q:`若2^a+log_2 a=4^b+2log_4 b，比较a,b`,sol:`利用换底公式log_4 b=log_2 b/2，化简等式比较`},{year:`2019天津卷理第6题`,q:`已知a=log_5 2，b=log_0.5 0.2，c=0.5^0.2，比较大小`,sol:`b=log_0.5 0.2=log_2 5，利用log_a b·log_b a=1，得a·b=1`}]},
+{cat:`对数`,star:true,q:`对数比较大小步骤`,ans:`①统一底数（化为同底或同真数）②利用单调性比较真数或底数③必要时借助中间值0或1`,exp:`底数>1时增函数，0<底数<1时减函数。`,kaofa:`比较两个对数大小，常与指数结合。`,yicuo:`底数不同时直接比较真数，忽略单调性变化。`,shiti:[{year:`2023全国甲卷理第11题`,q:`设a=log_3 2，b=log_5 3，c=log_7 5，比较a,b,c`,sol:`统一底数：a=ln2/ln3，b=ln3/ln5，c=ln5/ln7，构造函数f(x)=ln x/ln(x+1)判断单调性`},{year:`2022全国乙卷理第11题`,q:`设a=ln(1/3)，b=e^(1/3)，c=3/π，比较大小`,sol:`a<0，b>1，c介于0和1之间，借助中间值0和1比较`}]},
+{cat:`对数`,star:true,q:`对数方程与不等式解法`,ans:`方程：logₐf(x)=logₐg(x)⇒f(x)=g(x)且f(x)>0,g(x)>0；不等式：底数>1时f(x)>g(x)，0<底数<1时f(x)<g(x)，均需真数>0`,exp:`先化同底，再解方程或不等式，最后验根。`,kaofa:`解对数方程或不等式，求参数范围。`,yicuo:`忘记真数>0约束，导致增根。`,shiti:[{year:`2016全国Ⅱ卷文第10题`,q:`函数f(x)=log_2(1-x)-log_2(1+x)，解不等式f(x)<0`,sol:`log_2(1-x)<log_2(1+x)，底数>1，得1-x<1+x且1-x>0，1+x>0，解得0<x<1`},{year:`2014全国Ⅰ卷理第11题`,q:`已知函数f(x)=|log_2 x|，若0<m<n且f(m)=f(n)，求m+2n最小值`,sol:`由f(m)=f(n)得-log_2 m=log_2 n，即mn=1，利用基本不等式求最值`}]},
+{cat:`集合`,star:true,q:`集合三要素与空集性质`,ans:`确定性、互异性、无序性；空集∅是任何集合的子集，是任何非空集合的真子集`,exp:`元素互异，空集是特殊集合。`,kaofa:`判断集合中元素个数或参数取值。`,yicuo:`忽略互异性，导致参数多解。`,shiti:[{year:`2019全国Ⅲ卷文第1题`,q:`已知集合A={-1,0,1,2}，B={x|x²≤1}，求A∩B`,sol:`B={x|-1≤x≤1}，A∩B={-1,0,1}，注意互异性`},{year:`2015重庆卷文第1题`,q:`已知集合A={1,2,3}，B={2,3}，则`,sol:`B⊆A，B是A的真子集，空集是B的子集`}]},
+{cat:`集合`,star:true,q:`集合相等充要条件`,ans:`A=B⇔A⊆B且B⊆A`,exp:`互为子集，元素完全相同。`,kaofa:`已知集合相等求参数。`,yicuo:`只验证一个方向，漏掉另一个。`,shiti:[{year:`2020新高考I卷第1题`,q:`设集合A={x|1≤x≤3}，B={x|2<x<4}，求A∪B`,sol:`A∪B={x|1≤x<4}，验证A⊆A∪B且B⊆A∪B`},{year:`2013辽宁卷文第1题`,q:`已知集合A={1,2,3}，B={2,3,4}，求A∩B`,sol:`A∩B={2,3}，验证A∩B⊆A且A∩B⊆B`}]},
+{cat:`集合`,star:true,q:`子集个数公式`,ans:`若集合A有n个元素，则子集个数为2ⁿ，真子集个数为2ⁿ-1，非空真子集个数为2ⁿ-2`,exp:`每个元素可选或不选，共2ⁿ种。`,kaofa:`求子集个数或判断集合关系。`,yicuo:`真子集个数忘减1，非空真子集忘减2。`,shiti:[{year:`2016全国Ⅰ卷理第1题`,q:`设集合A={x|x²-4x+3<0}，B={x|2x-3>0}，求A∩B`,sol:`A=(1,3)，B=(3/2,+∞)，A∩B=(3/2,3)，有无数个元素，子集个数为2^∞`},{year:`2014全国Ⅱ卷文第1题`,q:`已知集合A={-2,0,2}，B={x|x²-x-2=0}，求A∩B`,sol:`B={-1,2}，A∩B={2}，有1个元素，子集个数为2¹=2`}]},
+{cat:`集合`,star:true,q:`德摩根定律`,ans:`∁ᵤ(A∩B)=∁ᵤA∪∁ᵤB；∁ᵤ(A∪B)=∁ᵤA∩∁ᵤB`,exp:`交的补等于补的并，并的补等于补的交。`,kaofa:`化简集合运算，求补集。`,yicuo:`符号混淆，∩与∪互换错误。`,shiti:[{year:`2017全国Ⅱ卷理第2题`,q:`设集合A={1,2,4}，B={x|x²-4x+m=0}，若A∩B={1}，求B`,sol:`由A∩B={1}得1∈B，代入得m=3，B={1,3}，利用德摩根定律验证∁(A∪B)=∁A∩∁B`},{year:`2015全国Ⅰ卷理第1题`,q:`已知集合A={x|x=3n+2,n∈N}，B={6,8,10,12,14}，求A∩B`,sol:`A={2,5,8,11,14,...}，A∩B={8,14}，利用德摩根定律验证`}]},
+{cat:`集合`,star:true,q:`容斥原理`,ans:`|A∪B|=|A|+|B|-|A∩B|；|A∪B∪C|=|A|+|B|+|C|-|A∩B|-|A∩C|-|B∩C|+|A∩B∩C|`,exp:`先加所有，减重复，再加多减的。`,kaofa:`求并集元素个数，常与实际问题结合。`,yicuo:`三元容斥漏加三重交集项。`,shiti:[{year:`2018浙江卷文第1题`,q:`已知全集U={1,2,3,4,5}，A={1,3}，B={3,4,5}，求∁_U(A∪B)`,sol:`A∪B={1,3,4,5}，∁_U(A∪B)={2}，利用容斥原理|A∪B|=|A|+|B|-|A∩B|=2+3-1=4`},{year:`2013山东卷理第2题`,q:`已知集合A={0,1,2}，B={x|x=2a,a∈A}，求A∩B`,sol:`B={0,2,4}，A∩B={0,2}，|A∪B|=|A|+|B|-|A∩B|=3+3-2=4`}]},
+{cat:`均值不等式`,star:true,q:`均值不等式基本形式及前提`,ans:`若a,b>0，则(a+b)/2≥√(ab)，当且仅当a=b取等；前提：一正二定三相等`,exp:`算术平均≥几何平均。`,kaofa:`求最值，证明不等式。`,yicuo:`忽略a,b>0或等号条件不成立。`,shiti:[{year:`2022新高考I卷第18题`,q:`已知a,b>0,a+b=2,求a²+b²的最小值`,sol:`由a²+b²≥2ab且(a+b)²=a²+b²+2ab,得a²+b²≥2,当a=b=1时取等`},{year:`2013全国Ⅱ卷理第11题`,q:`已知a,b>0,a+b=1,求√a+√b的最大值`,sol:`由(√a+√b)²=a+b+2√(ab)≤1+2·(a+b)/2=2,得最大值√2`}]},
+{cat:`均值不等式`,star:true,q:`积定和最小，和定积最大`,ans:`若ab为定值P，则a+b≥2√P（当a=b取等）；若a+b为定值S，则ab≤S²/4（当a=b取等）`,exp:`积定和最小，和定积最大。`,kaofa:`求最值，常配凑定值。`,yicuo:`未验证等号能否取到。`,shiti:[{year:`2023全国甲卷理第16题`,q:`已知a,b>0,ab=2,求a+2b的最小值`,sol:`a+2b≥2√(2ab)=2√4=4,当a=2b时取等`},{year:`2018全国Ⅰ卷理第13题`,q:`已知a,b>0,a+b=1,求ab的最大值`,sol:`ab≤((a+b)/2)²=1/4,当a=b=1/2时取等`}]},
+{cat:`均值不等式`,star:true,q:`三元AM-GM不等式`,ans:`若a,b,c>0，则(a+b+c)/3≥∛(abc)，当且仅当a=b=c取等`,exp:`推广到三个正数。`,kaofa:`求三元最值，如a+b+c≥3∛(abc)。`,yicuo:`忘记等号条件a=b=c。`,shiti:[{year:`2020全国Ⅱ卷理第23题`,q:`已知a,b,c>0,a+b+c=1,求abc的最大值`,sol:`由(a+b+c)/3≥∛(abc)得abc≤1/27,当a=b=c=1/3时取等`},{year:`2017全国Ⅲ卷理第23题`,q:`已知a,b,c>0,abc=8,求a+b+c的最小值`,sol:`由(a+b+c)/3≥∛(abc)=2,得a+b+c≥6,当a=b=c=2时取等`}]},
+{cat:`均值不等式`,star:true,q:`分式型最值（x+a/x型）`,ans:`x>0时，x+a/x≥2√a（当x=√a取等）；x<0时，x+a/x≤-2√a`,exp:`配凑成对勾函数，利用均值不等式。`,kaofa:`求分式函数最值，如y=x+1/x。`,yicuo:`x为负时不能直接用均值不等式，需变形。`,shiti:[{year:`2021新高考I卷第15题`,q:`已知x>0,求x+4/x的最小值`,sol:`由x+4/x≥2√(x·4/x)=4,当x=2时取等`},{year:`2016全国Ⅰ卷文第13题`,q:`已知x>0,求x+1/x的最小值`,sol:`x+1/x≥2√(x·1/x)=2,当x=1时取等`}]},
+{cat:`均值不等式`,star:true,q:`“凑1”技巧`,ans:`若x+y=1，则1/x+1/y=(x+y)(1/x+1/y)=2+x/y+y/x≥4`,exp:`将常数1替换为x+y，构造乘积定值。`,kaofa:`求条件最值，如已知x+y=1求最小值。`,yicuo:`忘记乘1变形，直接套用导致错误。`,shiti:[{year:`2022全国乙卷文科第15题`,q:`已知x>0，y>0，x+y=1，求1/x+1/y的最小值。`,sol:`1/x+1/y=(x+y)(1/x+1/y)=2+x/y+y/x≥4，当x=y=1/2取等。`},{year:`2020天津卷第14题`,q:`已知x>0，y>0，x+y=2，求1/x+1/y的最小值。`,sol:`1/x+1/y=(x+y)/2·(1/x+1/y)=1+1/2(x/y+y/x)≥2，当x=y=1取等。`}]},
+{cat:`均值不等式`,star:true,q:`含根号的最值化简`,ans:`形如√(a²+b²)或√(x(1-x))，常平方后利用均值不等式，或直接对根号内用均值`,exp:`先平方去根号，求平方的最值再开方。`,kaofa:`求带根号函数的最值。`,yicuo:`平方后忘记开方，或忽略定义域。`,shiti:[{year:`2022全国乙卷理第16题`,q:`已知x∈(0,1),求√(x(1-x))的最大值`,sol:`由x(1-x)≤((x+1-x)/2)²=1/4,故√(x(1-x))≤1/2`},{year:`2015全国Ⅱ卷理第17题`,q:`已知a,b>0,a+b=1,求√(2a+1)+√(2b+1)的最大值`,sol:`平方后由均值不等式得(√(2a+1)+√(2b+1))²≤2(2a+1+2b+1)=8,最大值为2√2`}]},
+{cat:`向量`,star:false,q:`向量中点坐标公式`,ans:`若A(x₁,y₁)，B(x₂,y₂)，则AB中点M坐标为((x₁+x₂)/2,(y₁+y₂)/2)`,exp:`中点坐标是两端点坐标的平均值。`,kaofa:`求线段中点或利用中点求向量。`,yicuo:`混淆中点与重心公式。`,shiti:[{year:`2022全国甲卷文第13题`,q:`A(0,2)，B(4,0)，求AB中点坐标`,sol:`M=((0+4)/2,(2+0)/2)=(2,1)`},{year:`2015全国Ⅱ卷文第2题`,q:`A(1,3)，B(5,7)，求AB中点坐标`,sol:`M=((1+5)/2,(3+7)/2)=(3,5)`}]},
+{cat:`向量`,star:false,q:`向量与直线平行/垂直判断`,ans:`直线方向向量a⃗=(u₁,v₁)，b⃗=(u₂,v₂)：平行⇔u₁v₂-u₂v₁=0；垂直⇔u₁u₂+v₁v₂=0`,exp:`直线方向向量平行则直线平行，垂直则直线垂直。`,kaofa:`判断两直线位置关系。`,yicuo:`方向向量与法向量混淆。`,shiti:[{year:`2023新高考Ⅱ卷第13题`,q:`直线l₁方向向量(1,2)，l₂方向向量(2,m)，l₁⊥l₂，求m`,sol:`1×2+2m=0，m=-1`},{year:`2019全国Ⅲ卷文第5题`,q:`直线l₁方向向量(2,1)，l₂方向向量(4,k)，l₁∥l₂，求k`,sol:`2k-4=0，k=2`}]},
+{cat:`复数`,star:false,q:`共轭复数及i幂次规律`,ans:`z=a+bi的共轭z̄=a-bi；i¹=i,i²=-1,i³=-i,i⁴=1，周期为4`,exp:`共轭实部相同虚部相反；i的幂每4次循环。`,kaofa:`求共轭或化简i的高次幂。`,yicuo:`i⁰=1，i⁻¹=-i，注意负指数。`,shiti:[{year:`2020全国Ⅲ卷文第2题`,q:`已知z=1+i,求z̄+i^2`,sol:`z̄=1-i,i²=-1,故z̄+i²=1-i-1=-i`},{year:`2015全国Ⅱ卷理第2题`,q:`已知z=2-i,求z̄·i^3`,sol:`z̄=2+i,i³=-i,故z̄·i³=(2+i)(-i)=1-2i`}]},
+{cat:`对数`,star:false,q:`自然对数与常用对数转换`,ans:`ln x=logₑ x（e≈2.718）；lg x=log₁₀ x；ln x = lg x / lg e；lg x = ln x / ln 10`,exp:`换底公式特例。`,kaofa:`混合使用ln与lg时统一底数。`,yicuo:`lg e与ln 10混淆。`,shiti:[{year:`2021新高考II卷第7题`,q:`已知a=ln 2，b=lg 2，c=log_2 5，比较大小`,sol:`利用ln x=lg x/lg e，因lg e≈0.434<1，得ln 2>lg 2，c>2`},{year:`2017北京卷理第8题`,q:`根据有关数据，求地震里氏震级（含lg运算）`,sol:`利用lg x=ln x/ln 10，将自然对数转换为常用对数计算震级`}]},
+{cat:`集合`,star:false,q:`已知集合关系反求参数（含空集）`,ans:`若A⊆B，需分A=∅和A≠∅两类讨论；若A∩B=A则A⊆B，同理`,exp:`空集是任何集合子集，必须单独讨论。`,kaofa:`已知包含关系求参数范围。`,yicuo:`漏掉A=∅的情况。`,shiti:[{year:`2021全国乙卷文第1题`,q:`已知集合S={s|s=2n+1,n∈Z}，T={t|t=4n+1,n∈Z}，求S∩T`,sol:`T⊆S，S∩T=T，注意空集情况`},{year:`2019全国Ⅱ卷文第1题`,q:`设集合A={x|x²-5x+6>0}，B={x|x-1<0}，求A∩B`,sol:`A=(-∞,2)∪(3,+∞)，B=(-∞,1)，A∩B=(-∞,1)，注意端点开闭`}]},
+{cat:`集合`,star:false,q:`集合运算综合（先求各集合再运算）`,ans:`先化简每个集合（解不等式、方程），再求交并补；注意区间端点开闭`,exp:`分步求解，避免直接混算。`,kaofa:`综合题中求集合运算结果。`,yicuo:`端点开闭判断错误，导致边界值遗漏。`,shiti:[{year:`2024新高考I卷第1题`,q:`已知集合A={x|-5<x³<5}，B={-3,-1,0,2,3}，求A∩B`,sol:`A=(-∛5,∛5)，A∩B={-1,0}`},{year:`2023全国乙卷文第1题`,q:`设全集U={1,2,3,4,5}，集合M满足∁_U M={1,2}，求M`,sol:`M=U-∁_U M={3,4,5}`}]}
+];
+var CATS=["全部","三角函数","数列","解析几何","导数","概率统计","向量","均值不等式","立体几何","复数","对数","集合"];
+var currentCat="全部";
+var deck=[];
+var idx=0;
+var isFlipped=false;
+var mastered=new Set();
+var reviewQueue=new Set();
+
+var STORAGE_KEY="math_cards_mastered_v2";
+function loadSaved(){
+  try{
+    var s=localStorage.getItem(STORAGE_KEY);
+    if(s){var arr=JSON.parse(s);arr.forEach(function(i){mastered.add(i);});}
+  }catch(e){}
+}
+function saveMastered(){
+  try{localStorage.setItem(STORAGE_KEY,JSON.stringify([...mastered]));}catch(e){}
+}
+
+function getFilteredIds(){
+  if(currentCat==="全部") return CARDS.map(function(_,i){return i;});
+  return CARDS.map(function(_,i){return i;}).filter(function(i){return CARDS[i].cat===currentCat;});
+}
+function buildDeck(){
+  var ids=getFilteredIds();
+  deck=ids.filter(function(i){return !mastered.has(i);});
+  if(reviewQueue.size>0){
+    var rq=[...reviewQueue].filter(function(i){return ids.indexOf(i)>=0;});
+    deck=[...new Set([...rq,...deck])];
+  }
+  idx=0;
+  showCard();
+}
+function renderCats(){
+  var el=document.getElementById("cats");
+  el.innerHTML=CATS.map(function(c){
+    var cnt=CARDS.filter(function(card){return c==="全部"||card.cat===c;}).length;
+    return "<button class=\"cat-btn "+(c===currentCat?"active":"")+"\" onclick=\"selectCat('"+c+"')\">"+(c==="全部"?"全部":"⭐".repeat(0)+c)+" <small style=\"opacity:.6;font-weight:400\">("+cnt+")</small></button>";
+  }).join("");
+}
+function selectCat(cat){
+  currentCat=cat;
+  renderCats();
+  buildDeck();
+}
+function updateProgress(){
+  var total=CARDS.length;
+  var m=mastered.size;
+  document.getElementById("prog-text").textContent=m+" / "+total;
+  document.getElementById("prog-bar").style.width=(m/total*100).toFixed(1)+"%";
+  document.getElementById("queue-badge").textContent="复习队列："+reviewQueue.size+" 张";
+}
+function makeCardHTML(card, cardIdx){
+  var kaofa=card.kaofa||"";
+  var yicuo=card.yicuo||"";
+  var kaofaHtml=kaofa?"<div class=\"face-kaofa\">💡 考法："+kaofa+"</div>":"";
+  var yicuoHtml=yicuo?"<div class=\"face-yicuo\">⚠️ 易错："+yicuo+"</div>":"";
+  var shiti=card.shiti||[];
+  var shitiHtml="";
+  if(shiti.length){
+    var sid="sbd_"+cardIdx;
+    var sitems="";
+    for(var i=0;i<shiti.length;i++){
+      var s=shiti[i];
+      sitems+="<div class=\"shiti-item\"><div class=\"shiti-year\">"+s.year+"</div><div class=\"shiti-q\">"+s.q+"</div><div class=\"shiti-sol\">解："+s.sol+"</div></div>";
+    }
+    shitiHtml="<div class=\"face-shiti\"><button class=\"shiti-toggle\" onclick=\"event.stopPropagation();var b=document.getElementById('"+sid+"');b.classList.toggle('open');this.textContent=b.classList.contains('open')?'▲ 收起真题':'📝 真题演练 ("+shiti.length+"道)'\">📝 真题演练 ("+shiti.length+"道)</button><div class=\"shiti-body\" id=\""+sid+"\">"+sitems+"</div></div>";
+  }
+  return "<div class=\"flip-card"+(mastered.has(cardIdx)?" mastered":"")+"\" id=\"flipcard\" onclick=\"flipCard()\">"+
+    "<div class=\"face front\">"+
+    "<div class=\"face-label\">公式名称 / 问题</div>"+
+    "<div class=\"face-q\">"+(card.star?"<span class=\"star\">⭐</span>":"")+card.q+"</div>"+
+    "<div class=\"face-cat\">"+card.cat+"</div>"+
+    "<div class=\"face-hint\">点击翻面 · 查看公式答案</div>"+
+    "</div>"+
+    "<div class=\"face back\">"+
+    "<div class=\"face-label\">公式答案</div>"+
+    "<div class=\"face-ans\">"+card.ans+"</div>"+
+    "<div class=\"face-exp\">"+card.exp+"</div>"+
+    kaofaHtml+
+    yicuoHtml+
+    shitiHtml+
+    "</div>"+
+    "</div>";
+}
+function showCard(){
+  document.getElementById("done-panel").style.display="none";
+  var area=document.getElementById("card-area");
+  var flipBtn=document.getElementById("btn-flip");
+  var actions=document.getElementById("actions");
+  var navRow=document.getElementById("nav-row");
+  if(deck.length===0){
+    area.innerHTML="<div class=\"card-placeholder\">🎉 全部公式已掌握！</div>";
+    flipBtn.style.display="none";
+    actions.style.display="none";
+    navRow.style.display="none";
+    showDone();
+    updateProgress();
+    return;
+  }
+  if(idx>=deck.length){showDone();return;}
+  var card=CARDS[deck[idx]];
+  isFlipped=false;
+  area.innerHTML=makeCardHTML(card,deck[idx]);
+  flipBtn.style.display="block";
+  flipBtn.textContent="👆 点击翻面查看答案";
+  actions.style.display="none";
+  navRow.style.display="flex";
+  document.getElementById("card-counter").textContent=(idx+1)+" / "+deck.length;
+  updateProgress();
+}
+function flipCard(){
+  var fc=document.getElementById("flipcard");
+  if(!fc)return;
+  isFlipped=!isFlipped;
+  if(isFlipped){
+    fc.classList.add("flipped");
+    document.getElementById("btn-flip").textContent="👀 查看中...";
+    document.getElementById("actions").style.display="flex";
+  }else{
+    fc.classList.remove("flipped");
+    document.getElementById("btn-flip").textContent="👆 点击翻面查看答案";
+    document.getElementById("actions").style.display="none";
+  }
+}
+function markMaster(){
+  mastered.add(deck[idx]);
+  reviewQueue.delete(deck[idx]);
+  saveMastered();
+  deck.splice(idx,1);
+  if(idx>=deck.length)idx=Math.max(0,deck.length-1);
+  showCard();
+}
+function markAgain(){
+  reviewQueue.add(deck[idx]);
+  idx++;
+  showCard();
+}
+function nextCard(){idx++;showCard();}
+function prevCard(){if(idx>0)idx--;showCard();}
+function showDone(){
+  if(deck.length>0)return;
+  var panel=document.getElementById("done-panel");
+  panel.style.display="block";
+  document.getElementById("done-master").textContent=mastered.size;
+  document.getElementById("done-review").textContent=reviewQueue.size;
+  var total=CARDS.length;
+  document.getElementById("done-msg").textContent=reviewQueue.size>0?
+    "复习队列还有"+reviewQueue.size+"张，继续加油！":
+    "太棒了！"+mastered.size+"/"+total+" 全部掌握 🏆";
+}
+function restartCurrent(){
+  var ids=getFilteredIds();
+  reviewQueue.forEach(function(i){if(ids.indexOf(i)>=0)reviewQueue.delete(i);});
+  deck=ids.filter(function(i){return !mastered.has(i);});
+  idx=0;
+  document.getElementById("done-panel").style.display="none";
+  showCard();
+}
+// Search
+function doSearch(q){
+  q=q.trim();
+  var srl=document.getElementById("search-results-list");
+  var md=document.getElementById("main-deck");
+  if(!q){
+    srl.style.display="none";
+    md.style.display="block";
+    return;
+  }
+  md.style.display="none";
+  srl.style.display="block";
+  var ql=q.toLowerCase();
+  var matches=CARDS.map(function(c,i){return {c:c,i:i};})
+    .filter(function(x){return (x.c.q+x.c.ans+x.c.exp+x.c.kaofa+x.c.yicuo+x.c.cat).toLowerCase().includes(ql);});
+  if(!matches.length){
+    srl.innerHTML="<div style=\"text-align:center;color:var(--muted);padding:30px\">未找到相关公式，换个关键词试试</div>";
+    return;
+  }
+  srl.innerHTML=matches.slice(0,20).map(function(x){
+    return "<div class=\"sr-card\" onclick=\"jumpTo("+x.i+")\">"+
+      "<div class=\"sr-cat\">"+x.c.cat+(x.c.star?" ⭐":"")+"</div>"+
+      "<div class=\"sr-q\">"+x.c.q+"</div>"+
+      "</div>";
+  }).join("")+(matches.length>20?"<div style=\"text-align:center;color:var(--muted);padding:10px;font-size:.82rem\">还有"+(matches.length-20)+"条结果，请细化搜索词</div>":"");
+}
+function jumpTo(cardIdx){
+  document.getElementById("search-input").value="";
+  document.getElementById("search-results-list").style.display="none";
+  document.getElementById("main-deck").style.display="block";
+  var cat=CARDS[cardIdx].cat;
+  currentCat=cat;
+  renderCats();
+  var ids=getFilteredIds();
+  deck=ids.filter(function(i){return !mastered.has(i);});
+  if(reviewQueue.size>0){
+    var rq=[...reviewQueue].filter(function(i){return ids.indexOf(i)>=0;});
+    deck=[...new Set([...rq,...deck])];
+  }
+  idx=deck.indexOf(cardIdx);
+  if(idx<0){deck.unshift(cardIdx);idx=0;}
+  showCard();
+}
+// Init
+loadSaved();
+renderCats();
+updateProgress();
+</script>
+<style>
+.rtf{background:#f8fafc;border-top:2px solid #e2e8f0;padding:20px 16px 28px;margin-top:32px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.rtf-hd{font-size:.72rem;font-weight:700;color:#64748b;letter-spacing:1.5px;text-transform:uppercase;text-align:center;margin-bottom:14px}
+.rtf-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px;max-width:860px;margin:0 auto 14px}
+.rtf-ch{font-size:.68rem;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px}
+.rtf-links{display:flex;flex-direction:column;gap:3px}
+.rtf-links a{font-size:.8rem;color:#2563eb;text-decoration:none;line-height:1.4}
+.rtf-links a:hover{text-decoration:underline}
+.rtf-links a.rtf-cur{color:#cbd5e0;pointer-events:none;cursor:default;font-weight:600}
+.rtf-home{display:block;text-align:center;font-size:.8rem;color:#64748b;text-decoration:none;margin-top:4px}
+.rtf-home:hover{color:#1e40af}
+</style>
+<div class="rtf">
+  <div class="rtf-hd">🔗 高考工具合集 · 快速跳转</div>
+  <div class="rtf-grid">
+<div><div class="rtf-ch">📖 英语阅读 · 完形</div><div class="rtf-links">
+<a href="english-reading.html">阅读理解真题 (444题)</a>
+<a href="english-cloze.html">完形填空真题 (1276题)</a>
+<a href="cloze-practice.html">完形填空专练</a>
+<a href="cloze-logic-tracker.html">逻辑链追踪器</a>
+</div></div>
+<div><div class="rtf-ch">🔠 词汇</div><div class="rtf-links">
+<a href="vocab-match.html">连连看闯关</a>
+<a href="vocab-3500.html">3500词 · 词根版</a>
+<a href="vocab-3500-stories.html">3500词 · 故事版</a>
+<a href="850-english-practice.html">850核心词表达</a>
+</div></div>
+<div><div class="rtf-ch">📐 语法</div><div class="rtf-links">
+<a href="grammar-master.html">语法神器 · 闯关版</a>
+<a href="grammar-mcq.html">语法填空选择题</a>
+<a href="grammar-cloze.html">语法填空手填版</a>
+<a href="grammar-breakdown.html">长难句拆解器</a>
+<a href="gaokao-grammar.html">高考语法通</a>
+</div></div>
+<div><div class="rtf-ch">✍️ 写作</div><div class="rtf-links">
+<a href="gaokao-writing.html">写作神器</a>
+<a href="gaokao-golden.html">金句闪卡 · 50句</a>
+<a href="gaokao-english-templates.html">万能句背诵库</a>
+</div></div>
+<div><div class="rtf-ch">🔢 数学 · 物理公式</div><div class="rtf-links">
+<a class="rtf-cur" href="math-formula-cards.html">数学公式闪卡 (78张) ✦</a>
+<a href="physics-challenge.html">物理公式闯关 (60题)</a>
+</div></div>
+<div><div class="rtf-ch">🧬 生物</div><div class="rtf-links">
+<a href="shengwu/index.html">生物选择题真题 (380套)</a>
+<a href="shengwu/duiduipeng.html">生物填空对对碰</a>
+<a href="shengwu/zhishi.html">生物考点速查</a>
+</div></div>
+<div><div class="rtf-ch">📚 语文 · 物理 · 化学</div><div class="rtf-links">
+<a href="yuwen/zhishi.html">语文考点速查</a>
+<a href="wuli/zhishi.html">物理考点速查</a>
+<a href="huaxue/zhishi.html">化学考点速查</a>
+</div></div>
+  </div>
+  <a class="rtf-home" href="index.html">← 高考工具箱 · 全部工具</a>
+</div>
+</body>
+</html>

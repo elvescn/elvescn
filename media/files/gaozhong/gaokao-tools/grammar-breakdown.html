@@ -1,0 +1,600 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>语法逻辑拆解器 · 核心架构版</title>
+<style>
+  :root{
+    --bg:#F0F2F5; --card:#FFFFFF;
+    --ink:#2D3748; --ink-soft:#718096; --faint:#A0AEC0;
+    --brand:#3182CE; --brand-deep:#2B6CB0; --brand-soft:#EBF8FF; --brand-line:#BEE3F8;
+    --know:#38A169; --know-bg:#F0FFF4;
+    --fuzzy:#DD6B20; --fuzzy-bg:#FFFAF0;
+    --again:#E53E3E; --again-bg:#FFF5F5;
+    --line:#E2E8F0; --line2:#CBD5E0;
+    --mono:ui-monospace,"SF Mono","Cascadia Code",Menlo,Consolas,monospace;
+    --sans:-apple-system,system-ui,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+    --shadow:0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:760px;margin:0 auto;padding:0 16px 56px}
+  .topbar{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);box-shadow:0 1px 2px rgba(0,0,0,0.05)}
+  .topbar-in{max-width:760px;margin:0 auto;padding:12px 16px}
+  .brand{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:12px;}
+  .brand h1{font-size:1.3rem;font-weight:800;margin:0;color:var(--brand-deep)}
+  .brand .sub{color:var(--ink-soft);font-size:.85rem}
+  
+  .modebar{display:flex;gap:8px;background:var(--bg);padding:4px;border-radius:8px}
+  .mode-btn{flex:1;border:none;background:transparent;color:var(--ink-soft);font-weight:600;font-size:.9rem;padding:10px;border-radius:6px;cursor:pointer;transition:all 0.2s}
+  .mode-btn.on{background:var(--card);color:var(--brand-deep);box-shadow:0 1px 3px rgba(0,0,0,0.1)}
+  
+  .stats-bar{display:flex;justify-content:space-between;font-size:0.85rem;color:var(--ink-soft);margin-top:12px;}
+  .progress-bg{width:100%;height:6px;background:var(--line);border-radius:3px;margin-top:6px;overflow:hidden;}
+  .progress-fill{height:100%;background:var(--brand);width:0%;transition:width 0.3s;}
+
+  /* SRS Card View */
+  .deck{margin-top:24px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:32px 24px;animation:fade-in .3s ease-out}
+  @keyframes fade-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  
+  .card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;font-size:.85rem;}
+  .tag-source{background:var(--brand-soft);color:var(--brand-deep);padding:4px 10px;border-radius:4px;font-family:var(--mono);font-weight:bold;}
+  .tag-level{color:var(--faint);font-weight:bold;}
+  
+  .sentence-en{font-size:1.4rem;font-weight:bold;color:var(--ink);line-height:1.5;margin-bottom:24px;font-family:Georgia, serif;}
+  .btn-reveal{width:100%;background:var(--brand);color:#fff;border:none;padding:14px;border-radius:10px;font-size:1.05rem;font-weight:bold;cursor:pointer;transition:background 0.2s}
+  .btn-reveal:hover{background:var(--brand-deep)}
+  
+  .answer-area{margin-top:24px;border-top:1px solid var(--line);padding-top:24px;display:none;}
+  .answer-area.show{display:block;animation:fade-in .3s ease-out}
+  
+  .sentence-zh{font-size:1.1rem;color:var(--ink-soft);margin-bottom:20px;border-left:4px solid var(--fuzzy);padding-left:12px;}
+  .logic-box{background:#F7FAFC;border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:24px;}
+  .logic-title{font-size:.85rem;color:var(--faint);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;font-weight:bold;}
+  .logic-formula{font-family:var(--mono);font-size:1.05rem;color:var(--brand-deep);font-weight:bold;background:#fff;padding:10px 14px;border-radius:8px;border:1px dashed var(--brand-line);word-break:break-all;}
+  
+  .grade{display:flex;gap:12px;margin-top:10px}
+  .gbtn{flex:1;border-radius:10px;padding:16px 8px;font-size:1rem;font-weight:bold;cursor:pointer;border:2px solid;background:#fff;transition:all 0.15s;}
+  .gbtn span{display:block;font-size:.7rem;font-weight:normal;margin-top:4px;opacity:0.8;}
+  .gbtn.again{color:var(--again);border-color:var(--again)} .gbtn.again:hover{background:var(--again-bg)}
+  .gbtn.fuzzy{color:var(--fuzzy);border-color:var(--fuzzy)} .gbtn.fuzzy:hover{background:var(--fuzzy-bg)}
+  .gbtn.know{color:var(--know);border-color:var(--know)} .gbtn.know:hover{background:var(--know-bg)}
+  
+  /* Grammar Wiki View */
+  .wiki-view{margin-top:24px;display:none;}
+  .wiki-item{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:16px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,0.05)}
+  .wiki-header{padding:16px 20px;background:#F8FAFC;font-weight:bold;color:var(--ink);cursor:pointer;display:flex;justify-content:space-between;align-items:center;}
+  .wiki-content{padding:20px;font-size:.95rem;color:var(--ink-soft);border-top:1px solid var(--line);display:none;}
+  .wiki-content.show{display:block;animation:fade-in 0.2s ease-out;}
+  .wiki-content h4{color:var(--ink);margin-top:16px;margin-bottom:8px;}
+  .wiki-content p{margin-top:0;margin-bottom:10px;}
+  .wiki-content ul{padding-left:20px;margin-top:0;}
+  .wiki-content li{margin-bottom:6px;}
+  .code-block{background:#EDF2F7;padding:12px;border-radius:8px;font-family:var(--mono);color:var(--brand-deep);margin:12px 0;font-size:0.9rem;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-in">
+    <div class="brand">
+      <h1>语法逻辑拆解器 ⚙️</h1>
+      <span class="sub">底层结构 × 80大核心句型</span>
+    </div>
+    <div class="modebar">
+      <button class="mode-btn on" id="btn-tab-practice">句式刻意练习</button>
+      <button class="mode-btn" id="btn-tab-wiki">语法底层协议库</button>
+    </div>
+    <div class="stats-bar" id="stats-area">
+      <span id="stat-info">加载中...</span>
+      <span id="stat-mastered">已固化: 0/80</span>
+    </div>
+    <div class="progress-bg"><div class="progress-fill" id="progress-bar"></div></div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="deck" id="view-practice">
+    <div class="card">
+      <div class="card-header">
+        <span class="tag-source" id="ui-source">...</span>
+        <span class="tag-level" id="ui-level">...</span>
+      </div>
+      <div class="sentence-en" id="ui-en">...</div>
+      
+      <button class="btn-reveal" id="btn-reveal" onclick="revealCard()">运行底层逻辑拆解</button>
+      
+      <div class="answer-area" id="ui-answer-area">
+        <div class="sentence-zh" id="ui-zh">...</div>
+        <div class="logic-box">
+          <div class="logic-title">Core Formula / 核心编译公式</div>
+          <div class="logic-formula" id="ui-rule">...</div>
+        </div>
+        <div class="grade">
+          <button class="gbtn again" onclick="gradeCard(1)">结构解析失败<br><span>(重置记忆轨迹)</span></button>
+          <button class="gbtn fuzzy" onclick="gradeCard('fuzzy')">逻辑需推导<br><span>(保持当前层级)</span></button>
+          <button class="gbtn know" onclick="gradeCard('know')">公式匹配成功<br><span>(强化并升级)</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wiki-view" id="view-wiki">
+    <p style="color:var(--faint);font-size:0.9rem;margin-bottom:20px;">
+      <b>使用提示：</b> 英语语法如同编程语言的底层协议。长难句均由【五大基本句型】做骨架，以【从句】为嵌套模块，辅以【非谓语动词】压缩体积。结构解析失败时，查阅以下协议文档。
+    </p>
+    <div id="wiki-container"></div>
+  </div>
+</div>
+
+<script>
+"use strict";
+
+/* =========================================================================
+   1. 数据库：80大高考核心句式
+========================================================================= */
+const PATTERNS = [
+  // 一、高频核心句型（1-20）
+  {id: 1, rule: "It is/was + 被强调部分 + that/who + 其他（强调句型）", en: "It was not until the 1960s that the first plastic shopping bags were introduced.", zh: "直到20世纪60年代，第一个塑料购物袋才被推出。", source: "2023·全国甲卷"},
+  {id: 2, rule: "It takes sb. some time to do sth.（花费时间做某事）", en: "It takes about 30 minutes to walk from the campus to the city center.", zh: "从校园步行到市中心大约需要30分钟。", source: "2022·新高考I卷"},
+  {id: 3, rule: "not...until...（直到……才……）", en: "The experiment didn’t end until midnight because of unexpected technical problems.", zh: "由于意外的技术问题，实验直到午夜才结束。", source: "2024·新课标II卷"},
+  {id: 4, rule: "so + adj./adv. + that...（如此……以至于……）", en: "The lecture was so interesting that all the students listened carefully till the end.", zh: "讲座太有趣了，所有学生都认真听到了最后。", source: "2023·浙江卷"},
+  {id: 5, rule: "such + (a/an) + adj. + n. + that...（如此……以至于……）", en: "It was such a heavy rain that many roads were flooded in the downtown area.", zh: "雨下得太大了，市中心的许多道路都被淹没了。", source: "2022·全国乙卷"},
+  {id: 6, rule: "The + 比较级, the + 比较级（越……，越……）", en: "The more you practice speaking in public, the more confident you will become.", zh: "你在公共场合练习说话越多，就会变得越自信。", source: "2024·新课标I卷"},
+  {id: 7, rule: "so + be/情态动词/助动词 + 主语（……也一样）", en: "Tom has visited the Great Wall, and so has his younger sister.", zh: "汤姆去过长城，他的妹妹也去过。", source: "2023·北京卷"},
+  {id: 8, rule: "neither/nor + be/情态动词/助动词 + 主语（……也不）", en: "Mary can’t speak French, nor can her brother.", zh: "玛丽不会说法语，她的哥哥也不会。", source: "2022·天津卷"},
+  {id: 9, rule: "What + 主语 + need/want is...（……所需要的是……）", en: "What the local community needs most is a new hospital with advanced equipment.", zh: "当地社区最需要的是一家拥有先进设备的新医院。", source: "2024·浙江卷"},
+  {id: 10, rule: "As soon as/The moment/Immediately + 从句, 主句（一……就……）", en: "The moment the bell rang, the students rushed out of the classroom to the playground.", zh: "铃声一响，学生们就冲出教室跑到操场。", source: "2023·全国乙卷"},
+  {id: 11, rule: "Since + 从句, 主句（自从……以来）", en: "Since he started learning painting, he has won three national awards.", zh: "自从开始学画画，他已经获得了三个国家级奖项。", source: "2022·新高考II卷"},
+  {id: 12, rule: "While + 从句, 主句（当……时；然而）", en: "While most students prefer online courses, some still like traditional classroom teaching.", zh: "虽然大多数学生更喜欢在线课程，但有些学生仍然喜欢传统的课堂教学。", source: "2024·新课标I卷"},
+  {id: 13, rule: "Although/Though + 从句, 主句（尽管……）", en: "Although she faced many difficulties, she never gave up her dream of becoming a scientist.", zh: "尽管面临许多困难，她从未放弃成为科学家的梦想。", source: "2023·全国甲卷"},
+  {id: 14, rule: "No matter what/who/how + 从句, 主句（无论……）", en: "No matter how busy he is, he always finds time to call his parents every week.", zh: "无论有多忙，他每周都总会抽出时间给父母打电话。", source: "2022·全国I卷"},
+  {id: 15, rule: "Sb. spend some time/money (in) doing sth./on sth.（花费时间/金钱做某事）", en: "She spends two hours (in) reading English novels every evening.", zh: "她每天晚上花两个小时读英文小说。", source: "2024·浙江卷"},
+  {id: 16, rule: "Sth. cost sb. some money（某物花费某人多少钱）", en: "This new type of smartphone cost him more than 6,000 yuan.", zh: "这款新型智能手机花了他6000多元。", source: "2023·北京卷"},
+  {id: 17, rule: "Sb. pay some money for sth.（某人为某物付钱）", en: "He paid 200 yuan for the ticket to the art exhibition.", zh: "他花了200元买艺术展的门票。", source: "2022·天津卷"},
+  {id: 18, rule: "Used to do sth./Be used to doing sth.（过去常常/习惯于）", en: "He used to live in the countryside, but now he is used to living in the city.", zh: "他过去住在农村，但现在习惯住在城市了。", source: "2024·新课标II卷"},
+  {id: 19, rule: "Would like to do sth./Would like sb. to do sth.（想要做某事/想要某人做某事）", en: "The students would like to have more outdoor activities after class.", zh: "学生们希望课后有更多的户外活动。", source: "2023·全国乙卷"},
+  {id: 20, rule: "Not only...but also... + 主谓（不仅……而且……，就近原则）", en: "Not only the teacher but also the students are interested in the new teaching method.", zh: "不仅老师，学生们也对这种新的教学方法感兴趣。", source: "2022·新高考I卷"},
+
+  // 二、状语从句重点（21-40）
+  {id: 21, rule: "Because + 从句, 主句（因为……，表直接原因）", en: "He didn’t go to the party because he had to finish his term paper.", zh: "他没去参加派对，因为他得完成学期论文。", source: "条件/原因逻辑"},
+  {id: 22, rule: "As/Since + 从句, 主句（既然/由于……，语气较弱）", en: "Since you have already known the truth, I don’t need to explain it again.", zh: "既然你已经知道真相了，我就不用再解释了。", source: "条件/原因逻辑"},
+  {id: 23, rule: "Now that + 从句, 主句（既然……，强调已知事实）", en: "Now that the weather has improved, we can go hiking this weekend.", zh: "既然天气变好了，我们这个周末可以去徒步旅行。", source: "条件/原因逻辑"},
+  {id: 24, rule: "So that + 从句（为了……，表目的）", en: "She studies hard so that she can be admitted to her dream university.", zh: "她努力学习是为了能考上梦想中的大学。", source: "目的逻辑"},
+  {id: 25, rule: "In order that + 从句（为了……，可置于句首）", en: "In order that we can catch the early bus, we must get up at 5 o’clock.", zh: "为了能赶上早班车，我们必须5点起床。", source: "目的逻辑"},
+  {id: 26, rule: "Even if/Though + 从句, 主句（即使……，表让步）", en: "Even if it snows tomorrow, we will still go to the museum as planned.", zh: "即使明天下雪，我们仍会按计划去博物馆。", source: "让步逻辑"},
+  {id: 27, rule: "As/Though + adj./adv. + 主谓, 主句（尽管……，倒装）", en: "Poor as he is, he never asks for help from others.", zh: "尽管他很穷，但他从不向别人求助。", source: "倒装/让步逻辑"},
+  {id: 28, rule: "Before + 从句, 主句（在……之前；没来得及……就……）", en: "I must finish my work before my parents come back.", zh: "我必须在父母回来之前完成工作。", source: "时间序列逻辑"},
+  {id: 29, rule: "After + 从句, 主句（在……之后）", en: "After they had dinner, they went for a walk in the park.", zh: "他们吃完晚饭后，去公园散步了。", source: "时间序列逻辑"},
+  {id: 30, rule: "When + 从句, 主句（当……时，动作可长可短）", en: "When I was watching TV, the doorbell rang suddenly.", zh: "我正在看电视时，门铃突然响了。", source: "时间环境逻辑"},
+  {id: 31, rule: "As + 从句, 主句（当……时，强调同步进行）", en: "As the sun rose, the fog gradually disappeared.", zh: "随着太阳升起，雾渐渐消散了。", source: "同步/伴随逻辑"},
+  {id: 32, rule: "Until + 从句, 主句（直到……，主句常用延续性动词）", en: "They waited until the results of the competition were announced.", zh: "他们一直等到比赛结果公布。", source: "终点界限逻辑"},
+  {id: 33, rule: "Where + 从句, 主句（在……地方）", en: "Where there is pollution, there is harm to people’s health.", zh: "哪里有污染，哪里就对人们的健康有危害。", source: "空间逻辑"},
+  {id: 34, rule: "Wherever + 从句, 主句（无论哪里）", en: "Wherever you travel, you should respect the local customs.", zh: "无论你去哪里旅行，都应该尊重当地习俗。", source: "无限空间逻辑"},
+  {id: 35, rule: "As + 从句, so + 主句（正如……，……也一样）", en: "As trees are important to the earth, so are oceans to the planet.", zh: "正如树木对地球很重要，海洋对地球也一样重要。", source: "比较对照逻辑"},
+  {id: 36, rule: "So + that...（结果状语从句，so后接adj./adv.）", en: "The wind blew so strongly that several trees were uprooted.", zh: "风刮得太大了，好几棵树都被连根拔起。", source: "因果逻辑"},
+  {id: 37, rule: "Such + that...（结果状语从句，such后接名词短语）", en: "It was such a popular concert that all the tickets were sold out in an hour.", zh: "这场音乐会太受欢迎了，所有门票一小时内就售罄了。", source: "因果逻辑"},
+  {id: 38, rule: "In case + 从句（以防万一）", en: "You’d better take an umbrella in case it rains this afternoon.", zh: "你最好带把伞，以防今天下午下雨。", source: "防备逻辑"},
+  {id: 39, rule: "Provided/Providing (that) + 从句（假如……）", en: "We will organize the picnic provided that the weather is fine.", zh: "假如天气好，我们就组织野餐。", source: "条件界限逻辑"},
+  {id: 40, rule: "On condition that + 从句（在……条件下）", en: "He agreed to help us on condition that we share the cost with him.", zh: "他同意帮助我们，条件是我们和他分担费用。", source: "条件界限逻辑"},
+
+  // 三、名词性从句重点（41-55）
+  {id: 41, rule: "That + 从句 + is/was + 表语（that引导主语从句，无意义）", en: "That he will attend the meeting tomorrow is certain.", zh: "他明天会参加会议是肯定的。", source: "主语模块"},
+  {id: 42, rule: "What + 从句 + is/was + 表语（what引导主语从句，在从句中作成分）", en: "What she said at the meeting made a deep impression on everyone.", zh: "她在会上说的话给每个人留下了深刻印象。", source: "主语模块"},
+  {id: 43, rule: "Who/Whom/Which/Whose + 从句 + is/was + 表语（疑问词引导主语从句）", en: "Who will be in charge of the project is still under discussion.", zh: "谁来负责这个项目还在讨论中。", source: "主语模块"},
+  {id: 44, rule: "Whether + 从句 + is/was + 表语（whether引导主语从句，表“是否”）", en: "Whether the plan will be carried out depends on the boss’s decision.", zh: "这个计划是否会实施取决于老板的决定。", source: "主语模块"},
+  {id: 45, rule: "It is + adj. + that...（it作形式主语，that引导真正主语）", en: "It is necessary that we should learn to communicate with others effectively.", zh: "我们有必要学会与他人有效沟通。", source: "形式主语模块"},
+  {id: 46, rule: "It is + adj. + for/of sb. to do sth.（it作形式主语，不定式作真正主语）", en: "It is important for teenagers to develop good living habits.", zh: "对青少年来说，养成良好的生活习惯很重要。", source: "形式主语模块"},
+  {id: 47, rule: "主语 + 谓语 + that...（that引导宾语从句，可省略）", en: "I believe (that) he will keep his promise to us.", zh: "我相信他会遵守对我们的承诺。", source: "宾语模块"},
+  {id: 48, rule: "主语 + 谓语 + whether/if...（whether/if引导宾语从句，表“是否”）", en: "She asked me whether/if I had seen her lost key.", zh: "她问我是否见过她丢失的钥匙。", source: "宾语模块"},
+  {id: 49, rule: "主语 + 谓语 + what/how/why...（疑问词引导宾语从句）", en: "The teacher explained how we could solve the math problem step by step.", zh: "老师一步步地解释了我们如何解这道数学题。", source: "宾语模块"},
+  {id: 50, rule: "主语 + be + that/whether/what/who...（引导表语从句）", en: "The truth is that he didn’t tell us the whole story.", zh: "真相是他没有告诉我们全部情况。", source: "表语模块"},
+  {id: 51, rule: "主语 + be + why/how/when/where...（引导表语从句）", en: "That is how he managed to finish the task ahead of time.", zh: "那就是他如何提前完成任务的。", source: "表语模块"},
+  {id: 52, rule: "The reason why...is that...（……的原因是……）", en: "The reason why she failed the exam is that she didn’t study hard enough.", zh: "她考试不及格的原因是学习不够努力。", source: "表语/定语模块"},
+  {id: 53, rule: "主语 + 谓语 + the news/fact/idea + that...（that引导同位语从句）", en: "We received the news that our team had won the championship.", zh: "我们收到了我们队赢得冠军的消息。", source: "同位语解释模块"},
+  {id: 54, rule: "主语 + 谓语 + the question/problem + whether...（whether引导同位语从句）", en: "They discussed the question whether they should invest more money in the project.", zh: "他们讨论了是否应该在这个项目上投入更多资金的问题。", source: "同位语解释模块"},
+  {id: 55, rule: "主语 + 谓语 + the time/place/way + when/where/how...（引导同位语从句）", en: "Do you remember the time when we first met at the school library?", zh: "你记得我们第一次在学校图书馆见面的那个时候吗？", source: "同位语解释模块"},
+
+  // 四、定语从句重点（56-65）
+  {id: 56, rule: "主语 + 谓语 + the + n. + who/whom/that + 从句（修饰人）", en: "The girl who/that won the speech contest is my best friend.", zh: "赢得演讲比赛的那个女孩是我最好的朋友。", source: "定语修饰逻辑"},
+  {id: 57, rule: "主语 + 谓语 + the + n. + which/that + 从句（修饰物）", en: "The book which/that my father bought for me is about space exploration.", zh: "爸爸给我买的那本书是关于太空探索的。", source: "定语修饰逻辑"},
+  {id: 58, rule: "主语 + 谓语 + the + n. + whose + 从句（表所属关系）", en: "The boy whose parents work abroad lives with his grandparents.", zh: "父母在国外工作的那个男孩和祖父母一起生活。", source: "定语修饰逻辑"},
+  {id: 59, rule: "主语 + 谓语 + the + n. + when + 从句（修饰时间名词）", en: "I will never forget the year when I studied abroad in the UK.", zh: "我永远不会忘记我在英国留学的那一年。", source: "定语修饰逻辑"},
+  {id: 60, rule: "主语 + 谓语 + the + n. + where + 从句（修饰地点名词）", en: "This is the restaurant where we had dinner together last month.", zh: "这就是我们上个月一起吃晚饭的那家餐厅。", source: "定语修饰逻辑"},
+  {id: 61, rule: "主语 + 谓语 + the + n. + why + 从句（修饰reason）", en: "Could you tell me the reason why you changed your mind suddenly?", zh: "你能告诉我你突然改变主意的原因吗？", source: "定语修饰逻辑"},
+  {id: 62, rule: "主语 + 谓语 + n. + as/which + 从句（非限制性定语从句，指代主句）", en: "As is known to all, water is essential to all living things.", zh: "众所周知，水对所有生物都至关重要。", source: "非限制性定语逻辑"},
+  {id: 63, rule: "主语 + 谓语 + such + n. + as + 从句（as引导定语从句，表“像……这样的”）", en: "He is such a honest man as everyone respects.", zh: "他是一个大家都尊敬的诚实人。", source: "定语修饰逻辑"},
+  {id: 64, rule: "主语 + 谓语 + the same + n. + as + 从句（as引导定语从句，表“和……一样的”）", en: "This is the same type of computer as I used in my office.", zh: "这和我在办公室用的是同一种型号的电脑。", source: "定语修饰逻辑"},
+  {id: 65, rule: "主语 + 谓语 + n. + prep. + which/whom + 从句（介词+关系代词引导定语从句）", en: "The person with whom I had a talk yesterday is a famous writer.", zh: "昨天和我谈话的那个人是一位著名作家。", source: "介词搭配/定语逻辑"},
+
+  // 五、非谓语动词重点（66-75）
+  {id: 66, rule: "主语 + 谓语 + to do（不定式作宾语，want, hope, decide等）", en: "She hopes to become a volunteer in the coming sports meeting.", zh: "她希望在即将到来的运动会上成为一名志愿者。", source: "非谓语/不定式"},
+  {id: 67, rule: "主语 + 谓语 + sb. to do（不定式作宾语补足语，ask, tell, allow等）", en: "The teacher encouraged us to take part in the English competition.", zh: "老师鼓励我们参加英语竞赛。", source: "非谓语/不定式"},
+  {id: 68, rule: "主语 + be + adj. + to do（不定式作状语）", en: "I am sorry to inform you that the meeting has been canceled.", zh: "很抱歉通知你，会议已经取消了。", source: "非谓语/不定式"},
+  {id: 69, rule: "主语 + 谓语 + doing（动名词作宾语，enjoy, finish, practice等）", en: "He enjoys playing the guitar in his spare time.", zh: "他喜欢在业余时间弹吉他。", source: "非谓语/动名词"},
+  {id: 70, rule: "主语 + 谓语 + sb. doing（动名词作宾语补足语，see, hear, find等）", en: "I saw some children reading English after school.", zh: "放学后我看到一些孩子在读英语。", source: "非谓语/动名词"},
+  {id: 71, rule: "主语 + be + doing（现在分词作表语，表主语的性质）", en: "The experience of traveling alone is very exciting.", zh: "独自旅行的经历非常令人兴奋。", source: "非谓语/现在分词"},
+  {id: 72, rule: "主语 + 谓语 + 宾语 + done（过去分词作宾语补足语，have, make, get等）", en: "We had our classroom cleaned before the new term began.", zh: "新学期开始前我们把教室打扫干净了。", source: "非谓语/过去分词"},
+  {id: 73, rule: "Doing + 主语 + 谓语（现在分词作状语，表主动/进行）", en: "Walking along the river, we saw many beautiful flowers on both sides.", zh: "沿着河边走，我们看到两岸有许多美丽的花。", source: "非谓语/现在分词"},
+  {id: 74, rule: "Done + 主语 + 谓语（过去分词作状语，表被动/完成）", en: "Seen from the sky, the city looks like a huge garden.", zh: "从空中看，这座城市像一个巨大的花园。", source: "非谓语/过去分词"},
+  {id: 75, rule: "To do + 主语 + 谓语（不定式作状语，表目的/原因/结果）", en: "To improve his oral English, he practices speaking with foreigners every week.", zh: "为了提高英语口语，他每周都练习和外国人说话。", source: "非谓语/不定式"},
+
+  // 六、其他重要句型（76-80）
+  {id: 76, rule: "Either...or... + 主谓（要么……要么……，就近原则）", en: "Either you or your brother has to take care of your sick mother.", zh: "要么你，要么你哥哥得照顾你生病的妈妈。", source: "并列/就近结构"},
+  {id: 77, rule: "Neither...nor... + 主谓（既不……也不……，就近原则）", en: "Neither the students nor the teacher knows the answer to the question.", zh: "学生和老师都不知道这个问题的答案。", source: "并列/就近结构"},
+  {id: 78, rule: "比较级 + and + 比较级（越来越……）", en: "As winter comes, the days are getting shorter and shorter.", zh: "冬天来了，白天变得越来越短。", source: "比较级结构"},
+  {id: 79, rule: "As + adj./adv. 原级 + as（和……一样……）", en: "This new method is as effective as the traditional one.", zh: "这种新方法和传统方法一样有效。", source: "比较级结构"},
+  {id: 80, rule: "Not as/so + adj./adv. 原级 + as（不如……）", en: "This movie is not as interesting as the one we saw last week.", zh: "这部电影不如我们上周看的那部有趣。", source: "比较级结构"}
+];
+
+/* =========================================================================
+   2. 底层协议文档：核心语法框架体系
+========================================================================= */
+const GRAMMAR_WIKI = [
+  {
+    title: "第一模块：句子成分及五大基本句型结构",
+    content: `
+      <h4>▍ 句子成分 (变量与参数)</h4>
+      <ul>
+        <li><b>主语：</b>动作发出者 (名词/代词)。</li>
+        <li><b>谓语：</b>动作状态 (动词)。</li>
+        <li><b>宾语：</b>动作承受者 (名词)。</li>
+        <li><b>表语：</b>说明主语身份特征，位于系动词后。</li>
+        <li><b>宾语补足语：</b>补充说明宾语动作或特征。</li>
+        <li><b>定语与状语：</b>用于修饰名词或动作的“附加参数”。</li>
+      </ul>
+      <h4>▍ 核心五大函数框架 (基本句式)</h4>
+      <div class="code-block">
+        1. 主 + 谓 (S+V)<br>
+        &nbsp;&nbsp; 例: He runs quickly.<br>
+        2. 主 + 系 + 表 (S+V+P)<br>
+        &nbsp;&nbsp; 例: The cake smells good.<br>
+        3. 主 + 谓 + 宾 (S+V+O)<br>
+        &nbsp;&nbsp; 例: Who knows the answer?<br>
+        4. 主 + 谓 + 双宾 (S+V+IO+DO)<br>
+        &nbsp;&nbsp; 例: He brought you a dictionary.<br>
+        5. 主 + 谓 + 宾 + 宾补 (S+V+O+C)<br>
+        &nbsp;&nbsp; 例: They called him James.
+      </div>
+      <p><b>执行逻辑：</b>长难句无论多长，剥离掉状语和定语这层“修饰外衣”后，主干必然是上述五种架构之一。</p>
+    `
+  },
+  {
+    title: "第二模块：定语从句 (Attribute Clauses)",
+    content: `
+      <p>充当“形容词”的子程序，跟在先行词后对其进行属性修饰。</p>
+      <h4>▍ 关系词的互斥逻辑</h4>
+      <div class="code-block">
+        <b>[只用 that 的情况] 严格限制变量边界：</b><br>
+        - 先行词为不定代词 (all, anything, everything等)<br>
+        - 先行词被最高级或序数词修饰<br>
+        - 先行词既有人又有物<br>
+        - 主句已存在 who 或 which 为避免重复时
+      </div>
+      <div class="code-block">
+        <b>[只用 which 的情况] 弱依赖环境：</b><br>
+        - 关系词前有介词 (介词 + 关系代词)<br>
+        - 逗号隔开的非限制性定语从句 (补充说明)<br>
+        - 代替整个主句概念时
+      </div>
+      <h4>▍ 介词+关系代词 高级结构</h4>
+      <p>介词的选取依据：从句动词搭配、先行词搭配、或逻辑意义。只有 <b>which</b> (指物) 和 <b>whom</b> (指人) 能紧跟介词。</p>
+    `
+  },
+  {
+    title: "第三模块：名词性从句 (Noun Clauses)",
+    content: `
+      <p>将一个完整的子句整体打包，作为“主、宾、表、同位语”等名词参数使用。</p>
+      <h4>▍ That 的隐式与显式调用</h4>
+      <ul>
+        <li><b>不充当成分：</b> \`that\` 在名词性从句中没有任何含义，只做连接词。</li>
+        <li><b>不可省略：</b> 作为主语从句置于句首时；由 \`it\` 作形式宾语时；多个宾语从句并列的第二个及以后；同位语从句中。</li>
+      </ul>
+      <h4>▍ Whether 与 If 逻辑判别</h4>
+      <p>\`whether\` 的兼容性大于 \`if\`。在介词后、不定式前、或主/表/同位语从句中，只能使用 \`whether\`。</p>
+      <h4>▍ 同位语从句与定语从句的底层区别</h4>
+      <div class="code-block">
+        - <b>同位语从句：</b>解释抽象名词(news, idea)内容。从句结构完整，that 不做成分。<br>
+        - <b>定语从句：</b>修饰名词属性。从句必缺主/宾，that 充当主/宾语。
+      </div>
+    `
+  },
+  {
+    title: "第四模块：状语从句 (Adverbial Clauses)",
+    content: `
+      <p>用于定义主程序的运行环境（时间、地点、条件、让步等）。</p>
+      <h4>▍ 九大逻辑运算分支</h4>
+      <ul>
+        <li><b>时间：</b> \`not until\` 置首需部分倒装； \`the moment\` 等名词可直接作为时间连接词。</li>
+        <li><b>原因：</b> \`because\` (未知强调), \`since/now that\` (已知前提), \`as\` (附带说明)。</li>
+        <li><b>条件：</b> \`if\` (如果), \`unless\` (除非), \`as long as\` (只要), \`in case\` (万一)。</li>
+        <li><b>让步：</b> \`although/though\` (虽...但，主句不可加but)，\`as\` (必须倒装，如 <i>Young as he is</i>)。</li>
+        <li><b>结果与目的：</b> \`so...that\` / \`such...that\` (结果)； \`so that\` / \`in order that\` (目的，常跟情态动词)。</li>
+      </ul>
+    `
+  },
+  {
+    title: "第五模块：动词时态与语态系统",
+    content: `
+      <h4>▍ 动态时间轴映射 (时态)</h4>
+      <p>动词的时态 = 动作发生的时间段 + 动作当时的状态。</p>
+      <ul>
+        <li><b>一般过去 vs 现在完成：</b> 过去时仅表示过去某点发生，与现在脱钩；现完表示过去动作对“现在状态”造成影响或干涉。</li>
+        <li><b>过去完成：</b> "过去的过去" (had done)，必须以另一个过去动作作为参照锚点。</li>
+        <li><b>将来体系：</b> \`will do\` (倾向/临时决定), \`be going to\` (计划预谋), \`be doing\` (日程表强行安排)。</li>
+      </ul>
+      <h4>▍ 主动与被动逻辑 (语态)</h4>
+      <p>当及物动词没有承受动作的宾语参数时，触发被动语态。特殊例外：</p>
+      <div class="code-block">
+        - <b>主表被：</b> The pen writes smoothly. (描述物体属性性质)。<br>
+        - <b>be worth doing：</b> 固定搭配。<br>
+        - <b>need / require doing：</b> His hair needs cutting. (需要被做)。
+      </div>
+    `
+  },
+  {
+    title: "第六模块：虚拟语气与特殊句式",
+    content: `
+      <h4>▍ 虚拟语气 (沙盒假设环境)</h4>
+      <p>脱离真实物理法则的假设：</p>
+      <div class="code-block">
+        <b>If 虚拟：</b><br>
+        - 与现在相反：从句 did/were，主句 would/could do<br>
+        - 与过去相反：从句 had done，主句 would have done<br>
+        - 与将来相反：从句 did/should do，主句 would do
+      </div>
+      <p><b>指令/建议虚拟：</b> (demand, suggest, require, order 等)。宾语从句必须执行 \`should + do\` 且 \`should\` 可省的协议。</p>
+      
+      <h4>▍ 倒装机制 (Inversion)</h4>
+      <p>为了强调某个系统参数，将其置顶触发语序颠倒：</p>
+      <ul>
+        <li><b>全部倒装：</b> 介词/方位副词 (here, there, on the floor) 放句首，谓语全部提到主语前。</li>
+        <li><b>部分倒装：</b> 否定词 (never, hardly, not only, only+状语) 置首，仅将助动词/情态动词提到主语前。</li>
+      </ul>
+    `
+  },
+  {
+    title: "第七模块：非谓语动词 (Non-finite Verbs)",
+    content: `
+      <p>一个简单句原则上只能有一个核心谓语（主函数）。其他次要动词必须“降级打包”为非谓语形态（子组件）。</p>
+      <h4>▍ 三种降级协议</h4>
+      <div class="code-block">
+        1. <b>不定式 (To do)：</b> 偏向表示“将来、目的、未发生”。<br>
+        2. <b>动名词 (Doing)：</b> 偏向表示“客观事实、习惯、经常性”。<br>
+        3. <b>分词 (Doing / Done)：</b> <br>
+           - 现在分词(Doing) = 主动，进行中。<br>
+           - 过去分词(Done) = 被动，已完成。
+      </div>
+      <p><b>独立主格：</b> 当非谓语组件的“逻辑主语”与主句主语不一致时，必须给它单独分配一个主语变量（名词/代词 + 非谓语）。</p>
+    `
+  }
+];
+
+/* =========================================================================
+   3. 状态管理与间隔重复 (SRS) 算法
+========================================================================= */
+const STATE_KEY = "grammarDecoderCore:v1";
+let state = { progress: {} };
+let currentPattern = null;
+
+// SRS Intervals (Days)
+const INTERVAL_DAYS = {0:0, 1:0, 2:1, 3:2, 4:4, 5:7, 6:15, 7:30};
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STATE_KEY);
+    if(raw) state = JSON.parse(raw);
+  } catch(e) {}
+  if(!state.progress) state.progress = {};
+}
+
+function saveState() {
+  try { localStorage.setItem(STATE_KEY, JSON.stringify(state)); } catch(e) {}
+}
+
+function getProgress(id) { 
+  return state.progress[id] || {box:0, seen:0}; 
+}
+
+function isDue(id) {
+  const p = getProgress(id);
+  if(p.box <= 1) return true;
+  return (Date.now() - p.seen) >= (INTERVAL_DAYS[p.box] * 86400000);
+}
+
+function updateStats() {
+  let dueCount = 0;
+  let masterCount = 0;
+  
+  PATTERNS.forEach(p => {
+    const prog = getProgress(p.id);
+    if(prog.box >= 6) masterCount++;
+    if(prog.box === 0 || isDue(p.id)) dueCount++;
+  });
+  
+  $("stat-info").innerHTML = `待处理参数列: <b>${dueCount}</b> 项`;
+  $("stat-mastered").textContent = `已固化: ${masterCount}/${PATTERNS.length}`;
+  $("progress-bar").style.width = (masterCount / PATTERNS.length * 100) + "%";
+}
+
+function pickNextPattern() {
+  let dueList = [], newItems = [];
+  PATTERNS.forEach(p => {
+    const prog = getProgress(p.id);
+    if(prog.box === 0) newItems.push(p);
+    else if(isDue(p.id)) dueList.push(p);
+  });
+  
+  if(dueList.length > 0) return dueList[Math.floor(Math.random()*dueList.length)];
+  if(newItems.length > 0) return newItems[0];
+  
+  return PATTERNS[Math.floor(Math.random()*PATTERNS.length)];
+}
+
+/* =========================================================================
+   4. UI 逻辑与交互事件
+========================================================================= */
+const $ = id => document.getElementById(id);
+let revealed = false;
+
+function renderCard() {
+  revealed = false;
+  currentPattern = pickNextPattern();
+  if(!currentPattern) return;
+  
+  const prog = getProgress(currentPattern.id);
+  
+  $("ui-source").textContent = currentPattern.source;
+  $("ui-level").textContent = prog.box === 0 ? "新数据节点" : (prog.box >= 6 ? "记忆库固化" : `强化阶级: Lv.${prog.box}`);
+  $("ui-en").textContent = currentPattern.en;
+  
+  $("ui-answer-area").classList.remove("show");
+  $("btn-reveal").style.display = "block";
+  
+  updateStats();
+}
+
+function revealCard() {
+  if(revealed) return;
+  revealed = true;
+  
+  $("ui-zh").textContent = currentPattern.zh;
+  $("ui-rule").textContent = currentPattern.rule;
+  
+  $("btn-reveal").style.display = "none";
+  $("ui-answer-area").classList.add("show");
+}
+
+function gradeCard(res) {
+  let p = getProgress(currentPattern.id);
+  if(res === 1) p.box = 1;
+  else if(res === 'fuzzy') p.box = Math.max(1, p.box);
+  else p.box = Math.min(7, p.box + 1);
+  
+  p.seen = Date.now();
+  state.progress[currentPattern.id] = p;
+  saveState();
+  
+  renderCard();
+}
+
+/* =========================================================================
+   5. 语法 Wiki 折叠渲染
+========================================================================= */
+function renderWiki() {
+  let html = "";
+  GRAMMAR_WIKI.forEach((item, idx) => {
+    html += `
+      <div class="wiki-item">
+        <div class="wiki-header" onclick="toggleWiki(${idx})">
+          <span>${item.title}</span>
+          <span style="color:var(--faint);font-family:var(--mono);">[EXPAND]</span>
+        </div>
+        <div class="wiki-content" id="wiki-content-${idx}">
+          ${item.content}
+        </div>
+      </div>
+    `;
+  });
+  $("wiki-container").innerHTML = html;
+}
+
+function toggleWiki(idx) {
+  const content = $(`wiki-content-${idx}`);
+  content.classList.toggle("show");
+}
+
+/* =========================================================================
+   6. 模式切换与初始化配置
+========================================================================= */
+$("btn-tab-practice").onclick = () => {
+  $("btn-tab-practice").classList.add("on");
+  $("btn-tab-wiki").classList.remove("on");
+  $("view-practice").style.display = "block";
+  $("view-wiki").style.display = "none";
+  updateStats();
+};
+
+$("btn-tab-wiki").onclick = () => {
+  $("btn-tab-wiki").classList.add("on");
+  $("btn-tab-practice").classList.remove("on");
+  $("view-practice").style.display = "none";
+  $("view-wiki").style.display = "block";
+};
+
+// 键盘快捷键监听
+document.addEventListener("keydown", e => {
+  if(document.getElementById("view-practice").style.display === "none") return;
+  
+  if(!revealed && (e.key === " " || e.key === "Enter")) {
+    e.preventDefault();
+    revealCard();
+  } else if(revealed) {
+    if(e.key === "1") gradeCard(1);
+    if(e.key === "2") gradeCard('fuzzy');
+    if(e.key === "3") gradeCard('know');
+  }
+});
+
+// Boot Sequence
+loadState();
+renderWiki();
+renderCard();
+
+</script>
+
+<style>
+.rtf{background:#f8fafc;border-top:2px solid #e2e8f0;padding:20px 16px 28px;margin-top:32px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.rtf-hd{font-size:.72rem;font-weight:700;color:#64748b;letter-spacing:1.5px;text-transform:uppercase;text-align:center;margin-bottom:14px}
+.rtf-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px;max-width:860px;margin:0 auto 14px}
+.rtf-ch{font-size:.68rem;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px}
+.rtf-links{display:flex;flex-direction:column;gap:3px}
+.rtf-links a{font-size:.8rem;color:#2563eb;text-decoration:none;line-height:1.4}
+.rtf-links a:hover{text-decoration:underline}
+.rtf-links a.rtf-cur{color:#cbd5e0;pointer-events:none;cursor:default;font-weight:600}
+.rtf-home{display:block;text-align:center;font-size:.8rem;color:#64748b;text-decoration:none;margin-top:4px}
+.rtf-home:hover{color:#1e40af}
+</style>
+<div class="rtf">
+  <div class="rtf-hd">🔗 高考工具合集 · 快速跳转</div>
+  <div class="rtf-grid">
+<div><div class="rtf-ch">📖 阅读 · 完形真题</div><div class="rtf-links"><a href="english-reading.html">高考阅读理解真题 (441题)</a>
+<a href="english-cloze.html">高考完形填空真题 (1276题)</a>
+<a href="cloze-practice.html">完形填空专练</a>
+<a href="cloze-logic-tracker.html">逻辑链追踪器</a>
+</div></div>
+<div><div class="rtf-ch">🔠 词汇</div><div class="rtf-links"><a href="vocab-match.html">连连看闯关</a>
+<a href="vocab-3500.html">3500词 · 词根版</a>
+<a href="vocab-3500-stories.html">3500词 · 故事版</a>
+<a href="850-english-practice.html">850核心词表达</a>
+</div></div>
+<div><div class="rtf-ch">📐 语法</div><div class="rtf-links"><a href="grammar-master.html">语法神器 · 闯关版</a>
+<a href="grammar-mcq.html">语法填空选择题</a>
+<a href="grammar-cloze.html">语法填空手填版</a>
+<a class="rtf-cur" href="grammar-breakdown.html">长难句拆解器 ✦</a>
+<a href="gaokao-grammar.html">高考语法通</a>
+</div></div>
+<div><div class="rtf-ch">✍️ 写作</div><div class="rtf-links"><a href="gaokao-writing.html">写作神器</a>
+<a href="gaokao-golden.html">金句闪卡 · 50句</a>
+<a href="gaokao-english-templates.html">万能句背诵库</a>
+</div></div>
+<div><div class="rtf-ch">🔢 数学 · 物理</div><div class="rtf-links"><a href="math-formula-cards.html">数学公式闪卡</a>
+<a href="physics-challenge.html">物理公式闯关 60题</a>
+</div></div>
+<div><div class="rtf-ch">🧬 生物</div><div class="rtf-links">
+<a href="shengwu/index.html">生物选择题真题 (380套)</a>
+<a href="shengwu/duiduipeng.html">生物填空对对碰</a>
+<a href="shengwu/zhishi.html">生物考点速查</a>
+</div></div>
+<div><div class="rtf-ch">📚 语文 · 物理 · 化学</div><div class="rtf-links">
+<a href="yuwen/zhishi.html">语文考点速查</a>
+<a href="wuli/zhishi.html">物理考点速查</a>
+<a href="huaxue/zhishi.html">化学考点速查</a>
+</div></div>
+  </div>
+  <a class="rtf-home" href="index.html">← 高考工具箱 · 全部工具</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>高考学习规划器 · 倒计时+每日任务生成</title>
+<meta name="description" content="高考倒计时学习规划器：自动计算剩余天数，生成数学/物理/化学/生物每日Anki复习量，科学排课，内置番茄钟。">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#f0f4ff;--card:#fff;--border:#dde4f0;--accent:#1e3a8a;--accent2:#2563eb}
+body{font-family:'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:#1e293b;min-height:100vh}
+header{background:var(--accent);color:#fff;padding:14px 20px;display:flex;align-items:center;gap:12px}
+header h1{font-size:1rem;font-weight:600;flex:1}
+header a{color:#93c5fd;font-size:.8rem;text-decoration:none}
+.main{max-width:860px;margin:0 auto;padding:16px}
+
+/* Countdown */
+.countdown-box{background:linear-gradient(135deg,#1e3a8a,#1d4ed8);color:#fff;border-radius:16px;padding:24px 28px;text-align:center;margin-bottom:16px;position:relative;overflow:hidden}
+.countdown-box::before{content:'';position:absolute;top:-30px;right:-30px;width:120px;height:120px;background:rgba(255,255,255,.05);border-radius:50%}
+.gaokao-date{font-size:.82rem;color:#93c5fd;margin-bottom:8px}
+.days-num{font-size:4rem;font-weight:800;line-height:1;color:#fbbf24}
+.days-label{font-size:.9rem;color:#bfdbfe;margin-top:4px}
+.phase-badge{display:inline-block;background:rgba(255,255,255,.15);border-radius:20px;padding:4px 14px;font-size:.8rem;margin-top:10px;color:#e0f2fe}
+
+/* Setup card */
+.setup-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:16px}
+.setup-card h2{font-size:.9rem;font-weight:700;color:#374151;margin-bottom:12px}
+.setup-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:8px}
+.setup-row label{font-size:.82rem;color:#64748b;white-space:nowrap}
+.setup-row input[type=date],.setup-row input[type=number],.setup-row select{font-family:inherit;font-size:.85rem;padding:7px 10px;border:1px solid var(--border);border-radius:7px;background:#f8f9fb;color:#1e293b;outline:none}
+.setup-row input[type=date]{flex:1;min-width:140px}
+.btn-generate{background:var(--accent2);color:#fff;border:none;border-radius:8px;padding:10px 22px;font-size:.88rem;font-weight:600;cursor:pointer;font-family:inherit;margin-top:8px}
+.btn-generate:hover{background:var(--accent)}
+
+/* Daily plan */
+.plan-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:16px}
+.plan-card h2{font-size:.9rem;font-weight:700;color:#374151;margin-bottom:14px}
+.subject-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #f1f5f9}
+.subject-row:last-child{border-bottom:none}
+.subj-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+.subj-info{flex:1}
+.subj-name{font-weight:600;font-size:.9rem}
+.subj-task{font-size:.8rem;color:#64748b;margin-top:2px}
+.subj-time{font-size:.82rem;font-weight:600;color:#475569;white-space:nowrap}
+.progress-bar{height:6px;background:#f1f5f9;border-radius:3px;margin-top:5px;overflow:hidden}
+.progress-fill{height:100%;border-radius:3px;transition:width .4s}
+.check-btn{width:28px;height:28px;border-radius:50%;border:2px solid #cbd5e1;background:none;cursor:pointer;font-size:.9rem;flex-shrink:0;transition:all .15s}
+.check-btn.done{background:#22c55e;border-color:#22c55e;color:#fff}
+
+/* Pomodoro */
+.pomo-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:16px;text-align:center}
+.pomo-card h2{font-size:.9rem;font-weight:700;color:#374151;margin-bottom:14px;text-align:left}
+.pomo-time{font-size:3.5rem;font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums;letter-spacing:.05em}
+.pomo-label{font-size:.8rem;color:#64748b;margin:4px 0 14px}
+.pomo-btns{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.pomo-btn{padding:9px 20px;border-radius:8px;border:none;font-size:.85rem;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s}
+.btn-start{background:var(--accent2);color:#fff}
+.btn-start:hover{background:var(--accent)}
+.btn-reset{background:#f1f5f9;color:#475569}
+.btn-short{background:#059669;color:#fff}
+.pomo-count{font-size:.8rem;color:#94a3b8;margin-top:10px}
+
+/* Weekly schedule */
+.week-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:16px}
+.week-card h2{font-size:.9rem;font-weight:700;color:#374151;margin-bottom:12px}
+.week-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.day-col{text-align:center}
+.day-name{font-size:.72rem;font-weight:700;color:#64748b;margin-bottom:5px}
+.day-slot{border-radius:5px;padding:4px 3px;font-size:.68rem;margin-bottom:3px;color:#fff;font-weight:600}
+.slot-math{background:#7c3aed}
+.slot-phy{background:#0369a1}
+.slot-chem{background:#0f766e}
+.slot-bio{background:#15803d}
+.slot-eng{background:#9f1239}
+.slot-review{background:#92400e}
+.slot-rest{background:#e5e7eb;color:#9ca3af}
+
+@media(max-width:600px){
+  .week-grid{grid-template-columns:repeat(4,1fr)}
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>📅 高考学习规划器</h1>
+  <a href="index.html">↑ 工具列表</a>
+</header>
+<div class="main">
+
+  <!-- Countdown -->
+  <div class="countdown-box">
+    <div class="gaokao-date" id="gaokao-date-label">高考日期：2026年6月7日</div>
+    <div class="days-num" id="days-num">--</div>
+    <div class="days-label">距离高考还有 <strong>天</strong></div>
+    <div class="phase-badge" id="phase-badge">计算中...</div>
+  </div>
+
+  <!-- Setup -->
+  <div class="setup-card">
+    <h2>⚙️ 设置你的学习参数</h2>
+    <div class="setup-row">
+      <label>高考日期：</label>
+      <input type="date" id="gaokao-date" value="2026-06-07">
+      <label>每天学习时间（小时）：</label>
+      <input type="number" id="daily-hours" value="3" min="1" max="10" style="width:70px">
+    </div>
+    <div class="setup-row">
+      <label>今日Anki新卡目标：</label>
+      <input type="number" id="new-cards" value="20" min="5" max="50" style="width:70px">
+      <label>科目侧重：</label>
+      <select id="focus">
+        <option value="balanced">均衡（数物化生各25%）</option>
+        <option value="math">数学强化（35%）</option>
+        <option value="sci">理综强化（物化生各30%）</option>
+        <option value="weak-bio">生物补弱（40%）</option>
+      </select>
+    </div>
+    <button class="btn-generate" onclick="generate()">生成今日学习计划</button>
+  </div>
+
+  <!-- Daily plan -->
+  <div class="plan-card" id="plan-card" style="display:none">
+    <h2>📋 今日任务清单</h2>
+    <div id="plan-list"></div>
+    <div style="margin-top:12px;padding-top:12px;border-top:1px solid #f1f5f9;font-size:.82rem;color:#64748b">
+      完成一个科目后点右边 ✓ 打卡。数据存在本地，刷新不丢失。
+    </div>
+  </div>
+
+  <!-- Pomodoro -->
+  <div class="pomo-card">
+    <h2>🍅 番茄钟（25分钟专注 + 5分钟休息）</h2>
+    <div class="pomo-time" id="pomo-time">25:00</div>
+    <div class="pomo-label" id="pomo-label">专注时段 · 点开始</div>
+    <div class="pomo-btns">
+      <button class="pomo-btn btn-start" id="pomo-start" onclick="togglePomo()">开始</button>
+      <button class="pomo-btn btn-reset" onclick="resetPomo()">重置</button>
+      <button class="pomo-btn btn-short" onclick="startBreak()">休息5分钟</button>
+    </div>
+    <div class="pomo-count" id="pomo-count">今日完成：0 个番茄</div>
+  </div>
+
+  <!-- Weekly schedule -->
+  <div class="week-card">
+    <h2>📆 推荐周计划（理科备考）</h2>
+    <div class="week-grid" id="week-grid"></div>
+    <div style="margin-top:10px;font-size:.75rem;color:#94a3b8;display:flex;gap:10px;flex-wrap:wrap">
+      <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#7c3aed;margin-right:3px"></span>数学</span>
+      <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#0369a1;margin-right:3px"></span>物理</span>
+      <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#0f766e;margin-right:3px"></span>化学</span>
+      <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#15803d;margin-right:3px"></span>生物</span>
+      <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#9f1239;margin-right:3px"></span>英语</span>
+      <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#92400e;margin-right:3px"></span>Anki复习</span>
+    </div>
+  </div>
+
+</div>
+
+<div style="background:#e8edf8;border-top:2px solid #dde4f0;padding:14px 16px;font-size:.82rem">
+  <div style="font-weight:700;color:#1e3a8a;margin-bottom:8px">高考工具合集</div>
+  <div style="display:flex;flex-wrap:wrap;gap:6px">
+    <a href="study-planner.html" style="padding:4px 10px;background:#1e3a8a;border-radius:4px;color:#fff;text-decoration:none">📅学习规划</a>
+    <a href="error-tracker.html" style="padding:4px 10px;background:#dde4f0;border-radius:4px;color:#1e3a8a;text-decoration:none">📋错题本</a>
+    <a href="desmos-grapher.html" style="padding:4px 10px;background:#dde4f0;border-radius:4px;color:#1e3a8a;text-decoration:none">📈函数图像</a>
+    <a href="math-formula-cards.html" style="padding:4px 10px;background:#dde4f0;border-radius:4px;color:#1e3a8a;text-decoration:none">数学公式</a>
+    <a href="index.html" style="padding:4px 10px;background:#dde4f0;border-radius:4px;color:#1e3a8a;text-decoration:none">全部工具</a>
+  </div>
+</div>
+
+<script>
+// ── Countdown ──
+function updateCountdown(){
+  var dateEl = document.getElementById('gaokao-date');
+  var target = new Date(dateEl.value || '2026-06-07');
+  var now = new Date();
+  var diff = Math.ceil((target - now) / 86400000);
+  document.getElementById('days-num').textContent = diff > 0 ? diff : 0;
+  document.getElementById('gaokao-date-label').textContent = '高考日期：' + dateEl.value.replace(/-/g,'/');
+  var phase = diff > 300 ? '🌱 长期积累阶段 · 重在建立知识体系' :
+              diff > 180 ? '📘 系统复习阶段 · 全面扫盲点' :
+              diff > 90  ? '📝 强化训练阶段 · 大量刷题+错题本' :
+              diff > 30  ? '🔥 冲刺阶段 · 卷子+回归基础' : '⚡ 最后冲刺 · 保持状态';
+  document.getElementById('phase-badge').textContent = phase;
+}
+document.getElementById('gaokao-date').addEventListener('change', updateCountdown);
+updateCountdown();
+
+// ── Plan generator ──
+var CHECK_KEY = 'gaokao_plan_checks_' + new Date().toDateString();
+function generate(){
+  var hours = parseFloat(document.getElementById('daily-hours').value) || 3;
+  var newCards = parseInt(document.getElementById('new-cards').value) || 20;
+  var focus = document.getElementById('focus').value;
+  var weights = {
+    balanced: {math:.28,phy:.22,chem:.22,bio:.18,eng:.10},
+    math:     {math:.38,phy:.18,chem:.18,bio:.14,eng:.12},
+    sci:      {math:.22,phy:.26,chem:.26,bio:.16,eng:.10},
+    'weak-bio':{math:.20,phy:.18,chem:.18,bio:.32,eng:.12}
+  }[focus];
+  var mins = hours * 60;
+  var subjects = [
+    {key:'math',name:'数学',icon:'📐',color:'#7c3aed',bg:'#f5f3ff'},
+    {key:'phy', name:'物理',icon:'⚡',color:'#0369a1',bg:'#eff6ff'},
+    {key:'chem',name:'化学',icon:'🧪',color:'#0f766e',bg:'#f0fdf4'},
+    {key:'bio', name:'生物',icon:'🧬',color:'#15803d',bg:'#f0fdf4'},
+    {key:'eng', name:'英语Anki',icon:'📖',color:'#9f1239',bg:'#fff1f2'},
+  ];
+  var checks = JSON.parse(localStorage.getItem(CHECK_KEY)||'{}');
+  var anki_mins = Math.round(newCards * 0.5); // ~30sec per card
+  var list = document.getElementById('plan-list');
+  list.innerHTML = subjects.map(s=>{
+    var t = Math.round(mins * weights[s.key]);
+    var anki_part = s.key!=='eng' ? `Anki新卡${Math.round(newCards*weights[s.key]/0.7)}张` : `Anki英语${Math.round(newCards*0.3)}张`;
+    var study_part = s.key!=='eng' ? `教材/真题 ${t-Math.round(anki_mins*weights[s.key])} 分钟` : `阅读/完形 ${t} 分钟`;
+    var done = !!checks[s.key];
+    return `<div class="subject-row">
+      <div class="subj-icon" style="background:${s.bg};font-size:1.2rem">${s.icon}</div>
+      <div class="subj-info">
+        <div class="subj-name" style="color:${s.color}">${s.name}</div>
+        <div class="subj-task">${anki_part} · ${study_part}</div>
+        <div class="progress-bar"><div class="progress-fill" style="background:${s.color};width:${done?100:0}%"></div></div>
+      </div>
+      <div class="subj-time">${t}分钟</div>
+      <button class="check-btn ${done?'done':''}" onclick="check('${s.key}',this)">${done?'✓':''}</button>
+    </div>`;
+  }).join('');
+  document.getElementById('plan-card').style.display = '';
+}
+function check(key, btn){
+  var checks = JSON.parse(localStorage.getItem(CHECK_KEY)||'{}');
+  checks[key] = !checks[key];
+  localStorage.setItem(CHECK_KEY, JSON.stringify(checks));
+  btn.classList.toggle('done');
+  btn.textContent = btn.classList.contains('done') ? '✓' : '';
+  var bar = btn.closest('.subject-row').querySelector('.progress-fill');
+  bar.style.width = btn.classList.contains('done') ? '100%' : '0%';
+}
+
+// ── Pomodoro ──
+var pomoSecs = 25*60, pomoRunning = false, pomoInterval = null, pomoDone = 0;
+var pomoIsBreak = false;
+function togglePomo(){
+  if(pomoRunning){ clearInterval(pomoInterval); pomoRunning=false; document.getElementById('pomo-start').textContent='继续'; }
+  else { pomoRunning=true; document.getElementById('pomo-start').textContent='暂停';
+    pomoInterval = setInterval(function(){
+      pomoSecs--;
+      if(pomoSecs<=0){
+        clearInterval(pomoInterval); pomoRunning=false;
+        if(!pomoIsBreak){ pomoDone++; document.getElementById('pomo-count').textContent='今日完成：'+pomoDone+' 个番茄🍅'; }
+        pomoSecs = pomoIsBreak ? 25*60 : 5*60;
+        pomoIsBreak = !pomoIsBreak;
+        document.getElementById('pomo-label').textContent = pomoIsBreak ? '🎉 休息5分钟！' : '专注时段 · 点开始';
+        document.getElementById('pomo-start').textContent = '开始';
+        updatePomoDisplay();
+        if(Notification.permission==='granted') new Notification(pomoIsBreak?'番茄完成！去休息吧':'休息结束，开始专注！');
+      }
+      updatePomoDisplay();
+    },1000);
+    if(Notification.permission==='default') Notification.requestPermission();
+  }
+}
+function resetPomo(){ clearInterval(pomoInterval); pomoRunning=false; pomoIsBreak=false; pomoSecs=25*60; document.getElementById('pomo-start').textContent='开始'; document.getElementById('pomo-label').textContent='专注时段 · 点开始'; updatePomoDisplay(); }
+function startBreak(){ clearInterval(pomoInterval); pomoRunning=false; pomoIsBreak=true; pomoSecs=5*60; document.getElementById('pomo-start').textContent='开始'; document.getElementById('pomo-label').textContent='休息5分钟'; updatePomoDisplay(); }
+function updatePomoDisplay(){ var m=Math.floor(pomoSecs/60),s=pomoSecs%60; document.getElementById('pomo-time').textContent=(m<10?'0':'')+m+':'+(s<10?'0':'')+s; }
+
+// ── Weekly schedule ──
+var DAYS = ['周一','周二','周三','周四','周五','周六','周日'];
+var SCHEDULE = [
+  [{cls:'slot-math',t:'数学'},{cls:'slot-phy',t:'物理'},{cls:'slot-review',t:'Anki'}],
+  [{cls:'slot-chem',t:'化学'},{cls:'slot-bio',t:'生物'},{cls:'slot-review',t:'Anki'}],
+  [{cls:'slot-math',t:'数学'},{cls:'slot-eng',t:'英语'},{cls:'slot-review',t:'Anki'}],
+  [{cls:'slot-phy',t:'物理'},{cls:'slot-chem',t:'化学'},{cls:'slot-review',t:'Anki'}],
+  [{cls:'slot-math',t:'数学'},{cls:'slot-bio',t:'生物'},{cls:'slot-review',t:'Anki'}],
+  [{cls:'slot-math',t:'数学综合'},{cls:'slot-phy',t:'物理'},{cls:'slot-chem',t:'化学'},{cls:'slot-bio',t:'生物'}],
+  [{cls:'slot-review',t:'Anki全科'},{cls:'slot-eng',t:'英语'},{cls:'slot-rest',t:'休息放松'}],
+];
+var wg = document.getElementById('week-grid');
+wg.innerHTML = DAYS.map((d,i)=>`<div class="day-col"><div class="day-name">${d}</div>${SCHEDULE[i].map(s=>`<div class="day-slot ${s.cls}">${s.t}</div>`).join('')}</div>`).join('');
+
+// Auto-generate on load
+generate();
+</script>
+</body>
+</html>

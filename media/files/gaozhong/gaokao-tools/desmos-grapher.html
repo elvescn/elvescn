@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>高考数学函数可视化 · Desmos交互图形计算器</title>
+<meta name="description" content="高考数学函数图形交互工具：三角函数、指数对数、二次函数、导数切线，一键加载，实时可视化。">
+<!-- Desmos API -->
+<script src="assets/desmos-calculator.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--accent:#1a237e;--accent2:#3949ab;--bg:#f3f4f9;--card:#fff;--border:#c5cae9}
+body{font-family:'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:#222;min-height:100vh;display:flex;flex-direction:column}
+header{background:var(--accent);color:#fff;padding:12px 18px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+header h1{font-size:1rem;font-weight:600;flex:1}
+header a{color:#9fa8da;font-size:.82rem;text-decoration:none}
+header a:hover{color:#fff}
+.layout{display:flex;flex:1;min-height:0}
+/* Sidebar */
+#sidebar{width:230px;min-width:230px;background:var(--card);border-right:1px solid var(--border);overflow-y:auto;padding:12px 10px}
+.sb-section{margin-bottom:14px}
+.sb-title{font-size:.72rem;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.05em;padding:4px 6px;margin-bottom:6px}
+.fn-btn{display:block;width:100%;text-align:left;padding:7px 10px;border:1px solid var(--border);border-radius:6px;background:#f8f9ff;font-size:.82rem;cursor:pointer;margin-bottom:5px;color:var(--accent);font-family:inherit;transition:all .15s}
+.fn-btn:hover{background:var(--accent2);color:#fff;border-color:var(--accent2)}
+.fn-btn small{display:block;color:#888;font-size:.72rem;margin-top:1px}
+.fn-btn:hover small{color:#c5cae9}
+/* Main: Desmos */
+#calc-wrap{flex:1;display:flex;flex-direction:column;min-width:0}
+#calculator{flex:1;min-height:400px}
+/* Tips bar */
+#tips{background:#e8eaf6;border-top:1px solid var(--border);padding:8px 14px;font-size:.8rem;color:#555;display:flex;gap:16px;flex-wrap:wrap}
+#tips span{white-space:nowrap}
+/* Mobile */
+@media(max-width:700px){
+  .layout{flex-direction:column}
+  #sidebar{width:100%;min-width:0;display:flex;flex-wrap:wrap;gap:5px;padding:8px;border-right:none;border-bottom:1px solid var(--border)}
+  .sb-section{margin:0;flex:1;min-width:140px}
+  .sb-title{font-size:.65rem}
+  .fn-btn{font-size:.75rem;padding:5px 8px}
+  #tips{gap:8px;font-size:.72rem}
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>📈 高考数学函数可视化</h1>
+  <a href="index.html">↑ 工具列表</a>
+</header>
+<div class="layout">
+  <aside id="sidebar">
+
+    <div class="sb-section">
+      <div class="sb-title">三角函数</div>
+      <button class="fn-btn" onclick="load('trig1')">sin(x) 基本图像<small>振幅1，周期2π</small></button>
+      <button class="fn-btn" onclick="load('trig2')">A·sin(ωx+φ) 变换<small>振幅/周期/相位对比</small></button>
+      <button class="fn-btn" onclick="load('trig3')">sin cos tan 对比<small>三函数同图</small></button>
+      <button class="fn-btn" onclick="load('trig4')">辅助角公式展示<small>asinx+bcosx=Rsin(x+φ)</small></button>
+    </div>
+
+    <div class="sb-section">
+      <div class="sb-title">指数与对数</div>
+      <button class="fn-btn" onclick="load('exp1')">指数函数族 aˣ<small>a=0.5/1/2/3对比</small></button>
+      <button class="fn-btn" onclick="load('log1')">对数函数 log_a(x)<small>与指数互为反函数</small></button>
+      <button class="fn-btn" onclick="load('exp2')">自然指数 eˣ 与 ln(x)<small>e≈2.718的意义</small></button>
+    </div>
+
+    <div class="sb-section">
+      <div class="sb-title">二次与多项式</div>
+      <button class="fn-btn" onclick="load('quad1')">二次函数 ax²+bx+c<small>顶点/对称轴/开口方向</small></button>
+      <button class="fn-btn" onclick="load('quad2')">配方变换演示<small>x²→(x-h)²+k</small></button>
+      <button class="fn-btn" onclick="load('poly1')">高次函数零点<small>三次/四次多项式</small></button>
+    </div>
+
+    <div class="sb-section">
+      <div class="sb-title">导数与切线</div>
+      <button class="fn-btn" onclick="load('deriv1')">导数=切线斜率<small>f(x)=x³，拖动切点</small></button>
+      <button class="fn-btn" onclick="load('deriv2')">极值点与导数零点<small>f'(x)=0处的意义</small></button>
+      <button class="fn-btn" onclick="load('deriv3')">面积=积分<small>y=x²下的面积</small></button>
+    </div>
+
+    <div class="sb-section">
+      <div class="sb-title">解析几何</div>
+      <button class="fn-btn" onclick="load('conic1')">椭圆 x²/a²+y²/b²=1<small>a/b参数可调</small></button>
+      <button class="fn-btn" onclick="load('conic2')">双曲线与渐近线<small>x²/a²-y²/b²=1</small></button>
+      <button class="fn-btn" onclick="load('conic3')">抛物线 y²=2px<small>焦点与准线</small></button>
+    </div>
+
+    <div class="sb-section">
+      <div class="sb-title">向量</div>
+      <button class="fn-btn" onclick="load('vec1')">向量加减法<small>平行四边形法则</small></button>
+      <button class="fn-btn" onclick="load('vec2')">点积与夹角<small>a·b=|a||b|cosθ</small></button>
+    </div>
+
+    <div class="sb-section">
+      <div class="sb-title">概率直觉</div>
+      <button class="fn-btn" onclick="load('prob1')">正态分布曲线<small>σ越大越矮越宽</small></button>
+    </div>
+
+    <div class="sb-section">
+      <div class="sb-title">自由输入</div>
+      <button class="fn-btn" onclick="clearAll()">🗑 清空画布<small>重新开始</small></button>
+    </div>
+
+  </aside>
+  <div id="calc-wrap">
+    <div id="calculator"></div>
+    <div id="tips">
+      <span>💡 点击左侧按钮加载预设图形</span>
+      <span>✏️ 直接在计算器输入框里写公式</span>
+      <span>🖱 拖动图形上的滑块改变参数</span>
+      <span>📷 右上角可截图保存</span>
+    </div>
+  </div>
+</div>
+
+<!-- rtf nav -->
+<div class="rtf" style="background:#f0f4ff;border-top:2px solid #c5cae9;padding:14px 16px;font-size:.82rem">
+  <div style="font-weight:700;color:#1a237e;margin-bottom:8px">高考工具合集 · 快速跳转</div>
+  <div style="display:flex;flex-wrap:wrap;gap:6px">
+    <a href="math-formula-cards.html" style="padding:4px 10px;background:#e8eaf6;border-radius:4px;color:#3949ab;text-decoration:none">数学公式闪卡</a>
+    <a href="desmos-grapher.html" style="padding:4px 10px;background:#3949ab;border-radius:4px;color:#fff;text-decoration:none">📈函数可视化</a>
+    <a href="physics-challenge.html" style="padding:4px 10px;background:#e8eaf6;border-radius:4px;color:#3949ab;text-decoration:none">物理闯关</a>
+    <a href="english-reading.html" style="padding:4px 10px;background:#e8eaf6;border-radius:4px;color:#3949ab;text-decoration:none">英语阅读真题</a>
+    <a href="index.html" style="padding:4px 10px;background:#e8eaf6;border-radius:4px;color:#3949ab;text-decoration:none">全部工具</a>
+  </div>
+</div>
+
+<script>
+var calculator = Desmos.GraphingCalculator(document.getElementById('calculator'), {
+  expressions: true,
+  settingsMenu: true,
+  zoomButtons: true,
+  expressionsTopbar: true,
+  border: false,
+  lockViewport: false,
+  pointsOfInterest: true,
+  trace: true
+});
+
+function clearAll() {
+  calculator.setBlank();
+}
+
+var PRESETS = {
+  // ── 三角函数 ──
+  trig1: [
+    {id:'f1', latex:'f(x)=\\sin(x)', color:'#3949ab'},
+    {id:'l1', type:'text', text:'sin(x)：振幅1，周期2π，过原点'},
+    {id:'p1', latex:'(0,0)', color:'#e53935', label:'原点', showLabel:true},
+    {id:'p2', latex:'(\\pi/2,1)', color:'#e53935', label:'最大值', showLabel:true},
+    {id:'p3', latex:'(\\pi,0)', color:'#e53935', label:'π', showLabel:true},
+  ],
+  trig2: [
+    {id:'a', latex:'A=1', sliderBounds:{min:0.5,max:3,step:0.5}},
+    {id:'w', latex:'\\omega=1', sliderBounds:{min:0.5,max:4,step:0.5}},
+    {id:'p', latex:'\\phi=0', sliderBounds:{min:-3.14,max:3.14,step:0.1}},
+    {id:'f1', latex:'f(x)=A\\sin(\\omega x+\\phi)', color:'#3949ab'},
+    {id:'f2', latex:'\\sin(x)', color:'#aaa', lineStyle:'DASHED'},
+  ],
+  trig3: [
+    {id:'f1', latex:'\\sin(x)', color:'#3949ab'},
+    {id:'f2', latex:'\\cos(x)', color:'#e53935'},
+    {id:'f3', latex:'\\tan(x)', color:'#2e7d32'},
+  ],
+  trig4: [
+    {id:'a', latex:'a=3', sliderBounds:{min:-5,max:5,step:0.5}},
+    {id:'b', latex:'b=4', sliderBounds:{min:-5,max:5,step:0.5}},
+    {id:'f1', latex:'f(x)=a\\sin(x)+b\\cos(x)', color:'#3949ab'},
+    {id:'R', latex:'R=\\sqrt{a^2+b^2}'},
+    {id:'f2', latex:'R\\sin(x+\\arctan(b/a))', color:'#e53935', lineStyle:'DASHED'},
+  ],
+  // ── 指数对数 ──
+  exp1: [
+    {id:'f1', latex:'(0.5)^x', color:'#e53935', label:'0.5ˣ 衰减', showLabel:true},
+    {id:'f2', latex:'2^x', color:'#3949ab', label:'2ˣ 增长', showLabel:true},
+    {id:'f3', latex:'3^x', color:'#2e7d32', label:'3ˣ 更快', showLabel:true},
+    {id:'p1', latex:'(0,1)', color:'#888', label:'所有过(0,1)', showLabel:true},
+  ],
+  log1: [
+    {id:'f1', latex:'2^x', color:'#3949ab', label:'2ˣ', showLabel:true},
+    {id:'f2', latex:'\\log_2(x)', color:'#e53935', label:'log₂x', showLabel:true},
+    {id:'mirror', latex:'y=x', color:'#aaa', lineStyle:'DASHED', label:'y=x 对称轴', showLabel:true},
+  ],
+  exp2: [
+    {id:'f1', latex:'e^x', color:'#3949ab', label:'eˣ', showLabel:true},
+    {id:'f2', latex:'\\ln(x)', color:'#e53935', label:'ln(x)', showLabel:true},
+    {id:'mirror', latex:'y=x', color:'#aaa', lineStyle:'DASHED'},
+  ],
+  // ── 二次函数 ──
+  quad1: [
+    {id:'a', latex:'a=1', sliderBounds:{min:-3,max:3,step:0.5}},
+    {id:'h', latex:'h=0', sliderBounds:{min:-4,max:4,step:0.5}},
+    {id:'k', latex:'k=0', sliderBounds:{min:-4,max:4,step:0.5}},
+    {id:'f1', latex:'f(x)=a(x-h)^2+k', color:'#3949ab'},
+    {id:'vertex', latex:'(h,k)', color:'#e53935', label:'顶点', showLabel:true},
+    {id:'axis', latex:'x=h', color:'#e53935', lineStyle:'DASHED', label:'对称轴', showLabel:true},
+  ],
+  quad2: [
+    {id:'f1', latex:'x^2', color:'#aaa', lineStyle:'DASHED', label:'x²', showLabel:true},
+    {id:'f2', latex:'(x-2)^2', color:'#3949ab', label:'(x-2)²右移', showLabel:true},
+    {id:'f3', latex:'(x-2)^2+1', color:'#e53935', label:'(x-2)²+1上移', showLabel:true},
+  ],
+  poly1: [
+    {id:'f1', latex:'x^3-3x', color:'#3949ab', label:'x³-3x', showLabel:true},
+    {id:'f2', latex:'x^4-4x^2', color:'#e53935', label:'x⁴-4x²', showLabel:true},
+  ],
+  // ── 导数 ──
+  deriv1: [
+    {id:'f1', latex:'f(x)=x^3', color:'#3949ab'},
+    {id:'a', latex:'a=1', sliderBounds:{min:-2,max:2,step:0.1}},
+    {id:'tangent', latex:'f\'(a)(x-a)+f(a)', color:'#e53935', label:'切线', showLabel:true},
+    {id:'pt', latex:'(a,f(a))', color:'#e53935', label:'切点', showLabel:true},
+    {id:'slope', latex:'f\'(x)=3x^2', color:'#2e7d32', lineStyle:'DASHED', label:"f'(x)导函数", showLabel:true},
+  ],
+  deriv2: [
+    {id:'f1', latex:'f(x)=x^3-3x', color:'#3949ab', label:'f(x)', showLabel:true},
+    {id:'f2', latex:"f'(x)=3x^2-3", color:'#e53935', label:"f'(x)导函数", showLabel:true},
+    {id:'zero1', latex:'(-1,2)', color:'#e53935', label:'极大值', showLabel:true},
+    {id:'zero2', latex:'(1,-2)', color:'#e53935', label:'极小值', showLabel:true},
+  ],
+  deriv3: [
+    {id:'f1', latex:'x^2', color:'#3949ab'},
+    {id:'area', latex:'0\\le y\\le x^2\\left\\{0\\le x\\le2\\right\\}', color:'#3949ab', lines:false},
+  ],
+  // ── 圆锥曲线 ──
+  conic1: [
+    {id:'a', latex:'a=3', sliderBounds:{min:1,max:5,step:0.5}},
+    {id:'b', latex:'b=2', sliderBounds:{min:1,max:5,step:0.5}},
+    {id:'e1', latex:'\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1', color:'#3949ab'},
+    {id:'f1', latex:'(\\sqrt{a^2-b^2},0)', color:'#e53935', label:'焦点F₁', showLabel:true},
+    {id:'f2', latex:'(-\\sqrt{a^2-b^2},0)', color:'#e53935', label:'焦点F₂', showLabel:true},
+  ],
+  conic2: [
+    {id:'a', latex:'a=2', sliderBounds:{min:1,max:4,step:0.5}},
+    {id:'b', latex:'b=1', sliderBounds:{min:1,max:4,step:0.5}},
+    {id:'h1', latex:'\\frac{x^2}{a^2}-\\frac{y^2}{b^2}=1', color:'#3949ab'},
+    {id:'as1', latex:'y=\\frac{b}{a}x', color:'#aaa', lineStyle:'DASHED', label:'渐近线', showLabel:true},
+    {id:'as2', latex:'y=-\\frac{b}{a}x', color:'#aaa', lineStyle:'DASHED'},
+  ],
+  conic3: [
+    {id:'p', latex:'p=2', sliderBounds:{min:0.5,max:5,step:0.5}},
+    {id:'par', latex:'y^2=2p\\cdot x', color:'#3949ab'},
+    {id:'focus', latex:'(p/2,0)', color:'#e53935', label:'焦点', showLabel:true},
+    {id:'directrix', latex:'x=-p/2', color:'#e53935', lineStyle:'DASHED', label:'准线', showLabel:true},
+  ],
+  // ── 向量 ──
+  vec1: [
+    {id:'ax', latex:'a_x=2', sliderBounds:{min:-4,max:4,step:0.5}},
+    {id:'ay', latex:'a_y=1', sliderBounds:{min:-4,max:4,step:0.5}},
+    {id:'bx', latex:'b_x=1', sliderBounds:{min:-4,max:4,step:0.5}},
+    {id:'by', latex:'b_y=2', sliderBounds:{min:-4,max:4,step:0.5}},
+    {id:'va', latex:'\\left(a_x,a_y\\right)', color:'#3949ab', label:'向量a', showLabel:true, lines:true, points:false},
+    {id:'vb', latex:'\\left(b_x,b_y\\right)', color:'#e53935', label:'向量b', showLabel:true, lines:true, points:false},
+    {id:'vs', latex:'\\left(a_x+b_x,a_y+b_y\\right)', color:'#2e7d32', label:'a+b', showLabel:true, lines:true, points:false},
+  ],
+  vec2: [
+    {id:'ax', latex:'a_x=3', sliderBounds:{min:-4,max:4,step:0.5}},
+    {id:'ay', latex:'a_y=0', sliderBounds:{min:-4,max:4,step:0.5}},
+    {id:'bx', latex:'b_x=2', sliderBounds:{min:-4,max:4,step:0.5}},
+    {id:'by', latex:'b_y=2', sliderBounds:{min:-4,max:4,step:0.5}},
+    {id:'dot', latex:'d=a_x b_x+a_y b_y'},
+    {id:'va', latex:'\\left(a_x,a_y\\right)', color:'#3949ab', label:'向量a', showLabel:true},
+    {id:'vb', latex:'\\left(b_x,b_y\\right)', color:'#e53935', label:'向量b', showLabel:true},
+    {id:'angle', latex:'\\theta=\\arccos\\left(\\frac{d}{\\sqrt{a_x^2+a_y^2}\\cdot\\sqrt{b_x^2+b_y^2}}\\right)\\cdot\\frac{180}{\\pi}'},
+  ],
+  // ── 概率 ──
+  prob1: [
+    {id:'mu', latex:'\\mu=0', sliderBounds:{min:-3,max:3,step:0.5}},
+    {id:'sig', latex:'\\sigma=1', sliderBounds:{min:0.5,max:3,step:0.5}},
+    {id:'f1', latex:'\\frac{1}{\\sigma\\sqrt{2\\pi}}e^{-\\frac{(x-\\mu)^2}{2\\sigma^2}}', color:'#3949ab', label:'正态分布', showLabel:true},
+  ],
+};
+
+function load(key) {
+  calculator.setBlank();
+  var exprs = PRESETS[key];
+  if (!exprs) return;
+  exprs.forEach(function(e){ calculator.setExpression(e); });
+}
+
+// Default: show trig1
+load('trig1');
+</script>
+</body>
+</html>
