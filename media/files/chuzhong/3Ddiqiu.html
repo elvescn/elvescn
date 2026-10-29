@@ -67,6 +67,23 @@ body.light button.b.on{color:#fff}
 a.b{font:inherit;font-size:13px;color:var(--text);background:transparent;border:0;padding:5px 11px;border-radius:8px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
 a.b:hover{background:rgba(127,170,230,.16)}
 
+/* 窄屏悬浮菜单按钮（桌面隐藏） */
+#btnMenu{
+  display:none;position:fixed;right:10px;bottom:14px;z-index:14;
+  width:50px;height:50px;padding:0;border-radius:15px;
+  border:1px solid var(--border);background:var(--panel);color:var(--text);
+  align-items:center;justify-content:center;cursor:pointer;
+  box-shadow:var(--shadow);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  transition:background .15s,color .15s,border-color .15s,transform .15s;
+}
+#btnMenu:active{transform:scale(.94)}
+#btnMenu .ico{display:block;font-size:19px;line-height:1}
+#btnMenu .ico-x{display:none;font-size:17px}
+#btnMenu[aria-expanded="true"]{background:var(--accent);color:#04121f;border-color:var(--accent)}
+#btnMenu[aria-expanded="true"] .ico-m{display:none}
+#btnMenu[aria-expanded="true"] .ico-x{display:block}
+body.light #btnMenu[aria-expanded="true"]{color:#fff}
+
 /* 图层 chip */
 .chips{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
 #btnLayers{display:none}
@@ -243,20 +260,30 @@ body.light .seg button.on{color:#fff}
 .guide-footer button:disabled{opacity:.45;cursor:not-allowed}
 
 /* ---------- 移动端 ---------- */
+@keyframes tbIn{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:none}}
 @media (max-width:820px){
   .brand span.t{display:none}
   #btnLayers{display:inline-flex}
-  .topbar{gap:5px 6px;padding:8px}
+  #btnMenu{display:flex}
+  /* 工具栏默认收起，点悬浮按钮才展开，避免长期压住地球上半部 */
+  .topbar{display:none;gap:5px 6px;padding:8px 8px 10px}
+  .topbar.open{
+    display:flex;animation:tbIn .16s ease-out;
+    background:linear-gradient(180deg,rgba(6,10,20,.88),rgba(6,10,20,.62) 82%,transparent);
+  }
+  body.light .topbar.open{background:linear-gradient(180deg,rgba(255,255,255,.94),rgba(255,255,255,.66) 82%,transparent)}
   /* top 由脚本按「图层」按钮的实际位置计算（顶栏会换行，固定值会压住按钮）；108px 仅作兜底 */
-  .chips{display:none;position:fixed;left:8px;right:8px;top:108px;z-index:12;max-height:30vh;overflow:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;align-content:flex-start;padding:8px;border:1px solid var(--border);border-radius:12px;background:var(--panel-solid);box-shadow:var(--shadow)}
+  .chips{display:none;position:fixed;left:8px;right:8px;top:108px;z-index:15;max-height:30vh;overflow:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;align-content:flex-start;padding:8px;border:1px solid var(--border);border-radius:12px;background:var(--panel-solid);box-shadow:var(--shadow)}
   .chips.open{display:flex}
   #btnLayers[aria-expanded="true"]{background:var(--accent);color:#04121f;font-weight:600}
   body.light #btnLayers[aria-expanded="true"]{color:#fff}
   .chip{white-space:nowrap}
   .rail{right:8px}
-  .info{width:calc(100vw - 20px);left:10px;bottom:auto;top:58px}
+  .info{width:calc(100vw - 20px);left:10px;bottom:auto;top:58px;transition:top .16s,opacity .18s,transform .18s}
+  body.tbopen .info{top:calc(var(--tb-h,140px) + 12px)}
   .tip{display:none}
-  .panel{left:8px;right:8px;top:auto;bottom:8px;width:auto;max-width:none;max-height:46vh}
+  /* 底部留白，避免右下角悬浮按钮压住面板里的操作按钮 */
+  .panel{left:8px;right:8px;top:auto;bottom:8px;width:auto;max-width:none;max-height:46vh;padding-bottom:64px}
 }
 /* ---------- 矮屏（教室投影 1024x768 / 1366x768 减浏览器边框后常见）----------
    目标：不靠滚动也能看到全部控件，课上不必拖面板 */
@@ -284,7 +311,7 @@ body.light .seg button.on{color:#fff}
 <canvas id="globe" tabindex="0" role="img" aria-label="交互式地球仪" aria-describedby="globeHelp"></canvas>
 <p id="globeHelp" class="sr-only">拖动或使用方向键旋转地球仪；滚轮或缩放按钮调整大小。将焦点放在地球仪上后按 Enter，可读取当前视图中心位置的信息。</p>
 
-<div class="topbar">
+<div class="topbar" id="topbar">
   <div class="brand"><i>🌍</i><span class="t">3D 地理地球仪</span></div>
 
   <div class="group" id="modes">
@@ -312,6 +339,12 @@ body.light .seg button.on{color:#fff}
     <a class="b" id="btnDl" href="/packages/globe-3d.zip" download title="下载离线版（地球仪 + 使用说明，断网可用）">⤓ 下载离线版</a>
   </div>
 </div>
+
+<!-- 窄屏：工具栏收起为右下角悬浮按钮，点击才展开 -->
+<button id="btnMenu" type="button" aria-expanded="false" aria-controls="topbar" aria-label="打开工具栏">
+  <span class="ico ico-m" aria-hidden="true">☰</span>
+  <span class="ico ico-x" aria-hidden="true">✕</span>
+</button>
 
 <div class="rail">
   <button id="btnZoomIn"  title="放大 (+)">＋</button>
@@ -2078,6 +2111,42 @@ var chipsEl = document.getElementById("chips");
 var btnLayers = document.getElementById("btnLayers");
 var mqNarrow = window.matchMedia("(max-width:820px)");
 
+/* ---------- 窄屏：整个顶栏收成右下角悬浮按钮 ---------- */
+var topbarEl = document.getElementById("topbar");
+var btnMenu = document.getElementById("btnMenu");
+function toolbarOpen() { return topbarEl.classList.contains("open"); }
+function syncToolbarVar() {
+  document.documentElement.style.setProperty(
+    "--tb-h", Math.round(toolbarOpen() ? topbarEl.offsetHeight : 0) + "px");
+}
+function openToolbar() {
+  topbarEl.classList.add("open");
+  btnMenu.setAttribute("aria-expanded", "true");
+  btnMenu.setAttribute("aria-label", "关闭工具栏");
+  document.body.classList.add("tbopen");
+  syncToolbarVar();
+}
+function closeToolbar() {
+  if (!toolbarOpen()) return;
+  closeChips();
+  topbarEl.classList.remove("open");
+  btnMenu.setAttribute("aria-expanded", "false");
+  btnMenu.setAttribute("aria-label", "打开工具栏");
+  document.body.classList.remove("tbopen");
+  syncToolbarVar();
+}
+btnMenu.addEventListener("click", function () {
+  if (toolbarOpen()) closeToolbar(); else openToolbar();
+});
+/* 选完模式/视图/底色后自动收起，把画面还给地球；「图层」与图层选项保持展开 */
+topbarEl.addEventListener("click", function (e) {
+  if (!mqNarrow.matches || !toolbarOpen()) return;
+  var hit = e.target.closest("button, a");
+  if (!hit) return;
+  if (hit.id === "btnLayers" || hit.closest("#chips")) return;
+  closeToolbar();
+});
+
 /* 窄屏下把选项面板定位到「图层」按钮的正下方：顶栏会随屏宽换行，写死的 top 会压住按钮 */
 function layoutChips() {
   if (!mqNarrow.matches) {                         // 桌面端恢复内联布局，清掉内联定位
@@ -2087,12 +2156,15 @@ function layoutChips() {
   }
   if (!chipsEl.classList.contains("open")) return;
   var r = btnLayers.getBoundingClientRect();
+  if (!r.width) return;                            // 工具栏收起时按钮不可见，保持原位
   var gap = 8, edge = 8, vh = window.innerHeight;
-  var down = vh - r.bottom - gap - edge;           // 按钮下方可用高度
+  /* 工具栏展开时，选项面板整体压到工具栏下方，避免盖住第三行的「底色/全屏」等按钮 */
+  var anchor = toolbarOpen() ? Math.max(r.bottom, topbarEl.offsetHeight) : r.bottom;
+  var down = vh - anchor - gap - edge;             // 按钮下方可用高度
   var up = r.top - gap - edge;                     // 按钮上方可用高度
   var cap = Math.round(vh * 0.46);
   if (down >= Math.min(160, up)) {                 // 下方放得下就向下展开
-    chipsEl.style.top = Math.round(r.bottom + gap) + "px";
+    chipsEl.style.top = Math.round(anchor + gap) + "px";
     chipsEl.style.bottom = "auto";
     chipsEl.style.maxHeight = Math.max(96, Math.min(down, cap)) + "px";
   } else {                                         // 否则向上展开，避免被屏幕底部裁掉
@@ -2116,11 +2188,13 @@ btnLayers.addEventListener("click", function () {
   if (chipsEl.classList.contains("open")) closeChips(); else openChips();
 });
 
-/* 点「图层」选项以外的任何地方都收起面板（capture 阶段响应，移动端更跟手） */
+/* 点界面空白处：图层选项、工具栏一起收起（capture 阶段响应，移动端更跟手） */
 function onOutsideDown(e) {
-  if (!chipsEl.classList.contains("open")) return;
-  if (chipsEl.contains(e.target) || btnLayers.contains(e.target)) return;
+  var t = e.target;
+  if (chipsEl.contains(t) || btnLayers.contains(t) || btnMenu.contains(t)) return;
+  if (topbarEl.contains(t)) return;
   closeChips();
+  closeToolbar();
 }
 document.addEventListener(window.PointerEvent ? "pointerdown" : "touchstart", onOutsideDown, true);
 if (!window.PointerEvent) document.addEventListener("mousedown", onOutsideDown, true);
@@ -2795,8 +2869,9 @@ window.addEventListener("keydown", function (e) {
   else if (k === "-" || k === "_") { setZoom(state.zoom / 1.15); }
   else if (k === "r" || k === "R") { document.getElementById("btnReset").click(); }
   else if (k === "f" || k === "F") { document.getElementById("btnFull").click(); }
-  else if (k === "Escape") {                       // 键盘出口：先收面板，再解锁信息卡
-    if (chipsEl.classList.contains("open")) closeChips();
+  else if (k === "Escape") {                       // 键盘出口：先收浮层，再解锁信息卡
+    if (toolbarOpen()) closeToolbar();
+    else if (chipsEl.classList.contains("open")) closeChips();
     else if (state.mode !== "basic") setMode("basic");
     else if (state.pinned) {
       state.pinned = false; state.hover = null;
@@ -2826,6 +2901,7 @@ function resize() {
   view.R = Math.min(w * 0.46, h * 0.44) * state.zoom;
   document.body.classList.toggle("narrow", w < 820);
   layoutChips();                                   // 旋屏/缩放/全屏切换后重新对齐图层面板
+  syncToolbarVar();
   buildBg();
   dirty = true; pickDirty = true;
 }
