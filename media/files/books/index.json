@@ -1,0 +1,22 @@
+{
+  "books": [
+    {
+      "id": "lieguiren",
+      "title": "14年猎鬼人",
+      "author": "李诣凡",
+      "file": "《14年猎鬼人》（李诣凡）.txt",
+      "url": "https://19830920.xyz/media/files/books/《14年猎鬼人》（李诣凡）.txt",
+      "size": 3920544,
+      "format": "TXT"
+    },
+    {
+      "id": "daomubiji",
+      "title": "盗墓笔记",
+      "author": "南派三叔",
+      "file": "《盗墓笔记》（南派三叔）.txt",
+      "url": "https://19830920.xyz/media/files/books/《盗墓笔记》（南派三叔）.txt",
+      "size": 3090596,
+      "format": "TXT"
+    }
+  ]
+}
