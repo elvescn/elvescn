@@ -4,19 +4,19 @@
       "id": "daomubiji",
       "title": "盗墓笔记",
       "author": "南派三叔",
-      "file": "盗墓笔记（南派三叔）.txt",
-      "url": "https://19830920.xyz/media/files/books/盗墓笔记（南派三叔）.txt",
-      "size": 3090596,
-      "format": "TXT"
+      "file": "盗墓笔记（南派三叔）.epub",
+      "url": "https://19830920.xyz/media/files/books/盗墓笔记（南派三叔）.epub",
+      "size": 2458346,
+      "format": "EPUB"
     },
     {
       "id": "hongyan",
       "title": "红岩",
       "author": "罗广斌、杨益言",
-      "file": "红岩（罗广斌,杨益言）.txt",
-      "url": "https://19830920.xyz/media/files/books/红岩（罗广斌,杨益言）.txt",
-      "size": 663280,
-      "format": "TXT"
+      "file": "红岩（罗广斌,杨益言）.epub",
+      "url": "https://19830920.xyz/media/files/books/红岩（罗广斌,杨益言）.epub",
+      "size": 475897,
+      "format": "EPUB"
     },
     {
       "id": "mingchaonaxieshier",
@@ -24,44 +24,8 @@
       "author": "当年明月",
       "file": "明朝那些事儿（当年明月）.epub",
       "url": "https://19830920.xyz/media/files/books/明朝那些事儿（当年明月）.epub",
-      "size": 3250194,
+      "size": 2373386,
       "format": "EPUB"
-    },
-    {
-      "id": "liucixin46",
-      "title": "刘慈欣作品集（套装46部）",
-      "author": "刘慈欣",
-      "file": "刘慈欣作品集（套装46部）.epub",
-      "url": "https://19830920.xyz/media/files/books/刘慈欣作品集（套装46部）.epub",
-      "size": 3092869,
-      "format": "EPUB"
-    },
-   {
-      "id": "tongnian",
-      "title": "童年",
-      "author": "高尔基",
-      "file": "童年（高尔基）.azw3",
-      "url": "https://19830920.xyz/media/files/books/童年（高尔基）.azw3",
-      "size": 294268,
-      "format": "AZW3"
-    },
-    {
-      "id": "luotuoxiangzi",
-      "title": "骆驼祥子",
-      "author": "老舍",
-      "file": "骆驼祥子（老舍）.azw3",
-      "url": "https://19830920.xyz/media/files/books/骆驼祥子（老舍）.azw3",
-      "size": 329592,
-      "format": "AZW3"
-    },
-    {
-      "id": "luxunquanji",
-      "title": "鲁迅全集",
-      "author": "鲁迅",
-      "file": "鲁迅全集.azw3",
-      "url": "https://19830920.xyz/media/files/books/鲁迅全集.azw3",
-      "size": 28519076,
-      "format": "AZW3"
     }
   ]
 }
