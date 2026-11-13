@@ -6,7 +6,7 @@
       "author": "南派三叔",
       "file": "盗墓笔记（南派三叔）.epub",
       "url": "https://19830920.xyz/media/files/books/盗墓笔记（南派三叔）.epub",
-      "size": 2458346,
+      "size": 2560576,
       "format": "EPUB"
     },
     {
@@ -15,7 +15,7 @@
       "author": "罗广斌、杨益言",
       "file": "红岩（罗广斌,杨益言）.epub",
       "url": "https://19830920.xyz/media/files/books/红岩（罗广斌,杨益言）.epub",
-      "size": 475897,
+      "size": 484156,
       "format": "EPUB"
     },
     {
@@ -24,7 +24,52 @@
       "author": "当年明月",
       "file": "明朝那些事儿（当年明月）.epub",
       "url": "https://19830920.xyz/media/files/books/明朝那些事儿（当年明月）.epub",
-      "size": 2373386,
+      "size": 2954205,
+      "format": "EPUB"
+    },
+    {
+      "id": "santi",
+      "title": "三体",
+      "author": "刘慈欣",
+      "file": "三体（刘慈欣）.epub",
+      "url": "https://19830920.xyz/media/files/books/三体（刘慈欣）.epub",
+      "size": 2600699,
+      "format": "EPUB"
+    },
+    {
+      "id": "halibote",
+      "title": "哈利·波特",
+      "author": "J.K.罗琳",
+      "file": "哈利·波特（J.K.罗琳）.epub",
+      "url": "https://19830920.xyz/media/files/books/哈利·波特（J.K.罗琳）.epub",
+      "size": 17890375,
+      "format": "EPUB"
+    },
+    {
+      "id": "xiaowangzi",
+      "title": "小王子",
+      "author": "圣埃克苏佩里",
+      "file": "小王子（圣埃克苏佩里）.epub",
+      "url": "https://19830920.xyz/media/files/books/小王子（圣埃克苏佩里）.epub",
+      "size": 2426899,
+      "format": "EPUB"
+    },
+    {
+      "id": "guichuideng",
+      "title": "鬼吹灯",
+      "author": "天下霸唱",
+      "file": "鬼吹灯（天下霸唱）.epub",
+      "url": "https://19830920.xyz/media/files/books/鬼吹灯（天下霸唱）.epub",
+      "size": 12684333,
+      "format": "EPUB"
+    },
+    {
+      "id": "luxunquanji",
+      "title": "鲁迅全集",
+      "author": "鲁迅",
+      "file": "鲁迅全集（鲁迅）.epub",
+      "url": "https://19830920.xyz/media/files/books/鲁迅全集（鲁迅）.epub",
+      "size": 12294744,
       "format": "EPUB"
     }
   ]
