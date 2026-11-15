@@ -72,5 +72,9 @@
       "size": 12294744,
       "format": "EPUB"
     }
-  ]
+  ],
+  "accessWindow": {
+    "start": "08:00",
+    "end": "23:30"
+  }
 }
