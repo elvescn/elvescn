@@ -5213,5 +5213,117 @@ varying vec3 vHmPos;
 float hmH(vec3 p){ p = fract(p * 0.3183099 + 0.1); p *= 17.0; return fract(p.x * p.y * p.z * (p.x + p.y + p.z)); }`).replace("#include <color_fragment>",`#include <color_fragment>
 diffuseColor.rgb *= 1.0 - 0.10 * smoothstep(0.55, 0.95, hmH(floor(vHmPos * 420.0)));`)},r.customProgramCacheKey=()=>"cl-hammer",r.needsUpdate=!0)}})}var Ne=$a.panel,Ho=$a.toast,Y1=i=>i.toFixed(1),$1=i=>i.toFixed(1),Z1=i=>i.toFixed(2),Uu=i=>i.toFixed(0);function im(i,t){return i.heat?(i.rate??0)>0?(t.cHCl??nn.CHCL_START)<=nn.CHCL_STOP?"dilute":i.salt===!1?"salt":i.dry===!1?"dry":i.tail===!1?"tail":t.purity>=nn.PURITY_MIN?null:"salt":"rate":"heat"}var sm={ref:{heat:gs.heat,rate:gs.rate,salt:gs.salt,dry:gs.dry,tail:gs.tail,light:gs.light},main:{key:"purity",label:Ne.read.purity,fmt:Y1,smooth:.25,cal:()=>Ne.cal.purity,pill:{ok:(i,t)=>im(i,t)===null,yes:Ne.pillOk,no:(i,t)=>Ne.pillWhy[im(i,t)]||Ne.pillNo}},subs:[{key:"r",label:Ne.read.r,value:i=>i.r,fmt:$1,cal:Ne.cal.r,bar:[0,45]},{key:"ph",label:Ne.read.ph,value:i=>i.ph,fmt:Z1,cal:Ne.cal.ph},{key:"ccl",label:Ne.read.ccl,value:i=>i.ccl,fmt:Uu,cal:Ne.cal.ccl,bar:[0,900]}],sliders:[{key:"rate",label:Ne.rate,icon:"drop",min:0,max:60,step:5,unit:Ne.unitRate,ref:gs.rate,fmt:Uu,ticks:[{v:40,t:Ne.rateTick}]},{key:"light",label:Ne.light,icon:"bulb",min:0,max:Ji.t[3],step:10,unit:Ne.unitS,ref:gs.light,fmt:Uu,ticks:[{v:50,t:"50 s"},{v:150,t:"150 s"}]}],switches:[{key:"heat",label:Ne.heat,icon:"flame",on:Ne.heatOn,off:Ne.heatOff,bad:i=>!i.heat,toast:{on:Ho.heatOn,off:Ho.heatOff}},{key:"salt",label:Ne.salt,icon:"drop",on:Ne.saltOn,off:Ne.saltOff,bad:i=>i.salt===!1,toast:{on:Ne.saltOn,off:Ho.saltOff}},{key:"dry",label:Ne.dry,icon:"wind",on:Ne.dryOn,off:Ne.dryOff,bad:i=>i.dry===!1,toast:{on:Ne.dryOn,off:Ho.dryOff}},{key:"tail",label:Ne.tail,icon:"recycle",on:Ne.tailOn,off:Ne.tailOff,bad:i=>i.tail===!1,toast:{on:Ne.tailOn,off:Ho.tailOff}}],chart:{title:Ne.curve,legend:Ne.legend,x:{min:nn.CHCL_STOP,max:nn.CHCL_START,ticks:[20,25,30,37]},y:{min:0,max:50,ticks:[0,15,30,45]},data:(i,t)=>({curve:Array.from({length:30},(e,n)=>[nn.CHCL_STOP+n,ja({heat:!0,rate:40,cHCl:nn.CHCL_STOP+n})]),dots:[[37,30],[28.5,15],[20,0]],at:[t.cHCl,t.r]})},risk:{label:Ne.risk,cal:Ne.riskCal,value:(i,t)=>t.risk,warn:nn.LEAK_WARN},exam:{ok:(i,t)=>Au(i,t),hold:nn.HOLD,score:15,events:[{at:6,set:{rate:0},toast:Ho.examAbn}],solve:{heat:!0,rate:40,salt:!0,dry:!0,tail:!0,light:0},goal:{title:Ne.goalTitle,tip:Ne.goal,short:Ne.goalBandShort}}};E0({C:$a,world:Nu,model:Ru,console:sm});
 </script>
+<!-- TJ_LANDSCAPE_TOGGLE_V1 -->
+<style id="tj-ls-style">
+html.tj-ls-rot,html.tj-ls-rot body{overflow:hidden!important}
+html.tj-ls-rot body{
+  position:fixed!important;left:0!important;top:0!important;
+  width:var(--tj-lw)!important;height:var(--tj-lh)!important;
+  max-width:none!important;max-height:none!important;margin:0!important;
+  transform-origin:0 0!important;
+  transform:translateX(var(--tj-lh)) rotate(90deg)!important;
+}
+#tj-ls-btn{
+  position:fixed;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));
+  z-index:2147483000;width:52px;height:52px;border-radius:50%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+  background:rgba(17,24,39,.82);color:#fff;border:1px solid rgba(255,255,255,.34);
+  box-shadow:0 4px 14px rgba(0,0,0,.26);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation;
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  padding:0;transition:background .15s,border-color .15s,transform .15s;
+}
+#tj-ls-btn:active{transform:scale(.94)}
+#tj-ls-btn.on{background:rgba(17,24,39,.94);border-color:rgba(255,255,255,.7)}
+#tj-ls-btn svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+#tj-ls-btn b{font-size:10px;line-height:1;font-weight:500;letter-spacing:.3px}
+@media (pointer:fine) and (min-width:900px){#tj-ls-btn{opacity:.62}#tj-ls-btn:hover{opacity:1}}
+#tj-ls-hint{
+  position:fixed;inset:0;z-index:2147482999;display:none;
+  align-items:center;justify-content:center;flex-direction:column;gap:16px;
+  background:rgba(10,14,20,.86);color:#fff;text-align:center;padding:28px;
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+}
+#tj-ls-hint.show{display:flex}
+#tj-ls-hint .ic{width:72px;height:72px;fill:none;stroke:#fff;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;animation:tj-ls-rot 1.9s ease-in-out infinite}
+#tj-ls-hint .t1{font-size:17px;font-weight:600}
+#tj-ls-hint .t2{font-size:13px;opacity:.75;line-height:1.6;max-width:300px}
+#tj-ls-hint .acts{display:flex;gap:10px;margin-top:4px}
+#tj-ls-hint button{
+  font-family:inherit;font-size:13px;padding:9px 16px;border-radius:999px;cursor:pointer;
+  border:1px solid rgba(255,255,255,.45);background:transparent;color:#fff;-webkit-tap-highlight-color:transparent;
+}
+#tj-ls-hint button:first-child{background:#fff;color:#111;border-color:#fff}
+@keyframes tj-ls-rot{0%,100%{transform:rotate(-18deg)}50%{transform:rotate(18deg)}}
+</style>
+<script>
+(function(){
+if(window.__tjLandscapeToggle)return;window.__tjLandscapeToggle=1;
+var root=document.documentElement, cls='tj-ls-rot', active=false, changed=false, ow=0, oh=0, mq=null, savedW=null, savedH=null;
+
+var btn=document.createElement('button');
+btn.id='tj-ls-btn';btn.type='button';btn.setAttribute('aria-label','切换横屏模式');
+btn.innerHTML='<svg viewBox="0 0 24 24"><path d="M4 8V4h4M20 16v4h-4"/><path d="M20 8V4h-4M4 16v4h4"/><rect x="7" y="7" width="10" height="10" rx="2"/></svg><b>横屏</b>';
+root.appendChild(btn);
+
+var hint=document.createElement('div');hint.id='tj-ls-hint';
+hint.innerHTML='<svg class="ic" viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M10 18h4"/><path d="M2 8a9 9 0 0 1 14-4M22 16a9 9 0 0 1-14 4"/><path d="M16 1v4h-4M8 23v-4h4"/></svg>'+
+ '<div class="t1">请把手机横过来</div>'+
+ '<div class="t2">当前浏览器不支持自动旋转屏幕。横置手机后画面会自动转正，也可以直接强制旋转画面。</div>'+
+ '<div class="acts"><button type="button" data-a="force">强制旋转画面</button><button type="button" data-a="cancel">退出横屏</button></div>';
+root.appendChild(hint);
+
+function fire(){try{dispatchEvent(new Event('resize'))}catch(e){var v=document.createEvent('Event');v.initEvent('resize',true,true);dispatchEvent(v)}}
+function realW(){var v=window.visualViewport;return (v&&v.width)?v.width:screen.width}
+function realH(){var v=window.visualViewport;return (v&&v.height)?v.height:screen.height}
+function portrait(){return realH()>=realW()}
+
+function setOverride(on){
+  if(on){
+    if(!changed){ow=realW();oh=realH();
+      try{
+        if(!savedW)savedW=Object.getOwnPropertyDescriptor(window,'innerWidth');
+        if(!savedH)savedH=Object.getOwnPropertyDescriptor(window,'innerHeight');
+        Object.defineProperty(window,'innerWidth',{configurable:true,get:function(){return oh}});
+        Object.defineProperty(window,'innerHeight',{configurable:true,get:function(){return ow}});
+        changed=true;
+      }catch(e){changed=false}
+    }
+    if(changed){root.style.setProperty('--tj-lw',oh+'px');root.style.setProperty('--tj-lh',ow+'px')}
+  }else if(changed){
+    if(savedW)Object.defineProperty(window,'innerWidth',savedW);
+    if(savedH)Object.defineProperty(window,'innerHeight',savedH);
+    changed=false;
+    root.style.removeProperty('--tj-lw');root.style.removeProperty('--tj-lh')
+  }
+}
+function setRot(on){if(on&&changed)root.classList.add(cls);else root.classList.remove(cls)}
+function hideHint(){hint.classList.remove('show')}
+function sync(){btn.classList.toggle('on',active);btn.querySelector('b').textContent=active?'退出':'横屏';btn.setAttribute('aria-label',active?'退出横屏模式':'切换横屏模式')}
+function fsP(){var el=root;try{if(el.requestFullscreen)return el.requestFullscreen();if(el.webkitRequestFullscreen)return el.webkitRequestFullscreen()}catch(e){}return Promise.resolve()}
+function exFs(){try{(document.exitFullscreen||document.webkitExitFullscreen||function(){}).call(document)}catch(e){}}
+function lock(){var o=screen.orientation;if(!o||!o.lock)return Promise.reject();try{var p=o.lock('landscape');return p&&p.then?p:Promise.reject()}catch(e){return Promise.reject(e)}}
+function unlock(){try{var o=screen.orientation;if(o&&o.unlock)o.unlock()}catch(e){}}
+function onOrient(){if(!active)return;if(portrait()){setRot(true)}else{setRot(false);hideHint()}fire();sync()}
+function enter(){
+  active=true;setOverride(true);setRot(true);sync();fire();
+  Promise.resolve(fsP()).catch(function(){}).then(function(){return lock()})
+    .then(function(){hideHint()}).catch(function(){if(portrait())hint.classList.add('show')});
+}
+function leave(){active=false;hideHint();setRot(false);setOverride(false);unlock();exFs();sync();fire()}
+
+btn.addEventListener('click',function(e){e.stopPropagation();active?leave():enter()});
+hint.addEventListener('click',function(e){
+  var b=e.target.closest('button');if(!b)return;
+  if(b.dataset.a==='cancel')leave();
+  if(b.dataset.a==='force'){setRot(true);hideHint();fire()}
+});
+if(window.matchMedia){mq=matchMedia('(orientation: landscape)');if(mq.addEventListener)mq.addEventListener('change',onOrient);else if(mq.addListener)mq.addListener(onOrient)}
+addEventListener('orientationchange',function(){setTimeout(onOrient,120)});
+addEventListener('keydown',function(e){if(e.key==='Escape'&&active)leave()});
+sync();
+})();
+</script>
+<!-- /TJ_LANDSCAPE_TOGGLE_V1 -->
 </body>
 </html>

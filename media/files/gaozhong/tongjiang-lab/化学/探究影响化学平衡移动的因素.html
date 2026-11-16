@@ -5154,5 +5154,117 @@ varying vec3 vHmPos;
 float hmH(vec3 p){ p = fract(p * 0.3183099 + 0.1); p *= 17.0; return fract(p.x * p.y * p.z * (p.x + p.y + p.z)); }`).replace("#include <color_fragment>",`#include <color_fragment>
 diffuseColor.rgb *= 1.0 - 0.10 * smoothstep(0.55, 0.95, hmH(floor(vHmPos * 420.0)));`)},r.customProgramCacheKey=()=>"eq-hammer",r.needsUpdate=!0)}})}var pi=jc.panel,n1=i=>Math.abs(i)>=100?i.toFixed(0):Math.abs(i)>=.01?i.toFixed(3):i.toExponential(1),i1={0:"\u2070",1:"\xB9",2:"\xB2",3:"\xB3",4:"\u2074",5:"\u2075",6:"\u2076",7:"\u2077",8:"\u2078",9:"\u2079","-":"\u207B"},s1=i=>String(i).split("").map(t=>i1[t]||"").join(""),x0=i=>{let t=Math.abs(i);if(t>=.1&&t<100)return t>=10?i.toFixed(0):i.toFixed(1);let e=Math.floor(Math.log10(t));return`${(i/Math.pow(10,e)).toFixed(1)}\xD710${s1(e)}`},r1=["Fe\xB3\u207A+SCN\u207B","Cr\u2082O\u2087\xB2\u207B","NO\u2082\u21CCN\u2082O\u2084"],y0={ref:{nDrop:0,nCr:0,T:25,sys:0,reagent:!0,iron:!1,errT:!1},main:{key:"main",label:pi.main,fmt:n1,smooth:.35,cal:(i,t)=>i.sys===1?"c(CrO\u2084\xB2\u207B) \xB7 mmol/L \xB7 \u793A\u610F\u8BFB\u6570":i.sys===2?"c(NO\u2082) \xB7 mmol/L \xB7 \u793A\u610F\u8BFB\u6570":"c(FeSCN\xB2\u207A) \xB7 mmol/L \xB7 \u6309 1:1 \u5F0F \xB7 \u793A\u610F\u8BFB\u6570"},subs:[{key:"Q",label:pi.Q,value:i=>i.Q,fmt:x0,cal:"\u65E0\u91CF\u7EB2"},{key:"K",label:pi.K,value:i=>i.K,fmt:x0,cal:"\u53EA\u968F\u6E29\u5EA6\u53D8"},{key:"dir",label:pi.dir,value:i=>i.dir,cal:"Q \u4E0E K \u6BD4\u8F83"}],sliders:[{key:"sys",label:pi.sys,icon:"gauge",min:0,max:2,step:1,ref:0,fmt:i=>r1[Math.round(i)]||"",ticks:[{v:0,t:"Fe"},{v:1,t:"Cr"},{v:2,t:"NO\u2082"}]},{key:"nDrop",label:pi.nDrop,icon:"drop",min:0,max:10,step:1,unit:"\u6EF4",ref:0,fmt:i=>i.toFixed(0),ticks:[{v:0,t:"0"},{v:5,t:"5 \u6EF4\uFF08\u6559\u6750\uFF09"},{v:10,t:"10"}]},{key:"nCr",label:pi.nCr,icon:"drop",min:-10,max:10,step:1,unit:"\u6EF4",ref:0,fmt:i=>i>0?`+${i.toFixed(0)}`:i.toFixed(0),ticks:[{v:-10,t:"H\u2082SO\u2084"},{v:0,t:"0"},{v:10,t:"NaOH"}]},{key:"T",label:pi.T,icon:"thermo",min:0,max:80,step:1,unit:"\u2103",ref:25,fill:"heat",fmt:i=>i.toFixed(0),ticks:[{v:0,t:"\u51B0\u6C34"},{v:25,t:"\u5BA4\u6E29"},{v:70,t:"\u70ED\u6C34"}]}],switches:[{key:"reagent",label:pi.reagent,icon:"drop",on:"FeCl\u2083 0.05 mol/L",off:"KSCN 0.15 mol/L"},{key:"iron",label:pi.iron,icon:"cube",on:"\u5DF2\u52A0\u5165",off:"\u672A\u52A0\u5165"},{key:"errT",label:pi.errT,icon:"alert",on:"\u5DF2\u6253\u5F00\uFF08\u9519\u8BEF\u64CD\u4F5C\uFF09",off:"\u5173\u95ED",bad:i=>!!i.errT}],chart:{title:pi.curve,legend:pi.legend,x:{min:0,max:80,ticks:[0,20,40,60,80]},y:{min:0,max:50,ticks:[0,25,50]},data:(i,t)=>({curve:Array.from({length:41},(e,n)=>[n*2,Ai(n*2)]),dots:[[0,Ai(0)],[25,Ai(25)],[70,Ai(70)],[80,Ai(80)]],at:[i.T,t.no2.cNO2]})},exam:{ok:(i,t)=>i.sys===0&&t.main>=1,hold:15,score:15,solve:{sys:0,reagent:!0,nDrop:5,iron:!1,T:25,errT:!1},goal:{title:"\u672C\u73ED\u76EE\u6807\uFF1AFeSCN\xB2\u207A \u2265 1.00 mmol/L",tip:"\u9009\u5BF9\u6EF4\u74F6\uFF08FeCl\u2083\uFF09\uFF0C\u6309\u6559\u6750\u505A\u6CD5\u52A0 5 \u6EF4\u3001\u4FDD\u6301 15 \u79D2\uFF1BKSCN 5 \u6EF4\u53EA\u6709 0.720 mmol/L\u3002",short:""}}};jp({C:jc,world:uu,model:iu,console:y0});
 </script>
+<!-- TJ_LANDSCAPE_TOGGLE_V1 -->
+<style id="tj-ls-style">
+html.tj-ls-rot,html.tj-ls-rot body{overflow:hidden!important}
+html.tj-ls-rot body{
+  position:fixed!important;left:0!important;top:0!important;
+  width:var(--tj-lw)!important;height:var(--tj-lh)!important;
+  max-width:none!important;max-height:none!important;margin:0!important;
+  transform-origin:0 0!important;
+  transform:translateX(var(--tj-lh)) rotate(90deg)!important;
+}
+#tj-ls-btn{
+  position:fixed;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));
+  z-index:2147483000;width:52px;height:52px;border-radius:50%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+  background:rgba(17,24,39,.82);color:#fff;border:1px solid rgba(255,255,255,.34);
+  box-shadow:0 4px 14px rgba(0,0,0,.26);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation;
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  padding:0;transition:background .15s,border-color .15s,transform .15s;
+}
+#tj-ls-btn:active{transform:scale(.94)}
+#tj-ls-btn.on{background:rgba(17,24,39,.94);border-color:rgba(255,255,255,.7)}
+#tj-ls-btn svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+#tj-ls-btn b{font-size:10px;line-height:1;font-weight:500;letter-spacing:.3px}
+@media (pointer:fine) and (min-width:900px){#tj-ls-btn{opacity:.62}#tj-ls-btn:hover{opacity:1}}
+#tj-ls-hint{
+  position:fixed;inset:0;z-index:2147482999;display:none;
+  align-items:center;justify-content:center;flex-direction:column;gap:16px;
+  background:rgba(10,14,20,.86);color:#fff;text-align:center;padding:28px;
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+}
+#tj-ls-hint.show{display:flex}
+#tj-ls-hint .ic{width:72px;height:72px;fill:none;stroke:#fff;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;animation:tj-ls-rot 1.9s ease-in-out infinite}
+#tj-ls-hint .t1{font-size:17px;font-weight:600}
+#tj-ls-hint .t2{font-size:13px;opacity:.75;line-height:1.6;max-width:300px}
+#tj-ls-hint .acts{display:flex;gap:10px;margin-top:4px}
+#tj-ls-hint button{
+  font-family:inherit;font-size:13px;padding:9px 16px;border-radius:999px;cursor:pointer;
+  border:1px solid rgba(255,255,255,.45);background:transparent;color:#fff;-webkit-tap-highlight-color:transparent;
+}
+#tj-ls-hint button:first-child{background:#fff;color:#111;border-color:#fff}
+@keyframes tj-ls-rot{0%,100%{transform:rotate(-18deg)}50%{transform:rotate(18deg)}}
+</style>
+<script>
+(function(){
+if(window.__tjLandscapeToggle)return;window.__tjLandscapeToggle=1;
+var root=document.documentElement, cls='tj-ls-rot', active=false, changed=false, ow=0, oh=0, mq=null, savedW=null, savedH=null;
+
+var btn=document.createElement('button');
+btn.id='tj-ls-btn';btn.type='button';btn.setAttribute('aria-label','切换横屏模式');
+btn.innerHTML='<svg viewBox="0 0 24 24"><path d="M4 8V4h4M20 16v4h-4"/><path d="M20 8V4h-4M4 16v4h4"/><rect x="7" y="7" width="10" height="10" rx="2"/></svg><b>横屏</b>';
+root.appendChild(btn);
+
+var hint=document.createElement('div');hint.id='tj-ls-hint';
+hint.innerHTML='<svg class="ic" viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M10 18h4"/><path d="M2 8a9 9 0 0 1 14-4M22 16a9 9 0 0 1-14 4"/><path d="M16 1v4h-4M8 23v-4h4"/></svg>'+
+ '<div class="t1">请把手机横过来</div>'+
+ '<div class="t2">当前浏览器不支持自动旋转屏幕。横置手机后画面会自动转正，也可以直接强制旋转画面。</div>'+
+ '<div class="acts"><button type="button" data-a="force">强制旋转画面</button><button type="button" data-a="cancel">退出横屏</button></div>';
+root.appendChild(hint);
+
+function fire(){try{dispatchEvent(new Event('resize'))}catch(e){var v=document.createEvent('Event');v.initEvent('resize',true,true);dispatchEvent(v)}}
+function realW(){var v=window.visualViewport;return (v&&v.width)?v.width:screen.width}
+function realH(){var v=window.visualViewport;return (v&&v.height)?v.height:screen.height}
+function portrait(){return realH()>=realW()}
+
+function setOverride(on){
+  if(on){
+    if(!changed){ow=realW();oh=realH();
+      try{
+        if(!savedW)savedW=Object.getOwnPropertyDescriptor(window,'innerWidth');
+        if(!savedH)savedH=Object.getOwnPropertyDescriptor(window,'innerHeight');
+        Object.defineProperty(window,'innerWidth',{configurable:true,get:function(){return oh}});
+        Object.defineProperty(window,'innerHeight',{configurable:true,get:function(){return ow}});
+        changed=true;
+      }catch(e){changed=false}
+    }
+    if(changed){root.style.setProperty('--tj-lw',oh+'px');root.style.setProperty('--tj-lh',ow+'px')}
+  }else if(changed){
+    if(savedW)Object.defineProperty(window,'innerWidth',savedW);
+    if(savedH)Object.defineProperty(window,'innerHeight',savedH);
+    changed=false;
+    root.style.removeProperty('--tj-lw');root.style.removeProperty('--tj-lh')
+  }
+}
+function setRot(on){if(on&&changed)root.classList.add(cls);else root.classList.remove(cls)}
+function hideHint(){hint.classList.remove('show')}
+function sync(){btn.classList.toggle('on',active);btn.querySelector('b').textContent=active?'退出':'横屏';btn.setAttribute('aria-label',active?'退出横屏模式':'切换横屏模式')}
+function fsP(){var el=root;try{if(el.requestFullscreen)return el.requestFullscreen();if(el.webkitRequestFullscreen)return el.webkitRequestFullscreen()}catch(e){}return Promise.resolve()}
+function exFs(){try{(document.exitFullscreen||document.webkitExitFullscreen||function(){}).call(document)}catch(e){}}
+function lock(){var o=screen.orientation;if(!o||!o.lock)return Promise.reject();try{var p=o.lock('landscape');return p&&p.then?p:Promise.reject()}catch(e){return Promise.reject(e)}}
+function unlock(){try{var o=screen.orientation;if(o&&o.unlock)o.unlock()}catch(e){}}
+function onOrient(){if(!active)return;if(portrait()){setRot(true)}else{setRot(false);hideHint()}fire();sync()}
+function enter(){
+  active=true;setOverride(true);setRot(true);sync();fire();
+  Promise.resolve(fsP()).catch(function(){}).then(function(){return lock()})
+    .then(function(){hideHint()}).catch(function(){if(portrait())hint.classList.add('show')});
+}
+function leave(){active=false;hideHint();setRot(false);setOverride(false);unlock();exFs();sync();fire()}
+
+btn.addEventListener('click',function(e){e.stopPropagation();active?leave():enter()});
+hint.addEventListener('click',function(e){
+  var b=e.target.closest('button');if(!b)return;
+  if(b.dataset.a==='cancel')leave();
+  if(b.dataset.a==='force'){setRot(true);hideHint();fire()}
+});
+if(window.matchMedia){mq=matchMedia('(orientation: landscape)');if(mq.addEventListener)mq.addEventListener('change',onOrient);else if(mq.addListener)mq.addListener(onOrient)}
+addEventListener('orientationchange',function(){setTimeout(onOrient,120)});
+addEventListener('keydown',function(e){if(e.key==='Escape'&&active)leave()});
+sync();
+})();
+</script>
+<!-- /TJ_LANDSCAPE_TOGGLE_V1 -->
 </body>
 </html>
